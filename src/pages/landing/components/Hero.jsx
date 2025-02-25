@@ -9,10 +9,10 @@ function Hero() {
           Experts to Achieve Your Deal Goals
         </h1>
         <div className="flex items-center gap-2 mt-3">
-          <button className="w-[120px] h-[40px] bg-secondary text-white text-center">
+          <button className="rounded w-[120px] h-[40px] bg-secondary text-white text-center cursor-pointer hover:opacity-80">
             Find Experts
           </button>
-          <button className="w-[120px] h-[40px] bg-primary text-[#003F63] text-center">
+          <button className="rounded w-[120px] h-[40px] bg-primary text-[#003F63] text-center cursor-pointer hover:opacity-80">
             Post a Project
           </button>
         </div>

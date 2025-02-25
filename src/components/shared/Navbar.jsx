@@ -35,34 +35,42 @@ const Navbar = () => {
           </h1>
         </Link>
         <div className="flex items-center justify-center gap-5 w-[60%]">
-          <Link to="/" className="text-[#1D2939] text-sm font-[500] leading-4">
+          <Link
+            to="/"
+            className="text-[#1D2939] text-sm font-[500] leading-4 hover:text-primary"
+          >
             Home
           </Link>
           <Link
             to="/about-us"
-            className="text-[#1D2939] text-sm font-[500] leading-4"
+            className="text-[#1D2939] text-sm font-[500] leading-4 hover:text-primary"
           >
             About Us
           </Link>
           <Link
             to="/how-it-works"
-            className="text-[#1D2939] text-sm font-[500] leading-4"
+            className="text-[#1D2939] text-sm font-[500] leading-4 hover:text-primary"
           >
             How it Works
           </Link>
           <Link
             to="/pricing"
-            className="text-[#1D2939] text-sm font-[500] leading-4"
+            className="text-[#1D2939] text-sm font-[500] leading-4 hover:text-primary"
           >
             Pricing
           </Link>
         </div>
         <div className="flex items-center justify-end gap-2 w-[20%]">
-          <div className="flex items-center gap-0.5">
-            <button className="text-gray-600 hover:text-blue-500">Login</button>
-            /<button>Register</button>
+          <div className="flex items-center gap-1">
+            <button className="text-[#1D2939] hover:text-primary cursor-pointer">
+              Login
+            </button>
+            /
+            <button className="text-[#1D2939] hover:text-primary cursor-pointer">
+              Register
+            </button>
           </div>
-          <button className="bg-primary text-white px-4 py-2 rounded-lg">
+          <button className="rounded bg-primary text-[#02174C] px-4 py-2 cursor-pointer hover:opacity-80">
             Post a Project
           </button>
         </div>

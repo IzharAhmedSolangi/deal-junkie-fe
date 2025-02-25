@@ -4,6 +4,10 @@
 @import "tailwindcss";
 
 @theme{
+    --breakpoint-2xl: 1536px;--breakpoint-xl: 1280px;
+    --breakpoint-lg: 1024px;--breakpoint-md: 768px;
+    --breakpoint-sm: 600px;--breakpoint-xs: 320px;
+
     --color-primary: #01E678;
     --color-secondary: #022247;
 }
