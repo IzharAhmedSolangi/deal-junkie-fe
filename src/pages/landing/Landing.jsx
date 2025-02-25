@@ -1,6 +1,7 @@
 import Navbar from "../../components/shared/Navbar";
 import Hero from "./components/Hero";
 import Footer from "../../components/shared/Footer";
+import KeyFeatures from "./components/KeyFeatures";
 
 function Landing() {
   return (
@@ -9,6 +10,7 @@ function Landing() {
         <Navbar />
         <Hero />
       </div>
+      <KeyFeatures />
       <Footer />
     </>
   );
