@@ -1,0 +1,37 @@
+.notification-blink {
+  animation: notification-blink 3s infinite;
+}
+
+@keyframes notification-blink {
+  0%,
+  50%,
+  100% {
+    transform: scale(1);
+  }
+  25%,
+  75% {
+    transform: scale(0.8);
+  }
+}
+
+.custom-green-button {
+  width: 140px !important;
+  height: 45px !important;
+  background-color: #28a745 !important;
+  border: none !important;
+  outline: none !important;
+  border-radius: 4px;
+  color: white !important;
+  box-shadow: none !important;
+}
+
+.custom-red-button {
+  width: 140px !important;
+  height: 45px !important;
+  background-color: #dc3545 !important;
+  border: none !important;
+  outline: none !important;
+  border-radius: 4px;
+  color: white !important;
+  box-shadow: none !important;
+}
