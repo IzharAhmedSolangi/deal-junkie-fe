@@ -23,7 +23,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-transparent sticky top-0">
+    <nav className="bg-transparent">
       <div className="flex justify-between items-center px-5 py-3">
         <Link
           to="/"
