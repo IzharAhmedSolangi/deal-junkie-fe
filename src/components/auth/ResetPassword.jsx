@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-/* eslint-disable no-undef */
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { PiEyeSlash, PiEyeLight } from "react-icons/pi";
@@ -16,8 +15,8 @@ const validationSchema = Yup.object({
     .required("Confirm password is required"),
 });
 
-function ResetPassword() {
-  const { setAuthModalType, forgotEmail, setForgotEmail } = props;
+function ResetPassword(props) {
+  const { forgotEmail, setAuthModalType } = props;
   const [password, setPassword] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState(false);
   const { ResetPassword, loading, errorMessage } = useResetPassword();
@@ -31,10 +30,13 @@ function ResetPassword() {
     initialValues,
     validationSchema,
     onSubmit: async (values) => {
-      ResetPassword({
-        email: forgotEmail,
-        password: values.password,
-      });
+      ResetPassword(
+        {
+          email: forgotEmail,
+          password: values.password,
+        },
+        setAuthModalType
+      );
     },
   });
 

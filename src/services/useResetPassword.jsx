@@ -7,12 +7,13 @@ function useResetPassword() {
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
 
-  const ResetPassword = async (payload) => {
+  const ResetPassword = async (payload, setAuthModalType) => {
     setLoading(true);
     setErrorMessage(null);
     await axios
       .post(`${BASE_URL}/api/reset-password/`, payload)
       .then((response) => {
+        setAuthModalType("success-after-reset");
         setLoading(false);
         setErrorMessage(null);
       })

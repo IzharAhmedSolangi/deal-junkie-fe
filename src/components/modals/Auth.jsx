@@ -83,10 +83,29 @@ function Auth(props) {
                     )}
                     {authModalType === "reset-password" && (
                       <ResetPassword
-                        setAuthModalType={setAuthModalType}
                         forgotEmail={forgotEmail}
-                        setForgotEmail={setForgotEmail}
+                        setAuthModalType={setAuthModalType}
                       />
+                    )}
+                    {authModalType === "success-after-reset" && (
+                      <div className="flex flex-col justify-center items-center w-full">
+                        <img src="/assets/icons/icon-2.png" alt="" />
+                        <h1 className="font-[600] text-[32px] text-secondary">
+                          Password changed successfully
+                        </h1>
+                        <p className="font-[500] text-[16px] text-[#6F7487] text-center">
+                          Your password has been successfully updated. You can
+                          now sign in to your account using your new password.
+                        </p>
+                        <button
+                          onClick={() => {
+                            setAuthModalType("login");
+                          }}
+                          className="bg-primary cursor-pointer hover:opacity-80 w-[120px] h-[40px] text-secondary rounded mt-6 flex justify-center items-center"
+                        >
+                          Login Now
+                        </button>
+                      </div>
                     )}
                   </div>
                 </Dialog.Panel>
