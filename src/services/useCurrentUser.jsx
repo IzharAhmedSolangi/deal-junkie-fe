@@ -4,7 +4,7 @@ import GlobalContext from "../context/GlobalContext";
 import { removeAccessToken, removeRefreshToken } from "../storage/storage";
 
 const useCurrentUser = () => {
-  const BASE_URL = "";
+  const BASE_URL = import.meta.env.VITE_API_URL;
   const { setUserInfo, setUpdateResponse } = useContext(GlobalContext);
   const [loading, setLoading] = useState(false);
 

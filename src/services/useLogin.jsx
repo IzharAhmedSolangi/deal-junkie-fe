@@ -5,7 +5,7 @@ import useCurrentUser from "./useCurrentUser";
 import { setAccessToken, setRefreshToken } from "../storage/storage";
 
 function useLogin() {
-  const BASE_URL = "";
+  const BASE_URL = import.meta.env.VITE_API_URL;
   const { getCurrentUser } = useCurrentUser();
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
@@ -14,7 +14,7 @@ function useLogin() {
     setLoading(true);
     setErrorMessage(null);
     await axios
-      .post(`${BASE_URL}/api/login/`, payload)
+      .post(`${BASE_URL}/api/accounts/login/`, payload)
       .then((response) => {
         setLoading(false);
         setErrorMessage(null);

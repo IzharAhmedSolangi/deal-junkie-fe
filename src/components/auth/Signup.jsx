@@ -49,16 +49,19 @@ function Signup(props) {
     initialValues,
     validationSchema,
     onSubmit: async (values) => {
-      Signup({
-        firstname: values.firstname,
-        lastname: values.lastname,
-        email: values.email,
-        phone: values.phone,
-        state: values.state,
-        city: values.city,
-        address: values.address,
-        password: values.password,
-      });
+      Signup(
+        {
+          firstname: values.firstname,
+          lastname: values.lastname,
+          email: values.email,
+          phone_number: values.phone,
+          state: values.state,
+          city: values.city,
+          street: values.address,
+          password: values.password,
+        },
+        setAuthModalType
+      );
     },
   });
 
