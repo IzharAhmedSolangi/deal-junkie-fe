@@ -5,7 +5,7 @@ import { ButtonLoader1 } from "../shared/ButtonLoaders";
 
 /* eslint-disable react/prop-types */
 function VerifyOtp(props) {
-  const { setAuthModalType, forgotEmail } = props;
+  const { setAuthModalType, forgotEmail, setResetPasswordDetails } = props;
   const BASE_URL = import.meta.env.VITE_API_URL;
   const [loading, setLoading] = useState(false);
 
@@ -61,9 +61,10 @@ function VerifyOtp(props) {
       await axios
         .post(`${BASE_URL}/api/accounts/verify-otp/`, {
           email: forgotEmail,
-          code: otpCode,
+          otp: otpCode,
         })
         .then((response) => {
+          setResetPasswordDetails(response.data);
           setLoading(false);
           setAuthModalType("reset-password");
         })

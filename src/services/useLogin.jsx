@@ -18,13 +18,13 @@ function useLogin() {
       .then((response) => {
         setLoading(false);
         setErrorMessage(null);
-        setAccessToken(response.data.tokens.access);
-        setRefreshToken(response.data.tokens.refresh);
-        getCurrentUser(response.data.tokens.access);
+        setAccessToken(response.data.acccess_token);
+        setRefreshToken(response.data.refresh_token);
+        getCurrentUser(response.data.acccess_token);
         window.location.href = "/";
       })
       .catch((error) => {
-        setErrorMessage("Invalid Credientials");
+        setErrorMessage(error?.response?.data?.error);
         setLoading(false);
       });
   };

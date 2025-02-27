@@ -51,8 +51,8 @@ function Signup(props) {
     onSubmit: async (values) => {
       Signup(
         {
-          firstname: values.firstname,
-          lastname: values.lastname,
+          first_name: values.firstname,
+          last_name: values.lastname,
           email: values.email,
           phone_number: values.phone,
           state: values.state,

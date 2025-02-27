@@ -18,7 +18,7 @@ function useSignup() {
         setAuthModalType("successfully-registered");
       })
       .catch((error) => {
-        setErrorMessage(error?.response?.message);
+        setErrorMessage(error?.response?.data?.error);
         setLoading(false);
       });
   };

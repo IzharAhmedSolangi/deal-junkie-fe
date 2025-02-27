@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { Fragment, useRef } from "react";
+import { Fragment, useRef, useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { Dialog, Transition } from "@headlessui/react";
 import Login from "../auth/Login";
@@ -9,15 +9,11 @@ import VerifyOtp from "../auth/VerifyOtp";
 import ResetPassword from "../auth/ResetPassword";
 
 function Auth(props) {
-  const {
-    isOpenModal,
-    setIsOpenModal,
-    authModalType,
-    setAuthModalType,
-    forgotEmail,
-    setForgotEmail,
-  } = props;
+  const { isOpenModal, setIsOpenModal, authModalType, setAuthModalType } =
+    props;
   const cancelButtonRef = useRef(null);
+  const [forgotEmail, setForgotEmail] = useState(null);
+  const [resetPasswordDetails, setResetPasswordDetails] = useState(null);
 
   const handleClose = () => {
     setIsOpenModal(false);
@@ -79,12 +75,14 @@ function Auth(props) {
                       <VerifyOtp
                         setAuthModalType={setAuthModalType}
                         forgotEmail={forgotEmail}
+                        setResetPasswordDetails={setResetPasswordDetails}
                       />
                     )}
                     {authModalType === "reset-password" && (
                       <ResetPassword
                         forgotEmail={forgotEmail}
                         setAuthModalType={setAuthModalType}
+                        resetPasswordDetails={resetPasswordDetails}
                       />
                     )}
                     {authModalType === "success-after-reset" && (

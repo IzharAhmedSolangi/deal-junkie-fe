@@ -18,7 +18,7 @@ function useResetPassword() {
         setErrorMessage(null);
       })
       .catch((error) => {
-        setErrorMessage("Invalid Credientials");
+        setErrorMessage(error?.response?.data?.error);
         setLoading(false);
       });
   };

@@ -11,14 +11,14 @@ function useForgotPassword() {
     setLoading(true);
     setErrorMessage(null);
     await axios
-      .post(`${BASE_URL}/api/accounts/forgot-password/`, payload)
+      .post(`${BASE_URL}/api/accounts/forget-password/`, payload)
       .then((response) => {
         setAuthModalType("verify-otp");
         setLoading(false);
         setErrorMessage(null);
       })
       .catch((error) => {
-        setErrorMessage("Invalid Credientials");
+        setErrorMessage(error?.response?.data?.error);
         setLoading(false);
       });
   };

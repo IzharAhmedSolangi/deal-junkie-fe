@@ -16,7 +16,6 @@ const Navbar = () => {
   const { userInfo } = useContext(GlobalContext);
   const [isOpenAuthModal, setIsOpenAuthModal] = useState(false);
   const [authModalType, setAuthModalType] = useState(null);
-  const [forgotEmail, setForgotEmail] = useState(null);
 
   const RouteToOtherPage = (route) => {
     Navigate(route);
@@ -66,32 +65,47 @@ const Navbar = () => {
               Pricing
             </Link>
           </div>
-          <div className="flex items-center justify-end gap-3 w-[20%]">
-            <div className="flex items-center gap-1">
+          {token ? (
+            <div className="flex items-center justify-end gap-3 w-[20%]">
+              <div className="flex items-center gap-1"></div>
+              <button className="rounded bg-primary text-[#02174C] px-4 py-2 cursor-pointer hover:opacity-80">
+                Post a Project
+              </button>
+            </div>
+          ) : (
+            <div className="flex items-center justify-end gap-3 w-[20%]">
+              <div className="flex items-center gap-1">
+                <button
+                  className="text-[#1D2939] hover:text-primary cursor-pointer"
+                  onClick={() => {
+                    setIsOpenAuthModal(true);
+                    setAuthModalType("login");
+                  }}
+                >
+                  Login
+                </button>
+                /
+                <button
+                  className="text-[#1D2939] hover:text-primary cursor-pointer"
+                  onClick={() => {
+                    setIsOpenAuthModal(true);
+                    setAuthModalType("signup");
+                  }}
+                >
+                  Register
+                </button>
+              </div>
               <button
-                className="text-[#1D2939] hover:text-primary cursor-pointer"
                 onClick={() => {
                   setIsOpenAuthModal(true);
                   setAuthModalType("login");
                 }}
+                className="rounded bg-primary text-[#02174C] px-4 py-2 cursor-pointer hover:opacity-80"
               >
-                Login
-              </button>
-              /
-              <button
-                className="text-[#1D2939] hover:text-primary cursor-pointer"
-                onClick={() => {
-                  setIsOpenAuthModal(true);
-                  setAuthModalType("signup");
-                }}
-              >
-                Register
+                Post a Project
               </button>
             </div>
-            <button className="rounded bg-primary text-[#02174C] px-4 py-2 cursor-pointer hover:opacity-80">
-              Post a Project
-            </button>
-          </div>
+          )}
         </div>
       </nav>
       <Auth
@@ -99,8 +113,6 @@ const Navbar = () => {
         setIsOpenModal={setIsOpenAuthModal}
         authModalType={authModalType}
         setAuthModalType={setAuthModalType}
-        forgotEmail={forgotEmail}
-        setForgotEmail={setForgotEmail}
       />
     </>
   );

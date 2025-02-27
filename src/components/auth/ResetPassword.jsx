@@ -16,7 +16,7 @@ const validationSchema = Yup.object({
 });
 
 function ResetPassword(props) {
-  const { forgotEmail, setAuthModalType } = props;
+  const { forgotEmail, setAuthModalType, resetPasswordDetails } = props;
   const [password, setPassword] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState(false);
   const { ResetPassword, loading, errorMessage } = useResetPassword();
@@ -34,6 +34,8 @@ function ResetPassword(props) {
         {
           email: forgotEmail,
           password: values.password,
+          token: resetPasswordDetails?.token,
+          uid: resetPasswordDetails?.uid,
         },
         setAuthModalType
       );
