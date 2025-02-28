@@ -13,7 +13,6 @@ const filterCategories = [
       "Public Markets (Equities, Fixed Income, etc.)",
       "Venture Capital & Startups",
       "Due Diligence Questionnaires (DDQs)",
-
       "Due Diligence",
       "Risk Analysis",
       "Investment Memos & Pitch Decks",
@@ -44,7 +43,6 @@ const filterCategories = [
       "7-Day Turnaround",
       "Ongoing/Retainer-Based Project"
     ],
-
     stateKey: "timeline"
   },
   {
@@ -74,35 +72,30 @@ const filterCategories = [
   }
 ];
 
-function Filters() {
+function Filters({ setFilters, filters, handleFilters }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [filters, setFilters] = useState({
-    expertise: [],
-    priceRange: { min: "", max: "" },
-    experience: "",
-    timeline: "",
-    projectType: [],
-    industryFocus: []
-  });
 
   const handleFilterChange = (category, option, type) => {
     setFilters((prev) => {
       if (type === "checkbox") {
-        const updated = prev[category].includes(option)
-          ? prev[category].filter((item) => item !== option)
+        const updated = prev[category]?.includes(option)
+          ? prev[category]?.filter((item) => item !== option)
           : [...prev[category], option];
         return { ...prev, [category]: updated };
       } else if (type === "radio") {
         return { ...prev, [category]: option };
       }
+      return prev;
     });
   };
+
   const handlePriceChange = (e) => {
     setFilters({
       ...filters,
       priceRange: { ...filters.priceRange, [e.target.name]: e.target.value }
     });
   };
+
   const resetFilters = () => {
     setFilters({
       expertise: [],
@@ -117,7 +110,7 @@ function Filters() {
   return (
     <>
       <BsSliders2Vertical
-        className="w-[50px] z-50 border border-gray-300 cursor-pointer rounded p-2 text-[40px]"
+        className="w-[50px] border border-gray-300 cursor-pointer rounded p-2 text-[40px]"
         onClick={() => setIsOpen(true)}
       />
       {/* Sidebar */}
@@ -155,12 +148,12 @@ function Filters() {
         {/* Filters */}
         <div className="py-4">
           <div className="bg-white rounded w-full">
-            {filterCategories.map((filter, index) => (
+            {filterCategories?.map((filter, index) => (
               <div key={index} className="mb-4">
                 <h3 className="text-sm font-semibold">{filter.category}</h3>
 
                 {filter.type === "checkbox" &&
-                  filter.options.map((option, idx) => (
+                  filter?.options?.map((option, idx) => (
                     <div
                       key={idx}
                       className="flex items-center mt-1 text-[14px] text-gray-400"
@@ -168,7 +161,7 @@ function Filters() {
                       <input
                         type="checkbox"
                         id={option}
-                        checked={filters[filter.stateKey].includes(option)}
+                        checked={filters[filter?.stateKey]?.includes(option)}
                         onChange={() =>
                           handleFilterChange(
                             filter.stateKey,
@@ -183,7 +176,7 @@ function Filters() {
                   ))}
 
                 {filter.type === "radio" &&
-                  filter.options.map((option, idx) => (
+                  filter?.options?.map((option, idx) => (
                     <div
                       key={idx}
                       className="flex items-center mt-1 text-[14px] text-gray-400"
@@ -212,7 +205,7 @@ function Filters() {
                         type="number"
                         name="min"
                         placeholder="Min $"
-                        value={filters.priceRange.min}
+                        value={filters?.priceRange?.min}
                         onChange={handlePriceChange}
                         className="w-[48%] border border-gray-400 rounded p-1 text-sm max-w-full"
                       />
@@ -220,7 +213,7 @@ function Filters() {
                         type="number"
                         name="max"
                         placeholder="Max $"
-                        value={filters.priceRange.max}
+                        value={filters?.priceRange?.max}
                         onChange={handlePriceChange}
                         className="w-[48%]  border border-gray-400 rounded p-1 text-sm max-w-full"
                       />
@@ -234,7 +227,7 @@ function Filters() {
                         type="number"
                         name="min"
                         placeholder="Min $"
-                        value={filters.priceRange.min}
+                        value={filters?.priceRange?.min}
                         onChange={handlePriceChange}
                         className="w-[48%] border border-gray-400 rounded p-1 text-sm max-w-full"
                       />
@@ -242,7 +235,7 @@ function Filters() {
                         type="number"
                         name="max"
                         placeholder="Max $"
-                        value={filters.priceRange.max}
+                        value={filters?.priceRange?.max}
                         onChange={handlePriceChange}
                         className="w-[48%]  border border-gray-400 rounded p-1 text-sm max-w-full"
                       />
@@ -255,7 +248,7 @@ function Filters() {
             {/* Buttons */}
             <div className="flex flex-col gap-2 mt-4">
               <button
-                onClick={() => setIsOpen(false)}
+                onClick={handleFilters}
                 className="bg-secondary text-white p-2 w-full rounded"
               >
                 Apply Filters
