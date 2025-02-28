@@ -9,6 +9,7 @@ import { getAccessToken } from "../storage/storage";
 import { PageLoader } from "../components/shared/PageLoader";
 import ScrollToTop from "./ScrollToTop";
 import Landing from "../pages/landing/Landing";
+import FindExperts from "../pages/find-experts/FindExperts";
 
 const Routing = () => {
   const token = getAccessToken();
@@ -30,6 +31,7 @@ const Routing = () => {
             <>
               <Route path="/" element={<Landing />} />
               <Route path="*" element={<Landing />} />
+              <Route path="/find-experts" element={<FindExperts />} />
             </>
           ) : (
             <>
