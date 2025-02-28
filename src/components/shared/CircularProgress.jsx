@@ -5,7 +5,6 @@ const CircularProgress = ({ percentage }) => {
   const circumference = 2 * Math.PI * radius; // Circumference of the circle
   const offset = circumference - (percentage / 100) * circumference; // Calculate stroke offset
 
-  console.log({ percentage });
   return (
     <div className="relative w-24 h-24 flex items-center justify-center">
       {/* Background Circle */}
