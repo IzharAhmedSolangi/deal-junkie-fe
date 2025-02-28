@@ -12,9 +12,10 @@ import { FaRegComments } from "react-icons/fa6";
 import {
   getAccessToken,
   removeAccessToken,
-  removeRefreshToken
+  removeRefreshToken,
 } from "../../storage/storage";
 import Auth from "../modals/Auth";
+import PostProject from "../modals/PostProject";
 
 const Navbar = () => {
   const Navigate = useNavigate();
@@ -22,6 +23,7 @@ const Navbar = () => {
   const { userInfo } = useContext(GlobalContext);
   const [isOpenAuthModal, setIsOpenAuthModal] = useState(false);
   const [authModalType, setAuthModalType] = useState(null);
+  const [isOpenPostProjectModal, setIsOpenPostProjectModal] = useState(false);
 
   const RouteToOtherPage = (route) => {
     Navigate(route);
@@ -94,7 +96,12 @@ const Navbar = () => {
               </div>
               <ProfileDropdown />
             </div>
-            <button className="rounded bg-primary text-[#02174C] px-4 py-2 cursor-pointer hover:opacity-80">
+            <button
+              className="rounded bg-primary text-[#02174C] px-4 py-2 cursor-pointer hover:opacity-80"
+              onClick={() => {
+                setIsOpenPostProjectModal(true);
+              }}
+            >
               Post a Project
             </button>
           </div>
@@ -138,6 +145,10 @@ const Navbar = () => {
         setIsOpenModal={setIsOpenAuthModal}
         authModalType={authModalType}
         setAuthModalType={setAuthModalType}
+      />
+      <PostProject
+        isOpenModal={isOpenPostProjectModal}
+        setIsOpenModal={setIsOpenPostProjectModal}
       />
     </>
   );
