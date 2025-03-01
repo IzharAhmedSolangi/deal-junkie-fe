@@ -5,7 +5,7 @@ import EditProfile from "./components/EditProfile";
 import Notifications from "./components/Notifications";
 import ChangePassword from "./components/ChangePassword";
 import ManagePayments from "./components/ManagePayments";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import GlobalContext from "../../../context/GlobalContext";
 import {
   MdEdit,
@@ -15,6 +15,7 @@ import {
   MdPhoneAndroid,
 } from "react-icons/md";
 import { FaUserXmark } from "react-icons/fa6";
+import Delete from "../../../components/modals/Delete";
 
 const tabs = [
   { name: "My Task", path: "my-tasks" },
@@ -77,6 +78,8 @@ export default Dashboard;
 function Profile(props) {
   const { handleTabClick } = props;
   const { userInfo } = useContext(GlobalContext);
+  const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
+
   return (
     <>
       <div className="flex flex-col items-center justify-center">
@@ -130,12 +133,23 @@ function Profile(props) {
             <FaUserXmark className="text-[20px]" />
             Deactivate My Account
           </button>
-          <button className="bg-[#EA51670F] border border-[#EA5167] cursor-pointer hover:opacity-80 w-full h-[45px] text-[#EA5167] rounded flex justify-center items-center gap-2">
+          <button
+            className="bg-[#EA51670F] border border-[#EA5167] cursor-pointer hover:opacity-80 w-full h-[45px] text-[#EA5167] rounded flex justify-center items-center gap-2"
+            onClick={() => setIsOpenDeleteModal(true)}
+          >
             <MdOutlineDelete className="text-[20px]" />
             Delete My Account
           </button>
         </div>
       </div>
+      <Delete
+        icon="/assets/icons/icon-3.png"
+        title="Are you sure you want to delete your profile?"
+        description="Your delete request will be submitted to admin and your profile will be deleted permanently once approved from admin."
+        url=".api/accounts/delete/"
+        isOpenModal={isOpenDeleteModal}
+        setIsOpenModal={setIsOpenDeleteModal}
+      />
     </>
   );
 }

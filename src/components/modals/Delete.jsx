@@ -8,7 +8,7 @@ import { getAccessToken } from "../../storage/storage";
 import { ButtonLoader1 } from "../shared/ButtonLoaders";
 
 function Delete(props) {
-  const { isOpenModal, setIsOpenModal, url } = props;
+  const { isOpenModal, setIsOpenModal, url, icon, title, description } = props;
   const token = getAccessToken();
   const BASE_URL = "";
   const { setUpdateResponse } = useContext(GlobalContext);
@@ -55,7 +55,7 @@ function Delete(props) {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+          <div className="fixed inset-0 bg-[#02174C33] transition-opacity" />
         </Transition.Child>
 
         <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
@@ -69,33 +69,34 @@ function Delete(props) {
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-[#fff]  text-left shadow-xl transition-all 2xl:w-[500px] lg:w-[500px] xs:w-full h-auto xs:mx-2 md:p-6 xs:p-3">
-                <div className="absolute top-[10px] right-[10px] cursor-pointer">
-                  <AiOutlineClose onClick={handleClose} />
-                </div>
-                <div className="flex flex-col ">
-                  <h1 className="2xl:text-[28px] font-[600] lg:text-[24px] font-roboto text-center">
-                    Delete Account
+              <Dialog.Panel className="relative transform overflow-hidden rounded-[16px] bg-white text-left shadow-xl transition-all md:w-[600px] w-full py-12 md:px-[5%] px-2">
+                <button
+                  onClick={handleClose}
+                  className="absolute top-[15px] right-[15px] cursor-pointer rounded border border-[#02174C33] w-[30px] h-[30px] flex justify-center items-center"
+                >
+                  <AiOutlineClose className="text-[22px]" />
+                </button>
+                <div className="flex flex-col justify-center items-center w-full">
+                  <img src={icon} alt="" />
+                  <h1 className="font-[600] text-[30px] text-secondary text-center">
+                    {title}
                   </h1>
-                  <p className="font-[400] text-[15px] font-roboto text-[#1C1D1E] text-center mb-2">
-                    Are you sure you want to delete your account? Once deleted,
-                    you will no longer have access to your account, and all the
-                    data will be permanently removed from our database.
+                  <p className="font-[400] text-[16px] text-[#6F7487] text-center">
+                    {description}
                   </p>
-                  <hr />
-                  <div className="flex items-center justify-end gap-2 mt-5">
+                  <div className="flex items-center justify-center gap-2 mt-5">
                     <button
-                      className="bg-gray-200 w-[50%] h-[40px] rounded-[5px] outline-none border-none"
+                      className="bg-[#02174C0F] border border-secondary cursor-pointer hover:opacity-80 w-[130px] h-[40px] text-secondary rounded flex justify-center items-center"
                       onClick={handleClose}
                     >
-                      Cancel
+                      Not Now
                     </button>
                     <button
-                      className="bg-red-500 w-[50%] h-[40px] flex justify-center items-center rounded-[5px] text-white outline-none border-none"
+                      className="bg-[#EA5167] border border-[#EA5167] cursor-pointer hover:opacity-80 w-[130px] h-[40px] text-white rounded flex justify-center items-center"
                       onClick={handleConfirmDelete}
                       disabled={loading}
                     >
-                      {loading ? <ButtonLoader1 /> : "Delete"}
+                      {loading ? <ButtonLoader1 /> : "Yes, Delete"}
                     </button>
                   </div>
                 </div>
