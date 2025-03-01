@@ -252,7 +252,7 @@ function Filters(props) {
               <button
                 onClick={handleFilters}
                 disabled={findExperts.buttonLoading}
-                className="bg-secondary text-white w-full h-[40px] rounded"
+                className="bg-secondary text-white w-full h-[40px] rounded flex justify-center items-center"
               >
                 {findExperts.buttonLoading ? (
                   <ButtonLoader1 />
