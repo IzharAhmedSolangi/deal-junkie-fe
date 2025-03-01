@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { Fragment, useContext, useRef, useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";

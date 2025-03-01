@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useNavigate, useParams } from "react-router-dom";
 import Layout from "../../../components/shared/Layout";
 import MyTasks from "./components/MyTasks";
