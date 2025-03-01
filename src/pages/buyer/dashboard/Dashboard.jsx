@@ -17,6 +17,7 @@ import {
 } from "react-icons/md";
 import { FaUserXmark } from "react-icons/fa6";
 import Delete from "../../../components/modals/Delete";
+import Deactivate from "../../../components/modals/Deactivate";
 
 const tabs = [
   { name: "My Task", path: "my-tasks" },
@@ -80,6 +81,7 @@ function Profile(props) {
   const { handleTabClick } = props;
   const { userInfo } = useContext(GlobalContext);
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
+  const [isOpenDeactivateModal, setIsOpenDeactivateModal] = useState(false);
 
   return (
     <>
@@ -130,7 +132,10 @@ function Profile(props) {
             <MdEdit className="text-[20px]" />
             Edit Profile
           </button>
-          <button className="bg-[#EAB8510F] border border-[#EAB851] cursor-pointer hover:opacity-80 w-full h-[45px] text-[#EAB851] rounded flex justify-center items-center gap-2">
+          <button
+            className="bg-[#EAB8510F] border border-[#EAB851] cursor-pointer hover:opacity-80 w-full h-[45px] text-[#EAB851] rounded flex justify-center items-center gap-2"
+            onClick={() => setIsOpenDeactivateModal(true)}
+          >
             <FaUserXmark className="text-[20px]" />
             Deactivate My Account
           </button>
@@ -147,9 +152,16 @@ function Profile(props) {
         icon="/assets/icons/icon-3.png"
         title="Are you sure you want to delete your profile?"
         description="Your delete request will be submitted to admin and your profile will be deleted permanently once approved from admin."
-        url=".api/accounts/delete/"
+        url="/api/accounts/delete/"
         isOpenModal={isOpenDeleteModal}
         setIsOpenModal={setIsOpenDeleteModal}
+      />
+      <Deactivate
+        title="Tell us why do you want to deactivate your profile"
+        description="Your deactivate request will be submitted to admin and your profile will be deactivated once approved from admin. You can re-active anytime by contacting admin."
+        url="/api/accounts/deactivate/"
+        isOpenModal={isOpenDeactivateModal}
+        setIsOpenModal={setIsOpenDeactivateModal}
       />
     </>
   );
