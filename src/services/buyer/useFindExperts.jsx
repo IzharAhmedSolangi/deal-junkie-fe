@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { useState } from "react";
 import axios from "axios";
-import { getAccessToken } from "../storage/storage";
+import { getAccessToken } from "../../storage/storage";
 
 function useFindExperts() {
   const BASE_URL = import.meta.env.VITE_API_URL;
@@ -44,7 +44,7 @@ function useFindExperts() {
           loading: false,
           buttonLoading: false,
           data: null,
-          message: error?.response?.data?.error,
+          message: error?.response?.data?.error || "Internal server error",
           showInitial: false,
         }));
       });

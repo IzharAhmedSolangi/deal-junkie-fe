@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useContext, useState } from "react";
-import GlobalContext from "../context/GlobalContext";
-import { removeAccessToken, removeRefreshToken } from "../storage/storage";
+import GlobalContext from "../../context/GlobalContext";
+import { removeAccessToken, removeRefreshToken } from "../../storage/storage";
 
 const useCurrentUser = () => {
   const BASE_URL = import.meta.env.VITE_API_URL;

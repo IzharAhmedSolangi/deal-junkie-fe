@@ -4,12 +4,10 @@ import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { setAccessToken, setRefreshToken } from "../../storage/storage";
 import { ButtonLoader2 } from "../shared/ButtonLoaders";
-import useCurrentUser from "../../services/useCurrentUser";
 
 export function SocialLogin() {
   const BASE_URL = "";
   const [loading, setLoading] = useState(false);
-  const { getCurrentUser } = useCurrentUser();
 
   const Login = useGoogleLogin({
     onSuccess: (codeResponse) => {
@@ -23,7 +21,6 @@ export function SocialLogin() {
           setAccessToken(response.data.access);
           setRefreshToken(response.data.refresh);
           window.location.href = "/";
-          getCurrentUser(response.data.access);
         })
         .catch((error) => {
           setLoading(false);

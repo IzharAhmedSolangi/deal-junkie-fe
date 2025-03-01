@@ -2,14 +2,14 @@
 import { useContext, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import GlobalContext from "../context/GlobalContext";
-import useCurrentUser from "../services/useCurrentUser";
+import useCurrentUser from "../services/common/useCurrentUser";
 import { getAccessToken } from "../storage/storage";
 
-// Pages
 import { PageLoader } from "../components/shared/PageLoader";
 import ScrollToTop from "./ScrollToTop";
-import Landing from "../pages/landing/Landing";
-import FindExperts from "../pages/find-experts/FindExperts";
+// Buyer pages
+import Landing from "../pages/buyer/landing/Landing";
+import FindExperts from "../pages/buyer/find-experts/FindExperts";
 
 const Routing = () => {
   const token = getAccessToken();

@@ -4,7 +4,7 @@ import * as Yup from "yup";
 import { PiEyeSlash, PiEyeLight } from "react-icons/pi";
 import { ButtonLoader1 } from "../shared/ButtonLoaders";
 import { useState } from "react";
-import useResetPassword from "../../services/useResetPassword";
+import useResetPassword from "../../services/auth/useResetPassword";
 
 const validationSchema = Yup.object({
   password: Yup.string()

@@ -1,7 +1,8 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 import { BsSliders2Vertical } from "react-icons/bs";
-import { ButtonLoader1 } from "../../../components/shared/ButtonLoaders";
+import { AiOutlineClose } from "react-icons/ai";
+import { ButtonLoader1 } from "../../../../components/shared/ButtonLoaders";
 
 const filterCategories = [
   {
@@ -26,7 +27,7 @@ const filterCategories = [
   {
     category: "Price Range",
     type: "price",
-    stateKey: "priceRange",
+    stateKey: "price_range",
   },
   {
     category: "Experience",
@@ -44,22 +45,22 @@ const filterCategories = [
       "7-Day Turnaround",
       "Ongoing/Retainer-Based Project",
     ],
-    stateKey: "timeline",
+    stateKey: "availability",
   },
   {
     category: "Project Type",
-    type: "checkbox",
+    type: "radio",
     options: [
       "One-Time Deliverable (e.g., valuation model, investment memo)",
       "Ongoing Advisory (e.g., diligence over several weeks)",
       "Full Due Diligence Support (comprehensive deal evaluation)",
       "Deal Execution Support (post-acquisition planning, structuring)",
     ],
-    stateKey: "projectType",
+    stateKey: "project_type",
   },
   {
     category: "Industry Focus",
-    type: "checkbox",
+    type: "radio",
     options: [
       "Healthcare & Biotech",
       "Technology",
@@ -69,7 +70,7 @@ const filterCategories = [
       "Energy & Infrastructure",
       "Financial Services",
     ],
-    stateKey: "industryFocus",
+    stateKey: "industry_focus",
   },
 ];
 
@@ -94,18 +95,18 @@ function Filters(props) {
   const handlePriceChange = (e) => {
     setFilters({
       ...filters,
-      priceRange: { ...filters.priceRange, [e.target.name]: e.target.value },
+      price_range: { ...filters.price_range, [e.target.name]: e.target.value },
     });
   };
 
   const resetFilters = () => {
     setFilters({
       expertise: [],
-      priceRange: { min: "", max: "" },
+      price_range: { min: "", max: "" },
       experience: "",
-      timeline: "",
-      projectType: [],
-      industryFocus: [],
+      availability: "",
+      project_type: "",
+      industry_focus: "",
     });
   };
 
@@ -121,32 +122,15 @@ function Filters(props) {
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        <h1 className="text-base font-semibold text-gray-500 uppercase dark:text-gray-400">
-          Filters
-        </h1>
-
-        {/* Close button */}
-        <button
-          type="button"
-          onClick={() => setIsOpen(false)}
-          className="absolute top-2.5 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 dark:hover:bg-gray-600 dark:hover:text-white"
-        >
-          <svg
-            aria-hidden="true"
-            className="w-5 h-5"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
+        <div className="flex items-center justify-between">
+          <h1 className="text-[24px] font-semibold text-secondary">Filters</h1>
+          <button
+            onClick={() => setIsOpen(false)}
+            className="cursor-pointer rounded border border-[#02174C33] w-[30px] h-[30px] flex justify-center items-center"
           >
-            <path
-              fillRule="evenodd"
-              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-              clipRule="evenodd"
-            ></path>
-          </svg>
-          <span className="sr-only">Close menu</span>
-        </button>
-
+            <AiOutlineClose className="text-[22px]" />
+          </button>
+        </div>
         {/* Filters */}
         <div className="py-4">
           <div className="bg-white rounded w-full">
@@ -171,7 +155,7 @@ function Filters(props) {
                             "checkbox"
                           )
                         }
-                        className="mr-2 "
+                        className="mr-2"
                       />
                       <label htmlFor={option}>{option}</label>
                     </div>
@@ -207,7 +191,7 @@ function Filters(props) {
                         type="number"
                         name="min"
                         placeholder="Min $"
-                        value={filters?.priceRange?.min}
+                        value={filters?.price_range?.min}
                         onChange={handlePriceChange}
                         className="w-[48%] border border-gray-400 rounded p-1 text-sm max-w-full"
                       />
@@ -215,7 +199,7 @@ function Filters(props) {
                         type="number"
                         name="max"
                         placeholder="Max $"
-                        value={filters?.priceRange?.max}
+                        value={filters?.price_range?.max}
                         onChange={handlePriceChange}
                         className="w-[48%]  border border-gray-400 rounded p-1 text-sm max-w-full"
                       />
@@ -229,7 +213,7 @@ function Filters(props) {
                         type="number"
                         name="min"
                         placeholder="Min $"
-                        value={filters?.priceRange?.min}
+                        value={filters?.price_range?.min}
                         onChange={handlePriceChange}
                         className="w-[48%] border border-gray-400 rounded p-1 text-sm max-w-full"
                       />
@@ -237,7 +221,7 @@ function Filters(props) {
                         type="number"
                         name="max"
                         placeholder="Max $"
-                        value={filters?.priceRange?.max}
+                        value={filters?.price_range?.max}
                         onChange={handlePriceChange}
                         className="w-[48%]  border border-gray-400 rounded p-1 text-sm max-w-full"
                       />
@@ -252,7 +236,7 @@ function Filters(props) {
               <button
                 onClick={handleFilters}
                 disabled={findExperts.buttonLoading}
-                className="bg-secondary text-white w-full h-[40px] rounded flex justify-center items-center"
+                className="bg-secondary text-white w-full h-[40px] rounded flex justify-center items-center cursor-pointer"
               >
                 {findExperts.buttonLoading ? (
                   <ButtonLoader1 />
@@ -262,7 +246,7 @@ function Filters(props) {
               </button>
               <button
                 onClick={resetFilters}
-                className="border border-gray-400 text-gray-700 w-full h-[40px] rounded"
+                className="border border-gray-400 text-gray-700 w-full h-[40px] rounded cursor-pointer"
               >
                 Reset
               </button>

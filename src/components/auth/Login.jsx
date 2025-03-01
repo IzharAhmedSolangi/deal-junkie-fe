@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import useLogin from "../../services/useLogin";
+import useLogin from "../../services/auth/useLogin";
 import { SocialLogin } from "../shared/SocialLogin";
 import { PiEyeSlash, PiEyeLight } from "react-icons/pi";
 import { ButtonLoader1 } from "../shared/ButtonLoaders";

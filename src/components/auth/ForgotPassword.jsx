@@ -5,7 +5,7 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { ButtonLoader1 } from "../shared/ButtonLoaders";
-import useForgotPassword from "../../services/useForgotPassword";
+import useForgotPassword from "../../services/auth/useForgotPassword";
 
 const validationSchema = Yup.object({
   email: Yup.string().required("Email is required").max(100, "Limit exceeded"),

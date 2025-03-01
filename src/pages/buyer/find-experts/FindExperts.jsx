@@ -1,14 +1,14 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
-import Layout from "../../components/shared/Layout";
 import { FaStar } from "react-icons/fa";
-import useFindExperts from "../../services/useFindExperts";
+import Layout from "../../../components/shared/Layout";
+import useFindExperts from "../../../services/buyer/useFindExperts";
 import Filters from "./components/Filters";
-import ShowMessage from "../../components/shared/ShowMessage";
+import ShowMessage from "../../../components/shared/ShowMessage";
 import {
   ButtonLoader1,
   ButtonLoader3,
-} from "../../components/shared/ButtonLoaders";
+} from "../../../components/shared/ButtonLoaders";
 
 function FindExperts() {
   const { FindExperts, findExperts, setFindExperts } = useFindExperts();
@@ -17,30 +17,30 @@ function FindExperts() {
     price_range: { min: "", max: "" },
     experience: "",
     availability: "",
-    project_type: [],
-    industry_focus: [],
+    project_type: "",
+    industry_focus: "",
   });
-  console.log({ filters });
 
   const handleFilters = async () => {
     setFindExperts((prevState) => ({
       ...prevState,
       buttonLoading: true,
     }));
+    console.log({ filters });
     await FindExperts({
       expertise: filters.expertise,
       price_range: filters.price_range,
-      experience: filters.experience,
-      availability: filters.availability,
-      project_type: filters.project_type,
-      industry_focus: filters.industry_focus,
+      experience: [filters.experience],
+      availability: [filters.availability],
+      project_type: [filters.project_type],
+      industry_focus: [filters.industry_focus],
     });
   };
 
   return (
     <Layout>
       <div className="bg-white w-full h-auto pt-[70px] pb-40 relative">
-        <div className="absolute top-0 left-0 w-full h-[300px] bg-cover bg-center bg-[url('/assets/images/Banner2.png')]"></div>
+        <div className="absolute top-[-100px] left-0 w-full h-[400px] bg-cover bg-center bg-[url('/assets/images/Banner2.png')]"></div>
         <div className="relative mt-4">
           <h1 className="font-[700] text-[48px] text-center">
             Find Experts For Your Needs

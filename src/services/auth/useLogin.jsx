@@ -1,12 +1,10 @@
 /* eslint-disable no-unused-vars */
 import { useState } from "react";
 import axios from "axios";
-import useCurrentUser from "./useCurrentUser";
-import { setAccessToken, setRefreshToken } from "../storage/storage";
+import { setAccessToken, setRefreshToken } from "../../storage/storage";
 
 function useLogin() {
   const BASE_URL = import.meta.env.VITE_API_URL;
-  const { getCurrentUser } = useCurrentUser();
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
 
@@ -20,7 +18,6 @@ function useLogin() {
         setErrorMessage(null);
         setAccessToken(response.data.acccess_token);
         setRefreshToken(response.data.refresh_token);
-        getCurrentUser(response.data.acccess_token);
         window.location.href = "/";
       })
       .catch((error) => {

@@ -9,15 +9,13 @@ import { MdOutlineClose } from "react-icons/md";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import "../../styles/calandar.css";
-import usePostProject from "../../services/usePostProject";
+import usePostProject from "../../services/buyer/usePostProject";
 import { ButtonLoader1 } from "../shared/ButtonLoaders";
 import { format } from "date-fns";
 import CircularProgress from "../shared/CircularProgress";
 
 const validationSchema = Yup.object({
-  user: Yup.string(),
   title: Yup.string().required("Title is required").max(100, "Limit exceeded"),
-  category: Yup.string(),
   budget: Yup.string()
     .required("Budget is required")
     .max(100, "Limit exceeded"),
@@ -31,7 +29,6 @@ const validationSchema = Yup.object({
     }),
   description: Yup.string().required("Description is required"),
   expected_completion_date: Yup.string().required("Please choose date"),
-  status: Yup.string(),
 });
 
 function PostProject(props) {
@@ -46,14 +43,11 @@ function PostProject(props) {
   };
 
   const initialValues = {
-    user: "1",
     title: "",
-    category: "1",
     budget: "",
     tags: [],
     description: "",
     expected_completion_date: "",
-    status: "pending",
   };
 
   const { values, errors, handleChange, handleSubmit, touched, setFieldValue } =

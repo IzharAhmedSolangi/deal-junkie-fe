@@ -1,4 +1,4 @@
-import Layout from "../../components/shared/Layout";
+import Layout from "../../../components/shared/Layout";
 import Hero from "./components/Hero";
 import KeyFeatures from "./components/KeyFeatures";
 import HowItWorks from "./components/HowItWorks";

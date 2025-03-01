@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import useSignup from "../../services/useSignup";
+import useSignup from "../../services/auth/useSignup";
 import { SocialLogin } from "../shared/SocialLogin";
 import { PiEyeSlash, PiEyeLight } from "react-icons/pi";
 import { ButtonLoader1 } from "../shared/ButtonLoaders";
