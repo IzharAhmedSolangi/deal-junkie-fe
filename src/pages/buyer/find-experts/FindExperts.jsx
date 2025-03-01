@@ -42,7 +42,7 @@ function FindExperts() {
       <div className="bg-white w-full h-auto pt-[70px] pb-40 relative">
         <div className="absolute top-[-100px] left-0 w-full h-[400px] bg-cover bg-center bg-[url('/assets/images/Banner2.png')]"></div>
         <div className="relative mt-4">
-          <h1 className="font-[700] text-[48px] text-center">
+          <h1 className="font-[700] text-[48px] text-center text-secondary">
             Find Experts For Your Needs
           </h1>
           <div className="w-full flex justify-center">

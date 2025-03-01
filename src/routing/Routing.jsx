@@ -10,6 +10,7 @@ import ScrollToTop from "./ScrollToTop";
 // Buyer pages
 import Landing from "../pages/buyer/landing/Landing";
 import FindExperts from "../pages/buyer/find-experts/FindExperts";
+import Dashboard from "../pages/buyer/dashboard/Dashboard";
 
 const Routing = () => {
   const token = getAccessToken();
@@ -30,8 +31,9 @@ const Routing = () => {
           {token ? (
             <>
               <Route path="/" element={<Landing />} />
-              <Route path="*" element={<Landing />} />
               <Route path="/find-experts" element={<FindExperts />} />
+              <Route path="/dashboard/:tabName" element={<Dashboard />} />
+              <Route path="*" element={<Landing />} />
             </>
           ) : (
             <>
