@@ -1,30 +1,39 @@
-"use client";
-import React, { useState } from "react";
+/* eslint-disable react/prop-types */
+import { useState } from "react";
 import Layout from "../../components/shared/Layout";
 import { FaStar } from "react-icons/fa";
-import useFilters from "../../services/useFilters";
+import useFindExperts from "../../services/useFindExperts";
 import Filters from "./components/Filters";
+import ShowMessage from "../../components/shared/ShowMessage";
+import {
+  ButtonLoader1,
+  ButtonLoader3,
+} from "../../components/shared/ButtonLoaders";
 
 function FindExperts() {
-  const { AddFilters, loading, errorMessage } = useFilters();
+  const { FindExperts, findExperts, setFindExperts } = useFindExperts();
   const [filters, setFilters] = useState({
     expertise: [],
     price_range: { min: "", max: "" },
     experience: "",
     availability: "",
     project_type: [],
-    industry_focus: []
+    industry_focus: [],
   });
   console.log({ filters });
 
   const handleFilters = async () => {
-    await AddFilters({
+    setFindExperts((prevState) => ({
+      ...prevState,
+      buttonLoading: true,
+    }));
+    await FindExperts({
       expertise: filters.expertise,
       price_range: filters.price_range,
       experience: filters.experience,
       availability: filters.availability,
       project_type: filters.project_type,
-      industry_focus: filters.industry_focus
+      industry_focus: filters.industry_focus,
     });
   };
 
@@ -36,26 +45,30 @@ function FindExperts() {
           <h1 className="font-[700] text-[48px] text-center">
             Find Experts For Your Needs
           </h1>
-          <div className="w-full p-2 flex justify-center">
-            <div className="w-[50%] flex justify-between items-center bg-white shadow-lg p-2 rounded relative">
+          <div className="w-full flex justify-center">
+            <div className="md:w-[50%] w-full flex gap-2 justify-between items-center bg-white shadow-lg p-2 rounded relative">
               <input
                 type="search"
                 placeholder="Search..."
-                className="w-[80%] border rounded p-2"
+                className="w-full h-[40px] rounded border border-[#02174C33] px-2 hover:border-secondary focus:border-secondary"
               />
-              <button className="bg-secondary rounded text-white w-[50px] p-2">
-                Go
+              <button
+                className="cursor-pointer bg-secondary rounded text-white hover:opacity-80 w-[60px] h-[40px] flex justify-center items-center"
+                disabled={findExperts.buttonLoading}
+              >
+                {findExperts.buttonLoading ? <ButtonLoader1 /> : "Go"}
               </button>
               {/* Filter Button */}
               <Filters
-                setFilters={setFilters}
                 filters={filters}
+                setFilters={setFilters}
+                findExperts={findExperts}
                 handleFilters={handleFilters}
               />
             </div>
           </div>
         </div>
-        <FindExpertsCard />
+        <FindExpertsCard findExperts={findExperts} />
       </div>
     </Layout>
   );
@@ -63,59 +76,82 @@ function FindExperts() {
 
 export default FindExperts;
 
-function FindExpertsCard() {
-  const [selectedCard, setSelectedCard] = useState(null);
+function FindExpertsCard(props) {
+  const { findExperts } = props;
+
   return (
     <>
-      <div className="grid grid-cols-4 gap-6 py-4 px-10 mt-16">
-        {Array.from({ length: 8 }).map((_, index) => (
-          <div
-            key={index}
-            className={` rounded-xl shadow-lg p-2 bg-white transition-all ${
-              selectedCard === index ? "border-blue-500" : "border-gray-200"
-            }`}
-            onClick={() => setSelectedCard(index)}
-            style={{ boxShadow: "0px 0px 7px #e0e0e0" }}
-          >
-            <img
-              src="/assets/images/image-1.png"
-              alt="Profile"
-              className="w-full h-40 object-cover rounded-lg"
-            />
-            <h3 className="text-lg font-semibold mt-2 text-[#022247] text-center">
-              Eleanor Pena
-            </h3>
-            <div className="flex justify-center cursor-pointer">
-              <p className="font-[500] text-[14px] text-[#003F63] border border-[#003F63] rounded-[30px] py-1 px-2 ">
-                Starting from $40
-              </p>
-            </div>
-            <div className="flex justify-center items-center gap-2 my-2 cursor-pointer">
-              <p className="flex gap-1">
-                <FaStar className="text-[#0AF886]" />
-                <FaStar className="text-[#0AF886]" />
-                <FaStar className="text-[#0AF886]" />
-                <FaStar className="text-[#0AF886]" />
-                <FaStar className="text-[#0AF886]" />
-              </p>
-              <p className="text-sm text-gray-500">345 reviews</p>
-            </div>
-            <div className="flex flex-wrap justify-center gap-2 mt-2 cursor-pointer">
-              {["TaxPlanning", "Advisor", "WealthAdvisor"].map((tag, i) => (
-                <span
-                  key={i}
-                  className="bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded-full"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-            <button className="mt-4 w-full bg-secondary text-white py-2 rounded-lg cursor-pointer">
-              Hire Now
-            </button>
+      {!findExperts.data && !findExperts.loading && findExperts.showInitial && (
+        <div className="flex justify-center mt-24">
+          <img src="/assets/images/image-4.png" alt="" />
+        </div>
+      )}
+      {!findExperts.data &&
+        !findExperts.loading &&
+        !findExperts.showInitial &&
+        findExperts.message && (
+          <div className="flex justify-center mt-24 mb-10">
+            <ShowMessage title={findExperts.message} />
           </div>
-        ))}
-      </div>
+        )}
+      {findExperts.data && !findExperts.loading && (
+        <div className="mt-24">
+          <h1 className="text-center text-[24px] text-secondary font-bold">
+            We have 24 results for that matches your details
+          </h1>
+          <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-4 py-4 px-10">
+            {Array.from({ length: 20 }).map((_, index) => (
+              <div
+                key={index}
+                className={` rounded-xl p-4 bg-white border-gray-200`}
+                style={{ boxShadow: "0px 0px 7px #49586D21" }}
+              >
+                <img
+                  src="/assets/images/image-1.png"
+                  alt="Profile"
+                  className="w-full h-[200px] object-cover rounded"
+                />
+                <h3 className="text-lg font-bold mt-2 text-[#022247] text-center">
+                  Eleanor Pena
+                </h3>
+                <div className="flex justify-center">
+                  <p className="bg-[#F2F4F7] font-[500] text-[14px] text-secondary border border-secondary rounded-full py-1 px-2 ">
+                    Starting from $40
+                  </p>
+                </div>
+                <div className="flex justify-center items-center gap-2 my-2">
+                  <p className="flex gap-1">
+                    <FaStar className="text-primary" />
+                    <FaStar className="text-primary" />
+                    <FaStar className="text-primary" />
+                    <FaStar className="text-primary" />
+                    <FaStar className="text-primary" />
+                  </p>
+                  <p className="text-sm text-[#98A2B3]">345 reviews</p>
+                </div>
+                <div className="flex flex-wrap justify-center gap-2 mt-2">
+                  {["TaxPlanning", "Advisor", "WealthAdvisor"].map((tag, i) => (
+                    <span
+                      key={i}
+                      className="bg-[#F2F4F7] text-secondary text-xs px-2 py-1 rounded-full"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+                <button className="mt-4 w-full bg-secondary text-white hover:opacity-80 py-2 rounded-lg cursor-pointer">
+                  Hire Now
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+      {findExperts.loading && (
+        <div className="flex justify-center mt-3">
+          <ButtonLoader3 />
+        </div>
+      )}
     </>
   );
 }

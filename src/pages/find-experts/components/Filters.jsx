@@ -1,6 +1,7 @@
-import React from "react";
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import { BsSliders2Vertical } from "react-icons/bs";
+import { ButtonLoader1 } from "../../../components/shared/ButtonLoaders";
 
 const filterCategories = [
   {
@@ -18,20 +19,20 @@ const filterCategories = [
       "Investment Memos & Pitch Decks",
       "Financial Modeling & Valuation",
       "Market & Competitive Analysis",
-      "Legal & Compliance Reviews"
+      "Legal & Compliance Reviews",
     ],
-    stateKey: "expertise"
+    stateKey: "expertise",
   },
   {
     category: "Price Range",
     type: "price",
-    stateKey: "priceRange"
+    stateKey: "priceRange",
   },
   {
     category: "Experience",
     type: "radio",
     options: ["1-3 Years", "4-7 Years", "8-12 Years", "12+ Years"],
-    stateKey: "experience"
+    stateKey: "experience",
   },
   {
     category: "Timeline",
@@ -41,9 +42,9 @@ const filterCategories = [
       "1-Day Turnaround",
       "3-Day Turnaround",
       "7-Day Turnaround",
-      "Ongoing/Retainer-Based Project"
+      "Ongoing/Retainer-Based Project",
     ],
-    stateKey: "timeline"
+    stateKey: "timeline",
   },
   {
     category: "Project Type",
@@ -52,9 +53,9 @@ const filterCategories = [
       "One-Time Deliverable (e.g., valuation model, investment memo)",
       "Ongoing Advisory (e.g., diligence over several weeks)",
       "Full Due Diligence Support (comprehensive deal evaluation)",
-      "Deal Execution Support (post-acquisition planning, structuring)"
+      "Deal Execution Support (post-acquisition planning, structuring)",
     ],
-    stateKey: "projectType"
+    stateKey: "projectType",
   },
   {
     category: "Industry Focus",
@@ -66,13 +67,14 @@ const filterCategories = [
       "Consumer & Retail",
       "Industrials",
       "Energy & Infrastructure",
-      "Financial Services"
+      "Financial Services",
     ],
-    stateKey: "industryFocus"
-  }
+    stateKey: "industryFocus",
+  },
 ];
 
-function Filters({ setFilters, filters, handleFilters }) {
+function Filters(props) {
+  const { filters, setFilters, findExperts, handleFilters } = props;
   const [isOpen, setIsOpen] = useState(false);
 
   const handleFilterChange = (category, option, type) => {
@@ -92,7 +94,7 @@ function Filters({ setFilters, filters, handleFilters }) {
   const handlePriceChange = (e) => {
     setFilters({
       ...filters,
-      priceRange: { ...filters.priceRange, [e.target.name]: e.target.value }
+      priceRange: { ...filters.priceRange, [e.target.name]: e.target.value },
     });
   };
 
@@ -103,14 +105,14 @@ function Filters({ setFilters, filters, handleFilters }) {
       experience: "",
       timeline: "",
       projectType: [],
-      industryFocus: []
+      industryFocus: [],
     });
   };
 
   return (
     <>
       <BsSliders2Vertical
-        className="w-[50px] border border-gray-300 cursor-pointer rounded p-2 text-[40px]"
+        className="w-[50px] h-[40px] p-2 border border-[#02174C33] rounded text-[20px] cursor-pointer"
         onClick={() => setIsOpen(true)}
       />
       {/* Sidebar */}
@@ -119,9 +121,9 @@ function Filters({ setFilters, filters, handleFilters }) {
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        <h5 className="text-base font-semibold text-gray-500 uppercase dark:text-gray-400">
+        <h1 className="text-base font-semibold text-gray-500 uppercase dark:text-gray-400">
           Filters
-        </h5>
+        </h1>
 
         {/* Close button */}
         <button
@@ -249,13 +251,18 @@ function Filters({ setFilters, filters, handleFilters }) {
             <div className="flex flex-col gap-2 mt-4">
               <button
                 onClick={handleFilters}
-                className="bg-secondary text-white p-2 w-full rounded"
+                disabled={findExperts.buttonLoading}
+                className="bg-secondary text-white w-full h-[40px] rounded"
               >
-                Apply Filters
+                {findExperts.buttonLoading ? (
+                  <ButtonLoader1 />
+                ) : (
+                  "Apply Filters"
+                )}
               </button>
               <button
                 onClick={resetFilters}
-                className="border border-gray-400 text-gray-700 p-2 w-full rounded"
+                className="border border-gray-400 text-gray-700 w-full h-[40px] rounded"
               >
                 Reset
               </button>
