@@ -2,6 +2,8 @@ import { useFormik } from "formik";
 import { useContext } from "react";
 import * as Yup from "yup";
 import GlobalContext from "../../../../context/GlobalContext";
+import useEditProfile from "../../../../services/common/useEditProfle";
+import { ButtonLoader1 } from "../../../../components/shared/ButtonLoaders";
 
 const validationSchema = Yup.object({
   firstname: Yup.string()
@@ -22,6 +24,7 @@ const validationSchema = Yup.object({
 });
 function EditProfile() {
   const { userInfo } = useContext(GlobalContext);
+  const { EditProfile, loading, setShowMessage } = useEditProfile();
 
   const initialValues = {
     firstname: userInfo?.first_name || "",
@@ -37,7 +40,18 @@ function EditProfile() {
     initialValues,
     validationSchema,
     enableReinitialize: true,
-    onSubmit: async (values) => {},
+    onSubmit: async (values) => {
+      setShowMessage(true);
+      EditProfile({
+        first_name: values.firstname,
+        last_name: values.lastname,
+        email: values.email,
+        phone_number: values.phone,
+        state: values.state,
+        city: values.city,
+        street: values.address,
+      });
+    },
   });
   return (
     <>
@@ -145,11 +159,18 @@ function EditProfile() {
           </div>
         </div>
         <div className="flex items-center justify-end gap-2 w-full mt-3">
-          <button className="bg-[#02174C0F] border border-secondary cursor-pointer hover:opacity-80 w-[130px] h-[40px] text-secondary rounded flex justify-center items-center">
+          <button
+            className="bg-[#02174C0F] border border-secondary cursor-pointer hover:opacity-80 w-[130px] h-[40px] text-secondary rounded flex justify-center items-center"
+            disabled={loading}
+          >
             Cancel
           </button>
-          <button className="bg-secondary border border-secondary cursor-pointer hover:opacity-80 w-[130px] h-[40px] text-white rounded flex justify-center items-center">
-            Save Changes
+          <button
+            className="bg-secondary border border-secondary cursor-pointer hover:opacity-80 w-[130px] h-[40px] text-white rounded flex justify-center items-center"
+            type="submit"
+            disabled={loading}
+          >
+            {loading ? <ButtonLoader1 /> : "Save Changes"}
           </button>
         </div>
       </form>

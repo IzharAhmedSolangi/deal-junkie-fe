@@ -1,5 +1,5 @@
 .switch {
-  --secondary-container: rgb(85, 85, 255);
+  --secondary-container: #28a745;
   --primary: white;
   font-size: 16px;
   position: relative;

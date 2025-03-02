@@ -2,6 +2,8 @@ import { useFormik } from "formik";
 import { useState } from "react";
 import { PiEyeLight, PiEyeSlash } from "react-icons/pi";
 import * as Yup from "yup";
+import useChangePassword from "../../../../services/common/useChangePassword";
+import { ButtonLoader1 } from "../../../../components/shared/ButtonLoaders";
 
 const validationSchema = Yup.object({
   current_password: Yup.string()
@@ -18,6 +20,7 @@ function ChangePassword() {
   const [currentPassword, setCurrentPassword] = useState(false);
   const [newPassword, setNewPassword] = useState(false);
   const [confirmNewPassword, setConfirmNewPassword] = useState(false);
+  const { ChangePassword, loading } = useChangePassword();
 
   const initialValues = {
     current_password: "",
@@ -28,7 +31,12 @@ function ChangePassword() {
   const { values, errors, handleChange, handleSubmit, touched } = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: async (values) => {},
+    onSubmit: async (values) => {
+      ChangePassword({
+        old_password: values.current_password,
+        new_password: values.new_password,
+      });
+    },
   });
   return (
     <>
@@ -112,11 +120,18 @@ function ChangePassword() {
           </div>
         </div>
         <div className="flex items-center justify-end gap-2 w-full mt-3">
-          <button className="bg-[#02174C0F] border border-secondary cursor-pointer hover:opacity-80 w-[130px] h-[40px] text-secondary rounded flex justify-center items-center">
+          <button
+            className="bg-[#02174C0F] border border-secondary cursor-pointer hover:opacity-80 w-[130px] h-[40px] text-secondary rounded flex justify-center items-center"
+            disabled={loading}
+          >
             Cancel
           </button>
-          <button className="bg-secondary border border-secondary cursor-pointer hover:opacity-80 w-[130px] h-[40px] text-white rounded flex justify-center items-center">
-            Save Changes
+          <button
+            className="bg-secondary border border-secondary cursor-pointer hover:opacity-80 w-[130px] h-[40px] text-white rounded flex justify-center items-center"
+            type="submit"
+            disabled={loading}
+          >
+            {loading ? <ButtonLoader1 /> : "Save Changes"}
           </button>
         </div>
       </form>

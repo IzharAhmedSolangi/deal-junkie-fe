@@ -11,7 +11,7 @@ import { ButtonLoader1 } from "../shared/ButtonLoaders";
 function Delete(props) {
   const { isOpenModal, setIsOpenModal, url, icon, title, description } = props;
   const token = getAccessToken();
-  const BASE_URL = "";
+  const BASE_URL = import.meta.env.VITE_API_URL;
   const { setUpdateResponse } = useContext(GlobalContext);
   const [loading, setLoading] = useState(false);
   const cancelButtonRef = useRef(null);

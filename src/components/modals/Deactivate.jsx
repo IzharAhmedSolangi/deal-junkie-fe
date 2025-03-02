@@ -1,20 +1,27 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import { Fragment, useContext, useRef, useState } from "react";
+import { Fragment, useRef, useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { Dialog, Transition } from "@headlessui/react";
 import axios from "axios";
-import GlobalContext from "../../context/GlobalContext";
 import { getAccessToken } from "../../storage/storage";
 import { ButtonLoader1 } from "../shared/ButtonLoaders";
+import Dropdown from "../shared/Dropdown";
+
+const Reasons = [
+  { name: "Reason 1", value: 1 },
+  { name: "Reason 2", value: 2 },
+  { name: "Reason 3", value: 3 },
+  { name: "Reason 4", value: 4 },
+];
 
 function Deactivate(props) {
   const { isOpenModal, setIsOpenModal, url, title, description } = props;
   const token = getAccessToken();
-  const BASE_URL = "";
-  const { setUpdateResponse } = useContext(GlobalContext);
+  const BASE_URL = import.meta.env.VITE_API_URL;
   const [loading, setLoading] = useState(false);
   const cancelButtonRef = useRef(null);
+  const [selectedReason, setSelectedReason] = useState(null);
 
   const handleClose = () => {
     setIsOpenModal(false);
@@ -30,7 +37,6 @@ function Deactivate(props) {
       })
       .then((response) => {
         setIsOpenModal(!isOpenModal);
-        setUpdateResponse(true);
         setLoading(false);
         handleClose();
       })
@@ -84,6 +90,16 @@ function Deactivate(props) {
                   <p className="font-[400] text-[16px] text-[#6F7487] text-center">
                     {description}
                   </p>
+                  <div className="w-full mt-2">
+                    <Dropdown
+                      placeholder="Select Reason"
+                      options={Reasons}
+                      selected={selectedReason}
+                      onChange={(option) => {
+                        setSelectedReason(option);
+                      }}
+                    />
+                  </div>
                   <div className="flex items-center justify-center gap-2 mt-5">
                     <button
                       className="bg-[#02174C0F] border border-secondary cursor-pointer hover:opacity-80 w-[130px] h-[40px] text-secondary rounded flex justify-center items-center"

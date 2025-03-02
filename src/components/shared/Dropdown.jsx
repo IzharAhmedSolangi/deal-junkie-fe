@@ -29,10 +29,10 @@ const Dropdown = (props) => {
   }, []);
 
   return (
-    <div className="relative" ref={dropdownRef}>
+    <div className="relative z-[99999]" ref={dropdownRef}>
       <button
         type="button"
-        className="w-full bg-transparent border border-[#979797] hover:border-secondary rounded-lg pl-3 pr-10 py-2 text-left cursor-pointer focus:outline-none  focus:border-secondary sm:text-sm"
+        className="w-full bg-transparent border border-[#02174C33] hover:border-secondary rounded pl-3 pr-10 py-[6px] text-left cursor-pointer focus:outline-none  focus:border-secondary sm:text-sm"
         onClick={handleToggle}
       >
         <span className="text-[#333] text-[18px] font-[500]">
@@ -44,7 +44,7 @@ const Dropdown = (props) => {
       </button>
 
       {isOpen && (
-        <ul className="absolute z-10 mt-1 w-full bg-white shadow-lg max-h-56 rounded-lg py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
+        <ul className="absolute z-10 mt-1 w-full bg-white border border-[#02174C33] shadow-lg max-h-56 rounded py-1 text-base overflow-auto sm:text-sm">
           {options?.map((option, index) => (
             <li
               key={index}
