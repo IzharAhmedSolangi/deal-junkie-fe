@@ -13,6 +13,7 @@ import usePostProject from "../../services/buyer/usePostProject";
 import { ButtonLoader1 } from "../shared/ButtonLoaders";
 import { format } from "date-fns";
 import CircularProgress from "../shared/CircularProgress";
+import { Link } from "react-router-dom";
 
 const validationSchema = Yup.object({
   title: Yup.string().required("Title is required").max(100, "Limit exceeded"),
@@ -148,9 +149,12 @@ function PostProject(props) {
                           Thank you for submitting your task request. Your
                           Expert is on it and will get back to you shortly.
                         </p>
-                        <button className="bg-primary cursor-pointer hover:opacity-80 w-[150px] h-[40px] text-secondary rounded mt-6 flex justify-center items-center">
+                        <Link
+                          to="/dashboard/my-tasks"
+                          className="bg-primary cursor-pointer hover:opacity-80 w-[150px] h-[40px] text-secondary rounded mt-6 flex justify-center items-center"
+                        >
                           Go to My Tasks
-                        </button>
+                        </Link>
                       </div>
                     )}
                   </div>
