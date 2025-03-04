@@ -11,6 +11,7 @@ import ScrollToTop from "./ScrollToTop";
 import Landing from "../pages/buyer/landing/Landing";
 import FindExperts from "../pages/buyer/find-experts/FindExperts";
 import Dashboard from "../pages/buyer/dashboard/Dashboard";
+import BuyerFAQs from "../pages/buyer/faqs/FAQs";
 
 const Routing = () => {
   const token = getAccessToken();
@@ -33,6 +34,7 @@ const Routing = () => {
               <Route path="/" element={<Landing />} />
               <Route path="/find-experts" element={<FindExperts />} />
               <Route path="/dashboard/:tabName" element={<Dashboard />} />
+              <Route path="/buyer-faqs" element={<BuyerFAQs />} />
               <Route path="*" element={<Landing />} />
             </>
           ) : (

@@ -2,7 +2,7 @@ import { useFormik } from "formik";
 import { useContext } from "react";
 import * as Yup from "yup";
 import GlobalContext from "../../../../context/GlobalContext";
-import useEditProfile from "../../../../services/common/useEditProfle";
+import useEditBuyerProfile from "../../../../services/buyer/useEditBuyerProfile";
 import { ButtonLoader1 } from "../../../../components/shared/ButtonLoaders";
 
 const validationSchema = Yup.object({
@@ -24,7 +24,7 @@ const validationSchema = Yup.object({
 });
 function EditProfile() {
   const { userInfo } = useContext(GlobalContext);
-  const { EditProfile, loading, setShowMessage } = useEditProfile();
+  const { EditBuyerProfile, loading, setShowMessage } = useEditBuyerProfile();
 
   const initialValues = {
     firstname: userInfo?.first_name || "",
@@ -42,7 +42,7 @@ function EditProfile() {
     enableReinitialize: true,
     onSubmit: async (values) => {
       setShowMessage(true);
-      EditProfile({
+      EditBuyerProfile({
         first_name: values.firstname,
         last_name: values.lastname,
         email: values.email,

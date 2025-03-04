@@ -3,14 +3,14 @@ import { getAccessToken } from "../../storage/storage";
 import { useContext, useState } from "react";
 import GlobalContext from "../../context/GlobalContext";
 
-function useEditProfile() {
+function useEditBuyerProfile() {
   const BASE_URL = import.meta.env.VITE_API_URL;
   const token = getAccessToken();
   const { setUserInfo } = useContext(GlobalContext);
   const [loading, setLoading] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
 
-  const EditProfile = async (payload) => {
+  const EditBuyerProfile = async (payload) => {
     setLoading(true);
     await axios
       .put(`${BASE_URL}/api/profile/`, payload, {
@@ -26,6 +26,6 @@ function useEditProfile() {
         setLoading(false);
       });
   };
-  return { EditProfile, loading, setShowMessage };
+  return { EditBuyerProfile, loading, setShowMessage };
 }
-export default useEditProfile;
+export default useEditBuyerProfile;

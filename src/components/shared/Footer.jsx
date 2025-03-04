@@ -72,7 +72,7 @@ function Footer() {
               Explore Services
             </Link>
             <Link
-              to="/faqs"
+              to="/seller-faqs"
               className="text-[#667085] text-[14px] font-normal leading-5 hover:text-primary"
             >
               FAQs
@@ -109,7 +109,7 @@ function Footer() {
               Pros Near Me
             </Link>
             <Link
-              to="/faqs"
+              to="/buyer-faqs"
               className="text-[#667085] text-[14px] font-normal leading-5 hover:text-primary"
             >
               FAQs

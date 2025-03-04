@@ -6,7 +6,7 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import { FiUser, FiLogOut } from "react-icons/fi";
 import { BsClipboardCheck, BsCreditCard2Front } from "react-icons/bs";
 import { FaUserCircle } from "react-icons/fa";
-import { IoIosNotificationsOutline } from "react-icons/io";
+import { IoIosNotificationsOutline, IoIosSwitch } from "react-icons/io";
 import { FaRegComments } from "react-icons/fa6";
 
 import {
@@ -179,11 +179,14 @@ function ProfileDropdown() {
     removeRefreshToken();
     window.location = "/";
   };
+
+  const SwitchMode = (mode) => {};
   return (
     <div className="relative" ref={dropdownRef}>
       <button
         className="cursor-pointer flex justify-center items-center"
         onClick={() => setIsOpen(!isOpen)}
+        title={"Sarah Taylor"}
       >
         <svg
           className="w-7 h-7 text-gray-300 dark:text-gray-700"
@@ -213,6 +216,13 @@ function ProfileDropdown() {
           </div>
 
           <div className="py-2">
+            <button
+              className="w-full px-4 py-2 flex items-center gap-2 hover:bg-[#0AF8860F] cursor-pointer"
+              onClick={() => SwitchMode("Selling")}
+            >
+              <IoIosSwitch />
+              <span>Switch to Selling</span>
+            </button>
             <Link
               to={"/dashboard/edit-profile"}
               className="px-4 py-2 flex items-center gap-2 hover:bg-[#0AF8860F] cursor-pointer"

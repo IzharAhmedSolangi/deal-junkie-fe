@@ -40,7 +40,7 @@ function Dashboard() {
           <h1 className="font-[700] text-[48px] text-center text-secondary mt-4">
             Dashboard
           </h1>
-          <div className="px-[100px] mt-32 flex gap-5">
+          <div className="px-[100px] mt-32 flex items-start gap-5">
             <div className="w-[30%] border border-[#02174C33] rounded-xl p-5">
               <Profile handleTabClick={handleTabClick} />
             </div>

@@ -1,10 +1,10 @@
 import { useContext, useEffect, useState } from "react";
 import GlobalContext from "../../../../context/GlobalContext";
-import useEditProfile from "../../../../services/common/useEditProfle";
+import useEditBuyerProfile from "../../../../services/buyer/useEditBuyerProfile";
 import ToggleButton from "../../../../components/shared/ToggleButton";
 
 function Notifications() {
-  const { EditProfile } = useEditProfile();
+  const { EditBuyerProfile } = useEditBuyerProfile();
   const { userInfo } = useContext(GlobalContext);
 
   const [notifications, setNotifications] = useState([
@@ -56,10 +56,10 @@ function Notifications() {
     // Call the API with the updated value
     switch (item.key) {
       case "recieve_email_notification":
-        EditProfile({ recieve_email_notification: updatedValue });
+        EditBuyerProfile({ recieve_email_notification: updatedValue });
         break;
       case "recieve_in_app_notification":
-        EditProfile({ recieve_in_app_notification: updatedValue });
+        EditBuyerProfile({ recieve_in_app_notification: updatedValue });
         break;
       default:
         break;
