@@ -212,27 +212,37 @@ function ProfileDropdown() {
             <span className="font-semibold">Sarah Taylor</span>
           </div>
 
-          <ul className="py-2">
-            <li className="px-4 py-2 flex items-center gap-2 hover:bg-[#0AF8860F] cursor-pointer">
+          <div className="py-2">
+            <Link
+              to={"/dashboard/edit-profile"}
+              className="px-4 py-2 flex items-center gap-2 hover:bg-[#0AF8860F] cursor-pointer"
+            >
               <FiUser />
               <span>My Account</span>
-            </li>
-            <li className="px-4 py-2 flex items-center gap-2 hover:bg-[#0AF8860F] cursor-pointer">
+            </Link>
+            <Link
+              to={"/dashboard/my-tasks"}
+              className="px-4 py-2 flex items-center gap-2 hover:bg-[#0AF8860F] cursor-pointer"
+            >
               <BsClipboardCheck />
               <span>My Tasks</span>
-            </li>
-            <li className="px-4 py-2 flex items-center gap-2 hover:bg-[#0AF8860F] cursor-pointer">
+            </Link>
+            <Link
+              to={"/dashboard/manage-payments"}
+              className="px-4 py-2 flex items-center gap-2 hover:bg-[#0AF8860F] cursor-pointer"
+            >
               <BsCreditCard2Front />
               <span>Manage Payments</span>
-            </li>
-            <li
+            </Link>
+            <Link
+              to={"#"}
               onClick={Logout}
               className="px-4 py-2 flex items-center gap-2 text-red-500 hover:bg-[#0AF8860F] cursor-pointer"
             >
               <FiLogOut />
               <span>Logout</span>
-            </li>
-          </ul>
+            </Link>
+          </div>
         </div>
       )}
     </div>

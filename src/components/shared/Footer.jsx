@@ -60,25 +60,25 @@ function Footer() {
           </h1>
           <div className="flex flex-col gap-5 mt-5">
             <Link
-              to="#"
+              to="/find-experts"
               className="text-[#667085] text-[14px] font-normal leading-5 hover:text-primary"
             >
               Find Seller
             </Link>
             <Link
-              to="#"
+              to="/explore-services"
               className="text-[#667085] text-[14px] font-normal leading-5 hover:text-primary"
             >
               Explore Services
             </Link>
             <Link
-              to="#"
+              to="/faqs"
               className="text-[#667085] text-[14px] font-normal leading-5 hover:text-primary"
             >
               FAQs
             </Link>
             <Link
-              to="#"
+              to="/pros-near-me"
               className="text-[#667085] text-[14px] font-normal leading-5 hover:text-primary"
             >
               Pros Near Me
@@ -91,25 +91,25 @@ function Footer() {
           </h1>
           <div className="flex flex-col gap-5 mt-5">
             <Link
-              to="#"
+              to="/find-buyers"
               className="text-[#667085] text-[14px] font-normal leading-5 hover:text-primary"
             >
               Find Buyers
             </Link>
             <Link
-              to="#"
+              to="/explore-services"
               className="text-[#667085] text-[14px] font-normal leading-5 hover:text-primary"
             >
               Explore Services
             </Link>
             <Link
-              to="#"
+              to="/pros-near-me"
               className="text-[#667085] text-[14px] font-normal leading-5 hover:text-primary"
             >
               Pros Near Me
             </Link>
             <Link
-              to="#"
+              to="/faqs"
               className="text-[#667085] text-[14px] font-normal leading-5 hover:text-primary"
             >
               FAQs
@@ -122,25 +122,25 @@ function Footer() {
           </h1>
           <div className="flex flex-col gap-5 mt-5">
             <Link
-              to="#"
+              to="/about-us"
               className="text-[#667085] text-[14px] font-normal leading-5 hover:text-primary"
             >
               About Us
             </Link>
             <Link
-              to="#"
+              to="/pricing"
               className="text-[#667085] text-[14px] font-normal leading-5 hover:text-primary"
             >
               Pricing Page
             </Link>
             <Link
-              to="#"
+              to="/help-center"
               className="text-[#667085] text-[14px] font-normal leading-5 hover:text-primary"
             >
               Help Center
             </Link>
             <Link
-              to="#"
+              to="/contact-us"
               className="text-[#667085] text-[14px] font-normal leading-5 hover:text-primary"
             >
               Contact Us
@@ -154,13 +154,13 @@ function Footer() {
         </p>
         <div className="flex items-center gap-2">
           <Link
-            to="#"
+            to="/privacy-policy"
             className="text-[#667085] text-[14px] font-normal leading-5 hover:text-primary"
           >
             Privacy Policy
           </Link>
           <Link
-            to="#"
+            to="/terms"
             className="text-[#667085] text-[14px] font-normal leading-5 hover:text-primary"
           >
             Terms & Conditions
