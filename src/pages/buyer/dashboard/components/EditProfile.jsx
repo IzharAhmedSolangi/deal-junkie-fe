@@ -45,7 +45,6 @@ function EditProfile() {
       EditBuyerProfile({
         first_name: values.firstname,
         last_name: values.lastname,
-        email: values.email,
         phone_number: values.phone,
         state: values.state,
         city: values.city,
@@ -93,7 +92,7 @@ function EditProfile() {
                 placeholder="Email address"
                 name="email"
                 value={values.email}
-                onChange={handleChange}
+                readOnly
                 className="w-full h-[40px] px-3 rounded-[4px] bg-transparent border border-[#02174C33] outline-none hover:border-secondary focus:border-secondary"
               />
               {errors.email && touched.email && (

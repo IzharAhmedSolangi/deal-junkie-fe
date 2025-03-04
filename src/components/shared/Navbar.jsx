@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useContext } from "react";
 import GlobalContext from "../../context/GlobalContext";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FiUser, FiLogOut } from "react-icons/fi";
 import { BsClipboardCheck, BsCreditCard2Front } from "react-icons/bs";
 import { FaUserCircle } from "react-icons/fa";
@@ -18,16 +18,10 @@ import Auth from "../modals/Auth";
 import PostProject from "../modals/PostProject";
 
 const Navbar = () => {
-  const Navigate = useNavigate();
   const token = getAccessToken();
-  const { userInfo } = useContext(GlobalContext);
   const [isOpenAuthModal, setIsOpenAuthModal] = useState(false);
   const [authModalType, setAuthModalType] = useState(null);
   const [isOpenPostProjectModal, setIsOpenPostProjectModal] = useState(false);
-
-  const RouteToOtherPage = (route) => {
-    Navigate(route);
-  };
 
   const [isScrolled, setIsScrolled] = useState(null);
   useEffect(() => {
@@ -157,6 +151,7 @@ const Navbar = () => {
 export default Navbar;
 
 function ProfileDropdown() {
+  const { userInfo } = useContext(GlobalContext);
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -186,7 +181,7 @@ function ProfileDropdown() {
       <button
         className="cursor-pointer flex justify-center items-center"
         onClick={() => setIsOpen(!isOpen)}
-        title={"Sarah Taylor"}
+        title={`${userInfo?.first_name} ${userInfo?.last_name}`}
       >
         <svg
           className="w-7 h-7 text-gray-300 dark:text-gray-700"
@@ -212,7 +207,9 @@ function ProfileDropdown() {
             >
               <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm0 5a3 3 0 1 1 0 6 3 3 0 0 1 0-6Zm0 13a8.949 8.949 0 0 1-4.951-1.488A3.987 3.987 0 0 1 9 13h2a3.987 3.987 0 0 1 3.951 3.512A8.949 8.949 0 0 1 10 18Z" />
             </svg>
-            <span className="font-semibold">Sarah Taylor</span>
+            <span className="font-semibold">
+              {userInfo?.first_name} {userInfo?.last_name}
+            </span>
           </div>
 
           <div className="py-2">
