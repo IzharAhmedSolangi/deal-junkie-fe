@@ -38,13 +38,13 @@ const Routing = () => {
               <Route path="/" element={<Landing />} />
               <Route path="/find-experts" element={<FindExperts />} />
               <Route path="/dashboard/:tabName" element={<Dashboard />} />
-              <Route path="/buyer-faqs" element={<BuyerFAQs />} />
             </>
           )}
 
           {/* Common pages */}
           <Route path="/" element={<Landing />} />
           <Route path="*" element={<Landing />} />
+          <Route path="/buyer-faqs" element={<BuyerFAQs />} />
           <Route path="/contact-us" element={<ContactUs />} />
         </Routes>
         <ScrollToTop />
