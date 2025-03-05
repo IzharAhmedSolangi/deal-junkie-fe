@@ -7,11 +7,15 @@ import { getAccessToken } from "../storage/storage";
 
 import { PageLoader } from "../components/shared/PageLoader";
 import ScrollToTop from "./ScrollToTop";
+
 // Buyer pages
 import Landing from "../pages/buyer/landing/Landing";
 import FindExperts from "../pages/buyer/find-experts/FindExperts";
 import Dashboard from "../pages/buyer/dashboard/Dashboard";
 import BuyerFAQs from "../pages/buyer/faqs/FAQs";
+
+// Common pages
+import ContactUs from "../pages/common/ContactUs";
 
 const Routing = () => {
   const token = getAccessToken();
@@ -29,20 +33,19 @@ const Routing = () => {
       {loading && <PageLoader />}
       <Router>
         <Routes>
-          {token ? (
+          {token && (
             <>
               <Route path="/" element={<Landing />} />
               <Route path="/find-experts" element={<FindExperts />} />
               <Route path="/dashboard/:tabName" element={<Dashboard />} />
               <Route path="/buyer-faqs" element={<BuyerFAQs />} />
-              <Route path="*" element={<Landing />} />
-            </>
-          ) : (
-            <>
-              <Route path="/" element={<Landing />} />
-              <Route path="*" element={<Landing />} />
             </>
           )}
+
+          {/* Common pages */}
+          <Route path="/" element={<Landing />} />
+          <Route path="*" element={<Landing />} />
+          <Route path="/contact-us" element={<ContactUs />} />
         </Routes>
         <ScrollToTop />
       </Router>
