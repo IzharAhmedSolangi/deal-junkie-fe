@@ -2,6 +2,7 @@
 import axios from "axios";
 import { getAccessToken } from "../../storage/storage";
 import { useState } from "react";
+import { ErrorToaster, SuccessToaster } from "../../components/shared/Toster";
 
 function useChangePassword() {
   const BASE_URL = import.meta.env.VITE_API_URL;
@@ -17,9 +18,14 @@ function useChangePassword() {
         },
       })
       .then((response) => {
+        SuccessToaster(
+          "Password Changed",
+          "Your password changed successfully"
+        );
         setLoading(false);
       })
       .catch((error) => {
+        ErrorToaster("Error", error?.response?.data?.error);
         setLoading(false);
       });
   };

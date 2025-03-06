@@ -35,3 +35,15 @@
   color: white !important;
   box-shadow: none !important;
 }
+
+.toast-success-message {
+  background: #d1e7dd !important;
+  color: #2f4034 !important;
+  width: 400px !important;
+}
+
+.toast-error-message {
+  background: #f7ccd0 !important;
+  color: #2f4034 !important;
+  width: 400px !important;
+}

@@ -2,6 +2,7 @@ import axios from "axios";
 import { getAccessToken } from "../../storage/storage";
 import { useContext, useState } from "react";
 import GlobalContext from "../../context/GlobalContext";
+import { ErrorToaster, SuccessToaster } from "../../components/shared/Toster";
 
 function useEditBuyerProfile() {
   const BASE_URL = import.meta.env.VITE_API_URL;
@@ -21,9 +22,14 @@ function useEditBuyerProfile() {
       .then((response) => {
         setUserInfo(response.data.data);
         setLoading(false);
+        SuccessToaster(
+          "Profile updated",
+          "Your profile details successfully updated"
+        );
       })
       .catch((error) => {
         setLoading(false);
+        ErrorToaster("Error", error?.response?.data?.error);
       });
   };
   return { EditBuyerProfile, loading, setShowMessage };

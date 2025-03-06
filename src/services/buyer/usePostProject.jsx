@@ -2,6 +2,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { getAccessToken } from "../../storage/storage";
+import { ErrorToaster, SuccessToaster } from "../../components/shared/Toster";
 
 function usePostProject() {
   const BASE_URL = import.meta.env.VITE_API_URL;
@@ -37,6 +38,7 @@ function usePostProject() {
         }));
       })
       .catch((error) => {
+        ErrorToaster("Error", error?.response?.data?.error);
         setPostProject((prevState) => ({
           ...prevState,
           loading: false,

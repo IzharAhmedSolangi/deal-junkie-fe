@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { getAccessToken } from "../../storage/storage";
+import { ErrorToaster, SuccessToaster } from "../../components/shared/Toster";
 
 function useUpload() {
   const BASE_URL = import.meta.env.VITE_API_URL;
@@ -26,6 +27,7 @@ function useUpload() {
         },
       })
       .then((response) => {
+        SuccessToaster("Uploaded", "Successfully uploaded");
         setUpload((prevState) => ({
           ...prevState,
           loading: false,
@@ -34,6 +36,7 @@ function useUpload() {
         }));
       })
       .catch((error) => {
+        ErrorToaster("Error", error?.response?.data?.error);
         setUpload((prevState) => ({
           ...prevState,
           loading: false,

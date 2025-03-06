@@ -36,22 +36,27 @@ function EditProfile() {
     address: userInfo?.street || "",
   };
 
-  const { values, errors, handleChange, handleSubmit, touched } = useFormik({
-    initialValues,
-    validationSchema,
-    enableReinitialize: true,
-    onSubmit: async (values) => {
-      setShowMessage(true);
-      EditBuyerProfile({
-        first_name: values.firstname,
-        last_name: values.lastname,
-        phone_number: values.phone,
-        state: values.state,
-        city: values.city,
-        street: values.address,
-      });
-    },
-  });
+  const { values, errors, handleChange, handleSubmit, touched, resetForm } =
+    useFormik({
+      initialValues,
+      validationSchema,
+      enableReinitialize: true,
+      onSubmit: async (values) => {
+        setShowMessage(true);
+        EditBuyerProfile({
+          first_name: values.firstname,
+          last_name: values.lastname,
+          phone_number: values.phone,
+          state: values.state,
+          city: values.city,
+          street: values.address,
+        });
+      },
+    });
+
+  const handleCancel = () => {
+    resetForm();
+  };
   return (
     <>
       <h1 className="font-semibold text-[30px] text-secondary">Edit Profile</h1>
@@ -160,6 +165,8 @@ function EditProfile() {
         <div className="flex items-center justify-end gap-2 w-full mt-3">
           <button
             className="bg-[#02174C0F] border border-secondary cursor-pointer hover:opacity-80 w-[130px] h-[40px] text-secondary rounded flex justify-center items-center"
+            type="reset"
+            onClick={handleCancel}
             disabled={loading}
           >
             Cancel

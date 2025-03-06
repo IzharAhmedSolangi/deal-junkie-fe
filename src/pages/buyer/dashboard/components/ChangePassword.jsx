@@ -28,16 +28,23 @@ function ChangePassword() {
     confirm_new_password: "",
   };
 
-  const { values, errors, handleChange, handleSubmit, touched } = useFormik({
-    initialValues,
-    validationSchema,
-    onSubmit: async (values) => {
-      ChangePassword({
-        old_password: values.current_password,
-        new_password: values.new_password,
-      });
-    },
-  });
+  const { values, errors, handleChange, handleSubmit, touched, resetForm } =
+    useFormik({
+      initialValues,
+      validationSchema,
+      enableReinitialize: true,
+      onSubmit: async (values) => {
+        ChangePassword({
+          old_password: values.current_password,
+          new_password: values.new_password,
+        });
+      },
+    });
+
+  const handleCancel = () => {
+    resetForm();
+  };
+
   return (
     <>
       <h1 className="font-semibold text-[30px] text-secondary">
@@ -122,6 +129,8 @@ function ChangePassword() {
         <div className="flex items-center justify-end gap-2 w-full mt-3">
           <button
             className="bg-[#02174C0F] border border-secondary cursor-pointer hover:opacity-80 w-[130px] h-[40px] text-secondary rounded flex justify-center items-center"
+            type="reset"
+            onClick={handleCancel}
             disabled={loading}
           >
             Cancel
