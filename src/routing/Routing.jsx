@@ -9,13 +9,19 @@ import { PageLoader } from "../components/shared/PageLoader";
 import ScrollToTop from "./ScrollToTop";
 
 // Buyer pages
-import Landing from "../pages/buyer/landing/Landing";
+import BuyerLanding from "../pages/buyer/landing/Landing";
 import FindExperts from "../pages/buyer/find-experts/FindExperts";
-import Dashboard from "../pages/buyer/dashboard/Dashboard";
+import BuyerDashboard from "../pages/buyer/dashboard/Dashboard";
 import BuyerFAQs from "../pages/buyer/faqs/FAQs";
+
+// Seller pages
+import SellerFAQs from "../pages/seller/faqs/FAQs";
 
 // Common pages
 import ContactUs from "../pages/common/ContactUs";
+import AboutUs from "../pages/common/AboutUs";
+import HowItWorks from "../pages/common/HowItWorks";
+import Pricing from "../pages/common/Pricing";
 
 const Routing = () => {
   const token = getAccessToken();
@@ -35,17 +41,22 @@ const Routing = () => {
         <Routes>
           {token && (
             <>
-              <Route path="/" element={<Landing />} />
+              <Route path="/" element={<BuyerLanding />} />
+              <Route path="*" element={<BuyerLanding />} />
               <Route path="/find-experts" element={<FindExperts />} />
-              <Route path="/dashboard/:tabName" element={<Dashboard />} />
+              <Route path="/dashboard/:tabName" element={<BuyerDashboard />} />
             </>
           )}
 
           {/* Common pages */}
-          <Route path="/" element={<Landing />} />
-          <Route path="*" element={<Landing />} />
+          <Route path="/" element={<BuyerLanding />} />
+          <Route path="*" element={<BuyerLanding />} />
           <Route path="/buyer-faqs" element={<BuyerFAQs />} />
+          <Route path="/seller-faqs" element={<SellerFAQs />} />
           <Route path="/contact-us" element={<ContactUs />} />
+          <Route path="/about-us" element={<AboutUs />} />
+          <Route path="/how-it-works" element={<HowItWorks />} />
+          <Route path="/pricing" element={<Pricing />} />
         </Routes>
         <ScrollToTop />
       </Router>

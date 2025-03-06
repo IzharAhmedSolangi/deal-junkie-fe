@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useContext } from "react";
 import GlobalContext from "../../context/GlobalContext";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { FiUser, FiLogOut } from "react-icons/fi";
 import { BsClipboardCheck, BsCreditCard2Front } from "react-icons/bs";
 import { FaUserCircle } from "react-icons/fa";
@@ -19,6 +19,7 @@ import PostProject from "../modals/PostProject";
 
 const Navbar = () => {
   const token = getAccessToken();
+  const location = useLocation();
   const [isOpenAuthModal, setIsOpenAuthModal] = useState(false);
   const [authModalType, setAuthModalType] = useState(null);
   const [isOpenPostProjectModal, setIsOpenPostProjectModal] = useState(false);
@@ -53,30 +54,24 @@ const Navbar = () => {
           </h1>
         </Link>
         <div className="flex items-center justify-center gap-5 w-[60%]">
-          <Link
-            to="/"
-            className="text-[#1D2939] text-sm font-[500] leading-4 hover:text-primary"
-          >
-            Home
-          </Link>
-          <Link
-            to="/about-us"
-            className="text-[#1D2939] text-sm font-[500] leading-4 hover:text-primary"
-          >
-            About Us
-          </Link>
-          <Link
-            to="/how-it-works"
-            className="text-[#1D2939] text-sm font-[500] leading-4 hover:text-primary"
-          >
-            How it Works
-          </Link>
-          <Link
-            to="/pricing"
-            className="text-[#1D2939] text-sm font-[500] leading-4 hover:text-primary"
-          >
-            Pricing
-          </Link>
+          {[
+            { name: "Home", path: "/" },
+            { name: "About Us", path: "/about-us" },
+            { name: "How it Works", path: "/how-it-works" },
+            { name: "Pricing", path: "/pricing" },
+          ].map((item, index) => (
+            <Link
+              key={index}
+              to={item.path}
+              className={`text-sm font-[500] leading-4 hover:text-primary ${
+                location.pathname === item.path
+                  ? "text-primary"
+                  : "text-[#1D2939]"
+              }`}
+            >
+              {item.name}
+            </Link>
+          ))}
         </div>
         {token ? (
           <div className="flex items-center justify-end gap-3 w-[20%]">
@@ -100,7 +95,7 @@ const Navbar = () => {
             </button>
           </div>
         ) : (
-          <div className="flex items-center justify-end gap-3 w-[20%]">
+          <div className="flex items-center justify-end w-[20%]">
             <div className="flex items-center gap-1">
               <button
                 className="text-[#1D2939] hover:text-primary cursor-pointer"
@@ -122,15 +117,6 @@ const Navbar = () => {
                 Register
               </button>
             </div>
-            <button
-              onClick={() => {
-                setIsOpenAuthModal(true);
-                setAuthModalType("login");
-              }}
-              className="rounded bg-primary text-[#02174C] px-4 py-2 cursor-pointer hover:opacity-80"
-            >
-              Post a Project
-            </button>
           </div>
         )}
       </nav>
@@ -220,35 +206,40 @@ function ProfileDropdown() {
               <IoIosSwitch />
               <span>Switch to Selling</span>
             </button>
-            <Link
-              to={"/dashboard/edit-profile"}
-              className="px-4 py-2 flex items-center gap-2 hover:bg-[#0AF8860F] cursor-pointer"
-            >
-              <FiUser />
-              <span>My Account</span>
-            </Link>
-            <Link
-              to={"/dashboard/my-tasks"}
-              className="px-4 py-2 flex items-center gap-2 hover:bg-[#0AF8860F] cursor-pointer"
-            >
-              <BsClipboardCheck />
-              <span>My Tasks</span>
-            </Link>
-            <Link
-              to={"/dashboard/manage-payments"}
-              className="px-4 py-2 flex items-center gap-2 hover:bg-[#0AF8860F] cursor-pointer"
-            >
-              <BsCreditCard2Front />
-              <span>Manage Payments</span>
-            </Link>
-            <Link
-              to={"#"}
+            {[
+              {
+                name: "My Account",
+                path: "/dashboard/edit-profile",
+                icon: <FiUser />,
+              },
+              {
+                name: "My Tasks",
+                path: "/dashboard/my-tasks",
+                icon: <BsClipboardCheck />,
+              },
+              {
+                name: "Manage Payments",
+                path: "/dashboard/manage-payments",
+                icon: <BsCreditCard2Front />,
+              },
+            ].map((item, index) => (
+              <Link
+                key={index}
+                to={item.path}
+                onClick={() => setIsOpen(false)}
+                className={`px-4 py-2 flex items-center gap-2 hover:bg-[#0AF8860F] cursor-pointer`}
+              >
+                {item.icon}
+                <span>{item.name}</span>
+              </Link>
+            ))}
+            <button
               onClick={Logout}
               className="px-4 py-2 flex items-center gap-2 text-red-500 hover:bg-[#0AF8860F] cursor-pointer"
             >
               <FiLogOut />
               <span>Logout</span>
-            </Link>
+            </button>
           </div>
         </div>
       )}

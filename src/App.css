@@ -45,11 +45,6 @@ input:-webkit-autofill:active {
   transition: background-color 5000s ease-in-out 0s;
 }
 
-.active {
-  background-color: #0067ff !important;
-  color: white !important;
-}
-
 #goog-gt-vt {
   display: none !important;
 }
