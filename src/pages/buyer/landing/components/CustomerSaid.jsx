@@ -51,7 +51,7 @@ function CustomerSaid() {
         Customer Said About Us
       </h1>
 
-      <div className="w-full mx-auto px-4">
+      <div className="w-full mx-auto">
         <Swiper
           slidesPerView={3.5}
           spaceBetween={20}
@@ -91,7 +91,7 @@ function CustomerSaid() {
           ))}
         </Swiper>
       </div>
-      <div className="w-full mx-auto px-4 mt-5">
+      <div className="w-full mx-auto mt-5">
         <Swiper
           slidesPerView={2.5}
           spaceBetween={20}
