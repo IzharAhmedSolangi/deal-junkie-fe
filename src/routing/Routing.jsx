@@ -25,7 +25,13 @@ import Pricing from "../pages/common/Pricing";
 
 // Admin pages
 import AdminLayout from "../pages/admin/components/Layout";
-import Dashboard from "../pages/admin/Dashboard";
+import AdminDashboard from "../pages/admin/Dashboard";
+import AdminJobs from "../pages/admin/Jobs";
+import AdminEarnings from "../pages/admin/Earnings";
+import AdminBuyers from "../pages/admin/Buyers";
+import AdminSellers from "../pages/admin/Sellers";
+import AdminChats from "../pages/admin/Chats";
+import AdminSupportMessages from "../pages/admin/SupportMessages";
 
 const Routing = () => {
   const token = getAccessToken();
@@ -53,7 +59,16 @@ const Routing = () => {
 
               {/* Admin pages */}
               <Route path="/" element={<AdminLayout />}>
-                <Route path="admin/dashboard" element={<Dashboard />} />
+                <Route path="admin/dashboard" element={<AdminDashboard />} />
+                <Route path="admin/jobs" element={<AdminJobs />} />
+                <Route path="admin/earnings" element={<AdminEarnings />} />
+                <Route path="admin/buyers" element={<AdminBuyers />} />
+                <Route path="admin/sellers" element={<AdminSellers />} />
+                <Route path="admin/chats" element={<AdminChats />} />
+                <Route
+                  path="admin/support-messages"
+                  element={<AdminSupportMessages />}
+                />
               </Route>
             </>
           )}
