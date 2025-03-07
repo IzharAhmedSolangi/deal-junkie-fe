@@ -23,6 +23,10 @@ import AboutUs from "../pages/common/AboutUs";
 import HowItWorks from "../pages/common/HowItWorks";
 import Pricing from "../pages/common/Pricing";
 
+// Admin pages
+import AdminLayout from "../pages/admin/components/Layout";
+import Dashboard from "../pages/admin/Dashboard";
+
 const Routing = () => {
   const token = getAccessToken();
   const { userInfo } = useContext(GlobalContext);
@@ -41,14 +45,20 @@ const Routing = () => {
         <Routes>
           {token && (
             <>
+              {/* Buyer pages */}
               <Route path="/" element={<BuyerLanding />} />
               <Route path="*" element={<BuyerLanding />} />
               <Route path="/find-experts" element={<FindExperts />} />
               <Route path="/dashboard/:tabName" element={<BuyerDashboard />} />
+
+              {/* Admin pages */}
+              <Route path="/" element={<AdminLayout />}>
+                <Route path="admin/dashboard" element={<Dashboard />} />
+              </Route>
             </>
           )}
 
-          {/* Common pages */}
+          {/* Public pages (Seller & Buyer) */}
           <Route path="/" element={<BuyerLanding />} />
           <Route path="*" element={<BuyerLanding />} />
           <Route path="/buyer-faqs" element={<BuyerFAQs />} />
