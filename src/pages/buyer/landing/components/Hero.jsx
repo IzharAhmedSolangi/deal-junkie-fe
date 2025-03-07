@@ -8,6 +8,7 @@ function Hero() {
           Connecting You with Finance <br />
           Experts to Achieve Your Deal Goals
         </h1>
+
         <div className="flex items-center gap-2 mt-3">
           <NavLink to="/find-experts">
             <button className="rounded w-[120px] h-[40px] bg-secondary text-white text-center cursor-pointer hover:opacity-80">

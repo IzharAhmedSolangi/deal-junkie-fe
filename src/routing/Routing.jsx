@@ -22,6 +22,7 @@ import ContactUs from "../pages/common/ContactUs";
 import AboutUs from "../pages/common/AboutUs";
 import HowItWorks from "../pages/common/HowItWorks";
 import Pricing from "../pages/common/Pricing";
+import Inbox from "../pages/common/Inbox";
 
 // Admin pages
 import AdminLayout from "../pages/admin/components/Layout";
@@ -82,6 +83,7 @@ const Routing = () => {
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/how-it-works" element={<HowItWorks />} />
           <Route path="/pricing" element={<Pricing />} />
+          <Route path="/inbox" element={<Inbox />} />
         </Routes>
         <ScrollToTop />
       </Router>

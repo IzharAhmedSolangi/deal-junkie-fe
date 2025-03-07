@@ -12,7 +12,7 @@ import { FaRegComments } from "react-icons/fa6";
 import {
   getAccessToken,
   removeAccessToken,
-  removeRefreshToken,
+  removeRefreshToken
 } from "../../storage/storage";
 import Auth from "../modals/Auth";
 import PostProject from "../modals/PostProject";
@@ -58,7 +58,7 @@ const Navbar = () => {
             { name: "Home", path: "/" },
             { name: "About Us", path: "/about-us" },
             { name: "How it Works", path: "/how-it-works" },
-            { name: "Pricing", path: "/pricing" },
+            { name: "Pricing", path: "/pricing" }
           ].map((item, index) => (
             <Link
               key={index}
@@ -77,12 +77,12 @@ const Navbar = () => {
           <div className="flex items-center justify-end gap-3 w-[20%]">
             <div className="flex items-center gap-4 ">
               <Notifications />
-              <div className="relative">
+              <Link to="/inbox" className="relative">
                 <FaRegComments className="w-7 h-7 text-gray-500 cursor-pointer relative" />
                 <div className="absolute w-[14px] h-[14px] rounded-full bg-primary top-0 right-0 text-white text-[10px] flex items-center justify-center">
                   2
                 </div>
-              </div>
+              </Link>
               <ProfileDropdown />
             </div>
             <button
@@ -210,18 +210,18 @@ function ProfileDropdown() {
               {
                 name: "My Account",
                 path: "/dashboard/edit-profile",
-                icon: <FiUser />,
+                icon: <FiUser />
               },
               {
                 name: "My Tasks",
                 path: "/dashboard/my-tasks",
-                icon: <BsClipboardCheck />,
+                icon: <BsClipboardCheck />
               },
               {
                 name: "Manage Payments",
                 path: "/dashboard/manage-payments",
-                icon: <BsCreditCard2Front />,
-              },
+                icon: <BsCreditCard2Front />
+              }
             ].map((item, index) => (
               <Link
                 key={index}
