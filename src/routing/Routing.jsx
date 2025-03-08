@@ -15,6 +15,9 @@ import BuyerDashboard from "../pages/buyer/dashboard/Dashboard";
 import BuyerFAQs from "../pages/buyer/faqs/FAQs";
 
 // Seller pages
+import SellerLanding from "../pages/seller/landing/Landing";
+import FindJobs from "../pages/seller/find-jobs/FindJobs";
+import SellerDashboard from "../pages/seller/dashboard/Dashboard";
 import SellerFAQs from "../pages/seller/faqs/FAQs";
 
 // Common pages
@@ -53,25 +56,45 @@ const Routing = () => {
           {token && (
             <>
               {/* Buyer pages */}
-              <Route path="/" element={<BuyerLanding />} />
-              <Route path="*" element={<BuyerLanding />} />
-              <Route path="/find-experts" element={<FindExperts />} />
-              <Route path="/dashboard/:tabName" element={<BuyerDashboard />} />
-              <Route path="/inbox" element={<Inbox />} />
-
+              {userInfo?.user?.role === "buyer" && (
+                <>
+                  <Route path="/" element={<BuyerLanding />} />
+                  <Route path="*" element={<BuyerLanding />} />
+                  <Route path="/find-experts" element={<FindExperts />} />
+                  <Route
+                    path="/dashboard/:tabName"
+                    element={<BuyerDashboard />}
+                  />
+                  <Route path="/inbox" element={<Inbox />} />
+                </>
+              )}
+              {userInfo?.user?.role === "seller" && (
+                <>
+                  <Route path="/" element={<SellerLanding />} />
+                  <Route path="*" element={<SellerLanding />} />
+                  <Route path="/find-jobs" element={<FindJobs />} />
+                  <Route
+                    path="/dashboard/:tabName"
+                    element={<SellerDashboard />}
+                  />
+                  <Route path="/inbox" element={<Inbox />} />
+                </>
+              )}
               {/* Admin pages */}
-              <Route path="/" element={<AdminLayout />}>
-                <Route path="admin/dashboard" element={<AdminDashboard />} />
-                <Route path="admin/jobs" element={<AdminJobs />} />
-                <Route path="admin/earnings" element={<AdminEarnings />} />
-                <Route path="admin/buyers" element={<AdminBuyers />} />
-                <Route path="admin/sellers" element={<AdminSellers />} />
-                <Route path="admin/chats" element={<AdminChats />} />
-                <Route
-                  path="admin/support-messages"
-                  element={<AdminSupportMessages />}
-                />
-              </Route>
+              {userInfo?.user?.role === "buyer" && (
+                <Route path="/" element={<AdminLayout />}>
+                  <Route path="admin/dashboard" element={<AdminDashboard />} />
+                  <Route path="admin/jobs" element={<AdminJobs />} />
+                  <Route path="admin/earnings" element={<AdminEarnings />} />
+                  <Route path="admin/buyers" element={<AdminBuyers />} />
+                  <Route path="admin/sellers" element={<AdminSellers />} />
+                  <Route path="admin/chats" element={<AdminChats />} />
+                  <Route
+                    path="admin/support-messages"
+                    element={<AdminSupportMessages />}
+                  />
+                </Route>
+              )}
             </>
           )}
 

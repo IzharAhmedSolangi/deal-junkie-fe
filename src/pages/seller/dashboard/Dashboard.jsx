@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useNavigate, useParams } from "react-router-dom";
 import Layout from "../../../components/shared/Layout";
-import MyTasks from "./components/MyTasks";
+import MyJobs from "./components/MyJobs";
 import EditProfile from "./components/EditProfile";
 import Notifications from "./components/Notifications";
 import ChangePassword from "./components/ChangePassword";
@@ -20,7 +20,7 @@ import Delete from "../../../components/modals/Delete";
 import Deactivate from "../../../components/modals/Deactivate";
 
 const tabs = [
-  { name: "My Task", path: "my-tasks" },
+  { name: "My Jobs", path: "my-jobs" },
   { name: "Change Password", path: "change-password" },
   { name: "Manage Payments", path: "manage-payments" },
   { name: "Notifications", path: "notifications" },
@@ -61,7 +61,7 @@ function Dashboard() {
                 ))}
               </div>
               <div className="mt-5">
-                {tabName === "my-tasks" && <MyTasks />}
+                {tabName === "my-jobs" && <MyJobs />}
                 {tabName === "change-password" && <ChangePassword />}
                 {tabName === "manage-payments" && <ManagePayments />}
                 {tabName === "notifications" && <Notifications />}
@@ -86,10 +86,10 @@ function Profile(props) {
   return (
     <>
       <div className="flex flex-col items-center justify-center">
-        {userInfo?.profile_avatar ? (
+        {userInfo?.user?.profile_avatar ? (
           <img
             className="rounded-full w-[120px] h-[120px] object-cover"
-            src={`${userInfo?.profile_avatar}`}
+            src={`${userInfo?.user?.profile_avatar}`}
             alt=""
           />
         ) : (
@@ -104,24 +104,24 @@ function Profile(props) {
           </svg>
         )}
         <h1 className="font-semibold text-[22px] text-secondary mt-3">
-          Sarah Taylor
+          {userInfo?.user?.first_name} {userInfo?.user?.last_name}
         </h1>
         <div className="flex gap-1 mt-2">
           <MdOutlineLocationOn className="text-[#6F7487] text-[20px]" />
           <p className="font-normal text-[14px] text-[#6F7487]">
-            3401 Walnut St, Philadelphia 19104, Pennsylvania, United States
+            {userInfo?.user?.street}
           </p>
         </div>
         <div className="flex gap-1 mt-2">
           <MdOutlineMail className="text-[#6F7487] text-[20px]" />
           <p className="font-normal text-[14px] text-[#6F7487]">
-            test@gmail.com
+            {userInfo?.user?.email}
           </p>
         </div>
         <div className="flex gap-1 mt-2">
           <MdPhoneAndroid className="text-[#6F7487] text-[20px]" />
           <p className="font-normal text-[14px] text-[#6F7487]">
-            +923001234567
+            {userInfo?.user?.phone_number}
           </p>
         </div>
         <div className="mt-5 flex flex-col gap-2 w-full">

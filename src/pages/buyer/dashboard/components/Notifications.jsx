@@ -1,10 +1,10 @@
 import { useContext, useEffect, useState } from "react";
 import GlobalContext from "../../../../context/GlobalContext";
-import useEditBuyerProfile from "../../../../services/buyer/useEditBuyerProfile";
+import useEditProfile from "../../../../services/common/useEditProfile";
 import ToggleButton from "../../../../components/shared/ToggleButton";
 
 function Notifications() {
-  const { EditBuyerProfile } = useEditBuyerProfile();
+  const { EditProfile } = useEditProfile();
   const { userInfo } = useContext(GlobalContext);
 
   const [notifications, setNotifications] = useState([
@@ -13,14 +13,14 @@ function Notifications() {
       title: "Email Notifications",
       description:
         "Get emails to find out what’s going on when you’re not online. You’ll receive notification about customers, tasks/leads and payments.",
-      isOn: userInfo?.recieve_email_notification,
+      isOn: userInfo?.user?.email_notifications,
     },
     {
       key: "recieve_in_app_notification",
       title: "App Notifications",
       description:
         "Get emails to find out what’s going on when you’re not online. You’ll receive notification about customers, tasks/leads and payments.",
-      isOn: userInfo?.recieve_in_app_notification,
+      isOn: userInfo?.user?.app_notifications,
     },
   ]);
 
@@ -31,14 +31,14 @@ function Notifications() {
         title: "Email Notifications",
         description:
           "Get emails to find out what’s going on when you’re not online. You’ll receive notification about customers, tasks/leads and payments.",
-        isOn: userInfo?.recieve_email_notification,
+        isOn: userInfo?.user?.email_notifications,
       },
       {
         key: "recieve_in_app_notification",
         title: "App Notifications",
         description:
           "Get emails to find out what’s going on when you’re not online. You’ll receive notification about customers, tasks/leads and payments.",
-        isOn: userInfo?.recieve_in_app_notification,
+        isOn: userInfo?.user?.app_notifications,
       },
     ]);
   }, [userInfo]);
@@ -56,10 +56,10 @@ function Notifications() {
     // Call the API with the updated value
     switch (item.key) {
       case "recieve_email_notification":
-        EditBuyerProfile({ recieve_email_notification: updatedValue });
+        EditProfile({ user: { email_notifications: updatedValue } });
         break;
       case "recieve_in_app_notification":
-        EditBuyerProfile({ recieve_in_app_notification: updatedValue });
+        EditProfile({ user: { app_notifications: updatedValue } });
         break;
       default:
         break;

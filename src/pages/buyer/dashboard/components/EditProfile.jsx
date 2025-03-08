@@ -2,7 +2,7 @@ import { useFormik } from "formik";
 import { useContext } from "react";
 import * as Yup from "yup";
 import GlobalContext from "../../../../context/GlobalContext";
-import useEditBuyerProfile from "../../../../services/buyer/useEditBuyerProfile";
+import useEditProfile from "../../../../services/common/useEditProfile";
 import { ButtonLoader1 } from "../../../../components/shared/ButtonLoaders";
 
 const validationSchema = Yup.object({
@@ -24,16 +24,16 @@ const validationSchema = Yup.object({
 });
 function EditProfile() {
   const { userInfo } = useContext(GlobalContext);
-  const { EditBuyerProfile, loading, setShowMessage } = useEditBuyerProfile();
+  const { EditProfile, loading, setShowMessage } = useEditProfile();
 
   const initialValues = {
-    firstname: userInfo?.first_name || "",
-    lastname: userInfo?.last_name || "",
-    email: userInfo?.email || "",
-    phone: userInfo?.phone_number || "",
-    state: userInfo?.state || "",
-    city: userInfo?.city || "",
-    address: userInfo?.street || "",
+    firstname: userInfo?.user?.first_name || "",
+    lastname: userInfo?.user?.last_name || "",
+    email: userInfo?.user?.email || "",
+    phone: userInfo?.user?.phone_number || "",
+    state: userInfo?.user?.state || "",
+    city: userInfo?.user?.city || "",
+    address: userInfo?.user?.street || "",
   };
 
   const { values, errors, handleChange, handleSubmit, touched, resetForm } =
@@ -43,13 +43,15 @@ function EditProfile() {
       enableReinitialize: true,
       onSubmit: async (values) => {
         setShowMessage(true);
-        EditBuyerProfile({
-          first_name: values.firstname,
-          last_name: values.lastname,
-          phone_number: values.phone,
-          state: values.state,
-          city: values.city,
-          street: values.address,
+        EditProfile({
+          user: {
+            first_name: values.firstname,
+            last_name: values.lastname,
+            phone_number: values.phone,
+            state: values.state,
+            city: values.city,
+            street: values.address,
+          },
         });
       },
     });

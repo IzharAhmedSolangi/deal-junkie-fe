@@ -3,35 +3,43 @@ import { getAccessToken } from "../../storage/storage";
 import { useContext, useState } from "react";
 import GlobalContext from "../../context/GlobalContext";
 import { ErrorToaster, SuccessToaster } from "../../components/shared/Toster";
+import { useNavigate } from "react-router-dom";
 
-function useEditBuyerProfile() {
+function useEditProfile() {
   const BASE_URL = import.meta.env.VITE_API_URL;
   const token = getAccessToken();
+  const Navigate = useNavigate();
   const { setUserInfo } = useContext(GlobalContext);
   const [loading, setLoading] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
 
-  const EditBuyerProfile = async (payload) => {
+  const EditProfile = async (payload) => {
     setLoading(true);
     await axios
-      .put(`${BASE_URL}/api/profile/`, payload, {
+      .put(`${BASE_URL}/api/seller/profile/`, payload, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
       .then((response) => {
-        setUserInfo(response.data.data);
+        setUserInfo(response.data);
         setLoading(false);
-        SuccessToaster(
-          "Profile updated",
-          "Your profile details successfully updated"
-        );
+        if (response.data.seller_profile === null) {
+          Navigate("/dashboard/edit-profile");
+        }
+        if (showMessage) {
+          SuccessToaster(
+            "Profile updated",
+            "Your profile details successfully updated"
+          );
+          setShowMessage(false);
+        }
       })
       .catch((error) => {
         setLoading(false);
         ErrorToaster("Error", error?.response?.data?.error);
       });
   };
-  return { EditBuyerProfile, loading, setShowMessage };
+  return { EditProfile, loading, setShowMessage, showMessage };
 }
-export default useEditBuyerProfile;
+export default useEditProfile;

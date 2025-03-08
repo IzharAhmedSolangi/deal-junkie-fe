@@ -11,7 +11,7 @@ const useCurrentUser = () => {
   const getCurrentUser = async (token) => {
     setLoading(true);
     await axios
-      .get(`${BASE_URL}/api/accounts/profile`, {
+      .get(`${BASE_URL}/api/seller/profile/`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

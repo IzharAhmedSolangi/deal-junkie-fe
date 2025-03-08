@@ -59,6 +59,7 @@ function Signup(props) {
           city: values.city,
           street: values.address,
           password: values.password,
+          is_verified: true,
         },
         setAuthModalType
       );
