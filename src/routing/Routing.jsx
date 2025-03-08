@@ -57,6 +57,7 @@ const Routing = () => {
               <Route path="*" element={<BuyerLanding />} />
               <Route path="/find-experts" element={<FindExperts />} />
               <Route path="/dashboard/:tabName" element={<BuyerDashboard />} />
+              <Route path="/inbox" element={<Inbox />} />
 
               {/* Admin pages */}
               <Route path="/" element={<AdminLayout />}>
@@ -83,7 +84,6 @@ const Routing = () => {
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/how-it-works" element={<HowItWorks />} />
           <Route path="/pricing" element={<Pricing />} />
-          <Route path="/inbox" element={<Inbox />} />
         </Routes>
         <ScrollToTop />
       </Router>
