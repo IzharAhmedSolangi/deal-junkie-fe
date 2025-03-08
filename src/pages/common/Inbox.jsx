@@ -59,9 +59,9 @@ function Inbox() {
   return (
     <Layout>
       {/* Hero Section */}
-      <div className="relative w-full h-auto bg-white pt-[60px] pb-30">
+      <div className="relative w-full h-auto bg-white pt-[70px] pb-30">
         <div className="absolute top-[-100px] left-0 w-full h-[400px] bg-cover bg-center bg-[url('/assets/images/Banner2.png')]"></div>
-        <h1 className="font-[700] text-[48px] text-center text-secondary mt-10">
+        <h1 className="font-[700] text-[48px] text-center text-secondary mt-4">
           Inbox
         </h1>
       </div>
