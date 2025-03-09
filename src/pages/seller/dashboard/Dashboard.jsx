@@ -97,7 +97,9 @@ function Profile(props) {
   useEffect(() => {
     if (upload.url) {
       EditProfile({
-        profile_picture: upload.url,
+        user: {
+          profile_picture: upload.url,
+        },
       });
     }
   }, [upload]);
@@ -106,10 +108,10 @@ function Profile(props) {
     <>
       <div className="flex flex-col items-center justify-center">
         <div className="rounded-full relative w-[120px] h-[120px]">
-          {userInfo?.user?.profile_avatar ? (
+          {userInfo?.user?.profile_picture ? (
             <img
               className="w-full h-full object-cover"
-              src={`${userInfo?.user?.profile_avatar}`}
+              src={`${userInfo?.user?.profile_picture}`}
               alt=""
             />
           ) : (
@@ -124,7 +126,7 @@ function Profile(props) {
             </svg>
           )}
           {/* Camera Icon Overlay */}
-          <label className="rounded-br-full rounded-bl-full absolute bottom-0 left-0 w-full text-secondary flex justify-center items-center py-2 cursor-pointer">
+          <label className="rounded-br-full rounded-bl-full absolute bottom-0 left-0 w-full text-secondary hover:text-primary flex justify-center items-center py-2 cursor-pointer">
             <input
               type="file"
               className="hidden"
