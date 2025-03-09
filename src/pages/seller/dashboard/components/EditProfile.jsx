@@ -14,6 +14,7 @@ const validationSchema = Yup.object({
   lastname: Yup.string()
     .required("Lastname is required")
     .max(100, "Limit exceeded"),
+  profile_picture: Yup.string(),
   email: Yup.string()
     .email("Invalid email")
     .required("Email is required")
@@ -79,6 +80,7 @@ function EditProfile() {
     lastname: userInfo?.user?.last_name || "",
     email: userInfo?.user?.email || "",
     phone: userInfo?.user?.phone_number || "",
+    profile_picture: userInfo?.user?.profile_picture || "",
     state: userInfo?.user?.state || "",
     city: userInfo?.user?.city || "",
     address: userInfo?.user?.street || "",
@@ -151,7 +153,7 @@ function EditProfile() {
             street: values.address,
             email: userInfo?.user?.email,
             role: userInfo?.user?.role,
-            profile_picture: userInfo?.user?.profile_picture,
+            profile_picture: values.profile_picture,
             bio: userInfo?.user?.bio,
           },
           seller_profile: {

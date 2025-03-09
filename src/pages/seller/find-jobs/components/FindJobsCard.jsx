@@ -5,10 +5,14 @@ import { ButtonLoader3 } from "../../../../components/shared/ButtonLoaders";
 import ShowMessage from "../../../../components/shared/ShowMessage";
 import { MdOutlineMessage } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import SendProposal from "../../../../components/modals/SendProposal";
 
 function FindJobsCard(props) {
   const { findJobs } = props;
   const Navigate = useNavigate();
+  const [isOpenSendProposalModal, setIsOpenSendProposalModal] = useState(false);
+  const [selectedJob, setSelectedJob] = useState(false);
 
   return (
     <>
@@ -52,7 +56,13 @@ function FindJobsCard(props) {
                       <IoEyeOutline />
                       See Details
                     </button>
-                    <button className="bg-[#00B75F0F] w-full h-[35px] border border-[#00B75F] rounded-sm text-[#00B75F] text-[13px] cursor-pointer flex justify-center items-center gap-1">
+                    <button
+                      className="bg-[#00B75F0F] w-full h-[35px] border border-[#00B75F] rounded-sm text-[#00B75F] text-[13px] cursor-pointer flex justify-center items-center gap-1"
+                      onClick={() => {
+                        setIsOpenSendProposalModal(true);
+                        setSelectedJob(item);
+                      }}
+                    >
                       <MdOutlineMessage />
                       Send Request
                     </button>
@@ -73,6 +83,11 @@ function FindJobsCard(props) {
           </div>
         )}
       </div>
+      <SendProposal
+        selected={selectedJob}
+        isOpenModal={isOpenSendProposalModal}
+        setIsOpenModal={setIsOpenSendProposalModal}
+      />
     </>
   );
 }

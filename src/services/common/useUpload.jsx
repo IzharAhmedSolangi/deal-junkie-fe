@@ -20,7 +20,7 @@ function useUpload() {
       message: null,
     }));
     await axios
-      .post(`${BASE_URL}/api/upload-image/`, payload, {
+      .post(`${BASE_URL}/api/accounts/upload-image/`, payload, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "multipart/form-data",

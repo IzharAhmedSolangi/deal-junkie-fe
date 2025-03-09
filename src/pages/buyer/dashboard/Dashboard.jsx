@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 import { useNavigate, useParams } from "react-router-dom";
 import Layout from "../../../components/shared/Layout";
@@ -6,9 +7,10 @@ import EditProfile from "./components/EditProfile";
 import Notifications from "./components/Notifications";
 import ChangePassword from "./components/ChangePassword";
 import ManagePayments from "./components/ManagePayments";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import GlobalContext from "../../../context/GlobalContext";
 import {
+  MdCameraAlt,
   MdEdit,
   MdOutlineDelete,
   MdOutlineLocationOn,
@@ -18,6 +20,8 @@ import {
 import { FaUserXmark } from "react-icons/fa6";
 import Delete from "../../../components/modals/Delete";
 import Deactivate from "../../../components/modals/Deactivate";
+import useUpload from "../../../services/common/useUpload";
+import useEditProfile from "../../../services/common/useEditProfile";
 
 const tabs = [
   { name: "My Task", path: "my-tasks" },
@@ -82,27 +86,54 @@ function Profile(props) {
   const { userInfo } = useContext(GlobalContext);
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
   const [isOpenDeactivateModal, setIsOpenDeactivateModal] = useState(false);
+  const { Upload, upload } = useUpload();
+  const { EditProfile } = useEditProfile();
+
+  const handleImageChange = (e) => {
+    const file = e.target.files?.[0];
+    Upload({ image: file });
+  };
+
+  useEffect(() => {
+    if (upload.url) {
+      EditProfile({
+        profile_picture: upload.url,
+      });
+    }
+  }, [upload]);
 
   return (
     <>
       <div className="flex flex-col items-center justify-center">
-        {userInfo?.user?.profile_avatar ? (
-          <img
-            className="rounded-full w-[120px] h-[120px] object-cover"
-            src={`${userInfo?.user?.profile_avatar}`}
-            alt=""
-          />
-        ) : (
-          <svg
-            className="w-[120px] h-[120px] text-gray-200 dark:text-gray-700"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-          >
-            <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm0 5a3 3 0 1 1 0 6 3 3 0 0 1 0-6Zm0 13a8.949 8.949 0 0 1-4.951-1.488A3.987 3.987 0 0 1 9 13h2a3.987 3.987 0 0 1 3.951 3.512A8.949 8.949 0 0 1 10 18Z" />
-          </svg>
-        )}
+        <div className="rounded-full relative w-[120px] h-[120px]">
+          {userInfo?.user?.profile_avatar ? (
+            <img
+              className="w-full h-full object-cover"
+              src={`${userInfo?.user?.profile_avatar}`}
+              alt=""
+            />
+          ) : (
+            <svg
+              className="w-full h-full text-gray-200 dark:text-gray-700"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm0 5a3 3 0 1 1 0 6 3 3 0 0 1 0-6Zm0 13a8.949 8.949 0 0 1-4.951-1.488A3.987 3.987 0 0 1 9 13h2a3.987 3.987 0 0 1 3.951 3.512A8.949 8.949 0 0 1 10 18Z" />
+            </svg>
+          )}
+          {/* Camera Icon Overlay */}
+          <label className="rounded-br-full rounded-bl-full absolute bottom-0 left-0 w-full text-secondary flex justify-center items-center py-2 cursor-pointer">
+            <input
+              type="file"
+              className="hidden"
+              accept="image/*"
+              onChange={handleImageChange}
+            />
+            <MdCameraAlt className="text-[20px]" />
+          </label>
+        </div>
         <h1 className="font-semibold text-[22px] text-secondary mt-3">
           {userInfo?.user?.first_name} {userInfo?.user?.last_name}
         </h1>

@@ -4,18 +4,18 @@ import axios from "axios";
 import { getAccessToken } from "../../storage/storage";
 import { ErrorToaster } from "../../components/shared/Toster";
 
-function usePostProject() {
+function useSendProposal() {
   const BASE_URL = import.meta.env.VITE_API_URL;
   const token = getAccessToken();
-  const [postProject, setPostProject] = useState({
+  const [sendProposal, setSendProposal] = useState({
     loading: false,
     data: null,
     error: null,
     success: false,
   });
 
-  const PostProject = async (payload) => {
-    setPostProject((prevState) => ({
+  const SendProposal = async (payload) => {
+    setSendProposal((prevState) => ({
       ...prevState,
       loading: true,
       data: null,
@@ -23,13 +23,13 @@ function usePostProject() {
       success: false,
     }));
     await axios
-      .post(`${BASE_URL}/api/buyer/post-project/`, payload, {
+      .post(`${BASE_URL}/api/seller/send-proposal/`, payload, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
       .then((response) => {
-        setPostProject((prevState) => ({
+        setSendProposal((prevState) => ({
           ...prevState,
           loading: false,
           data: null,
@@ -39,7 +39,7 @@ function usePostProject() {
       })
       .catch((error) => {
         ErrorToaster("Error", error?.response?.data?.error);
-        setPostProject((prevState) => ({
+        setSendProposal((prevState) => ({
           ...prevState,
           loading: false,
           data: null,
@@ -48,6 +48,6 @@ function usePostProject() {
         }));
       });
   };
-  return { PostProject, postProject };
+  return { SendProposal, sendProposal };
 }
-export default usePostProject;
+export default useSendProposal;
