@@ -174,7 +174,7 @@ function AboutUs() {
               <img
                 src="/assets/icons/frame22.png"
                 alt="Our Team"
-                className=""
+                className="w-[50px] h-[50px]"
               />
               <h3 className="text-[24px] font-[600] ">{item.title}</h3>
               <p className="mt-2 text-[16px] font-[400]">{item.desc}</p>

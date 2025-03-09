@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
 import Layout from "../../components/shared/Layout";
 import { FaUserCircle } from "react-icons/fa";
 import { TbSend } from "react-icons/tb";
@@ -7,20 +7,32 @@ import { HiDotsVertical } from "react-icons/hi";
 import { MdOutlineAttachment } from "react-icons/md";
 import { getAccessToken } from "../../storage/storage";
 import ReconnectingWebSocket from "reconnecting-websocket";
-import { useParams } from "react-router-dom";
+import GlobalContext from "../../context/GlobalContext";
+import { useLocation } from "react-router-dom";
+const useQuery = () => {
+  return new URLSearchParams(useLocation().search);
+};
 
 function Inbox() {
-  const { userId } = useParams();
+  const query = useQuery();
+  const userId = query.get("userId");
   const token = getAccessToken();
-  const socketUrl = `ws://192.168.1.27:8001/ws/chat/?token=${token}`;
+  const { userInfo } = useContext(GlobalContext);
+  const [selectedUserId, setSelectedUserId] = useState(null);
+  const socketUrl = `ws://192.168.1.31:8001/ws/chat/?partner_id=${selectedUserId}&token=${token}`;
   const [messages, setMessages] = useState([]);
+  const [selfMessages, setSelfMessages] = useState([]);
+  const [previousMessages, setPreviousMessages] = useState([]);
+  console.log({ previousMessages });
+  console.log({ selfMessages });
+  console.log({ selectedUserId });
+
   const [newMessage, setNewMessage] = useState("");
   const socketRef = useRef(null);
   const disconnectTimeoutRef = useRef(null);
 
   const connectSocket = () => {
     socketRef.current = new ReconnectingWebSocket(socketUrl);
-
     socketRef.current.onopen = () => {
       console.log("WebSocket Connected");
     };
@@ -34,10 +46,16 @@ function Inbox() {
             {
               id: prev.length + 1,
               text: response.message,
-              sender: response.sender,
-              timestamp: new Date().toLocaleTimeString(),
-            },
+              sender: response.sender_id,
+              timestamp: new Date().toLocaleTimeString()
+            }
           ]);
+        }
+        if (response.users_chat_list) {
+          setSelfMessages(response.users_chat_list);
+        }
+        if (response.messages) {
+          setPreviousMessages(response.messages);
         }
       } catch (error) {
         console.error("Error parsing WebSocket message:", error);
@@ -51,13 +69,6 @@ function Inbox() {
     socketRef.current.onclose = () => {
       console.log("WebSocket Disconnected");
     };
-  };
-
-  const disconnectSocket = () => {
-    if (socketRef.current) {
-      socketRef.current.close();
-      socketRef.current = null;
-    }
   };
 
   const sendMessage = async (e) => {
@@ -80,10 +91,9 @@ function Inbox() {
         id: prevMessages.length + 1,
         text: newMessage,
         sender: "user",
-        timestamp: new Date().toLocaleTimeString(),
-      },
+        timestamp: new Date().toLocaleTimeString()
+      }
     ]);
-
     setNewMessage("");
   };
 
@@ -91,7 +101,7 @@ function Inbox() {
     if (socketRef.current && socketRef.current.readyState === WebSocket.OPEN) {
       const payload = JSON.stringify({
         message: message,
-        receiver: userId,
+        receiver_id: userId
       });
 
       console.log("Sending message:", payload);
@@ -102,8 +112,8 @@ function Inbox() {
   };
 
   useEffect(() => {
+    connectSocket();
     return () => {
-      // Cleanup on component unmount
       if (socketRef.current) {
         socketRef.current.close();
       }
@@ -111,7 +121,7 @@ function Inbox() {
         clearTimeout(disconnectTimeoutRef.current);
       }
     };
-  }, []);
+  }, [userId]);
 
   return (
     <Layout>
@@ -136,13 +146,18 @@ function Inbox() {
                 />
               </div>
             </div>
-
             {/* Chat List */}
             <div className="overflow-y-auto w-full h-full flex-grow">
-              {[...Array(15)].map((_, index) => (
+              {selfMessages.map((msg) => (
                 <div
-                  key={index}
-                  className="flex relative items-center py-3 px-3 border-t-[0.5px] border-t-[#02174C33] hover:bg-[#0AF8860F] cursor-pointer"
+                  key={msg.id}
+                  className={`flex relative items-center py-3 px-3 border-t-[0.5px] border-t-[#02174C33] 
+        cursor-pointer ${
+          selectedUserId === msg.receiver_id
+            ? "bg-blue-50"
+            : "hover:bg-[#0AF8860F]"
+        }`}
+                  onClick={() => setSelectedUserId(msg.receiver_id)}
                 >
                   <div className="w-8 h-8 text-gray-300 rounded-full flex justify-center items-center">
                     <FaUserCircle className="w-8 h-8" />
@@ -150,14 +165,14 @@ function Inbox() {
                   <div className="ml-3">
                     <div className="flex items-center gap-2">
                       <h3 className="font-[600] text-[16px] text-[#003F63]">
-                        Jenny Wilson
+                        {msg.sender__first_name || "Unknown"}
                       </h3>
                       <div className="bg-primary p-1 rounded-[30px] w-[18px] h-[18px] text-[10px] flex justify-center items-center font-[600]">
                         40
                       </div>
                     </div>
                     <p className="font-[500] text-[14px] text-[#6F7487]">
-                      How are you?
+                      {msg.message}
                     </p>
                     <p className="font-[500] text-[12px] text-[#6F7487] absolute right-3 top-8">
                       10:27 AM
@@ -166,6 +181,7 @@ function Inbox() {
                 </div>
               ))}
             </div>
+            ;
           </div>
 
           {/* Chat Window */}
@@ -190,6 +206,7 @@ function Inbox() {
             </div>
 
             {/* Chat Messages */}
+
             <div className="bg-[#D9D9D945] flex-1 overflow-y-auto p-4 space-y-3 w-full">
               {messages.map((msg) => (
                 <div
