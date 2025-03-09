@@ -27,6 +27,19 @@ const validationSchema = Yup.object({
     .required("Address is required")
     .max(100, "Limit exceeded"),
 
+  describe_yourself: Yup.string()
+    .required("Please describe yourself")
+    .max(300, "Limit exceeded"),
+  describe_skills_experience: Yup.string()
+    .required("Please describe your skills and experience")
+    .max(300, "Limit exceeded"),
+  achievements: Yup.string()
+    .required("Please describe your achievements")
+    .max(300, "Limit exceeded"),
+  work_preferences: Yup.string()
+    .required("Please describe your work preferences")
+    .max(300, "Limit exceeded"),
+
   monday_start: Yup.string().required("Starting time is required"),
   monday_close: Yup.string().required("Closing time is required"),
   monday_available: Yup.boolean(),
@@ -69,6 +82,12 @@ function EditProfile() {
     state: userInfo?.user?.state || "",
     city: userInfo?.user?.city || "",
     address: userInfo?.user?.street || "",
+
+    describe_yourself: "",
+    describe_skills_experience: "",
+    achievements: "",
+    work_preferences: "",
+
     monday_start: userInfo?.seller_profile?.working_hours?.monday_start || "",
     tuesday_start: userInfo?.seller_profile?.working_hours?.tuesday_start || "",
     wednesday_start:
@@ -76,6 +95,10 @@ function EditProfile() {
     thursday_start:
       userInfo?.seller_profile?.working_hours?.thursday_start || "",
     friday_start: userInfo?.seller_profile?.working_hours?.friday_start || "",
+    saturday_start:
+      userInfo?.seller_profile?.working_hours?.saturday_start || "",
+    sunday_start: userInfo?.seller_profile?.working_hours?.sunday_start || "",
+
     monday_close: userInfo?.seller_profile?.working_hours?.monday_close || "",
     tuesday_close: userInfo?.seller_profile?.working_hours?.tuesday_close || "",
     wednesday_close:
@@ -83,6 +106,10 @@ function EditProfile() {
     thursday_close:
       userInfo?.seller_profile?.working_hours?.thursday_close || "",
     friday_close: userInfo?.seller_profile?.working_hours?.friday_close || "",
+    saturday_close:
+      userInfo?.seller_profile?.working_hours?.saturday_close || "",
+    sunday_close: userInfo?.seller_profile?.working_hours?.sunday_close || "",
+
     monday_available:
       userInfo?.seller_profile?.working_hours?.monday_available || false,
     tuesday_available:
@@ -92,6 +119,10 @@ function EditProfile() {
     thursday_available:
       userInfo?.seller_profile?.working_hours?.thursday_available || false,
     friday_available:
+      userInfo?.seller_profile?.working_hours?.friday_available || false,
+    saturday_available:
+      userInfo?.seller_profile?.working_hours?.friday_available || false,
+    sunday_available:
       userInfo?.seller_profile?.working_hours?.friday_available || false,
   };
 
@@ -108,9 +139,8 @@ function EditProfile() {
     validationSchema,
     enableReinitialize: true,
     onSubmit: async (values) => {
-      console.log({ values });
+      setShowMessage(true);
       if (userInfo?.seller_profile !== null) {
-        setShowMessage(true);
         EditProfile({
           user: {
             first_name: values.firstname,
@@ -119,6 +149,10 @@ function EditProfile() {
             state: values.state,
             city: values.city,
             street: values.address,
+            email: userInfo?.user?.email,
+            role: userInfo?.user?.role,
+            profile_picture: userInfo?.user?.profile_picture,
+            bio: userInfo?.user?.bio,
           },
           seller_profile: {
             working_hours: {
@@ -150,16 +184,22 @@ function EditProfile() {
             wednesday_start: values.wednesday_start,
             thursday_start: values.thursday_start,
             friday_start: values.friday_start,
+            saturday_start: values.saturday_start,
+            sunday_start: values.sunday_start,
             monday_close: values.monday_close,
             tuesday_close: values.tuesday_close,
             wednesday_close: values.wednesday_close,
             thursday_close: values.thursday_close,
             friday_close: values.friday_close,
+            saturday_close: values.saturday_close,
+            sunday_close: values.sunday_close,
             monday_available: values.monday_available,
             tuesday_available: values.tuesday_available,
             wednesday_available: values.wednesday_available,
             thursday_available: values.thursday_available,
             friday_available: values.friday_available,
+            saturday_available: values.saturday_available,
+            sunday_available: values.sunday_available,
           },
         });
       }
@@ -288,6 +328,63 @@ function EditProfile() {
           <h1 className="font-semibold text-[30px] text-secondary">
             Add Description
           </h1>
+          <div className="mt-2 grid grid-cols-1 gap-2">
+            <div>
+              <textarea
+                name="describe_yourself"
+                value={values.describe_yourself}
+                onChange={handleChange}
+                placeholder="Describe yourself"
+                className="w-full min-h-[120px] max-h-[120px] p-3 rounded-[4px] bg-transparent border border-[#02174C33] outline-none hover:border-secondary focus:border-secondary"
+              />
+              {errors.describe_yourself && touched.describe_yourself && (
+                <p className="text-red-700 text-xs">
+                  {errors.describe_yourself}
+                </p>
+              )}
+            </div>
+            <div>
+              <textarea
+                name="describe_skills_experience"
+                value={values.describe_skills_experience}
+                onChange={handleChange}
+                placeholder="Describe your skills and experience"
+                className="w-full min-h-[120px] max-h-[120px] p-3 rounded-[4px] bg-transparent border border-[#02174C33] outline-none hover:border-secondary focus:border-secondary"
+              />
+              {errors.describe_skills_experience &&
+                touched.describe_skills_experience && (
+                  <p className="text-red-700 text-xs">
+                    {errors.describe_skills_experience}
+                  </p>
+                )}
+            </div>
+            <div>
+              <textarea
+                name="achievements"
+                value={values.achievements}
+                onChange={handleChange}
+                placeholder="Describe your achievements"
+                className="w-full min-h-[120px] max-h-[120px] p-3 rounded-[4px] bg-transparent border border-[#02174C33] outline-none hover:border-secondary focus:border-secondary"
+              />
+              {errors.achievements && touched.achievements && (
+                <p className="text-red-700 text-xs">{errors.achievements}</p>
+              )}
+            </div>
+            <div>
+              <textarea
+                name="work_preferences"
+                value={values.work_preferences}
+                onChange={handleChange}
+                placeholder="Describe your work preferences"
+                className="w-full min-h-[120px] max-h-[120px] p-3 rounded-[4px] bg-transparent border border-[#02174C33] outline-none hover:border-secondary focus:border-secondary"
+              />
+              {errors.work_preferences && touched.work_preferences && (
+                <p className="text-red-700 text-xs">
+                  {errors.work_preferences}
+                </p>
+              )}
+            </div>
+          </div>
         </div>
         {/* Working Hours */}
         <div className="w-full mt-3">
@@ -310,7 +407,7 @@ function EditProfile() {
             </div>
             <div className="mt-2 grid grid-cols-2 gap-2">
               <div>
-                <label className="font-[600] text-[16px] text-[#222222]">
+                <label className="text-[16px] text-[#222222]">
                   Starting time
                 </label>
                 <input
@@ -327,7 +424,7 @@ function EditProfile() {
                 )}
               </div>
               <div>
-                <label className="font-[600] text-[16px] text-[#222222]">
+                <label className="text-[16px] text-[#222222]">
                   Closing time
                 </label>
                 <input
@@ -345,9 +442,9 @@ function EditProfile() {
               </div>
             </div>
           </div>
-          <div className="w-full mt-2">
+          <div className="w-full mt-3">
             <div className="w-full flex items-center justify-between">
-              <h2 className="font-[500] text-[20px] text-secondary">Monday</h2>
+              <h2 className="font-[500] text-[20px] text-secondary">Tuesday</h2>
               <ToggleButton
                 label={values.tuesday_available ? "Opened" : "Closed"}
                 isOn={values.tuesday_available}
@@ -358,7 +455,7 @@ function EditProfile() {
             </div>
             <div className="mt-2 grid grid-cols-2 gap-2">
               <div>
-                <label className="font-[600] text-[16px] text-[#222222]">
+                <label className="text-[16px] text-[#222222]">
                   Starting time
                 </label>
                 <input
@@ -375,7 +472,7 @@ function EditProfile() {
                 )}
               </div>
               <div>
-                <label className="font-[600] text-[16px] text-[#222222]">
+                <label className="text-[16px] text-[#222222]">
                   Closing time
                 </label>
                 <input
@@ -393,9 +490,11 @@ function EditProfile() {
               </div>
             </div>
           </div>
-          <div className="w-full mt-2">
+          <div className="w-full mt-3">
             <div className="w-full flex items-center justify-between">
-              <h2 className="font-[500] text-[20px] text-secondary">Monday</h2>
+              <h2 className="font-[500] text-[20px] text-secondary">
+                Wednesday
+              </h2>
               <ToggleButton
                 label={values.wednesday_available ? "Opened" : "Closed"}
                 isOn={values.wednesday_available}
@@ -409,7 +508,7 @@ function EditProfile() {
             </div>
             <div className="mt-2 grid grid-cols-2 gap-2">
               <div>
-                <label className="font-[600] text-[16px] text-[#222222]">
+                <label className="text-[16px] text-[#222222]">
                   Starting time
                 </label>
                 <input
@@ -426,7 +525,7 @@ function EditProfile() {
                 )}
               </div>
               <div>
-                <label className="font-[600] text-[16px] text-[#222222]">
+                <label className="text-[16px] text-[#222222]">
                   Closing time
                 </label>
                 <input
@@ -444,9 +543,11 @@ function EditProfile() {
               </div>
             </div>
           </div>
-          <div className="w-full mt-2">
+          <div className="w-full mt-3">
             <div className="w-full flex items-center justify-between">
-              <h2 className="font-[500] text-[20px] text-secondary">Monday</h2>
+              <h2 className="font-[500] text-[20px] text-secondary">
+                Thursday
+              </h2>
               <ToggleButton
                 label={values.thursday_available ? "Opened" : "Closed"}
                 isOn={values.thursday_available}
@@ -460,7 +561,7 @@ function EditProfile() {
             </div>
             <div className="mt-2 grid grid-cols-2 gap-2">
               <div>
-                <label className="font-[600] text-[16px] text-[#222222]">
+                <label className="text-[16px] text-[#222222]">
                   Starting time
                 </label>
                 <input
@@ -477,7 +578,7 @@ function EditProfile() {
                 )}
               </div>
               <div>
-                <label className="font-[600] text-[16px] text-[#222222]">
+                <label className="text-[16px] text-[#222222]">
                   Closing time
                 </label>
                 <input
@@ -495,9 +596,9 @@ function EditProfile() {
               </div>
             </div>
           </div>
-          <div className="w-full mt-2">
+          <div className="w-full mt-3">
             <div className="w-full flex items-center justify-between">
-              <h2 className="font-[500] text-[20px] text-secondary">Monday</h2>
+              <h2 className="font-[500] text-[20px] text-secondary">Friday</h2>
               <ToggleButton
                 label={values.friday_available ? "Opened" : "Closed"}
                 isOn={values.friday_available}
@@ -508,7 +609,7 @@ function EditProfile() {
             </div>
             <div className="mt-2 grid grid-cols-2 gap-2">
               <div>
-                <label className="font-[600] text-[16px] text-[#222222]">
+                <label className="text-[16px] text-[#222222]">
                   Starting time
                 </label>
                 <input
@@ -525,7 +626,7 @@ function EditProfile() {
                 )}
               </div>
               <div>
-                <label className="font-[600] text-[16px] text-[#222222]">
+                <label className="text-[16px] text-[#222222]">
                   Closing time
                 </label>
                 <input
@@ -538,6 +639,107 @@ function EditProfile() {
                 {errors.friday_close && touched.friday_close && (
                   <p className="text-red-700 text-xs mt-1">
                     {errors.friday_close}
+                  </p>
+                )}
+              </div>
+            </div>
+          </div>
+          <div className="w-full mt-3">
+            <div className="w-full flex items-center justify-between">
+              <h2 className="font-[500] text-[20px] text-secondary">
+                Saturday
+              </h2>
+              <ToggleButton
+                label={values.saturday_available ? "Opened" : "Closed"}
+                isOn={values.saturday_available}
+                handleToggle={() =>
+                  setFieldValue(
+                    "saturday_available",
+                    !values.saturday_available
+                  )
+                }
+              />
+            </div>
+            <div className="mt-2 grid grid-cols-2 gap-2">
+              <div>
+                <label className="text-[16px] text-[#222222]">
+                  Starting time
+                </label>
+                <input
+                  type="time"
+                  name="saturday_start"
+                  value={values.saturday_start}
+                  onChange={handleChange}
+                  className="w-full h-[40px] px-3 mt-1 rounded-[4px] bg-transparent border border-[#02174C33] outline-none hover:border-secondary focus:border-secondary"
+                />
+                {errors.saturday_start && touched.saturday_start && (
+                  <p className="text-red-700 text-xs mt-1">
+                    {errors.saturday_start}
+                  </p>
+                )}
+              </div>
+              <div>
+                <label className="text-[16px] text-[#222222]">
+                  Closing time
+                </label>
+                <input
+                  type="time"
+                  name="saturday_close"
+                  value={values.saturday_close}
+                  onChange={handleChange}
+                  className="w-full h-[40px] px-3 mt-1 rounded-[4px] bg-transparent border border-[#02174C33] outline-none hover:border-secondary focus:border-secondary"
+                />
+                {errors.saturday_close && touched.saturday_close && (
+                  <p className="text-red-700 text-xs mt-1">
+                    {errors.saturday_close}
+                  </p>
+                )}
+              </div>
+            </div>
+          </div>
+          <div className="w-full mt-3">
+            <div className="w-full flex items-center justify-between">
+              <h2 className="font-[500] text-[20px] text-secondary">Sunday</h2>
+              <ToggleButton
+                label={values.sunday_available ? "Opened" : "Closed"}
+                isOn={values.sunday_available}
+                handleToggle={() =>
+                  setFieldValue("sunday_available", !values.sunday_available)
+                }
+              />
+            </div>
+            <div className="mt-2 grid grid-cols-2 gap-2">
+              <div>
+                <label className="text-[16px] text-[#222222]">
+                  Starting time
+                </label>
+                <input
+                  type="time"
+                  name="sunday_start"
+                  value={values.sunday_start}
+                  onChange={handleChange}
+                  className="w-full h-[40px] px-3 mt-1 rounded-[4px] bg-transparent border border-[#02174C33] outline-none hover:border-secondary focus:border-secondary"
+                />
+                {errors.sunday_start && touched.sunday_start && (
+                  <p className="text-red-700 text-xs mt-1">
+                    {errors.sunday_start}
+                  </p>
+                )}
+              </div>
+              <div>
+                <label className="text-[16px] text-[#222222]">
+                  Closing time
+                </label>
+                <input
+                  type="time"
+                  name="sunday_close"
+                  value={values.sunday_close}
+                  onChange={handleChange}
+                  className="w-full h-[40px] px-3 mt-1 rounded-[4px] bg-transparent border border-[#02174C33] outline-none hover:border-secondary focus:border-secondary"
+                />
+                {errors.sunday_close && touched.sunday_close && (
+                  <p className="text-red-700 text-xs mt-1">
+                    {errors.sunday_close}
                   </p>
                 )}
               </div>
