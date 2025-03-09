@@ -14,6 +14,7 @@ import { ButtonLoader1 } from "../shared/ButtonLoaders";
 import { format } from "date-fns";
 import CircularProgress from "../shared/CircularProgress";
 import { Link } from "react-router-dom";
+import Dropdown from "../shared/Dropdown";
 
 const validationSchema = Yup.object({
   title: Yup.string().required("Title is required").max(100, "Limit exceeded"),
@@ -216,6 +217,13 @@ function StepOne(props) {
     setFieldValue("budget", value);
   };
 
+  const [selectedExperience, setSelectedExperience] = useState(null);
+
+  const handleExperieceChange = (item) => {
+    setFieldValue("experience", item.value);
+    setSelectedExperience(item);
+  };
+
   return (
     <>
       <div className="w-full">
@@ -256,6 +264,25 @@ function StepOne(props) {
             />
             {errors.category && touched.category && (
               <p className="text-red-700 text-xs mt-1">{errors.category}</p>
+            )}
+          </div>
+
+          <div className="mt-4">
+            <Dropdown
+              placeholder="Select Experience"
+              options={[
+                { name: "1-3 Years", value: "1-3 Years" },
+                { name: "4-7 Years", value: "4-7 Years" },
+                { name: "8-12 Years", value: "8-12 Years" },
+                { name: "12+ Years", value: "12+ Years" },
+              ]}
+              selected={selectedExperience}
+              onChange={(option) => {
+                handleExperieceChange(option);
+              }}
+            />
+            {errors.experience && touched.experience && (
+              <p className="text-red-700 text-xs mt-1">{errors.experience}</p>
             )}
           </div>
 

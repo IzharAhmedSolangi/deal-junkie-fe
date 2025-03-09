@@ -2,49 +2,46 @@ import { useState } from "react";
 import axios from "axios";
 import { getAccessToken } from "../../storage/storage";
 
-function useFindJobs() {
+function useGetMyTasks() {
   const BASE_URL = import.meta.env.VITE_API_URL;
   const token = getAccessToken();
-  const [findJobs, setFindJobs] = useState({
+  const [myTasks, setMyTasks] = useState({
     loading: true,
-    buttonLoading: false,
     data: null,
-    message: null,
+    message: false,
   });
 
-  const FindJobs = async (payload) => {
-    setFindJobs((prevState) => ({
+  const GetMyTasks = async () => {
+    setMyTasks((prevState) => ({
       ...prevState,
       message: null,
     }));
     await axios
-      .post(`${BASE_URL}/api/seller/job-search/`, payload, {
+      .get(`${BASE_URL}/api/buyer/my-tasks/`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
       .then((response) => {
-        setFindJobs((prevState) => ({
+        setMyTasks((prevState) => ({
           ...prevState,
           loading: false,
-          buttonLoading: false,
-          data: response.data.results.length > 0 ? response.data.results : null,
+          data: response.data.results,
           message:
             response.data.results.length > 0
               ? null
-              : "We didn't find any jobs that matches your details",
+              : "We didn't find any tasks",
         }));
       })
       .catch((error) => {
-        setFindJobs((prevState) => ({
+        setMyTasks((prevState) => ({
           ...prevState,
           loading: false,
-          buttonLoading: false,
           data: null,
           message: error?.response?.data?.error || "Internal server error",
         }));
       });
   };
-  return { FindJobs, findJobs, setFindJobs };
+  return { GetMyTasks, myTasks, setMyTasks };
 }
-export default useFindJobs;
+export default useGetMyTasks;

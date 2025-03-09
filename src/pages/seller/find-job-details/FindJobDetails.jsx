@@ -1,10 +1,20 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useParams } from "react-router-dom";
 import Layout from "../../../components/shared/Layout";
 import BuyerInfo from "./components/BuyerInfo";
 import JobInfo from "./components/JobInfo";
+import useFindJobById from "../../../services/seller/useFindJobById";
+import { useEffect } from "react";
 
 function FindJobDetails() {
-  const { jobsId } = useParams();
+  const { jobId } = useParams();
+  const { FindJob, findJob } = useFindJobById();
+
+  useEffect(() => {
+    if (jobId) {
+      FindJob(jobId);
+    }
+  }, [jobId]);
 
   return (
     <>
@@ -13,14 +23,14 @@ function FindJobDetails() {
           <div className="absolute top-[-100px] left-0 w-full h-[400px] bg-cover bg-center bg-[url('/assets/images/Banner2.png')]" />
           <div className="">
             <h1 className="font-bold text-3xl md:text-5xl text-center text-secondary mt-10">
-              Find Job Details
+              Job Details
             </h1>
             <div className="flex md:flex-row flex-col gap-8 mt-32 px-[5%]">
               <div className="w-full">
-                <JobInfo />
+                <JobInfo findJob={findJob} />
               </div>
               <div className="md:w-[600px] w-full">
-                <BuyerInfo />
+                <BuyerInfo findJob={findJob} />
               </div>
             </div>
           </div>

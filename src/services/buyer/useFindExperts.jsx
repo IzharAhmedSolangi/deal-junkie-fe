@@ -25,12 +25,11 @@ function useFindExperts() {
         },
       })
       .then((response) => {
-        console.log({ response });
         setFindExperts((prevState) => ({
           ...prevState,
           loading: false,
           buttonLoading: false,
-          data: response.data.results,
+          data: response.data.results.length > 0 ? response.data.results : null,
           message:
             response.data.results.length > 0
               ? null

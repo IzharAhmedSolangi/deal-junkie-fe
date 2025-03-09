@@ -80,7 +80,6 @@ function Filters(props) {
       project_budget: { min: null, max: null },
       experience: "",
       availability: "",
-      rating: "",
     });
   };
 

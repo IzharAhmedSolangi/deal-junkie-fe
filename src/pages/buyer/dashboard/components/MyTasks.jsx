@@ -1,9 +1,11 @@
-import { useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useState } from "react";
 import Dropdown from "../../../../components/shared/Dropdown";
 import { CiCalendar, CiTimer } from "react-icons/ci";
 import { IoEyeOutline } from "react-icons/io5";
 import { PiCurrencyDollarBold } from "react-icons/pi";
 import { IoMdClose } from "react-icons/io";
+import useGetMyTasks from "../../../../services/buyer/useGetMyTasks";
 
 const Tasks = [
   { name: "All Tasks", value: 1 },
@@ -14,7 +16,12 @@ const Tasks = [
 ];
 
 function MyTasks() {
+  const { GetMyTasks, myTasks } = useGetMyTasks();
   const [selectedTask, setSelectedTask] = useState(Tasks[0]);
+
+  useEffect(() => {
+    GetMyTasks();
+  }, []);
 
   return (
     <>
@@ -32,7 +39,7 @@ function MyTasks() {
         </div>
       </div>
       <div className="w-full mt-5 flex flex-col gap-5">
-        {Array.from({ length: 10 }).map((item, index) => (
+        {myTasks.data?.map((item, index) => (
           <div
             key={index}
             className="border border-[#15202712] rounded-[10px] shadow-md w-full h-[200px] p-3"
@@ -41,24 +48,22 @@ function MyTasks() {
               <div className="flex items-center gap-1">
                 <div className="flex items-center gap-[2px] text-[#98A2B3] text-[14px] font-[500]">
                   <CiCalendar />
-                  July 25, 2025
+                  {item.expected_completion_date}
                 </div>
                 <div className="flex items-center gap-[2px] text-[#98A2B3] text-[14px] font-[500]">
                   <CiTimer />
-                  3:30PM
+                  11:59 PM
                 </div>
               </div>
               <div className="px-2 py-1 shadow-sm rounded-sm bg-secondary text-white text-[12px] font-[700]">
-                RECEIVING OFFERS
+                {item.status}
               </div>
             </div>
             <h1 className="text-[#222222] text-[20px] font-[600] mt-3">
-              Seeking skilled contractors for home improvement project
+              {item.title}
             </h1>
             <p className="text-[#98A2B3] text-[16px] mt-1">
-              Its not always easy to do whats not popular, but thats where you
-              make your money. Its not always easy to do whats not popular, but
-              thats where you make your money.
+              {item.description}
             </p>
             <div className="flex items-center gap-1 mt-3">
               <button className="bg-[#51B8EA0F] w-full h-[35px] border border-[#2D9ACF] rounded-sm text-[#2D9ACF] text-[13px] cursor-pointer flex justify-center items-center gap-1">

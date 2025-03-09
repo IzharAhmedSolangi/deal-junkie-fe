@@ -2,36 +2,36 @@ import { useState } from "react";
 import axios from "axios";
 import { getAccessToken } from "../../storage/storage";
 
-function useFindExpertById() {
+function useFindJobById() {
   const BASE_URL = import.meta.env.VITE_API_URL;
   const token = getAccessToken();
-  const [findExpert, setFindExpert] = useState({
+  const [findJob, setFindJob] = useState({
     loading: true,
     data: null,
     message: false,
   });
 
-  const FindExpert = async (sellerId) => {
-    setFindExpert((prevState) => ({
+  const FindJob = async (jobId) => {
+    setFindJob((prevState) => ({
       ...prevState,
       message: null,
     }));
     await axios
-      .get(`${BASE_URL}/api/seller/sellers/${sellerId}/`, {
+      .get(`${BASE_URL}/api/seller/jobs/${jobId}/`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
       .then((response) => {
-        setFindExpert((prevState) => ({
+        setFindJob((prevState) => ({
           ...prevState,
           loading: false,
           data: response.data,
-          message: response.data ? null : "We didn't find any expert details",
+          message: response.data ? null : "We didn't find any job details",
         }));
       })
       .catch((error) => {
-        setFindExpert((prevState) => ({
+        setFindJob((prevState) => ({
           ...prevState,
           loading: false,
           data: null,
@@ -39,6 +39,6 @@ function useFindExpertById() {
         }));
       });
   };
-  return { FindExpert, findExpert, setFindExpert };
+  return { FindJob, findJob };
 }
-export default useFindExpertById;
+export default useFindJobById;

@@ -5,11 +5,18 @@ import useFindJobs from "../../../services/seller/useFindJobs";
 import Filters from "./components/Filters";
 import { ButtonLoader1 } from "../../../components/shared/ButtonLoaders";
 import FindJobsCard from "./components/FindJobsCard";
+import { useLocation } from "react-router-dom";
+
+const useQuery = () => {
+  return new URLSearchParams(useLocation().search);
+};
 
 function FindJobs() {
+  const query = useQuery();
+  const q = query.get("query") || "";
   const { FindJobs, findJobs, setFindJobs } = useFindJobs();
   const [filters, setFilters] = useState({
-    search: "",
+    search: q || "",
     expertise: [],
     hourly_rate: { min: null, max: null },
     project_budget: { min: null, max: null },
@@ -25,8 +32,6 @@ function FindJobs() {
       project_budget: filters.project_budget,
       experience: [filters.experience],
       availability: [filters.availability],
-      project_type: [filters.project_type],
-      industry_focus: [filters.industry_focus],
     });
   }, []);
 
