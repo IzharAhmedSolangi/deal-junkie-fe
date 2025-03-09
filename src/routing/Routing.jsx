@@ -36,6 +36,7 @@ import AdminBuyers from "../pages/admin/Buyers";
 import AdminSellers from "../pages/admin/Sellers";
 import AdminChats from "../pages/admin/Chats";
 import AdminSupportMessages from "../pages/admin/SupportMessages";
+import FindExpertDetails from "../pages/buyer/find-expert-details/FindExpertDetails";
 
 const Routing = () => {
   const token = getAccessToken();
@@ -107,6 +108,7 @@ const Routing = () => {
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/how-it-works" element={<HowItWorks />} />
           <Route path="/pricing" element={<Pricing />} />
+          <Route path="/find-expert-details" element={<FindExpertDetails />} />
         </Routes>
         <ScrollToTop />
       </Router>

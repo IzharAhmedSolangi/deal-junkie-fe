@@ -1,67 +1,121 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Layout from "../../components/shared/Layout";
 import { FaUserCircle } from "react-icons/fa";
 import { TbSend } from "react-icons/tb";
 import { CiSearch, CiVideoOn } from "react-icons/ci";
 import { HiDotsVertical } from "react-icons/hi";
 import { MdOutlineAttachment } from "react-icons/md";
+import { getAccessToken } from "../../storage/storage";
+import ReconnectingWebSocket from "reconnecting-websocket";
 
 function Inbox() {
-  const [messages, setMessages] = useState([
-    {
-      id: 1,
-      text: "The price of a commodity will never go to zero. When you invest in commodities futures, you are not buying a piece of paper that says you own an intangible of the company that can go bankrupt 😌. ",
-      sender: "user",
-    },
-    {
-      id: 2,
-      text: "It's not always easy to do what's not popular, but that's where you make your money.Buy stocks that look bad to less careful investors and hang on until their real value is recognized.",
-      sender: "ai",
-    },
-    {
-      id: 3,
-      text: "99%+ of traders don't care about Ferraris and yachts. They just want to pay their bills, save alittle extra money, and sleep well at night. The only way to do that is to bat 70% or more.Anything less, and these goals are nothing more than fantasy.",
-      sender: "user",
-    },
-    {
-      id: 2,
-      text: "It's not always easy to do what's not popular, but that's where you make your money.Buy stocks that look bad to less careful investors and hang on until their real value is recognized.",
-      sender: "ai",
-    },
-    {
-      id: 3,
-      text: "99%+ of traders don't care about Ferraris and yachts. They just want to pay their bills, save alittle extra money, and sleep well at night. The only way to do that is to bat 70% or more.Anything less, and these goals are nothing more than fantasy.",
-      sender: "user",
-    },
-    {
-      id: 2,
-      text: "It's not always easy to do what's not popular, but that's where you make your money.Buy stocks that look bad to less careful investors and hang on until their real value is recognized.",
-      sender: "ai",
-    },
-    {
-      id: 3,
-      text: "99%+ of traders don't care about Ferraris and yachts. They just want to pay their bills, save alittle extra money, and sleep well at night. The only way to do that is to bat 70% or more.Anything less, and these goals are nothing more than fantasy.",
-      sender: "user",
-    },
-  ]);
+  const token = getAccessToken();
+  const socketUrl = `ws://192.168.1.27:8001/ws/chat/?token=${token}`;
+  const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
+  const socketRef = useRef(null);
+  const disconnectTimeoutRef = useRef(null);
 
-  const sendMessage = (e) => {
+  const connectSocket = () => {
+    socketRef.current = new ReconnectingWebSocket(socketUrl);
+
+    socketRef.current.onopen = () => {
+      console.log("WebSocket Connected");
+    };
+
+    socketRef.current.onmessage = (event) => {
+      try {
+        const response = JSON.parse(event.data);
+        if (response.message) {
+          setMessages((prev) => [
+            ...prev,
+            {
+              id: prev.length + 1,
+              text: response.message,
+              sender: response.sender,
+              timestamp: new Date().toLocaleTimeString()
+            }
+          ]);
+        }
+      } catch (error) {
+        console.error("Error parsing WebSocket message:", error);
+      }
+    };
+
+    socketRef.current.onerror = (error) => {
+      console.error("WebSocket Error:", error);
+    };
+
+    socketRef.current.onclose = () => {
+      console.log("WebSocket Disconnected");
+    };
+  };
+
+  const disconnectSocket = () => {
+    if (socketRef.current) {
+      socketRef.current.close();
+      socketRef.current = null;
+    }
+  };
+
+  const sendMessage = async (e) => {
     e.preventDefault();
     if (newMessage.trim() === "") return;
-    setMessages([
-      ...messages,
-      { id: messages.length + 1, text: newMessage, sender: "user" },
+
+    // Ensure the WebSocket is connected
+    if (!socketRef.current || socketRef.current.readyState !== WebSocket.OPEN) {
+      await new Promise((resolve) => {
+        connectSocket();
+        setTimeout(resolve, 500);
+      });
+    }
+
+    sendToSocket(newMessage);
+
+    setMessages((prevMessages) => [
+      ...prevMessages,
+      {
+        id: prevMessages.length + 1,
+        text: newMessage,
+        sender: "user",
+        timestamp: new Date().toLocaleTimeString()
+      }
     ]);
+
     setNewMessage("");
   };
 
+  const sendToSocket = (message) => {
+    if (socketRef.current && socketRef.current.readyState === WebSocket.OPEN) {
+      const payload = JSON.stringify({
+        message: message,
+        receiver: 2 // Ensure this is a valid receiver ID
+      });
+
+      console.log("Sending message:", payload);
+      socketRef.current.send(payload);
+    } else {
+      console.error("WebSocket not open");
+    }
+  };
+
+  useEffect(() => {
+    return () => {
+      // Cleanup on component unmount
+      if (socketRef.current) {
+        socketRef.current.close();
+      }
+      if (disconnectTimeoutRef.current) {
+        clearTimeout(disconnectTimeoutRef.current);
+      }
+    };
+  }, []);
+
   return (
     <Layout>
-      {/* Hero Section */}
       <div className="relative w-full h-auto bg-white pt-[70px] pb-30">
         <div className="absolute top-[-100px] left-0 w-full h-[400px] bg-cover bg-center bg-[url('/assets/images/Banner2.png')]"></div>
-        <h1 className="font-[700] text-[48px] text-center text-secondary mt-4">
+        <h1 className="font-[700] text-[48px] text-center text-secondary mt-7">
           Inbox
         </h1>
       </div>
@@ -69,8 +123,8 @@ function Inbox() {
       <div className="w-full h-[90vh] mb-40 px-30">
         <div className="w-full h-full bg-white border-[0.5px] border-[#02174C33] shadow-2xl flex">
           {/* Chat Sidebar */}
-          <div className="w-1/4 flex flex-col border-r-[0.5px] border-r-[#02174C33]">
-            <div className="w-full h-[80px] px-3 flex items-center ">
+          <div className="w-[300px] flex-shrink-0 flex flex-col border-r-[0.5px] border-r-[#02174C33]">
+            <div className="w-full h-[80px] px-3 flex items-center">
               <div className="w-full border border-[#02174C33] flex items-center px-2 rounded-sm">
                 <CiSearch className="w-5 h-5 text-gray-500" />
                 <input
@@ -92,7 +146,7 @@ function Inbox() {
                     <FaUserCircle className="w-8 h-8" />
                   </div>
                   <div className="ml-3">
-                    <div className="flex items-center gap-2 ">
+                    <div className="flex items-center gap-2">
                       <h3 className="font-[600] text-[16px] text-[#003F63]">
                         Jenny Wilson
                       </h3>
@@ -113,12 +167,10 @@ function Inbox() {
           </div>
 
           {/* Chat Window */}
-          <div className="flex-1 flex flex-col">
+          <div className="flex-1 flex flex-col w-[810px]">
             <div className="px-4 w-full h-[80px] bg-white border-b-[0.5px] border-b-[#02174C33] flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <div className="w-8 h-8 text-gray-300 rounded-full flex justify-center items-center">
-                  <FaUserCircle className="w-8 h-8" />
-                </div>
+                <FaUserCircle className="w-8 h-8 text-gray-300" />
                 <div>
                   <h3 className="font-[600] text-[16px] text-[#003F63]">
                     Jenny Wilson
@@ -136,23 +188,26 @@ function Inbox() {
             </div>
 
             {/* Chat Messages */}
-            <div className="bg-[#D9D9D945] flex-1 overflow-y-auto p-4 space-y-3">
+            <div className="bg-[#D9D9D945] flex-1 overflow-y-auto p-4 space-y-3 w-full">
               {messages.map((msg) => (
                 <div
                   key={msg.id}
-                  className={`flex ${
+                  className={`flex relative ${
                     msg.sender === "user" ? "justify-end" : "justify-start"
                   }`}
                 >
                   <div
-                    className={`p-3 my-3 rounded-lg w-3/4 ${
+                    className={`p-3 my-3 rounded-lg max-w-[75%] break-words mb-5 ${
                       msg.sender === "user"
-                        ? "bg-[#003F63] shadow-xs text-white text-[14px] font-[400] rounded-xl rounded-br-none"
-                        : "bg-[#FAFAFA] shadow-xs text-black text-[14px] font-[400] rounded-xl rounded-bl-none"
+                        ? "bg-[#003F63] text-white rounded-xl rounded-br-none"
+                        : "bg-[#FAFAFA] text-black rounded-xl rounded-bl-none"
                     }`}
                   >
                     {msg.text}
                   </div>
+                  <span className="text-[10px] text-gray-500 absolute bottom-0">
+                    {msg.timestamp || "Just now"}
+                  </span>
                 </div>
               ))}
             </div>
@@ -162,7 +217,7 @@ function Inbox() {
               <form onSubmit={sendMessage} className="w-full relative">
                 <button
                   type="button"
-                  className="cursor-pointer absolute top-0 left-0 h-full px-4 text-[20px] hover:text-primary"
+                  className="absolute top-0 left-0 h-full px-4 text-[20px]"
                 >
                   <MdOutlineAttachment />
                 </button>
@@ -171,11 +226,11 @@ function Inbox() {
                   placeholder="Write message..."
                   value={newMessage}
                   onChange={(e) => setNewMessage(e.target.value)}
-                  className="w-full py-2 px-12  rounded outline-none bg-[#F7F9FA] border border-[#F7F9FA] hover:border-secondary focus:border-secondary"
+                  className="w-full py-2 px-12 rounded outline-none bg-[#F7F9FA] border border-[#F7F9FA]"
                 />
                 <button
                   type="submit"
-                  className="cursor-pointer absolute top-0 right-0 h-full px-4 text-[20px] hover:text-primary"
+                  className="absolute top-0 right-0 h-full px-4 text-[20px]"
                 >
                   <TbSend />
                 </button>

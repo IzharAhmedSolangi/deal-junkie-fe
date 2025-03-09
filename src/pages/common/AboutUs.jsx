@@ -134,36 +134,50 @@ function AboutUs() {
 
       {/* Why Choose Us Section */}
       <div className="max-w-7xl mx-auto px-6 py-16">
-        <h2 className="text-3xl font-bold text-center text-gray-900">
+        <h2 className="text-[40px]  font-[600] text-center text-[#1D2939]">
           Why Choose Deal Junkie?
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-10">
+        <p className="text-[14px] font-[400] text-[#98A2B3] text-center px-50">
+          At Deal Junkie, we believe that great deals start with great insights.
+          We created this platform to bridge the gap between those seeking
+          expert due diligence, investment analysis, and deal execution support
+          and the finance professionals who have spent years honing these skills
+          in top-tier firms.
+        </p>
+        <div className="flex justify-center flex-wrap w-full mt-10">
           {[
             {
-              title: "Experts On-Demand",
-              desc: "Access top professionals instantly for any financial project."
+              title: "Flexible & On-Demand",
+              desc: "Access finance professionals for one-time projects or ongoing advisory work."
+            },
+            {
+              title: "Top-Tier Talent",
+              desc: "Work with experts from investment banking, private equity, hedge funds, and consulting."
             },
             {
               title: "Cost-Effective Solutions",
-              desc: "Get expert advice without hiring full-time staff."
+              desc: "Get institutional-quality analysis without the overhead of a full-time hire."
             },
             {
-              title: "Data-Driven Insights",
-              desc: "Make informed business decisions backed by real analytics."
+              title: "Seamless Matching Process",
+              desc: "Quickly find the right expert for your needs through our tailored search."
             },
             {
-              title: "Grow Your Business Effortlessly",
-              desc: "Scale your company with trusted expert guidance."
+              title: "Elevate Your Business With Us",
+              desc: "Whether you're acquiring a company, investing in real estate, analyzing a stock, or conducting due diligence,"
             }
           ].map((item, index) => (
             <div
               key={index}
-              className="bg-white shadow-lg p-6 rounded-lg text-center"
+              className="bg-white shadow-lg p-6 rounded-lg  w-[370px] m-4 hover:bg-secondary hover:text-white"
             >
-              <h3 className="text-xl font-semibold text-gray-800">
-                {item.title}
-              </h3>
-              <p className="text-gray-600 mt-2">{item.desc}</p>
+              <img
+                src="/assets/icons/frame22.png"
+                alt="Our Team"
+                className=""
+              />
+              <h3 className="text-[24px] font-[600] ">{item.title}</h3>
+              <p className="mt-2 text-[16px] font-[400]">{item.desc}</p>
             </div>
           ))}
         </div>
