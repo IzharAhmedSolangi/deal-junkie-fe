@@ -64,7 +64,7 @@ function AboutUs() {
             </p>
             <ul className="mt-6 flex flex-col gap-4">
               <li className="flex items-start gap-3">
-                <FaBriefcase className="text-blue-500 mt-1" />
+                <FaBriefcase className="text-primary mt-1" />
                 <div>
                   <h1 className=" text-[#003F63] text-[20px] font-[600]">
                     M&A specialists
@@ -75,7 +75,7 @@ function AboutUs() {
                 </div>
               </li>
               <li className="flex items-start gap-3">
-                <FaChartLine className="text-blue-500 mt-1" />
+                <FaChartLine className="text-primary mt-1" />
                 <div>
                   <h1 className=" text-[#003F63] text-[20px] font-[600]">
                     Private equity & hedge fund professionals
@@ -86,7 +86,7 @@ function AboutUs() {
                 </div>
               </li>
               <li className="flex items-start gap-3">
-                <FaMoneyBillWave className="text-blue-500 mt-1" />
+                <FaMoneyBillWave className="text-primary mt-1" />
                 <div>
                   <h1 className=" text-[#003F63] text-[20px] font-[600]">
                     Venture capital analysts
@@ -97,7 +97,7 @@ function AboutUs() {
                 </div>
               </li>
               <li className="flex items-start gap-3">
-                <FaBuilding className="text-blue-500 mt-1" />
+                <FaBuilding className="text-primary mt-1" />
                 <div>
                   <h1 className=" text-[#003F63] text-[20px] font-[600]">
                     Real estate investment professionals
@@ -108,7 +108,7 @@ function AboutUs() {
                 </div>
               </li>
               <li className="flex items-start gap-3">
-                <FaLightbulb className="text-blue-500 mt-1" />
+                <FaLightbulb className="text-primary mt-1" />
                 <div>
                   <h1 className=" text-[#003F63] text-[20px] font-[600]">
                     Consultants & strategy experts
@@ -184,14 +184,21 @@ function AboutUs() {
       </div>
 
       {/* Call-to-Action Section */}
-      <div className="bg-green-100 py-12 text-center mb-40">
-        <h3 className="text-2xl font-bold text-gray-900">
-          Deal Junkie connects you with the best financial professionals for a
-          seamless investment experience.
-        </h3>
-        <button className="mt-4 px-6 py-3 bg-green-600 text-white font-semibold rounded-lg">
-          Get Started Today
-        </button>
+      <div className="bg-green-100 relative py-6 mx-10  mb-40 rounded-[7px] px-10 flex justify-between items-center w-full">
+        <div className="w-[50%]">
+          <h3 className="text-[38px] font-[600]  text-gray-900">
+            Deal Junkie connects you with the expertise you need to make better
+            investment decisions.
+          </h3>
+          <button className="mt-4 px-6 py-3 bg-secondary text-white font-semibold rounded-lg">
+            Find Experts Now
+          </button>
+        </div>
+        <img
+          src="/assets/images/image-3.png"
+          alt="Our Team"
+          className="rounded-lg h-[250px] absolute bottom-0 right-30"
+        />
       </div>
     </Layout>
   );
