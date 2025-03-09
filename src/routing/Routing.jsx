@@ -71,7 +71,7 @@ const Routing = () => {
                     path="/dashboard/:tabName"
                     element={<BuyerDashboard />}
                   />
-                  <Route path="/inbox/:userId" element={<Inbox />} />
+                  <Route path="/inbox" element={<Inbox />} />
                 </>
               )}
               {userInfo?.user?.role === "seller" && (
@@ -87,7 +87,7 @@ const Routing = () => {
                     path="/dashboard/:tabName"
                     element={<SellerDashboard />}
                   />
-                  <Route path="/inbox/:userId" element={<Inbox />} />
+                  <Route path="/inbox" element={<Inbox />} />
                 </>
               )}
               {/* Admin pages */}

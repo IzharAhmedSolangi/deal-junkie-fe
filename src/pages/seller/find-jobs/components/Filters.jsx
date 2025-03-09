@@ -27,7 +27,7 @@ const filterCategories = [
   {
     category: "Price Range",
     type: "price",
-    stateKey: "price_range",
+    stateKey: "project_budget",
   },
   {
     category: "Experience",
@@ -40,12 +40,6 @@ const filterCategories = [
     type: "radio",
     options: ["Same Day", "1-Day", "3-Day", "7-Day"],
     stateKey: "availability",
-  },
-  {
-    category: "Rating",
-    type: "radio",
-    options: ["5 Stars", "4 Stars", "3 Stars", "2 Stars", "1 Stars"],
-    stateKey: "rating",
   },
 ];
 
@@ -68,16 +62,22 @@ function Filters(props) {
   };
 
   const handlePriceChange = (e) => {
-    setFilters({
-      ...filters,
-      price_range: { ...filters.price_range, [e.target.name]: e.target.value },
-    });
+    const { name, value, dataset } = e.target;
+
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      [dataset.priceType]: {
+        ...prevFilters[dataset.priceType],
+        [name]: value,
+      },
+    }));
   };
 
   const resetFilters = () => {
     setFilters({
       expertise: [],
-      price_range: { min: "", max: "" },
+      hourly_rate: { min: null, max: null },
+      project_budget: { min: null, max: null },
       experience: "",
       availability: "",
       rating: "",
@@ -157,15 +157,17 @@ function Filters(props) {
 
                 {filter.type === "price" && (
                   <>
-                    <h1 className="text-[12px] font-[600]  text-gray-400">
+                    {/* Hourly Rate Section */}
+                    <h1 className="text-[12px] font-[600] text-gray-400">
                       Hourly Rate
                     </h1>
-                    <div className="flex flex-wrap gap-2  mt-1">
+                    <div className="flex flex-wrap gap-2 mt-1">
                       <input
                         type="number"
                         name="min"
                         placeholder="Min $"
-                        value={filters?.price_range?.min}
+                        value={filters?.hourly_rate?.min || ""}
+                        data-price-type="hourly_rate"
                         onChange={handlePriceChange}
                         className="w-[48%] border border-gray-400 rounded p-1 text-sm max-w-full"
                       />
@@ -173,21 +175,24 @@ function Filters(props) {
                         type="number"
                         name="max"
                         placeholder="Max $"
-                        value={filters?.price_range?.max}
+                        value={filters?.hourly_rate?.max || ""}
+                        data-price-type="hourly_rate"
                         onChange={handlePriceChange}
-                        className="w-[48%]  border border-gray-400 rounded p-1 text-sm max-w-full"
+                        className="w-[48%] border border-gray-400 rounded p-1 text-sm max-w-full"
                       />
                     </div>
 
-                    <h1 className="text-[12px] font-[600]  text-gray-400 mt-2">
+                    {/* Project Budget Section */}
+                    <h1 className="text-[12px] font-[600] text-gray-400 mt-2">
                       Project Budget
                     </h1>
-                    <div className="flex flex-wrap gap-2  mt-1">
+                    <div className="flex flex-wrap gap-2 mt-1">
                       <input
                         type="number"
                         name="min"
                         placeholder="Min $"
-                        value={filters?.price_range?.min}
+                        value={filters?.project_budget?.min || ""}
+                        data-price-type="project_budget"
                         onChange={handlePriceChange}
                         className="w-[48%] border border-gray-400 rounded p-1 text-sm max-w-full"
                       />
@@ -195,9 +200,10 @@ function Filters(props) {
                         type="number"
                         name="max"
                         placeholder="Max $"
-                        value={filters?.price_range?.max}
+                        value={filters?.project_budget?.max || ""}
+                        data-price-type="project_budget"
                         onChange={handlePriceChange}
-                        className="w-[48%]  border border-gray-400 rounded p-1 text-sm max-w-full"
+                        className="w-[48%] border border-gray-400 rounded p-1 text-sm max-w-full"
                       />
                     </div>
                   </>

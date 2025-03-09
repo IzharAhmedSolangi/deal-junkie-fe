@@ -1,4 +1,5 @@
-import { useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useState } from "react";
 import Layout from "../../../components/shared/Layout";
 import useFindJobs from "../../../services/seller/useFindJobs";
 import Filters from "./components/Filters";
@@ -8,26 +9,59 @@ import FindJobsCard from "./components/FindJobsCard";
 function FindJobs() {
   const { FindJobs, findJobs, setFindJobs } = useFindJobs();
   const [filters, setFilters] = useState({
+    search: "",
     expertise: [],
-    price_range: { min: "", max: "" },
+    hourly_rate: { min: null, max: null },
+    project_budget: { min: null, max: null },
     experience: "",
     availability: "",
-    rating: "",
   });
 
-  const handleFilters = async () => {
+  useEffect(() => {
+    FindJobs({
+      search: filters.search,
+      expertise: filters.expertise,
+      hourly_rate: filters.hourly_rate,
+      project_budget: filters.project_budget,
+      experience: [filters.experience],
+      availability: [filters.availability],
+      project_type: [filters.project_type],
+      industry_focus: [filters.industry_focus],
+    });
+  }, []);
+
+  const handleFilters = () => {
     setFindJobs((prevState) => ({
       ...prevState,
       buttonLoading: true,
     }));
-    await FindJobs({
+    FindJobs({
+      search: filters.search,
       expertise: filters.expertise,
-      price_range: filters.price_range,
+      hourly_rate: filters.hourly_rate,
+      project_budget: filters.project_budget,
       experience: [filters.experience],
       availability: [filters.availability],
-      rating: [filters.rating],
     });
   };
+
+  const handleSearch = () => {
+    setFindJobs((prevState) => ({
+      ...prevState,
+      buttonLoading: true,
+    }));
+    FindJobs({
+      search: filters.search,
+      expertise: filters.expertise,
+      hourly_rate: filters.hourly_rate,
+      project_budget: filters.project_budget,
+      experience: [filters.experience],
+      availability: [filters.availability],
+      project_type: [filters.project_type],
+      industry_focus: [filters.industry_focus],
+    });
+  };
+
   return (
     <>
       <Layout>
@@ -40,12 +74,20 @@ function FindJobs() {
             <div className="md:w-[50%] w-full flex gap-2 justify-between items-center bg-white shadow-lg p-2 rounded relative">
               <input
                 type="search"
+                value={filters.search}
+                onChange={(e) =>
+                  setFilters((prevState) => ({
+                    ...prevState,
+                    search: e.target.value,
+                  }))
+                }
                 placeholder="Find jobs in M&A, Real Estate..."
                 className="w-full h-[40px] rounded border border-[#02174C33] px-2 hover:border-secondary focus:border-secondary"
               />
               <button
                 className="cursor-pointer bg-secondary rounded text-white hover:opacity-80 w-[60px] h-[40px] flex justify-center items-center"
                 disabled={findJobs.buttonLoading}
+                onClick={handleSearch}
               >
                 {findJobs.buttonLoading ? <ButtonLoader1 /> : "Go"}
               </button>

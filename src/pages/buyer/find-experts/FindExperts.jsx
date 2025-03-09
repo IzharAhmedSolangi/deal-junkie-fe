@@ -1,4 +1,5 @@
-import { useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useState } from "react";
 import Layout from "../../../components/shared/Layout";
 import useFindExperts from "../../../services/buyer/useFindExperts";
 import Filters from "./components/Filters";
@@ -8,22 +9,52 @@ import FindExpertsCard from "./components/FindExpertsCard";
 function FindExperts() {
   const { FindExperts, findExperts, setFindExperts } = useFindExperts();
   const [filters, setFilters] = useState({
+    search: "",
     expertise: [],
-    price_range: { min: "", max: "" },
+    hourly_rate: { min: null, max: null },
     experience: "",
     availability: "",
     project_type: "",
     industry_focus: "",
   });
 
-  const handleFilters = async () => {
+  useEffect(() => {
+    FindExperts({
+      search: filters.search,
+      expertise: filters.expertise,
+      hourly_rate: filters.hourly_rate,
+      experience: [filters.experience],
+      availability: [filters.availability],
+      project_type: [filters.project_type],
+      industry_focus: [filters.industry_focus],
+    });
+  }, []);
+
+  const handleFilters = () => {
     setFindExperts((prevState) => ({
       ...prevState,
       buttonLoading: true,
     }));
-    await FindExperts({
+    FindExperts({
+      search: filters.search,
       expertise: filters.expertise,
-      price_range: filters.price_range,
+      hourly_rate: filters.hourly_rate,
+      experience: [filters.experience],
+      availability: [filters.availability],
+      project_type: [filters.project_type],
+      industry_focus: [filters.industry_focus],
+    });
+  };
+
+  const handleSearch = () => {
+    setFindExperts((prevState) => ({
+      ...prevState,
+      buttonLoading: true,
+    }));
+    FindExperts({
+      search: filters.search,
+      expertise: filters.expertise,
+      hourly_rate: filters.hourly_rate,
       experience: [filters.experience],
       availability: [filters.availability],
       project_type: [filters.project_type],
@@ -43,12 +74,20 @@ function FindExperts() {
             <div className="md:w-[50%] w-full flex gap-2 justify-between items-center bg-white shadow-lg p-2 rounded relative">
               <input
                 type="search"
+                value={filters.search}
+                onChange={(e) =>
+                  setFilters((prevState) => ({
+                    ...prevState,
+                    search: e.target.value,
+                  }))
+                }
                 placeholder="Search..."
                 className="w-full h-[40px] rounded border border-[#02174C33] px-2 hover:border-secondary focus:border-secondary"
               />
               <button
                 className="cursor-pointer bg-secondary rounded text-white hover:opacity-80 w-[60px] h-[40px] flex justify-center items-center"
                 disabled={findExperts.buttonLoading}
+                onClick={handleSearch}
               >
                 {findExperts.buttonLoading ? <ButtonLoader1 /> : "Go"}
               </button>

@@ -6,17 +6,16 @@ function useFindExperts() {
   const BASE_URL = import.meta.env.VITE_API_URL;
   const token = getAccessToken();
   const [findExperts, setFindExperts] = useState({
-    loading: false,
+    loading: true,
     buttonLoading: false,
     data: null,
     message: false,
-    showInitial: true,
+    showInitial: false,
   });
 
   const FindExperts = async (payload) => {
     setFindExperts((prevState) => ({
       ...prevState,
-      loading: false,
       message: null,
     }));
     await axios
@@ -31,10 +30,11 @@ function useFindExperts() {
           ...prevState,
           loading: false,
           buttonLoading: false,
-          data: null,
-          message: response.data
-            ? null
-            : "We didn't find any experts that matches your details",
+          data: response.data.results,
+          message:
+            response.data.results.length > 0
+              ? null
+              : "We didn't find any experts that matches your details",
           showInitial: false,
         }));
       })

@@ -29,6 +29,8 @@ const validationSchema = Yup.object({
       test: (value) => value.every((brand) => brand.length <= 50),
     }),
   description: Yup.string().required("Description is required"),
+  category: Yup.string().required("Category is required"),
+  experience: Yup.string().required("Experience is required"),
   expected_completion_date: Yup.string().required("Please choose date"),
 });
 
@@ -49,6 +51,8 @@ function PostProject(props) {
     tags: [],
     description: "",
     expected_completion_date: "",
+    category: "",
+    experience: "",
   };
 
   const { values, errors, handleChange, handleSubmit, touched, setFieldValue } =
@@ -238,6 +242,20 @@ function StepOne(props) {
             />
             {errors.title && touched.title && (
               <p className="text-red-700 text-xs mt-1">{errors.title}</p>
+            )}
+          </div>
+
+          <div className="mt-4">
+            <input
+              type="text"
+              placeholder="Category"
+              name="category"
+              value={values.category}
+              onChange={handleChange}
+              className="w-full h-[40px] px-3 rounded-[4px] bg-transparent border border-[#02174C33] outline-none hover:border-secondary focus:border-secondary"
+            />
+            {errors.category && touched.category && (
+              <p className="text-red-700 text-xs mt-1">{errors.category}</p>
             )}
           </div>
 
