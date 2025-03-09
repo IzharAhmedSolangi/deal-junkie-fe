@@ -7,8 +7,10 @@ import { HiDotsVertical } from "react-icons/hi";
 import { MdOutlineAttachment } from "react-icons/md";
 import { getAccessToken } from "../../storage/storage";
 import ReconnectingWebSocket from "reconnecting-websocket";
+import { useParams } from "react-router-dom";
 
 function Inbox() {
+  const { userId } = useParams();
   const token = getAccessToken();
   const socketUrl = `ws://192.168.1.27:8001/ws/chat/?token=${token}`;
   const [messages, setMessages] = useState([]);
@@ -33,8 +35,8 @@ function Inbox() {
               id: prev.length + 1,
               text: response.message,
               sender: response.sender,
-              timestamp: new Date().toLocaleTimeString()
-            }
+              timestamp: new Date().toLocaleTimeString(),
+            },
           ]);
         }
       } catch (error) {
@@ -78,8 +80,8 @@ function Inbox() {
         id: prevMessages.length + 1,
         text: newMessage,
         sender: "user",
-        timestamp: new Date().toLocaleTimeString()
-      }
+        timestamp: new Date().toLocaleTimeString(),
+      },
     ]);
 
     setNewMessage("");
@@ -89,7 +91,7 @@ function Inbox() {
     if (socketRef.current && socketRef.current.readyState === WebSocket.OPEN) {
       const payload = JSON.stringify({
         message: message,
-        receiver: 2 // Ensure this is a valid receiver ID
+        receiver: userId,
       });
 
       console.log("Sending message:", payload);

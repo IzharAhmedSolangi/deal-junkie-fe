@@ -108,7 +108,7 @@ function Profile(props) {
         </h1>
         <div className="flex gap-1 mt-2">
           <MdOutlineLocationOn className="text-[#6F7487] text-[20px]" />
-          <p className="font-normal text-[14px] text-[#6F7487]">
+          <p className="font-normal text-[14px] text-[#6F7487] text-center">
             {userInfo?.user?.street}
           </p>
         </div>

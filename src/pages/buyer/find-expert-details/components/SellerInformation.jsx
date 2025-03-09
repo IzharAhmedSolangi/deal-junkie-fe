@@ -1,11 +1,13 @@
-import React from "react";
 import { FaStar } from "react-icons/fa";
-import { MdOutlineRestartAlt, MdAccessTime } from "react-icons/md";
-import { CiUser } from "react-icons/ci";
+import { MdAccessTime } from "react-icons/md";
+import { CiDollar, CiUser } from "react-icons/ci";
+
 function SellerInformation() {
   return (
-    <div className="md:col-span-2">
-      <h2 className="text-2xl font-bold">Sarah Taylor</h2>
+    <div className="w-full">
+      <h2 className="text-2xl font-bold text-[#02174C] text-[32px]">
+        Sarah Taylor
+      </h2>
       <div className="flex gap-2 items-center">
         <p className="flex gap-1">
           <FaStar className="text-primary" />
@@ -14,13 +16,13 @@ function SellerInformation() {
           <FaStar className="text-primary" />
           <FaStar className="text-primary" />
         </p>
-        <h3 className="text-sm text-gray-400">23 reviews</h3>
+        <h3 className="text-sm text-[#6F7487]">23 reviews</h3>
       </div>
 
-      <div className="flex items-center gap-3 text-gray-400 mt-2 text-[14px]">
+      <div className="flex items-center gap-3 text-[#6F7487] mt-2 text-[16px]">
         <div className="flex items-center gap-1">
-          <MdOutlineRestartAlt />
-          <p> Starting from $20.45 / hr</p>
+          <CiDollar />
+          <p>Starting from $20.45 / hr</p>
         </div>
         <div className="flex items-center gap-1">
           <MdAccessTime />
@@ -33,13 +35,13 @@ function SellerInformation() {
       </div>
 
       <div className="flex gap-2 mt-4">
-        <span className="px-3 py-1 bg-gray-200 text-sm font-[600] rounded-md">
+        <span className="px-3 py-1 bg-gray-200 text-[#222222] text-sm font-[500] rounded-full">
           Electrical Help
         </span>
-        <span className="px-3 py-1 bg-gray-200 text-sm font-[600] rounded-md">
+        <span className="px-3 py-1 bg-gray-200 text-[#222222] text-sm font-[500] rounded-full">
           TV Mounting
         </span>
-        <span className="px-3 py-1 bg-gray-200 text-sm font-[600] rounded-md">
+        <span className="px-3 py-1 bg-gray-200 text-[#222222] text-sm font-[500] rounded-full">
           Rewiring
         </span>
       </div>
@@ -50,8 +52,8 @@ function SellerInformation() {
           Sara Taylor is a highly skilled and experienced professional with a
           passion for delivering exceptional service. With a keen eye for detail
           and a commitment to customer satisfaction, Sara consistently goes
-          above and beyond to exceed client expectations. Whether it's a home
-          repair, renovation project, or any other task, Sara's expertise and
+          above and beyond to exceed client expectations. Whether its a home
+          repair, renovation project, or any other task, Saras expertise and
           dedication make her the go-to professional for quality workmanship.
           With a friendly and approachable demeanor, Sara ensures clear
           communication and a seamless experience from start to finish.

@@ -4,12 +4,12 @@ import {
   MdPhoneAndroid,
 } from "react-icons/md";
 
-function SellerTimeDetails() {
+function BuyerInfo() {
   return (
     <div className="w-full p-5 bg-white rounded-xl shadow-lg">
       <div className="flex flex-col items-center">
         <h1 className="text-center text-[#222222] text-[16px] font-semibold mb-2">
-          Seller details
+          Customer details
         </h1>
         <svg
           className="w-[120px] h-[120px] text-gray-200 dark:text-gray-700"
@@ -37,49 +37,9 @@ function SellerTimeDetails() {
           <p className="font-normal text-[14px] text-[#6F7487]">232-455-0426</p>
         </div>
       </div>
-
-      <div className="mt-6 border-t border-gray-400 pt-4">
-        <h3 className="text-lg font-semibold">Working Hours</h3>
-        <ul className="mt-2 text-gray-400 text-[14px]">
-          <div className="flex justify-between items-center">
-            <li>Sunday </li>
-            <li>5:00 PM - 8:00 PM</li>
-          </div>
-          <div className="flex justify-between items-center mt-2">
-            <li>Monday </li>
-            <li>5:00 PM - 8:00 PM</li>
-          </div>
-          <div className="flex justify-between items-center mt-2">
-            <li>Tuesday </li>
-            <li>5:00 PM - 8:00 PM</li>
-          </div>
-          <div className="flex justify-between items-center mt-2">
-            <li>Wednesday </li>
-            <li>5:00 PM - 8:00 PM</li>
-          </div>
-          <div className="flex justify-between items-center mt-2">
-            <li>Thursday </li>
-            <li>5:00 PM - 8:00 PM</li>
-          </div>
-          <div className="flex justify-between items-center mt-2">
-            <li>Friday</li>
-            <li>5:00 PM - 8:00 PM</li>
-          </div>
-          <div className="flex justify-between items-center mt-2">
-            <li>Saturday </li>
-            <li>5:00 PM - 8:00 PM</li>
-          </div>
-        </ul>
-      </div>
-
-      <div className="flex gap-2 mt-6">
-        <button className="w-full bg-secondary text-white py-2 rounded">
-          Hire Now
-        </button>
-        <button className="w-full bg-primary text-secondary py-2 rounded">
-          Send Message
-        </button>
-      </div>
+      <button className="w-full bg-primary text-secondary py-2 rounded-sm mt-5 cursor-pointer">
+        Send Message
+      </button>
       <p className="text-gray-400 underline text-center mt-4 font-[600] cursor-pointer">
         Report User
       </p>
@@ -87,4 +47,4 @@ function SellerTimeDetails() {
   );
 }
 
-export default SellerTimeDetails;
+export default BuyerInfo;

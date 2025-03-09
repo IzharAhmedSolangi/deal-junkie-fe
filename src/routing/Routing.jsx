@@ -11,12 +11,14 @@ import ScrollToTop from "./ScrollToTop";
 // Buyer pages
 import BuyerLanding from "../pages/buyer/landing/Landing";
 import FindExperts from "../pages/buyer/find-experts/FindExperts";
+import FindExpertDetails from "../pages/buyer/find-expert-details/FindExpertDetails";
 import BuyerDashboard from "../pages/buyer/dashboard/Dashboard";
 import BuyerFAQs from "../pages/buyer/faqs/FAQs";
 
 // Seller pages
 import SellerLanding from "../pages/seller/landing/Landing";
 import FindJobs from "../pages/seller/find-jobs/FindJobs";
+import FindJobDetails from "../pages/seller/find-job-details/FindJobDetails";
 import SellerDashboard from "../pages/seller/dashboard/Dashboard";
 import SellerFAQs from "../pages/seller/faqs/FAQs";
 
@@ -36,7 +38,6 @@ import AdminBuyers from "../pages/admin/Buyers";
 import AdminSellers from "../pages/admin/Sellers";
 import AdminChats from "../pages/admin/Chats";
 import AdminSupportMessages from "../pages/admin/SupportMessages";
-import FindExpertDetails from "../pages/buyer/find-expert-details/FindExpertDetails";
 
 const Routing = () => {
   const token = getAccessToken();
@@ -63,10 +64,14 @@ const Routing = () => {
                   <Route path="*" element={<BuyerLanding />} />
                   <Route path="/find-experts" element={<FindExperts />} />
                   <Route
+                    path="/find-experts/:sellerId"
+                    element={<FindExpertDetails />}
+                  />
+                  <Route
                     path="/dashboard/:tabName"
                     element={<BuyerDashboard />}
                   />
-                  <Route path="/inbox" element={<Inbox />} />
+                  <Route path="/inbox/:userId" element={<Inbox />} />
                 </>
               )}
               {userInfo?.user?.role === "seller" && (
@@ -75,14 +80,18 @@ const Routing = () => {
                   <Route path="*" element={<SellerLanding />} />
                   <Route path="/find-jobs" element={<FindJobs />} />
                   <Route
+                    path="/find-jobs/:jobId"
+                    element={<FindJobDetails />}
+                  />
+                  <Route
                     path="/dashboard/:tabName"
                     element={<SellerDashboard />}
                   />
-                  <Route path="/inbox" element={<Inbox />} />
+                  <Route path="/inbox/:userId" element={<Inbox />} />
                 </>
               )}
               {/* Admin pages */}
-              {userInfo?.user?.role === "buyer" && (
+              {userInfo?.user?.role === "admin" && (
                 <Route path="/" element={<AdminLayout />}>
                   <Route path="admin/dashboard" element={<AdminDashboard />} />
                   <Route path="admin/jobs" element={<AdminJobs />} />
@@ -108,7 +117,6 @@ const Routing = () => {
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/how-it-works" element={<HowItWorks />} />
           <Route path="/pricing" element={<Pricing />} />
-          <Route path="/find-expert-details" element={<FindExpertDetails />} />
         </Routes>
         <ScrollToTop />
       </Router>
