@@ -26,7 +26,7 @@ function useGetMyTasks() {
         setMyTasks((prevState) => ({
           ...prevState,
           loading: false,
-          data: response.data.results,
+          data: response.data.results.length > 0 ? response.data.results : null,
           message:
             response.data.results.length > 0
               ? null

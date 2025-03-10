@@ -204,7 +204,7 @@ function ProfileDropdown() {
 
       {/* Dropdown Menu */}
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg">
+        <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg z-[99999]">
           <div className="p-3 flex items-center gap-2">
             {userInfo?.user?.profile_picture ? (
               <img

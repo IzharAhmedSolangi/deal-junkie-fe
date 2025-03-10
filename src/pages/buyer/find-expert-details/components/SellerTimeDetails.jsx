@@ -19,11 +19,11 @@ function SellerTimeDetails(props) {
           <img
             src={findExpert.data?.user?.profile_picture}
             alt=""
-            className="w-[120px] h-[120px]"
+            className="w-[120px] h-[120px] rounded-full"
           />
         ) : (
           <svg
-            className="w-[120px] h-[120px] text-gray-200 dark:text-gray-700"
+            className="w-[120px] h-[120px] rounded-full text-gray-200 dark:text-gray-700"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             fill="currentColor"

@@ -102,8 +102,13 @@ function FindExpertsCard(props) {
           </div>
         </div>
       )}
-      {findExperts.loading && (
-        <div className="flex justify-center mt-3">
+      {findExperts.data && findExperts.loading && (
+        <div className="w-full flex justify-center mt-2">
+          <ButtonLoader3 />
+        </div>
+      )}
+      {!findExperts.data && findExperts.loading && (
+        <div className="flex justify-center items-center w-full h-[300px]">
           <ButtonLoader3 />
         </div>
       )}

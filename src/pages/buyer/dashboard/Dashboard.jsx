@@ -110,7 +110,7 @@ function Profile(props) {
         <div className="rounded-full relative w-[120px] h-[120px]">
           {userInfo?.user?.profile_picture ? (
             <img
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover rounded-full"
               src={`${userInfo?.user?.profile_picture}`}
               alt=""
             />

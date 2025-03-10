@@ -6,9 +6,10 @@ import { Dialog, Transition } from "@headlessui/react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import useSendProposal from "../../services/seller/useSendProposal";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import CircularProgress from "../shared/CircularProgress";
 import Dropdown from "../shared/Dropdown";
+import useUpload from "../../services/common/useUpload";
 
 const validationSchema = Yup.object({
   budget: Yup.string()
@@ -32,8 +33,10 @@ const budgets = [
 function SendProposal(props) {
   const { isOpenModal, setIsOpenModal, selected } = props;
   const cancelButtonRef = useRef(null);
+  const Navigate = useNavigate();
   const [percentage, setPercentage] = useState(0);
   const { SendProposal, sendProposal } = useSendProposal();
+  const { Upload, upload } = useUpload();
 
   const initialValues = {
     budget: "",
@@ -91,6 +94,24 @@ function SendProposal(props) {
   const handleAvailabilityChange = (item) => {
     setFieldValue("availability", item.value);
     setSelectedAvailability(item);
+  };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      Upload({ image: file });
+    }
+  };
+
+  const handleDrop = (event) => {
+    event.preventDefault();
+    const file = event.dataTransfer.files[0];
+    if (file) {
+      Upload({ image: file });
+    }
+  };
+  const handleDragOver = (event) => {
+    event.preventDefault();
   };
 
   return (
@@ -153,6 +174,23 @@ function SendProposal(props) {
                           <CircularProgress percentage={percentage} />
                         </div>
                         <div className="pt-5 pb-10">
+                          <div className="mt-4">
+                            <label
+                              onDrop={handleDrop}
+                              onDragOver={handleDragOver}
+                              className="w-full h-[200px] rounded-lg border border-dotted border-[#02174C33] text-secondary hover:border-primary flex flex-col justify-center items-center cursor-pointer"
+                            >
+                              <input
+                                type="file"
+                                className="hidden"
+                                onChange={handleFileChange}
+                              />
+                              <span className="text-primary">
+                                Upload Thumbnail or
+                              </span>
+                              just drag & drop
+                            </label>
+                          </div>
                           <div className="mt-4">
                             <label className="text-[16px] text-[#222222] font-[600]">
                               Your hourly budget
@@ -286,12 +324,15 @@ function SendProposal(props) {
                         <p className="font-[500] text-[16px] text-[#6F7487] text-center">
                           Thank you for submitting your service request.
                         </p>
-                        <Link
-                          to="/find-jobs"
+                        <button
+                          onClick={() => {
+                            Navigate("/find-jobs");
+                            setIsOpenModal(false);
+                          }}
                           className="bg-primary cursor-pointer hover:opacity-80 w-[150px] h-[40px] text-secondary rounded mt-6 flex justify-center items-center"
                         >
                           Go Other Jobs
-                        </Link>
+                        </button>
                       </div>
                     )}
                   </div>

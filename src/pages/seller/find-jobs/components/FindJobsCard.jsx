@@ -77,8 +77,13 @@ function FindJobsCard(props) {
             <ShowMessage title={findJobs.message} />
           </div>
         )}
-        {findJobs.loading && (
-          <div className="flex justify-center mt-3">
+        {findJobs.data && findJobs.loading && (
+          <div className="w-full flex justify-center mt-2">
+            <ButtonLoader3 />
+          </div>
+        )}
+        {!findJobs.data && findJobs.loading && (
+          <div className="flex justify-center items-center w-full h-[300px]">
             <ButtonLoader3 />
           </div>
         )}

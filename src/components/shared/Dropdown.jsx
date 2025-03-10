@@ -29,7 +29,7 @@ const Dropdown = (props) => {
   }, []);
 
   return (
-    <div className="relative z-[99999]" ref={dropdownRef}>
+    <div className="relative z-[9]" ref={dropdownRef}>
       <button
         type="button"
         className="w-full bg-transparent border border-[#02174C33] hover:border-secondary rounded pl-3 pr-10 py-[6px] text-left cursor-pointer focus:outline-none  focus:border-secondary sm:text-sm"

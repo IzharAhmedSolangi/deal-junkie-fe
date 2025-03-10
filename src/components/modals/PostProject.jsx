@@ -13,7 +13,7 @@ import usePostProject from "../../services/buyer/usePostProject";
 import { ButtonLoader1 } from "../shared/ButtonLoaders";
 import { format } from "date-fns";
 import CircularProgress from "../shared/CircularProgress";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Dropdown from "../shared/Dropdown";
 
 const validationSchema = Yup.object({
@@ -38,12 +38,14 @@ const validationSchema = Yup.object({
 function PostProject(props) {
   const { isOpenModal, setIsOpenModal } = props;
   const cancelButtonRef = useRef(null);
+  const Navigate = useNavigate();
   const [step, setStep] = useState(1);
   const [percentage, setPercentage] = useState(0);
   const { PostProject, postProject } = usePostProject();
 
   const handleClose = () => {
     setIsOpenModal(false);
+    setStep(1);
   };
 
   const initialValues = {
@@ -154,12 +156,16 @@ function PostProject(props) {
                           Thank you for submitting your task request. Your
                           Expert is on it and will get back to you shortly.
                         </p>
-                        <Link
-                          to="/dashboard/my-tasks"
+                        <button
+                          onClick={() => {
+                            Navigate("/dashboard/my-tasks");
+                            setIsOpenModal(false);
+                            setStep(1);
+                          }}
                           className="bg-primary cursor-pointer hover:opacity-80 w-[150px] h-[40px] text-secondary rounded mt-6 flex justify-center items-center"
                         >
                           Go to My Tasks
-                        </Link>
+                        </button>
                       </div>
                     )}
                   </div>

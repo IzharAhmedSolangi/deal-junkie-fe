@@ -6,8 +6,11 @@ function JobInfo(props) {
   const { findJob } = props;
 
   return (
-    <div className="w-full">
-      <h2 className="text-2xl font-bold text-[#02174C] text-[32px]">
+    <div className="w-full flex flex-col items-start">
+      <div className="bg-primary px-5 py-2 text-white rounded-full">
+        {findJob.data?.category}
+      </div>
+      <h2 className="text-2xl font-bold text-[#02174C] text-[32px] mt-2">
         {findJob.data?.title}
       </h2>
 
