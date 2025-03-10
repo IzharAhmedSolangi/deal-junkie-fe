@@ -9,7 +9,7 @@ function useFindExperts() {
     loading: true,
     buttonLoading: false,
     data: null,
-    message: false,
+    message: null,
     showInitial: false,
   });
 

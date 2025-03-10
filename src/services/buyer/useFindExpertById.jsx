@@ -8,7 +8,7 @@ function useFindExpertById() {
   const [findExpert, setFindExpert] = useState({
     loading: true,
     data: null,
-    message: false,
+    message: null,
   });
 
   const FindExpert = async (sellerId) => {

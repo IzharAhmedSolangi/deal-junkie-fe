@@ -8,12 +8,14 @@ function useGetMyTasksById() {
   const [myTask, setMyTask] = useState({
     loading: true,
     data: null,
-    message: false,
+    message: null,
   });
 
   const GetMyTaskById = async (taskId) => {
     setMyTask((prevState) => ({
       ...prevState,
+      loading: true,
+      data: null,
       message: null,
     }));
     await axios

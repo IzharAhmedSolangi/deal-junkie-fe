@@ -8,7 +8,7 @@ function useGetMyTasks() {
   const [myTasks, setMyTasks] = useState({
     loading: true,
     data: null,
-    message: false,
+    message: null,
   });
 
   const GetMyTasks = async () => {

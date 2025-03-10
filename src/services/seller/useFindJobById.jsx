@@ -8,7 +8,7 @@ function useFindJobById() {
   const [findJob, setFindJob] = useState({
     loading: true,
     data: null,
-    message: false,
+    message: null,
   });
 
   const FindJob = async (jobId) => {

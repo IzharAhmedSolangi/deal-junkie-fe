@@ -113,6 +113,7 @@ function MyTasks() {
 
       <MyTaskDetailsModal
         selected={selectedTask}
+        setSelected={setSelectedTask}
         isOpenModal={isOpenTaskDetailsModal}
         setIsOpenModal={setIsOpenTaskDetailsModal}
       />

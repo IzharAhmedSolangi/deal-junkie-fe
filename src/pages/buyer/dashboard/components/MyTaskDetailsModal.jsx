@@ -7,9 +7,11 @@ import useGetMyTaskById from "../../../../services/buyer/useGetMyTasksById";
 import { Link } from "react-router-dom";
 import { PiCurrencyDollarBold } from "react-icons/pi";
 import { IoMdClose } from "react-icons/io";
+import { ButtonLoader3 } from "../../../../components/shared/ButtonLoaders";
+import ShowMessage from "../../../../components/shared/ShowMessage";
 
 function MyTaskDetailsModal(props) {
-  const { isOpenModal, setIsOpenModal, selected } = props;
+  const { isOpenModal, setIsOpenModal, selected, setSelected } = props;
   const cancelButtonRef = useRef(null);
   const { GetMyTaskById, myTask } = useGetMyTaskById();
 
@@ -21,6 +23,7 @@ function MyTaskDetailsModal(props) {
 
   const handleClose = () => {
     setIsOpenModal(false);
+    setSelected(null);
   };
 
   return (
@@ -55,40 +58,47 @@ function MyTaskDetailsModal(props) {
                 leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                 leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
               >
-                <Dialog.Panel className="relative transform overflow-hidden rounded-[16px] bg-white text-left shadow-xl transition-all w-full py-12 md:px-[5%] px-2">
+                <Dialog.Panel className="relative transform overflow-hidden rounded-[16px] bg-white text-left shadow-xl transition-all w-full min-h-full py-12 md:px-[5%] px-2">
                   <div
                     onClick={handleClose}
                     className="absolute top-[15px] right-[15px] cursor-pointer rounded border border-[#02174C33] w-[30px] h-[30px] flex justify-center items-center"
                   >
                     <AiOutlineClose className="text-[22px]" />
                   </div>
-                  <div className="flex flex-col items-start">
-                    <div className="px-3 py-1 shadow-sm rounded-sm bg-secondary text-white text-[15px] font-[700]">
-                      {myTask.data?.status}
+                  {myTask.data && !myTask.loading && (
+                    <div className="flex flex-col items-start">
+                      <div className="px-3 py-1 shadow-sm rounded-sm bg-secondary text-white text-[15px] font-[700]">
+                        {myTask.data?.status}
+                      </div>
+                      <h1 className="text-[#222222] text-[20px] font-[600] mt-2">
+                        Request details
+                      </h1>
+                      <p className="text-[#98A2B3] text-[16px]">
+                        Please review carefully your request details before
+                        submitting, you can edit or reschedule your task anytime
+                        from your account.
+                      </p>
+                      {/* Task details */}
+                      <TaskDetails myTask={myTask} />
+                      {/* Proposals */}
+                      <Proposals myTask={myTask} />
+                      <div className="w-full flex items-center gap-1 mt-6">
+                        <button className="bg-[#AF2DCF0F] w-full h-[35px] border border-[#AF2DCF] rounded-sm text-[#AF2DCF] text-[13px] cursor-pointer flex justify-center items-center gap-1">
+                          <PiCurrencyDollarBold />
+                          Update Price
+                        </button>
+                        <button className="bg-[#EA51670F] w-full h-[35px] border border-[#EA5167] rounded-sm text-[#EA5167] text-[13px] cursor-pointer flex justify-center items-center gap-1">
+                          <IoMdClose />
+                          Delete Task
+                        </button>
+                      </div>
                     </div>
-                    <h1 className="text-[#222222] text-[20px] font-[600] mt-2">
-                      Request details
-                    </h1>
-                    <p className="text-[#98A2B3] text-[16px]">
-                      Please review carefully your request details before
-                      submitting, you can edit or reschedule your task anytime
-                      from your account.
-                    </p>
-                    {/* Task details */}
-                    <TaskDetails myTask={myTask} />
-                    {/* Proposals */}
-                    <Proposals myTask={myTask} />
-                    <div className="w-full flex items-center gap-1 mt-6">
-                      <button className="bg-[#AF2DCF0F] w-full h-[35px] border border-[#AF2DCF] rounded-sm text-[#AF2DCF] text-[13px] cursor-pointer flex justify-center items-center gap-1">
-                        <PiCurrencyDollarBold />
-                        Update Price
-                      </button>
-                      <button className="bg-[#EA51670F] w-full h-[35px] border border-[#EA5167] rounded-sm text-[#EA5167] text-[13px] cursor-pointer flex justify-center items-center gap-1">
-                        <IoMdClose />
-                        Delete Task
-                      </button>
+                  )}
+                  {myTask.loading && (
+                    <div className="flex justify-center items-center w-full h-[300px]">
+                      <ButtonLoader3 />
                     </div>
-                  </div>
+                  )}
                 </Dialog.Panel>
               </Transition.Child>
             </div>
@@ -166,41 +176,48 @@ function Proposals(props) {
   return (
     <div className="w-full mt-5">
       <h2 className="text-[#222222] text-[18px] font-[600]">Experts</h2>
-      <div className="mt-3 flex flex-col gap-3">
-        {myTask.data?.proposals?.map((item, index) => (
-          <div
-            className="w-full h-[110px] p-5 rounded-xl border border-[#02174C33] flex items-center justify-between"
-            key={index}
-          >
-            <div className="flex items-center gap-3">
-              <img
-                src={item.seller.user.profile_picture}
-                alt=""
-                className="w-[80px] h-[80px] rounded-sm object-cover"
-              />
-              <div>
-                <p className="text-[#6F7487] text-[12px] font-[400]">
-                  Request {item.status}
-                </p>
-                <h2 className="text-[#222222] text-[18px] font-[600]">
-                  {item.seller.user.first_name} {item.seller.user.last_name}
-                </h2>
+      {myTask.data?.proposals?.length > 0 && (
+        <div className="mt-3 flex flex-col gap-3">
+          {myTask.data?.proposals?.map((item, index) => (
+            <div
+              className="w-full h-[110px] p-5 rounded-xl border border-[#02174C33] flex items-center justify-between"
+              key={index}
+            >
+              <div className="flex items-center gap-3">
+                <img
+                  src={item.seller.user.profile_picture}
+                  alt=""
+                  className="w-[80px] h-[80px] rounded-sm object-cover"
+                />
+                <div>
+                  <p className="text-[#6F7487] text-[12px] font-[400]">
+                    Request {item.status}
+                  </p>
+                  <h2 className="text-[#222222] text-[18px] font-[600]">
+                    {item.seller.user.first_name} {item.seller.user.last_name}
+                  </h2>
+                </div>
+              </div>
+              <div className="flex items-center gap-3">
+                <Link
+                  to={`/find-experts/${item.seller.id}`}
+                  className="bg-[#02174C0F] w-[120px] h-[35px] border border-secondary rounded-sm text-secondary text-[13px] cursor-pointer flex justify-center items-center"
+                >
+                  See Profile
+                </Link>
+                <button className="bg-[#0AF8860D] w-[120px] h-[35px] border border-[#039855] rounded-sm text-[#039855] text-[13px] cursor-pointer flex justify-center items-center">
+                  Approve Request
+                </button>
               </div>
             </div>
-            <div className="flex items-center gap-3">
-              <Link
-                to={`/find-experts/${item.seller.id}`}
-                className="bg-[#02174C0F] w-[120px] h-[35px] border border-secondary rounded-sm text-secondary text-[13px] cursor-pointer flex justify-center items-center"
-              >
-                See Profile
-              </Link>
-              <button className="bg-[#0AF8860D] w-[120px] h-[35px] border border-[#039855] rounded-sm text-[#039855] text-[13px] cursor-pointer flex justify-center items-center">
-                Approve Request
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
+      {myTask.data?.proposals?.length === 0 && (
+        <div className="flex justify-center items-center w-full h-[150px]">
+          <ShowMessage title="Didn't received any proposal yet" />
+        </div>
+      )}
     </div>
   );
 }
