@@ -24,15 +24,15 @@ function useEditProfile() {
       .then((response) => {
         setUserInfo(response.data);
         setLoading(false);
-        if (response.data.seller_profile === null) {
-          Navigate("/dashboard/edit-profile");
-        }
         if (showMessage) {
           SuccessToaster(
             "Profile updated",
             "Your profile details successfully updated"
           );
           setShowMessage(false);
+        }
+        if (response.data?.seller_profile === null) {
+          Navigate("/dashboard/edit-profile");
         }
       })
       .catch((error) => {

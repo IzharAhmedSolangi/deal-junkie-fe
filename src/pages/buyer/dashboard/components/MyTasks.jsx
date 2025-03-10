@@ -8,6 +8,7 @@ import { IoMdClose } from "react-icons/io";
 import useGetMyTasks from "../../../../services/buyer/useGetMyTasks";
 import { ButtonLoader3 } from "../../../../components/shared/ButtonLoaders";
 import ShowMessage from "../../../../components/shared/ShowMessage";
+import MyTaskDetailsModal from "./MyTaskDetailsModal";
 
 const Tasks = [
   { name: "All Tasks", value: 1 },
@@ -19,7 +20,9 @@ const Tasks = [
 
 function MyTasks() {
   const { GetMyTasks, myTasks } = useGetMyTasks();
-  const [selectedTask, setSelectedTask] = useState(Tasks[0]);
+  const [selectedTaskFilter, setSelectedTaskFilter] = useState(Tasks[0]);
+  const [selectedTask, setSelectedTask] = useState(null);
+  const [isOpenTaskDetailsModal, setIsOpenTaskDetailsModal] = useState(false);
 
   useEffect(() => {
     GetMyTasks();
@@ -33,9 +36,9 @@ function MyTasks() {
           <Dropdown
             placeholder="Select Task"
             options={Tasks}
-            selected={selectedTask}
+            selected={selectedTaskFilter}
             onChange={(option) => {
-              setSelectedTask(option);
+              setSelectedTaskFilter(option);
             }}
           />
         </div>
@@ -69,7 +72,13 @@ function MyTasks() {
                 {item.description}
               </p>
               <div className="flex items-center gap-1 mt-3">
-                <button className="bg-[#51B8EA0F] w-full h-[35px] border border-[#2D9ACF] rounded-sm text-[#2D9ACF] text-[13px] cursor-pointer flex justify-center items-center gap-1">
+                <button
+                  onClick={() => {
+                    setSelectedTask(item);
+                    setIsOpenTaskDetailsModal(true);
+                  }}
+                  className="bg-[#51B8EA0F] w-full h-[35px] border border-[#2D9ACF] rounded-sm text-[#2D9ACF] text-[13px] cursor-pointer flex justify-center items-center gap-1"
+                >
                   <IoEyeOutline />
                   See Details
                 </button>
@@ -101,6 +110,12 @@ function MyTasks() {
           <ShowMessage title={myTasks.message} />
         </div>
       )}
+
+      <MyTaskDetailsModal
+        selected={selectedTask}
+        isOpenModal={isOpenTaskDetailsModal}
+        setIsOpenModal={setIsOpenTaskDetailsModal}
+      />
     </>
   );
 }

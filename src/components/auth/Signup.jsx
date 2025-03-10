@@ -124,7 +124,7 @@ function Signup(props) {
               </div>
               <div>
                 <input
-                  type="text"
+                  type="number"
                   placeholder="Enter phone number"
                   name="phone"
                   value={values.phone}

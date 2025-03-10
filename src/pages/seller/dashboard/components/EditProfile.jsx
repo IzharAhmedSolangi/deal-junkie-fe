@@ -28,6 +28,13 @@ const validationSchema = Yup.object({
     .required("Address is required")
     .max(100, "Limit exceeded"),
 
+  experience: Yup.string()
+    .required("Please enter your experience")
+    .max(2, "Limit exceeded"),
+  rate_per_hour: Yup.string()
+    .required("Please enter Rate per hour")
+    .max(10, "Limit exceeded"),
+
   describe_yourself: Yup.string()
     .required("Please describe yourself")
     .max(300, "Limit exceeded"),
@@ -85,10 +92,14 @@ function EditProfile() {
     city: userInfo?.user?.city || "",
     address: userInfo?.user?.street || "",
 
-    describe_yourself: "",
-    describe_skills_experience: "",
-    achievements: "",
-    work_preferences: "",
+    experience: userInfo?.seller_profile?.experience || "",
+    rate_per_hour: userInfo?.seller_profile?.rate_per_hour || "",
+
+    describe_yourself: userInfo?.seller_profile?.describe_yourself || "",
+    describe_skills_experience:
+      userInfo?.seller_profile?.skill_expperience || "",
+    achievements: userInfo?.seller_profile?.achievements || "",
+    work_preferences: userInfo?.seller_profile?.work_preferences || "",
 
     monday_start: userInfo?.seller_profile?.working_hours?.monday_start || "",
     tuesday_start: userInfo?.seller_profile?.working_hours?.tuesday_start || "",
@@ -157,6 +168,14 @@ function EditProfile() {
             bio: userInfo?.user?.bio,
           },
           seller_profile: {
+            experience: values.experience,
+            rate_per_hour: values.rate_per_hour,
+
+            describe_yourself: values.describe_yourself,
+            skill_expperience: values.describe_skills_experience,
+            achievements: values.achievements,
+            work_preferences: values.work_preferences,
+
             working_hours: {
               monday_start: values.monday_start,
               tuesday_start: values.tuesday_start,
@@ -186,6 +205,14 @@ function EditProfile() {
       if (userInfo?.seller_profile === null) {
         BecomeSeller({
           user: userInfo?.user?.id,
+          experience: values.experience,
+          rate_per_hour: values.rate_per_hour,
+
+          describe_yourself: values.describe_yourself,
+          skill_expperience: values.describe_skills_experience,
+          achievements: values.achievements,
+          work_preferences: values.work_preferences,
+
           working_hours: {
             monday_start: values.monday_start,
             tuesday_start: values.tuesday_start,
@@ -269,7 +296,7 @@ function EditProfile() {
             </div>
             <div>
               <input
-                type="text"
+                type="number"
                 placeholder="Enter phone number"
                 name="phone"
                 value={values.phone}
@@ -330,6 +357,42 @@ function EditProfile() {
           <h1 className="font-semibold text-[30px] text-secondary">
             Work Information
           </h1>
+        </div>
+        {/* Additional Information */}
+        <div className="w-full mt-3">
+          <h1 className="font-semibold text-[30px] text-secondary">
+            Additional Information
+          </h1>
+          <div className="mt-2 grid grid-cols-2 gap-2">
+            <div>
+              <input
+                type="number"
+                placeholder="Experience"
+                name="experience"
+                value={values.experience}
+                onChange={handleChange}
+                className="w-full h-[40px] px-3 rounded-[4px] bg-transparent border border-[#02174C33] outline-none hover:border-secondary focus:border-secondary"
+              />
+              {errors.experience && touched.experience && (
+                <p className="text-red-700 text-xs mt-1">{errors.experience}</p>
+              )}
+            </div>
+            <div>
+              <input
+                type="number"
+                placeholder="Rate per hour"
+                name="rate_per_hour"
+                value={values.rate_per_hour}
+                onChange={handleChange}
+                className="w-full h-[40px] px-3 rounded-[4px] bg-transparent border border-[#02174C33] outline-none hover:border-secondary focus:border-secondary"
+              />
+              {errors.rate_per_hour && touched.rate_per_hour && (
+                <p className="text-red-700 text-xs mt-1">
+                  {errors.rate_per_hour}
+                </p>
+              )}
+            </div>
+          </div>
         </div>
         {/* Add Description */}
         <div className="w-full mt-3">
