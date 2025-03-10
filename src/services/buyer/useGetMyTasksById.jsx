@@ -17,7 +17,7 @@ function useGetMyTasksById() {
       message: null,
     }));
     await axios
-      .get(`${BASE_URL}/api/buyer/my-tasks/${taskId}`, {
+      .get(`${BASE_URL}/api/buyer/my-tasks/${taskId}/`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
