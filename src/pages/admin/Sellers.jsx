@@ -20,7 +20,7 @@ function Sellers() {
         </div>
         <div className="mt-3">
           {sellers.data && !sellers.loading && (
-            <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-4 py-4 px-10">
+            <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-4">
               {sellers.data?.map((item, index) => (
                 <div
                   key={index}
