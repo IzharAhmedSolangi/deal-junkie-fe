@@ -19,7 +19,7 @@ const Navbar = (props) => {
               className="text-[30px] text-[#788BA5] hover:text-primary cursor-pointer"
             />
           </div>
-          <h1 className="text-secondary font-semibold text-[20px]">
+          <h1 className="text-secondary font-semibold md:text-[20px] text-[15px]">
             Welcome, {userInfo?.user?.first_name} {userInfo?.user?.last_name}
           </h1>
         </div>

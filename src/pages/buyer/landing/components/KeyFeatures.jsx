@@ -6,7 +6,7 @@ function KeyFeatures() {
         Source, Transact, and Communicate with Financial Professionals. All at
         your fingertips.
       </p>
-      <div className="mt-12 grid grid-cols-3 gap-8 px-10">
+      <div className="mt-12 grid md:grid-cols-3 grid-cols-1 gap-8 px-10">
         {/* Secure Payments */}
         <div className="bg-white rounded-2xl shadow-lg p-8 flex flex-col items-start">
           <div className="bg-[#01E678] text-white rounded-full w-[60px] h-[60px] flex justify-center items-center">

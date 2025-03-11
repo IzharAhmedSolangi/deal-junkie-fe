@@ -442,7 +442,7 @@ function StepTwo(props) {
             )}
         </div>
         {postProject.error && (
-          <p className="text-red-500 font-normal text-[15px] leading-5 text-center my-3 w-full">
+          <p className="text-red-500 font-normal text-[15px] text-center my-3 w-full">
             {postProject.error}
           </p>
         )}

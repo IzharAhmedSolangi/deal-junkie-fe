@@ -65,7 +65,7 @@ const Navbar = () => {
             <Link
               key={index}
               to={item.path}
-              className={`text-sm font-[500] leading-4 hover:text-primary ${
+              className={`text-sm font-[500] hover:text-primary ${
                 location.pathname === item.path
                   ? "text-primary"
                   : "text-[#1D2939]"

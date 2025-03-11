@@ -60,7 +60,7 @@ function ForgotPassword(props) {
             </div>
           </div>
           {errorMessage && (
-            <p className="text-red-500 font-normal text-[15px] leading-5 text-center my-3">
+            <p className="text-red-500 font-normal text-[15px] text-center my-3">
               {errorMessage}
             </p>
           )}

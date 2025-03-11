@@ -1,12 +1,12 @@
 function KeyFeatures() {
   return (
-    <section className="flex flex-col items-center py-12 bg-white">
+    <section className="flex flex-col items-center md:py-12 py-5 bg-white">
       <h2 className="text-[40px] font-[600] text-[#1D2939]">Key Features</h2>
       <p className="text-[#667085] text-[15px] font-[400] text-center">
         Source, Transact, and Communicate with Financial Professionals. All at
         your fingertips.
       </p>
-      <div className="mt-12 grid grid-cols-3 gap-8 px-10">
+      <div className="mt-12 grid md:grid-cols-3 grid-cols-1 md:gap-8 gap-5 md:px-10 px-5">
         {/* Secure Payments */}
         <div className="bg-white rounded-2xl shadow-lg p-8 flex flex-col items-start">
           <div className="bg-[#01E678] text-white rounded-full w-[60px] h-[60px] flex justify-center items-center">

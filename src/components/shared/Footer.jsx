@@ -4,7 +4,7 @@ import { FaFacebook, FaLinkedin, FaTwitterSquare } from "react-icons/fa";
 
 function Footer() {
   return (
-    <footer className="w-full h-auto bg-[#F6FFFF] bg-[url('/assets/images/footer-bg.png')] bg-cover bg-center px-[5%] pt-40 relative">
+    <footer className="w-full h-auto bg-[#F6FFFF] bg-[url('/assets/images/footer-bg.png')] bg-cover bg-center md:px-[5%] px-[2.5%] pt-40 relative">
       <div className="grid grid-cols-5 grid-rows-3 gap-4">
         <div className="col-span-2 row-span-2">
           <Link
@@ -55,93 +55,91 @@ function Footer() {
           </div>
         </div>
         <div className="row-span-2 col-start-3">
-          <h1 className="text-[#022247] text-[18px] font-[600] leading-5">
+          <h1 className="text-[#022247] text-[18px] font-[600]">
             For Service Seekers
           </h1>
           <div className="flex flex-col gap-5 mt-5">
             <Link
               to="/find-experts"
-              className="text-[#667085] text-[14px] font-normal leading-5 hover:text-primary"
+              className="text-[#667085] text-[14px] font-normal  hover:text-primary"
             >
               Find Seller
             </Link>
             <Link
               to="/explore-services"
-              className="text-[#667085] text-[14px] font-normal leading-5 hover:text-primary"
+              className="text-[#667085] text-[14px] font-normal  hover:text-primary"
             >
               Explore Services
             </Link>
             <Link
               to="/seller-faqs"
-              className="text-[#667085] text-[14px] font-normal leading-5 hover:text-primary"
+              className="text-[#667085] text-[14px] font-normal  hover:text-primary"
             >
               FAQs
             </Link>
             <Link
               to="/pros-near-me"
-              className="text-[#667085] text-[14px] font-normal leading-5 hover:text-primary"
+              className="text-[#667085] text-[14px] font-normal  hover:text-primary"
             >
               Pros Near Me
             </Link>
           </div>
         </div>
         <div className="row-span-2 col-start-4">
-          <h1 className="text-[#022247] text-[18px] font-[600] leading-5">
+          <h1 className="text-[#022247] text-[18px] font-[600] ">
             For Service Providers
           </h1>
           <div className="flex flex-col gap-5 mt-5">
             <Link
               to="/find-buyers"
-              className="text-[#667085] text-[14px] font-normal leading-5 hover:text-primary"
+              className="text-[#667085] text-[14px] font-normal  hover:text-primary"
             >
               Find Buyers
             </Link>
             <Link
               to="/explore-services"
-              className="text-[#667085] text-[14px] font-normal leading-5 hover:text-primary"
+              className="text-[#667085] text-[14px] font-normal  hover:text-primary"
             >
               Explore Services
             </Link>
             <Link
               to="/pros-near-me"
-              className="text-[#667085] text-[14px] font-normal leading-5 hover:text-primary"
+              className="text-[#667085] text-[14px] font-normal  hover:text-primary"
             >
               Pros Near Me
             </Link>
             <Link
               to="/buyer-faqs"
-              className="text-[#667085] text-[14px] font-normal leading-5 hover:text-primary"
+              className="text-[#667085] text-[14px] font-normal  hover:text-primary"
             >
               FAQs
             </Link>
           </div>
         </div>
         <div className="row-span-2 col-start-5">
-          <h1 className="text-[#022247] text-[18px] font-[600] leading-5">
-            Company
-          </h1>
+          <h1 className="text-[#022247] text-[18px] font-[600] ">Company</h1>
           <div className="flex flex-col gap-5 mt-5">
             <Link
               to="/about-us"
-              className="text-[#667085] text-[14px] font-normal leading-5 hover:text-primary"
+              className="text-[#667085] text-[14px] font-normal  hover:text-primary"
             >
               About Us
             </Link>
             <Link
               to="/pricing"
-              className="text-[#667085] text-[14px] font-normal leading-5 hover:text-primary"
+              className="text-[#667085] text-[14px] font-normal  hover:text-primary"
             >
               Pricing Page
             </Link>
             <Link
               to="/help-center"
-              className="text-[#667085] text-[14px] font-normal leading-5 hover:text-primary"
+              className="text-[#667085] text-[14px] font-normal  hover:text-primary"
             >
               Help Center
             </Link>
             <Link
               to="/contact-us"
-              className="text-[#667085] text-[14px] font-normal leading-5 hover:text-primary"
+              className="text-[#667085] text-[14px] font-normal  hover:text-primary"
             >
               Contact Us
             </Link>
@@ -149,19 +147,19 @@ function Footer() {
         </div>
       </div>
       <div className="flex items-center justify-between  border-t-[1px] border-[#6F7487] py-5">
-        <p className="text-[#667085] text-[14px] font-normal leading-5">
+        <p className="text-[#667085] text-[14px] font-normal ">
           © Copyright Deal Junkie 2025. All rights reserved.
         </p>
         <div className="flex items-center gap-2">
           <Link
             to="/privacy-policy"
-            className="text-[#667085] text-[14px] font-normal leading-5 hover:text-primary"
+            className="text-[#667085] text-[14px] font-normal  hover:text-primary"
           >
             Privacy Policy
           </Link>
           <Link
             to="/terms"
-            className="text-[#667085] text-[14px] font-normal leading-5 hover:text-primary"
+            className="text-[#667085] text-[14px] font-normal  hover:text-primary"
           >
             Terms & Conditions
           </Link>
@@ -177,10 +175,9 @@ export default Footer;
 function Banner() {
   return (
     <>
-      <div className="bg-[#003F63] w-[90%] h-[200px] rounded-[16px] absolute top-[-100px] flex items-center justify-between px-[5%]">
-        <h1 className="text-white text-[32px] font-[600] leading-10">
-          Schedule your first meeting now <br />
-          for a hassle-free experience
+      <div className="bg-[#003F63] md:w-[90%] w-[95%] md:h-[200px] h-[150px] rounded-[16px] absolute md:top-[-100px] top-[-75px] flex items-center justify-between px-[5%]">
+        <h1 className="text-white md:w-[50%] w-[80%] md:text-[32px] text-[20px] font-[600]">
+          Schedule your first meeting now for a hassle-free experience
         </h1>
         <button className="rounded w-[120px] h-[40px] bg-primary text-[#003F63] text-center cursor-pointer hover:opacity-80">
           Post a Project
