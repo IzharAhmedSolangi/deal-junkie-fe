@@ -10,16 +10,18 @@ function useFindExperts() {
     buttonLoading: false,
     data: null,
     message: null,
-    showInitial: false,
+    totalPages: 1,
+    currentPage: 1,
   });
 
-  const FindExperts = async (payload) => {
+  const FindExperts = async (payload, page = 1, append = false) => {
     setFindExperts((prevState) => ({
       ...prevState,
+      loading: true,
       message: null,
     }));
     await axios
-      .post(`${BASE_URL}/api/seller/get-sellers/`, payload, {
+      .post(`${BASE_URL}/api/seller/get-sellers/?page=${page}`, payload, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -29,12 +31,15 @@ function useFindExperts() {
           ...prevState,
           loading: false,
           buttonLoading: false,
-          data: response.data.results.length > 0 ? response.data.results : null,
+          totalPages: response.data.total_pages,
+          currentPage: response.data.current_page,
+          data: append
+            ? [...prevState.data, ...response.data.results]
+            : response.data.results,
           message:
             response.data.results.length > 0
               ? null
               : "We didn't find any experts that matches your details",
-          showInitial: false,
         }));
       })
       .catch((error) => {
@@ -44,7 +49,6 @@ function useFindExperts() {
           buttonLoading: false,
           data: null,
           message: error?.response?.data?.error || "Internal server error",
-          showInitial: false,
         }));
       });
   };

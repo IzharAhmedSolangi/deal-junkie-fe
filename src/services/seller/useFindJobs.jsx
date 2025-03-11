@@ -10,15 +10,18 @@ function useFindJobs() {
     buttonLoading: false,
     data: null,
     message: null,
+    totalPages: 1,
+    currentPage: 1,
   });
 
-  const FindJobs = async (payload) => {
+  const FindJobs = async (payload, page = 1, append = false) => {
     setFindJobs((prevState) => ({
       ...prevState,
+      loading: true,
       message: null,
     }));
     await axios
-      .post(`${BASE_URL}/api/seller/job-search/`, payload, {
+      .post(`${BASE_URL}/api/seller/job-search/?page=${page}`, payload, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -28,7 +31,11 @@ function useFindJobs() {
           ...prevState,
           loading: false,
           buttonLoading: false,
-          data: response.data.results.length > 0 ? response.data.results : null,
+          totalPages: response.data.total_pages,
+          currentPage: response.data.current_page,
+          data: append
+            ? [...prevState.data, ...response.data.results]
+            : response.data.results,
           message:
             response.data.results.length > 0
               ? null

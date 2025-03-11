@@ -92,18 +92,33 @@ const Routing = () => {
               )}
               {/* Admin pages */}
               {userInfo?.user?.role === "admin" && (
-                <Route path="/" element={<AdminLayout />}>
-                  <Route path="admin/dashboard" element={<AdminDashboard />} />
-                  <Route path="admin/jobs" element={<AdminJobs />} />
-                  <Route path="admin/earnings" element={<AdminEarnings />} />
-                  <Route path="admin/buyers" element={<AdminBuyers />} />
-                  <Route path="admin/sellers" element={<AdminSellers />} />
-                  <Route path="admin/chats" element={<AdminChats />} />
+                <>
+                  <Route path="/" element={<AdminLayout />}>
+                    <Route
+                      path="admin/dashboard"
+                      element={<AdminDashboard />}
+                    />
+                    <Route path="admin/jobs" element={<AdminJobs />} />
+                    <Route path="admin/earnings" element={<AdminEarnings />} />
+                    <Route path="admin/buyers" element={<AdminBuyers />} />
+                    <Route path="admin/sellers" element={<AdminSellers />} />
+                    <Route path="admin/chats" element={<AdminChats />} />
+                    <Route
+                      path="admin/support-messages"
+                      element={<AdminSupportMessages />}
+                    />
+                  </Route>
+                  <Route path="/find-experts" element={<FindExperts />} />
                   <Route
-                    path="admin/support-messages"
-                    element={<AdminSupportMessages />}
+                    path="/find-experts/:sellerId"
+                    element={<FindExpertDetails />}
                   />
-                </Route>
+                  <Route path="/find-jobs" element={<FindJobs />} />
+                  <Route
+                    path="/find-jobs/:jobId"
+                    element={<FindJobDetails />}
+                  />
+                </>
               )}
             </>
           )}

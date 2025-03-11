@@ -9,7 +9,7 @@ import { useState } from "react";
 import SendProposal from "../../../../components/modals/SendProposal";
 
 function FindJobsCard(props) {
-  const { findJobs } = props;
+  const { findJobs, handleLoadMore } = props;
   const Navigate = useNavigate();
   const [isOpenSendProposalModal, setIsOpenSendProposalModal] = useState(false);
   const [selectedJob, setSelectedJob] = useState(false);
@@ -17,7 +17,7 @@ function FindJobsCard(props) {
   return (
     <>
       <div className="px-10">
-        {findJobs.data && !findJobs.loading && (
+        {!findJobs.loading && (
           <div className="mt-24">
             <h1 className="text-[#1D2939] text-[32px] font-[600]">
               Latest Jobs
@@ -70,6 +70,17 @@ function FindJobsCard(props) {
                 </div>
               ))}
             </div>
+          </div>
+        )}
+        {findJobs.currentPage < findJobs.totalPages && !findJobs.loading && (
+          <div className="flex justify-center mt-4">
+            <button
+              className="bg-primary text-secondary py-2 px-6 rounded-md cursor-pointer"
+              onClick={handleLoadMore}
+              disabled={findJobs.loading}
+            >
+              See More
+            </button>
           </div>
         )}
         {!findJobs.data && !findJobs.loading && findJobs.message && (

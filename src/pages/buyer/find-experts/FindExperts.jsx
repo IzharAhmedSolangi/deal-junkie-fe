@@ -62,6 +62,25 @@ function FindExperts() {
     });
   };
 
+  const handleLoadMore = () => {
+    if (findExperts.currentPage < findExperts.totalPages) {
+      const nextPage = findExperts.currentPage + 1;
+      FindExperts(
+        {
+          search: filters.search,
+          expertise: filters.expertise,
+          hourly_rate: filters.hourly_rate,
+          experience: [filters.experience],
+          availability: [filters.availability],
+          project_type: [filters.project_type],
+          industry_focus: [filters.industry_focus],
+        },
+        nextPage,
+        true
+      );
+    }
+  };
+
   return (
     <>
       <Layout>
@@ -100,7 +119,10 @@ function FindExperts() {
               />
             </div>
           </div>
-          <FindExpertsCard findExperts={findExperts} />
+          <FindExpertsCard
+            findExperts={findExperts}
+            handleLoadMore={handleLoadMore}
+          />
         </div>
       </Layout>
     </>

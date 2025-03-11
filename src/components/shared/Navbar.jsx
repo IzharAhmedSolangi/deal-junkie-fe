@@ -16,6 +16,7 @@ import {
 import Auth from "../modals/Auth";
 import PostProject from "../modals/PostProject";
 import useEditProfile from "../../services/common/useEditProfile";
+import { LuLayoutDashboard } from "react-icons/lu";
 
 const Navbar = () => {
   const token = getAccessToken();
@@ -299,6 +300,34 @@ function ProfileDropdown() {
                   name: "Manage Payments",
                   path: "/dashboard/manage-payments",
                   icon: <BsCreditCard2Front />,
+                },
+              ].map((item, index) => (
+                <Link
+                  key={index}
+                  to={item.path}
+                  onClick={() => setIsOpen(false)}
+                  className={`px-4 py-2 flex items-center gap-2 hover:bg-[#0AF8860F] cursor-pointer`}
+                >
+                  {item.icon}
+                  <span>{item.name}</span>
+                </Link>
+              ))}
+              <button
+                onClick={Logout}
+                className="px-4 py-2 flex items-center gap-2 text-red-500 hover:bg-[#0AF8860F] cursor-pointer"
+              >
+                <FiLogOut />
+                <span>Logout</span>
+              </button>
+            </div>
+          )}
+          {userInfo?.user?.role === "admin" && (
+            <div className="py-2">
+              {[
+                {
+                  name: "Dashboard",
+                  path: "/admin/dashboard",
+                  icon: <LuLayoutDashboard />,
                 },
               ].map((item, index) => (
                 <Link

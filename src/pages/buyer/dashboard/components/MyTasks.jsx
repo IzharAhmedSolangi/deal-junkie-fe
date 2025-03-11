@@ -28,6 +28,13 @@ function MyTasks() {
     GetMyTasks();
   }, []);
 
+  const handleLoadMore = () => {
+    if (myTasks.currentPage < myTasks.totalPages) {
+      const nextPage = myTasks.currentPage + 1;
+      GetMyTasks(nextPage, true);
+    }
+  };
+
   return (
     <>
       <div className="flex items-center justify-between">
@@ -43,7 +50,7 @@ function MyTasks() {
           />
         </div>
       </div>
-      {myTasks.data && !myTasks.loading && (
+      {!myTasks.loading && (
         <div className="w-full mt-5 flex flex-col gap-5">
           {myTasks.data?.map((item, index) => (
             <div
@@ -93,6 +100,17 @@ function MyTasks() {
               </div>
             </div>
           ))}
+        </div>
+      )}
+      {myTasks.currentPage < myTasks.totalPages && !myTasks.loading && (
+        <div className="flex justify-center mt-4">
+          <button
+            className="bg-primary text-secondary py-2 px-6 rounded-md cursor-pointer"
+            onClick={handleLoadMore}
+            disabled={myTasks.loading}
+          >
+            See More
+          </button>
         </div>
       )}
       {myTasks.data && myTasks.loading && (

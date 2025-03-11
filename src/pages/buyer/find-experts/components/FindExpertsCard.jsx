@@ -5,25 +5,17 @@ import ShowMessage from "../../../../components/shared/ShowMessage";
 import RatingStars from "../../../../components/shared/RatingStars";
 
 function FindExpertsCard(props) {
-  const { findExperts } = props;
+  const { findExperts, handleLoadMore } = props;
   const Navigate = useNavigate();
 
   return (
     <>
-      {!findExperts.data && !findExperts.loading && findExperts.showInitial && (
-        <div className="flex justify-center mt-24">
-          <img src="/assets/images/image-4.png" alt="" />
+      {!findExperts.data && !findExperts.loading && findExperts.message && (
+        <div className="flex justify-center mt-24 mb-10">
+          <ShowMessage title={findExperts.message} />
         </div>
       )}
-      {!findExperts.data &&
-        !findExperts.loading &&
-        !findExperts.showInitial &&
-        findExperts.message && (
-          <div className="flex justify-center mt-24 mb-10">
-            <ShowMessage title={findExperts.message} />
-          </div>
-        )}
-      {findExperts.data && !findExperts.loading && (
+      {!findExperts.loading && (
         <div className="mt-24">
           <h1 className="text-center text-[24px] text-secondary font-bold">
             We have {findExperts.data?.length} results for that matches your
@@ -86,6 +78,18 @@ function FindExpertsCard(props) {
           </div>
         </div>
       )}
+      {findExperts.currentPage < findExperts.totalPages &&
+        !findExperts.loading && (
+          <div className="flex justify-center mt-4">
+            <button
+              className="bg-primary text-secondary py-2 px-6 rounded-md cursor-pointer"
+              onClick={handleLoadMore}
+              disabled={findExperts.loading}
+            >
+              See More
+            </button>
+          </div>
+        )}
       {findExperts.data && findExperts.loading && (
         <div className="w-full flex justify-center mt-2">
           <ButtonLoader3 />

@@ -67,6 +67,26 @@ function FindJobs() {
     });
   };
 
+  const handleLoadMore = () => {
+    if (findJobs.currentPage < findJobs.totalPages) {
+      const nextPage = findJobs.currentPage + 1;
+      FindJobs(
+        {
+          search: filters.search,
+          expertise: filters.expertise,
+          hourly_rate: filters.hourly_rate,
+          project_budget: filters.project_budget,
+          experience: [filters.experience],
+          availability: [filters.availability],
+          project_type: [filters.project_type],
+          industry_focus: [filters.industry_focus],
+        },
+        nextPage,
+        true
+      );
+    }
+  };
+
   return (
     <>
       <Layout>
@@ -105,7 +125,7 @@ function FindJobs() {
               />
             </div>
           </div>
-          <FindJobsCard findJobs={findJobs} />
+          <FindJobsCard findJobs={findJobs} handleLoadMore={handleLoadMore} />
         </div>
       </Layout>
     </>
