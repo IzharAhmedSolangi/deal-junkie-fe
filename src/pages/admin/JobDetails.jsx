@@ -19,6 +19,18 @@ function JobDetails() {
   return (
     <>
       <div className="w-full h-auto p-5">
+        <div className="flex items-center gap-1 mb-3">
+          <Link
+            to={"/admin/jobs"}
+            className="text-[#02174C] hover:text-primary text-[18px] font-[500]"
+          >
+            Jobs
+          </Link>
+          /
+          <p className="text-primary text-[18px] font-[500]">
+            {job.data?.title}
+          </p>
+        </div>
         <div className="rounded-[12px] bg-white shadow-md p-5">
           <TaskDetails job={job} />
           <Proposals job={job} />
@@ -38,7 +50,7 @@ function TaskDetails(props) {
   const { job } = props;
 
   return (
-    <div className="w-full mt-3">
+    <div className="w-full">
       <h2 className="text-[#222222] text-[18px] font-[600]">Task details</h2>
       <div className="grid grid-cols-2 gap-2 w-full mt-3">
         <div>

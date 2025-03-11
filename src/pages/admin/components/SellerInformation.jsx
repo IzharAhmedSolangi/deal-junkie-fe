@@ -9,8 +9,7 @@ function SellerInformation(props) {
   return (
     <div className="w-full">
       <h2 className="text-2xl font-bold text-[#02174C] text-[32px]">
-        {seller.data?.user?.first_name}
-        {seller.data?.user?.last_name}
+        {seller.data?.user?.first_name} {seller.data?.user?.last_name}
       </h2>
       <div className="flex gap-2 items-center">
         <RatingStars rating={seller.data?.rating || 0} totalReviews={0} />

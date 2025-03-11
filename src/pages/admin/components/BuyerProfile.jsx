@@ -1,3 +1,4 @@
+import { CiUser } from "react-icons/ci";
 import {
   MdOutlineLocationOn,
   MdOutlineMail,
@@ -15,9 +16,9 @@ function buyerProfile(props) {
           Buyer details
         </h1>
         <div className="flex items-center gap-5 mt-2">
-          {buyer.data?.profile_picture ? (
+          {buyer.data?.buyer_details?.profile_picture ? (
             <img
-              src={buyer.data?.profile_picture}
+              src={buyer.data?.buyer_details?.profile_picture}
               alt=""
               className="w-[120px] h-[120px] rounded-full"
             />
@@ -34,21 +35,28 @@ function buyerProfile(props) {
           )}
           <div>
             <div className="flex gap-1 mt-2">
+              <CiUser className="text-[#6F7487] text-[20px]" />
+              <p className="font-normal text-[14px] text-[#6F7487] text-center">
+                {buyer.data?.buyer_details?.first_name}{" "}
+                {buyer.data?.buyer_details?.last_name}
+              </p>
+            </div>
+            <div className="flex gap-1 mt-2">
               <MdOutlineLocationOn className="text-[#6F7487] text-[20px]" />
               <p className="font-normal text-[14px] text-[#6F7487] text-center">
-                {buyer.data?.street}
+                {buyer.data?.buyer_details?.street}
               </p>
             </div>
             <div className="flex gap-1 mt-2">
               <MdOutlineMail className="text-[#6F7487] text-[20px]" />
               <p className="font-normal text-[14px] text-[#6F7487]">
-                {buyer.data?.email}
+                {buyer.data?.buyer_details?.email}
               </p>
             </div>
             <div className="flex gap-1 mt-2">
               <MdPhoneAndroid className="text-[#6F7487] text-[20px]" />
               <p className="font-normal text-[14px] text-[#6F7487]">
-                {buyer.data?.phone_number}
+                {buyer.data?.buyer_details?.phone_number}
               </p>
             </div>
           </div>
@@ -61,7 +69,7 @@ function buyerProfile(props) {
         </button>
         <Link
           className="w-full bg-primary text-secondary py-2 rounded-sm cursor-pointer flex justify-center items-center"
-          to={`/inbox?userId=${buyer.data?.id}`}
+          to={`/inbox?userId=${buyer.data?.buyer_details?.id}`}
         >
           Send Message
         </Link>
