@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { useState } from "react";
 import axios from "axios";
 import { setAccessToken, setRefreshToken } from "../../storage/storage";

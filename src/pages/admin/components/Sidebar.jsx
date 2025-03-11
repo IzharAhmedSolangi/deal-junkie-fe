@@ -74,7 +74,7 @@ function Sidebar(props) {
     <div className="flex flex-col w-full h-full bg-white border-r border-r-[#E2E2EA]">
       <div className="flex flex-col items-start">
         <Link
-          to="/"
+          to="/admin/dashboard"
           className="flex items-center justify-center gap-1 text-[24px] font-extrabold w-full h-[70px]"
         >
           <img src="/assets/logo/logo.png" alt="Logo" />
