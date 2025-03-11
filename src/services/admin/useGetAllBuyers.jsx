@@ -12,7 +12,7 @@ function useGetAllBuyers() {
     message: null,
   });
 
-  const GetAllJobs = async () => {
+  const GetAllBuyers = async () => {
     setBuyers((prevState) => ({
       ...prevState,
       message: null,
@@ -45,6 +45,6 @@ function useGetAllBuyers() {
         }));
       });
   };
-  return { GetAllJobs, buyers, setBuyers };
+  return { GetAllBuyers, buyers, setBuyers };
 }
 export default useGetAllBuyers;

@@ -10,7 +10,7 @@ function Sellers() {
 
   useEffect(() => {
     GetAllSellers();
-  }, [sellers]);
+  }, []);
 
   return (
     <>
