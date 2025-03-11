@@ -4,6 +4,7 @@ import useGetAllSellers from "../../services/admin/useGetAllSellers";
 import { ButtonLoader3 } from "../../components/shared/ButtonLoaders";
 import ShowMessage from "../../components/shared/ShowMessage";
 import RatingStars from "../../components/shared/RatingStars";
+import { Link } from "react-router-dom";
 
 function Sellers() {
   const { GetAllSellers, sellers } = useGetAllSellers();
@@ -57,9 +58,12 @@ function Sellers() {
                     <RatingStars rating={item?.rating || 0} totalReviews={0} />
                   </div>
 
-                  <button className="w-full bg-secondary text-white py-2 rounded-sm cursor-pointer mt-3">
+                  <Link
+                    to={`/admin/sellers/${item.id}`}
+                    className="w-full bg-secondary text-white py-2 rounded-sm cursor-pointer mt-3 flex justify-center items-center"
+                  >
                     View Details
-                  </button>
+                  </Link>
                 </div>
               ))}
             </div>

@@ -8,6 +8,7 @@ import {
   MdOutlineMail,
   MdPhoneAndroid,
 } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 function Buyers() {
   const { GetAllBuyers, buyers } = useGetAllBuyers();
@@ -69,9 +70,12 @@ function Buyers() {
                       {item?.phone_number}
                     </p>
                   </div>
-                  <button className="w-full bg-secondary text-white py-2 rounded-sm cursor-pointer mt-3">
+                  <Link
+                    to={`/admin/buyers/${item.id}`}
+                    className="w-full bg-secondary text-white py-2 rounded-sm cursor-pointer mt-3 flex justify-center items-center"
+                  >
                     View Details
-                  </button>
+                  </Link>
                 </div>
               ))}
             </div>

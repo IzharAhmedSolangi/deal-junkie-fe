@@ -17,7 +17,7 @@ function useGetJobById() {
       message: null,
     }));
     await axios
-      .get(`${BASE_URL}/api/seller/all_jobs/${jobId}/`, {
+      .get(`${BASE_URL}/api/admin/all_jobs/${jobId}/`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

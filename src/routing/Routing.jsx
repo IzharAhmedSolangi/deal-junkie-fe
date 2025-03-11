@@ -38,6 +38,9 @@ import AdminBuyers from "../pages/admin/Buyers";
 import AdminSellers from "../pages/admin/Sellers";
 import AdminChats from "../pages/admin/Chats";
 import AdminSupportMessages from "../pages/admin/SupportMessages";
+import AdminSellerDetails from "../pages/admin/SellerDetails";
+import AdminBuyerDetails from "../pages/admin/BuyerDetails";
+import AdminJobDetails from "../pages/admin/JobDetails";
 
 const Routing = () => {
   const token = getAccessToken();
@@ -99,9 +102,21 @@ const Routing = () => {
                       element={<AdminDashboard />}
                     />
                     <Route path="admin/jobs" element={<AdminJobs />} />
+                    <Route
+                      path="admin/jobs/:jobId"
+                      element={<AdminJobDetails />}
+                    />
                     <Route path="admin/earnings" element={<AdminEarnings />} />
                     <Route path="admin/buyers" element={<AdminBuyers />} />
+                    <Route
+                      path="admin/buyers/:buyerId"
+                      element={<AdminBuyerDetails />}
+                    />
                     <Route path="admin/sellers" element={<AdminSellers />} />
+                    <Route
+                      path="admin/sellers/:sellerId"
+                      element={<AdminSellerDetails />}
+                    />
                     <Route path="admin/chats" element={<AdminChats />} />
                     <Route
                       path="admin/support-messages"

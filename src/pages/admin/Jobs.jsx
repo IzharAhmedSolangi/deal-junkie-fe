@@ -6,6 +6,7 @@ import ShowMessage from "../../components/shared/ShowMessage";
 import { IoEyeOutline } from "react-icons/io5";
 import { CiCalendar, CiTimer } from "react-icons/ci";
 import { IoMdClose } from "react-icons/io";
+import { Link } from "react-router-dom";
 
 function Jobs() {
   const { GetAllJobs, jobs } = useGetAllJobs();
@@ -57,10 +58,13 @@ function Jobs() {
                     {item.description}
                   </p>
                   <div className="flex items-center gap-1 mt-3">
-                    <button className="bg-[#51B8EA0F] w-full h-[35px] border border-[#2D9ACF] rounded-sm text-[#2D9ACF] text-[13px] cursor-pointer flex justify-center items-center gap-1">
+                    <Link
+                      to={`/admin/jobs/${item.id}`}
+                      className="bg-[#51B8EA0F] w-full h-[35px] border border-[#2D9ACF] rounded-sm text-[#2D9ACF] text-[13px] cursor-pointer flex justify-center items-center gap-1"
+                    >
                       <IoEyeOutline />
                       See Details
-                    </button>
+                    </Link>
                     <button className="bg-[#EA51670F] w-full h-[35px] border border-[#EA5167] rounded-sm text-[#EA5167] text-[13px] cursor-pointer flex justify-center items-center gap-1">
                       <IoMdClose />
                       Cancel Job

@@ -17,7 +17,7 @@ function useGetBuyerById() {
       message: null,
     }));
     await axios
-      .get(`${BASE_URL}/api/seller/buyers/${buyerId}/`, {
+      .get(`${BASE_URL}/api/admin/buyers/${buyerId}/`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
