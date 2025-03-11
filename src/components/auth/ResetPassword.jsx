@@ -35,7 +35,7 @@ function ResetPassword(props) {
           email: forgotEmail,
           password: values.password,
           token: resetPasswordDetails?.token,
-          uid: resetPasswordDetails?.uid,
+          uidb64: resetPasswordDetails?.uid,
         },
         setAuthModalType
       );
