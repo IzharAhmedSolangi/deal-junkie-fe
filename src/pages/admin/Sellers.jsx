@@ -12,6 +12,13 @@ function Sellers() {
     GetAllSellers();
   }, []);
 
+  const handleLoadMore = () => {
+    if (sellers.currentPage < sellers.totalPages) {
+      const nextPage = sellers.currentPage + 1;
+      GetAllSellers(nextPage, true);
+    }
+  };
+
   return (
     <>
       <div className="w-full h-auto p-5">
@@ -19,12 +26,12 @@ function Sellers() {
           <h1 className="text-[#02174C] text-[30px] font-[600]">Sellers</h1>
         </div>
         <div className="mt-3">
-          {sellers.data && !sellers.loading && (
+          {sellers.data && (
             <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-4">
               {sellers.data?.map((item, index) => (
                 <div
                   key={index}
-                  className={` rounded-xl p-4 bg-white border-gray-200`}
+                  className={` rounded-lg p-4 bg-white border-gray-200`}
                   style={{ boxShadow: "0px 0px 7px #49586D21" }}
                 >
                   {item?.user?.profile_picture ? (
@@ -34,25 +41,9 @@ function Sellers() {
                       className="w-full h-[200px] object-cover rounded-sm"
                     />
                   ) : (
-                    <svg
-                      width="100%"
-                      height="200"
-                      viewBox="0 0 300 200"
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="rounded-md"
-                    >
-                      <rect width="300" height="200" fill="#e0e0e0" />
-                      <text
-                        x="50%"
-                        y="50%"
-                        dominantBaseline="middle"
-                        textAnchor="middle"
-                        fontSize="20"
-                        fill="#777"
-                      >
-                        {item?.user?.first_name} {item?.user?.last_name}
-                      </text>
-                    </svg>
+                    <div className="w-full md:h-[200px] h-[150px] bg-gray-200 rounded-sm flex justify-center items-center">
+                      {item?.user?.first_name} {item?.user?.last_name}
+                    </div>
                   )}
                   <h3 className="text-lg font-bold mt-2 text-[#022247] text-center">
                     {item?.user?.first_name} {item?.user?.last_name}
@@ -66,11 +57,22 @@ function Sellers() {
                     <RatingStars rating={item?.rating || 0} totalReviews={0} />
                   </div>
 
-                  <button className="w-full bg-primary text-secondary py-2 rounded-sm cursor-pointer">
+                  <button className="w-full bg-secondary text-white py-2 rounded-sm cursor-pointer mt-3">
                     View Details
                   </button>
                 </div>
               ))}
+            </div>
+          )}
+          {sellers.currentPage < sellers.totalPages && !sellers.loading && (
+            <div className="flex justify-center mt-4">
+              <button
+                className="bg-primary text-secondary py-2 px-6 rounded-md cursor-pointer"
+                onClick={handleLoadMore}
+                disabled={sellers.loading}
+              >
+                See More
+              </button>
             </div>
           )}
           {sellers.data && sellers.loading && (

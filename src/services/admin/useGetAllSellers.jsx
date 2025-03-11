@@ -10,15 +10,18 @@ function useGetAllSellers() {
     buttonLoading: false,
     data: null,
     message: null,
+    totalPages: 1,
+    currentPage: 1,
   });
 
-  const GetAllSellers = async () => {
+  const GetAllSellers = async (page = 1, append = false) => {
     setSellers((prevState) => ({
       ...prevState,
+      loading: true,
       message: null,
     }));
     await axios
-      .get(`${BASE_URL}/api/admin/sellers/`, {
+      .get(`${BASE_URL}/api/admin/sellers/?page=${page}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -28,7 +31,11 @@ function useGetAllSellers() {
           ...prevState,
           loading: false,
           buttonLoading: false,
-          data: response.data.results.length > 0 ? response.data.results : null,
+          totalPages: response.data.total_pages,
+          currentPage: response.data.current_page,
+          data: append
+            ? [...prevState.data, ...response.data.results]
+            : response.data.results,
           message:
             response.data.results.length > 0
               ? null

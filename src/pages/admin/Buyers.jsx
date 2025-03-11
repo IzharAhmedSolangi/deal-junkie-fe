@@ -3,7 +3,11 @@ import { useEffect } from "react";
 import useGetAllBuyers from "../../services/admin/useGetAllBuyers";
 import { ButtonLoader3 } from "../../components/shared/ButtonLoaders";
 import ShowMessage from "../../components/shared/ShowMessage";
-import RatingStars from "../../components/shared/RatingStars";
+import {
+  MdOutlineLocationOn,
+  MdOutlineMail,
+  MdPhoneAndroid,
+} from "react-icons/md";
 
 function Buyers() {
   const { GetAllBuyers, buyers } = useGetAllBuyers();
@@ -11,6 +15,13 @@ function Buyers() {
   useEffect(() => {
     GetAllBuyers();
   }, []);
+
+  const handleLoadMore = () => {
+    if (buyers.currentPage < buyers.totalPages) {
+      const nextPage = buyers.currentPage + 1;
+      GetAllBuyers(nextPage, true);
+    }
+  };
   return (
     <>
       <div className="w-full h-auto p-5">
@@ -18,62 +29,66 @@ function Buyers() {
           <h1 className="text-[#02174C] text-[30px] font-[600]">Buyers</h1>
         </div>
         <div className="mt-3">
-          {buyers.data && !buyers.loading && (
+          {buyers.data && (
             <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-4">
               {buyers.data?.map((item, index) => (
                 <div
                   key={index}
-                  className={` rounded-xl p-4 bg-white border-gray-200`}
+                  className={`rounded-lg p-4 bg-white border-gray-200`}
                   style={{ boxShadow: "0px 0px 7px #49586D21" }}
                 >
-                  {item?.user?.profile_picture ? (
+                  {item?.profile_picture ? (
                     <img
-                      src={item?.user?.profile_picture}
+                      src={item?.profile_picture}
                       alt="Profile"
-                      className="w-full h-[200px] object-cover rounded-sm"
+                      className="w-full md:h-[200px] h-[150px] object-cover rounded-sm"
                     />
                   ) : (
-                    <svg
-                      width="100%"
-                      height="200"
-                      viewBox="0 0 300 200"
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="rounded-md"
-                    >
-                      <rect width="300" height="200" fill="#e0e0e0" />
-                      <text
-                        x="50%"
-                        y="50%"
-                        dominantBaseline="middle"
-                        textAnchor="middle"
-                        fontSize="20"
-                        fill="#777"
-                      >
-                        {item?.user?.first_name} {item?.user?.last_name}
-                      </text>
-                    </svg>
+                    <div className="w-full md:h-[200px] h-[150px] bg-gray-200 rounded-sm flex justify-center items-center">
+                      {item?.first_name} {item?.last_name}
+                    </div>
                   )}
                   <h3 className="text-lg font-bold mt-2 text-[#022247] text-center">
-                    {item?.user?.first_name} {item?.user?.last_name}
+                    {item?.first_name} {item?.last_name}
                   </h3>
-                  <div className="flex justify-center">
-                    <p className="bg-[#F2F4F7] font-[500] text-[14px] text-secondary border border-secondary rounded-full py-1 px-2 ">
-                      Starting from ${item?.rate_per_hour}
+                  <div className="flex justify-center gap-1 mt-2">
+                    <MdOutlineLocationOn className="text-[#6F7487] text-[20px]" />
+                    <p className="font-normal text-[14px] text-[#6F7487] text-center">
+                      {item?.street}
                     </p>
                   </div>
-                  <div className="flex justify-center items-center gap-2 my-2">
-                    <RatingStars rating={item?.rating || 0} totalReviews={0} />
+                  <div className="flex justify-center gap-1 mt-2">
+                    <MdOutlineMail className="text-[#6F7487] text-[20px]" />
+                    <p className="font-normal text-[14px] text-[#6F7487]">
+                      {item?.email}
+                    </p>
                   </div>
-
-                  <button className="w-full bg-primary text-secondary py-2 rounded-sm cursor-pointer">
+                  <div className="flex justify-center gap-1 mt-2">
+                    <MdPhoneAndroid className="text-[#6F7487] text-[20px]" />
+                    <p className="font-normal text-[14px] text-[#6F7487]">
+                      {item?.phone_number}
+                    </p>
+                  </div>
+                  <button className="w-full bg-secondary text-white py-2 rounded-sm cursor-pointer mt-3">
                     View Details
                   </button>
                 </div>
               ))}
             </div>
           )}
+          {buyers.currentPage < buyers.totalPages && !buyers.loading && (
+            <div className="flex justify-center mt-4">
+              <button
+                className="bg-primary text-secondary py-2 px-6 rounded-md cursor-pointer"
+                onClick={handleLoadMore}
+                disabled={buyers.loading}
+              >
+                See More
+              </button>
+            </div>
+          )}
           {buyers.data && buyers.loading && (
-            <div className="w-full flex justify-center mt-2">
+            <div className="w-full flex justify-center mt-4">
               <ButtonLoader3 />
             </div>
           )}

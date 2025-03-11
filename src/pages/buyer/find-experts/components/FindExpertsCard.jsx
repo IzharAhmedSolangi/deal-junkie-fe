@@ -43,25 +43,9 @@ function FindExpertsCard(props) {
                     className="w-full h-[200px] object-cover rounded-sm"
                   />
                 ) : (
-                  <svg
-                    width="100%"
-                    height="200"
-                    viewBox="0 0 300 200"
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="rounded-md"
-                  >
-                    <rect width="300" height="200" fill="#e0e0e0" />
-                    <text
-                      x="50%"
-                      y="50%"
-                      dominantBaseline="middle"
-                      textAnchor="middle"
-                      fontSize="20"
-                      fill="#777"
-                    >
-                      {item?.user?.first_name} {item?.user?.last_name}
-                    </text>
-                  </svg>
+                  <div className="w-full md:h-[200px] h-[150px] bg-gray-200 rounded-sm flex justify-center items-center">
+                    {item?.user?.first_name} {item?.user?.last_name}
+                  </div>
                 )}
                 <h3 className="text-lg font-bold mt-2 text-[#022247] text-center">
                   {item?.user?.first_name} {item?.user?.last_name}
