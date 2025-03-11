@@ -64,7 +64,7 @@ function AboutUs() {
             </p>
             <ul className="mt-6 flex flex-col gap-4">
               <li className="flex items-start gap-3">
-                <FaBriefcase className="text-primary mt-1" />
+                <img src="/assets/icons/icon-4.png" alt="Our Team" />
                 <div>
                   <h1 className=" text-[#003F63] text-[20px] font-[600]">
                     M&A specialists
@@ -75,7 +75,7 @@ function AboutUs() {
                 </div>
               </li>
               <li className="flex items-start gap-3">
-                <FaChartLine className="text-primary mt-1" />
+                <img src="/assets/icons/icon-4.png" alt="Our Team" />
                 <div>
                   <h1 className=" text-[#003F63] text-[20px] font-[600]">
                     Private equity & hedge fund professionals
@@ -86,7 +86,7 @@ function AboutUs() {
                 </div>
               </li>
               <li className="flex items-start gap-3">
-                <FaMoneyBillWave className="text-primary mt-1" />
+                <img src="/assets/icons/icon-4.png" alt="Our Team" />
                 <div>
                   <h1 className=" text-[#003F63] text-[20px] font-[600]">
                     Venture capital analysts
@@ -97,7 +97,7 @@ function AboutUs() {
                 </div>
               </li>
               <li className="flex items-start gap-3">
-                <FaBuilding className="text-primary mt-1" />
+                <img src="/assets/icons/icon-4.png" alt="Our Team" />
                 <div>
                   <h1 className=" text-[#003F63] text-[20px] font-[600]">
                     Real estate investment professionals
@@ -108,7 +108,7 @@ function AboutUs() {
                 </div>
               </li>
               <li className="flex items-start gap-3">
-                <FaLightbulb className="text-primary mt-1" />
+                <img src="/assets/icons/icon-4.png" alt="Our Team" />
                 <div>
                   <h1 className=" text-[#003F63] text-[20px] font-[600]">
                     Consultants & strategy experts
@@ -197,7 +197,7 @@ function AboutUs() {
         <img
           src="/assets/images/image-3.png"
           alt="Our Team"
-          className="rounded-lg h-[250px] absolute bottom-0 right-30"
+          className="rounded-lg h-[270px] w-[270px] absolute bottom-0 right-30"
         />
       </div>
     </Layout>

@@ -4,15 +4,20 @@ import { Fragment, useRef, useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { Dialog, Transition } from "@headlessui/react";
 import axios from "axios";
-import { getAccessToken } from "../../storage/storage";
+import {
+  getAccessToken,
+  removeAccessToken,
+  removeRefreshToken
+} from "../../storage/storage";
 import { ButtonLoader1 } from "../shared/ButtonLoaders";
 import Dropdown from "../shared/Dropdown";
+import { SuccessToaster } from "../shared/Toster";
 
 const Reasons = [
   { name: "Reason 1", value: 1 },
   { name: "Reason 2", value: 2 },
   { name: "Reason 3", value: 3 },
-  { name: "Reason 4", value: 4 },
+  { name: "Reason 4", value: 4 }
 ];
 
 function Deactivate(props) {
@@ -22,6 +27,7 @@ function Deactivate(props) {
   const [loading, setLoading] = useState(false);
   const cancelButtonRef = useRef(null);
   const [selectedReason, setSelectedReason] = useState(null);
+  console.log({ url });
 
   const handleClose = () => {
     setIsOpenModal(false);
@@ -30,15 +36,29 @@ function Deactivate(props) {
   const handleConfirmDeactivate = async () => {
     setLoading(true);
     await axios
-      .delete(`${BASE_URL}${url}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .post(
+        `${BASE_URL}${url}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      )
       .then((response) => {
         setIsOpenModal(!isOpenModal);
         setLoading(false);
         handleClose();
+        if (response.data.message) {
+          SuccessToaster(
+            "Profile updated",
+            "Your profile details successfully updated"
+          );
+        }
+        removeAccessToken();
+        removeRefreshToken();
+        window.location = "/";
+        window.location.reload();
       })
       .catch((error) => {
         setLoading(false);
@@ -90,7 +110,7 @@ function Deactivate(props) {
                   <p className="font-[400] text-[16px] text-[#6F7487] text-center">
                     {description}
                   </p>
-                  <div className="w-full mt-2">
+                  {/* <div className="w-full mt-2">
                     <Dropdown
                       placeholder="Select Reason"
                       options={Reasons}
@@ -99,7 +119,7 @@ function Deactivate(props) {
                         setSelectedReason(option);
                       }}
                     />
-                  </div>
+                  </div> */}
                   <div className="flex items-center justify-center gap-2 mt-5">
                     <button
                       className="bg-[#02174C0F] border border-secondary cursor-pointer hover:opacity-80 w-[130px] h-[40px] text-secondary rounded flex justify-center items-center"
