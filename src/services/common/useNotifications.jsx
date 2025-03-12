@@ -8,26 +8,28 @@ function useNotifications() {
   const [notifications, setNotifications] = useState({
     loading: true,
     data: null,
-    message: null
+    unread: null,
+    message: null,
   });
 
   const GetNotifications = async (url) => {
     setNotifications((prevState) => ({
       ...prevState,
-      message: null
+      message: null,
     }));
     await axios
       .get(`${BASE_URL}${url}`, {
         headers: {
-          Authorization: `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       })
       .then((response) => {
         setNotifications((prevState) => ({
           ...prevState,
           loading: false,
           data: response.data,
-          message: response.data ? null : "We didn't find any notifications"
+          unread: response.data?.filter((item) => !item.is_read).length,
+          message: response.data ? null : "We didn't find any notifications",
         }));
       })
       .catch((error) => {
@@ -35,7 +37,8 @@ function useNotifications() {
           ...prevState,
           loading: false,
           data: null,
-          message: error?.response?.data?.message || "Internal server error"
+          unread: null,
+          message: error?.response?.data?.message || "Internal server error",
         }));
       });
   };

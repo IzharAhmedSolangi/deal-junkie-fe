@@ -36,35 +36,66 @@ function Notifications() {
     };
   }, [isOpen]);
 
+  const showTimeOrDate = (created_at) => {
+    const createdAt = new Date(created_at);
+    const now = new Date();
+    const diffInSeconds = Math.floor((now - createdAt) / 1000);
+    let timeLabel;
+
+    if (diffInSeconds < 60) {
+      timeLabel = "Just now";
+    } else if (diffInSeconds < 3600) {
+      timeLabel = `${Math.floor(diffInSeconds / 60)} mins ago`;
+    } else if (createdAt.toDateString() === now.toDateString()) {
+      timeLabel = "Today";
+    } else {
+      const yesterday = new Date();
+      yesterday.setDate(yesterday.getDate() - 1);
+      if (createdAt.toDateString() === yesterday.toDateString()) {
+        timeLabel = "Yesterday";
+      } else {
+        timeLabel = createdAt.toLocaleDateString("en-US", {
+          day: "2-digit",
+          month: "short",
+          year: "numeric",
+        });
+      }
+    }
+
+    return timeLabel;
+  };
+
   return (
     <div className="relative" ref={dropdownRef}>
       <IoIosNotificationsOutline
         className="w-7 h-7 text-gray-500 cursor-pointer relative"
         onClick={() => setIsOpen(!isOpen)}
       />
-      <div className="absolute w-[14px] h-[14px] rounded-full bg-primary top-0 right-0 text-white text-[10px] flex items-center justify-center">
-        4
-      </div>
+      {notifications.unread && (
+        <div className="absolute w-[14px] h-[14px] rounded-full bg-primary top-0 right-0 text-white text-[10px] flex items-center justify-center">
+          {notifications.unread}
+        </div>
+      )}
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-80 bg-white shadow-lg rounded-sm h-[400px] overflow-y-auto p-3">
+        <div className="absolute right-0 mt-2 lg:w-[350px] w-80 bg-white shadow-lg rounded-sm h-[400px] overflow-y-auto p-3">
           <h3 className="font-semibold text-lg">Notifications</h3>
           <ul className="mt-1">
-            <ul>
-              {notifications.data?.map((notification) => (
-                <li key={notification.id} className="py-1 flex gap-3 w-80">
-                  <FaUserCircle className="text-[30px] text-gray-500" />
-                  <div className=" w-60">
+            {notifications.data?.map((notification) => (
+              <li
+                key={notification.id}
+                className="py-1 flex items-center justify-between"
+              >
+                <div className="flex items-center gap-[6px] w-[70%]">
+                  <FaUserCircle className="text-[30px] text-gray-300" />
+                  <h6 className="text-[#6F7487] text-[14px]">
                     {notification.message}
-                    <p className="text-sm text-gray-500">
-                      {new Date(notification.created_at).toLocaleTimeString(
-                        [],
-                        { hour: "2-digit", minute: "2-digit", hour12: true }
-                      )}
-                    </p>
-                  </div>
-                </li>
-              ))}
-            </ul>
+                  </h6>
+                </div>
+                <p className="text-[12px] text-[#6F7487]">
+                  {showTimeOrDate(notification.created_at)}
+                </p>
+              </li>
+            ))}
 
             {/* <li className="px-4 py-2 flex items-center gap-3 hover:bg-gray-100 cursor-pointer">
               <FaUserCircle className="w-8 h-8 text-gray-500" />
