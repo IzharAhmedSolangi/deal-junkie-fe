@@ -15,11 +15,11 @@ import {
   MdOutlineDelete,
   MdOutlineLocationOn,
   MdOutlineMail,
-  MdPhoneAndroid
+  MdPhoneAndroid,
 } from "react-icons/md";
 import { FaUserXmark } from "react-icons/fa6";
-import Delete from "../../../components/modals/Delete";
-import Deactivate from "../../../components/modals/Deactivate";
+import DeleteAccount from "../../../components/modals/DeleteAccount";
+import DeactivateAccount from "../../../components/modals/DeactivateAccount";
 import useUpload from "../../../services/common/useUpload";
 import useEditProfile from "../../../services/common/useEditProfile";
 
@@ -27,7 +27,7 @@ const tabs = [
   { name: "My Jobs", path: "my-jobs" },
   { name: "Change Password", path: "change-password" },
   { name: "Manage Payments", path: "manage-payments" },
-  { name: "Notifications", path: "notifications" }
+  { name: "Notifications", path: "notifications" },
 ];
 function Dashboard() {
   const { tabName } = useParams();
@@ -98,8 +98,8 @@ function Profile(props) {
     if (upload.url) {
       EditProfile({
         user: {
-          profile_picture: upload.url
-        }
+          profile_picture: upload.url,
+        },
       });
     }
   }, [upload]);
@@ -181,7 +181,7 @@ function Profile(props) {
           </button>
         </div>
       </div>
-      <Delete
+      <DeleteAccount
         icon="/assets/icons/icon-3.png"
         title="Are you sure you want to delete your profile?"
         description="Your delete request will be submitted to admin and your profile will be deleted permanently once approved from admin."
@@ -189,7 +189,7 @@ function Profile(props) {
         isOpenModal={isOpenDeleteModal}
         setIsOpenModal={setIsOpenDeleteModal}
       />
-      <Deactivate
+      <DeactivateAccount
         title="Tell us why do you want to deactivate your profile"
         description="Your deactivate request will be submitted to admin and your profile will be deactivated once approved from admin. You can re-active anytime by contacting admin."
         url={`/api/accounts/user/${userInfo?.user?.id}/deactivate/`}

@@ -41,11 +41,24 @@ function PostProject(props) {
   const Navigate = useNavigate();
   const [step, setStep] = useState(1);
   const [percentage, setPercentage] = useState(0);
-  const { PostProject, postProject } = usePostProject();
+  const { PostProject, postProject, setPostProject } = usePostProject();
+
+  useEffect(() => {
+    if (isOpenModal) {
+      setPostProject((prevState) => ({
+        ...prevState,
+        loading: false,
+        data: null,
+        error: null,
+        success: false,
+      }));
+      setStep(1);
+      setPercentage(0);
+    }
+  }, [isOpenModal]);
 
   const handleClose = () => {
     setIsOpenModal(false);
-    setStep(1);
   };
 
   const initialValues = {
@@ -159,8 +172,7 @@ function PostProject(props) {
                         <button
                           onClick={() => {
                             Navigate("/dashboard/my-tasks");
-                            setIsOpenModal(false);
-                            setStep(1);
+                            handleClose();
                           }}
                           className="bg-primary cursor-pointer hover:opacity-80 w-[150px] h-[40px] text-secondary rounded mt-6 flex justify-center items-center"
                         >

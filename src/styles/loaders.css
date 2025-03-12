@@ -54,7 +54,7 @@
   }
 }
 
-/* Button Loader 2*/
+/* Button Loader 3*/
 .btn-loader-3 {
   width: 25px;
   --b: 8px;
@@ -77,6 +77,34 @@
   animation: l6 1s infinite steps(10);
 }
 @keyframes l6 {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+/* Button Loader 4*/
+.btn-loader-4 {
+  width: 25px;
+  --b: 8px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  padding: 1px;
+  background: conic-gradient(#0000 10%, #d92d20) content-box;
+  -webkit-mask: repeating-conic-gradient(
+      #0000 0deg,
+      #000 1deg 20deg,
+      #0000 21deg 36deg
+    ),
+    radial-gradient(
+      farthest-side,
+      #0000 calc(100% - var(--b) - 1px),
+      #000 calc(100% - var(--b))
+    );
+  -webkit-mask-composite: destination-in;
+  mask-composite: intersect;
+  animation: l7 1s infinite steps(10);
+}
+@keyframes l7 {
   to {
     transform: rotate(1turn);
   }

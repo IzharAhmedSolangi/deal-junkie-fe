@@ -9,6 +9,8 @@ import { PiCurrencyDollarBold } from "react-icons/pi";
 import { IoMdClose } from "react-icons/io";
 import { ButtonLoader3 } from "../../../../components/shared/ButtonLoaders";
 import ShowMessage from "../../../../components/shared/ShowMessage";
+import useAcceptProposal from "../../../../services/buyer/useAcceptProposal";
+import { TiTick } from "react-icons/ti";
 
 function MyTaskDetailsModal(props) {
   const { isOpenModal, setIsOpenModal, selected, setSelected } = props;
@@ -67,9 +69,21 @@ function MyTaskDetailsModal(props) {
                   </div>
                   {myTask.data && !myTask.loading && (
                     <div className="flex flex-col items-start">
-                      <div className="px-3 py-1 shadow-sm rounded-sm bg-secondary text-white text-[15px] font-[700]">
-                        {myTask.data?.status}
-                      </div>
+                      {myTask.data?.status === "Receiving Offer" && (
+                        <div className="px-3 py-1 shadow-sm rounded-sm bg-secondary text-white text-[15px] font-[700]">
+                          {myTask.data?.status}
+                        </div>
+                      )}
+                      {myTask.data?.status === "In Progress" && (
+                        <div className="px-2 py-1 shadow-sm rounded-sm bg-primary text-white text-[12px] font-[700]">
+                          {myTask.data?.status}
+                        </div>
+                      )}
+                      {myTask.data?.status === "Cancelled" && (
+                        <div className="px-2 py-1 shadow-sm rounded-sm bg-[#D92D20] text-white text-[12px] font-[700]">
+                          {myTask.data?.status}
+                        </div>
+                      )}
                       <h1 className="text-[#222222] text-[20px] font-[600] mt-2">
                         Request details
                       </h1>
@@ -81,16 +95,28 @@ function MyTaskDetailsModal(props) {
                       {/* Task details */}
                       <TaskDetails myTask={myTask} />
                       {/* Proposals */}
-                      <Proposals myTask={myTask} />
-                      <div className="w-full flex items-center gap-1 mt-6">
-                        <button className="bg-[#AF2DCF0F] w-full h-[35px] border border-[#AF2DCF] rounded-sm text-[#AF2DCF] text-[13px] cursor-pointer flex justify-center items-center gap-1">
-                          <PiCurrencyDollarBold />
-                          Update Price
-                        </button>
-                        <button className="bg-[#EA51670F] w-full h-[35px] border border-[#EA5167] rounded-sm text-[#EA5167] text-[13px] cursor-pointer flex justify-center items-center gap-1">
-                          <IoMdClose />
-                          Delete Task
-                        </button>
+                      {myTask.data?.status !== "Cancelled" && (
+                        <Proposals myTask={myTask} />
+                      )}
+                      <div className="w-full flex items-center gap-1 mt-8">
+                        {myTask.data?.status === "Receiving Offer" && (
+                          <>
+                            <button className="bg-[#AF2DCF0F] w-full h-[35px] border border-[#AF2DCF] rounded-sm text-[#AF2DCF] text-[13px] cursor-pointer flex justify-center items-center gap-1">
+                              <PiCurrencyDollarBold />
+                              Update Price
+                            </button>
+                            <button className="bg-[#EA51670F] w-full h-[35px] border border-[#EA5167] rounded-sm text-[#EA5167] text-[13px] cursor-pointer flex justify-center items-center gap-1">
+                              <IoMdClose />
+                              Delete Task
+                            </button>
+                          </>
+                        )}
+                        {myTask.data?.status === "In Progress" && (
+                          <button className="bg-[#0AF8860D] w-full h-[35px] border border-primary rounded-sm text-primary text-[13px] cursor-pointer flex justify-center items-center">
+                            <TiTick />
+                            Complete Project
+                          </button>
+                        )}
                       </div>
                     </div>
                   )}
@@ -172,6 +198,11 @@ function TaskDetails(props) {
 
 function Proposals(props) {
   const { myTask } = props;
+  const { AcceptProposal, acceptProposal } = useAcceptProposal();
+
+  const handleAcceptRequest = (proposalId) => {
+    AcceptProposal(proposalId);
+  };
 
   return (
     <div className="w-full mt-5">
@@ -205,8 +236,16 @@ function Proposals(props) {
                 >
                   See Profile
                 </Link>
-                <button className="bg-[#0AF8860D] w-[120px] h-[35px] border border-[#039855] rounded-sm text-[#039855] text-[13px] cursor-pointer flex justify-center items-center">
-                  Approve Request
+                <button
+                  className="bg-[#0AF8860D] w-[120px] h-[35px] border border-[#039855] rounded-sm text-[#039855] text-[13px] cursor-pointer flex justify-center items-center"
+                  disabled={acceptProposal.loading}
+                  onClick={() => handleAcceptRequest(item.id)}
+                >
+                  {acceptProposal.loading ? (
+                    <ButtonLoader3 />
+                  ) : (
+                    "Approve Request"
+                  )}
                 </button>
               </div>
             </div>

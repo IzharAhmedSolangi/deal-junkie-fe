@@ -11,3 +11,7 @@ export const ButtonLoader2 = () => {
 export const ButtonLoader3 = () => {
   return <span className="btn-loader-3"></span>;
 };
+
+export const ButtonLoader4 = () => {
+  return <span className="btn-loader-4"></span>;
+};

@@ -1,19 +1,21 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import { Fragment, useContext, useRef, useState } from "react";
+import { Fragment, useRef, useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { Dialog, Transition } from "@headlessui/react";
 import axios from "axios";
-import GlobalContext from "../../context/GlobalContext";
-import { getAccessToken } from "../../storage/storage";
+import {
+  getAccessToken,
+  removeAccessToken,
+  removeRefreshToken,
+} from "../../storage/storage";
 import { ButtonLoader1 } from "../shared/ButtonLoaders";
 import { ErrorToaster } from "../shared/Toster";
 
-function Delete(props) {
+function DeleteAccount(props) {
   const { isOpenModal, setIsOpenModal, url, icon, title, description } = props;
   const token = getAccessToken();
   const BASE_URL = import.meta.env.VITE_API_URL;
-  const { setUpdateResponse } = useContext(GlobalContext);
   const [loading, setLoading] = useState(false);
   const cancelButtonRef = useRef(null);
 
@@ -26,17 +28,14 @@ function Delete(props) {
     await axios
       .delete(`${BASE_URL}${url}`, {
         headers: {
-          Authorization: `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       })
       .then((response) => {
-        setIsOpenModal(!isOpenModal);
-        setUpdateResponse(true);
         setLoading(false);
         handleClose();
         removeAccessToken();
         removeRefreshToken();
-        window.location = "/";
         window.location.reload();
       })
       .catch((error) => {
@@ -115,4 +114,4 @@ function Delete(props) {
     </Transition.Root>
   );
 }
-export default Delete;
+export default DeleteAccount;

@@ -1,4 +1,5 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useContext, useEffect, useRef, useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import useNotifications from "../../services/common/useNotifications";
@@ -8,8 +9,7 @@ function Notifications() {
   const dropdownRef = useRef(null);
   const { userInfo } = useContext(GlobalContext);
 
-  const { GetNotifications, notifications, setNotifications } =
-    useNotifications();
+  const { GetNotifications, notifications } = useNotifications();
 
   useEffect(() => {
     if (userInfo?.user?.role === "admin") {
@@ -20,7 +20,6 @@ function Notifications() {
       GetNotifications(`/api/seller/notifications/`);
     }
   }, [userInfo?.user?.role]);
-  console.log(notifications.data);
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -47,18 +46,12 @@ function Notifications() {
         4
       </div>
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-80 bg-white shadow-lg rounded-sm h-[400px] overflow-y-auto ">
-          <div className="p-3">
-            <h3 className="font-semibold text-lg">Notifications</h3>
-          </div>
-
-          <ul className="py-2">
+        <div className="absolute right-0 mt-2 w-80 bg-white shadow-lg rounded-sm h-[400px] overflow-y-auto p-3">
+          <h3 className="font-semibold text-lg">Notifications</h3>
+          <ul className="mt-1">
             <ul>
               {notifications.data?.map((notification) => (
-                <li
-                  key={notification.id}
-                  className="px-4 py-2 flex  gap-3 w-80"
-                >
+                <li key={notification.id} className="py-1 flex gap-3 w-80">
                   <FaUserCircle className="text-[30px] text-gray-500" />
                   <div className=" w-60">
                     {notification.message}

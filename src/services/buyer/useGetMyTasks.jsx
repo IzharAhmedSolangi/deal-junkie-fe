@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import axios from "axios";
 import { getAccessToken } from "../../storage/storage";
+import GlobalContext from "../../context/GlobalContext";
 
 function useGetMyTasks() {
   const BASE_URL = import.meta.env.VITE_API_URL;
+  const { updateResponse, setUpdateResponse } = useContext(GlobalContext);
   const token = getAccessToken();
   const [myTasks, setMyTasks] = useState({
     loading: true,
@@ -13,10 +15,9 @@ function useGetMyTasks() {
     currentPage: 1,
   });
 
-  const GetMyTasks = async (page = 1, append = false) => {
+  const GetMyTasks = async (page = 1, append = updateResponse || false) => {
     setMyTasks((prevState) => ({
       ...prevState,
-      loading: true,
       message: null,
     }));
     await axios
@@ -26,6 +27,7 @@ function useGetMyTasks() {
         },
       })
       .then((response) => {
+        setUpdateResponse(false);
         setMyTasks((prevState) => ({
           ...prevState,
           loading: false,

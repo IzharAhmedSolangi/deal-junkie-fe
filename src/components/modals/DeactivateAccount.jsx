@@ -20,14 +20,13 @@ const Reasons = [
   { name: "Reason 4", value: 4 },
 ];
 
-function Deactivate(props) {
+function DeactivateAccount(props) {
   const { isOpenModal, setIsOpenModal, url, title, description } = props;
   const token = getAccessToken();
   const BASE_URL = import.meta.env.VITE_API_URL;
   const [loading, setLoading] = useState(false);
   const cancelButtonRef = useRef(null);
   const [selectedReason, setSelectedReason] = useState(null);
-  console.log({ url });
 
   const handleClose = () => {
     setIsOpenModal(false);
@@ -46,18 +45,14 @@ function Deactivate(props) {
         }
       )
       .then((response) => {
-        setIsOpenModal(!isOpenModal);
         setLoading(false);
         handleClose();
-        if (response.data.message) {
-          SuccessToaster(
-            "Profile updated",
-            "Your profile details successfully updated"
-          );
-        }
+        SuccessToaster(
+          "Profile updated",
+          "Your profile details successfully updated"
+        );
         removeAccessToken();
         removeRefreshToken();
-        window.location = "/";
         window.location.reload();
       })
       .catch((error) => {
@@ -121,6 +116,11 @@ function Deactivate(props) {
                       }}
                     />
                   </div> */}
+                  <textarea
+                    placeholder="Describe reason"
+                    rows="4"
+                    className="mt-2 w-full min-h-[120px] max-h-[120px] p-3 rounded-[4px] bg-transparent border border-[#02174C33] outline-none hover:border-secondary focus:border-secondary"
+                  ></textarea>
                   <div className="flex items-center justify-center gap-2 mt-5">
                     <button
                       className="bg-[#02174C0F] border border-secondary cursor-pointer hover:opacity-80 w-[130px] h-[40px] text-secondary rounded flex justify-center items-center"
@@ -145,4 +145,4 @@ function Deactivate(props) {
     </Transition.Root>
   );
 }
-export default Deactivate;
+export default DeactivateAccount;

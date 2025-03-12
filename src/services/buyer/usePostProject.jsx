@@ -1,11 +1,13 @@
 /* eslint-disable no-unused-vars */
-import { useState } from "react";
+import { useContext, useState } from "react";
 import axios from "axios";
 import { getAccessToken } from "../../storage/storage";
 import { ErrorToaster } from "../../components/shared/Toster";
+import GlobalContext from "../../context/GlobalContext";
 
 function usePostProject() {
   const BASE_URL = import.meta.env.VITE_API_URL;
+  const { setUpdateResponse } = useContext(GlobalContext);
   const token = getAccessToken();
   const [postProject, setPostProject] = useState({
     loading: false,
@@ -29,6 +31,7 @@ function usePostProject() {
         },
       })
       .then((response) => {
+        setUpdateResponse(true);
         setPostProject((prevState) => ({
           ...prevState,
           loading: false,
@@ -48,6 +51,6 @@ function usePostProject() {
         }));
       });
   };
-  return { PostProject, postProject };
+  return { PostProject, postProject, setPostProject };
 }
 export default usePostProject;

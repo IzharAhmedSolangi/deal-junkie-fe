@@ -1,14 +1,19 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Dropdown from "../../../../components/shared/Dropdown";
 import { CiCalendar, CiTimer } from "react-icons/ci";
 import { IoEyeOutline } from "react-icons/io5";
 import { PiCurrencyDollarBold } from "react-icons/pi";
 import { IoMdClose } from "react-icons/io";
 import useGetMyTasks from "../../../../services/buyer/useGetMyTasks";
-import { ButtonLoader3 } from "../../../../components/shared/ButtonLoaders";
+import {
+  ButtonLoader3,
+  ButtonLoader4,
+} from "../../../../components/shared/ButtonLoaders";
 import ShowMessage from "../../../../components/shared/ShowMessage";
 import MyTaskDetailsModal from "./MyTaskDetailsModal";
+import useCancelTask from "../../../../services/buyer/useCancelTask";
+import GlobalContext from "../../../../context/GlobalContext";
 
 const Tasks = [
   { name: "All Tasks", value: 1 },
@@ -19,20 +24,31 @@ const Tasks = [
 ];
 
 function MyTasks() {
-  const { GetMyTasks, myTasks } = useGetMyTasks();
+  const { GetMyTasks, myTasks, setMyTasks } = useGetMyTasks();
+  const { CancelTask, cancelTask } = useCancelTask();
+  const { updateResponse } = useContext(GlobalContext);
   const [selectedTaskFilter, setSelectedTaskFilter] = useState(Tasks[0]);
   const [selectedTask, setSelectedTask] = useState(null);
   const [isOpenTaskDetailsModal, setIsOpenTaskDetailsModal] = useState(false);
+  const [loadingTaskId, setLoadingTaskId] = useState(null);
 
   useEffect(() => {
     GetMyTasks();
-  }, []);
+  }, [updateResponse]);
 
   const handleLoadMore = () => {
     if (myTasks.currentPage < myTasks.totalPages) {
+      setMyTasks((prevState) => ({
+        ...prevState,
+        loading: true,
+      }));
       const nextPage = myTasks.currentPage + 1;
       GetMyTasks(nextPage, true);
     }
+  };
+
+  const handleCancelTask = (taskId) => {
+    CancelTask(taskId);
   };
 
   return (
@@ -68,9 +84,21 @@ function MyTasks() {
                     11:59 PM
                   </div>
                 </div>
-                <div className="px-2 py-1 shadow-sm rounded-sm bg-secondary text-white text-[12px] font-[700]">
-                  {item.status}
-                </div>
+                {item.status === "Receiving Offer" && (
+                  <div className="px-2 py-1 shadow-sm rounded-sm bg-secondary text-white text-[12px] font-[700]">
+                    {item.status}
+                  </div>
+                )}
+                {item.status === "In Progress" && (
+                  <div className="px-2 py-1 shadow-sm rounded-sm bg-primary text-white text-[12px] font-[700]">
+                    {item.status}
+                  </div>
+                )}
+                {item.status === "Cancelled" && (
+                  <div className="px-2 py-1 shadow-sm rounded-sm bg-[#D92D20] text-white text-[12px] font-[700]">
+                    {item.status}
+                  </div>
+                )}
               </div>
               <h1 className="text-[#222222] text-[20px] font-[600] mt-3">
                 {item.title}
@@ -89,14 +117,31 @@ function MyTasks() {
                   <IoEyeOutline />
                   See Details
                 </button>
-                <button className="bg-[#AF2DCF0F] w-full h-[35px] border border-[#AF2DCF] rounded-sm text-[#AF2DCF] text-[13px] cursor-pointer flex justify-center items-center gap-1">
-                  <PiCurrencyDollarBold />
-                  Update Price
-                </button>
-                <button className="bg-[#EA51670F] w-full h-[35px] border border-[#EA5167] rounded-sm text-[#EA5167] text-[13px] cursor-pointer flex justify-center items-center gap-1">
-                  <IoMdClose />
-                  Cancel Job
-                </button>
+                {item.status === "Receiving Offer" && (
+                  <>
+                    <button className="bg-[#AF2DCF0F] w-full h-[35px] border border-[#AF2DCF] rounded-sm text-[#AF2DCF] text-[13px] cursor-pointer flex justify-center items-center gap-1">
+                      <PiCurrencyDollarBold />
+                      Update Price
+                    </button>
+                    <button
+                      className="bg-[#EA51670F] w-full h-[35px] border border-[#EA5167] rounded-sm text-[#EA5167] text-[13px] cursor-pointer flex justify-center items-center gap-1"
+                      disabled={cancelTask.loading}
+                      onClick={() => {
+                        setLoadingTaskId(item.id);
+                        handleCancelTask(item.id);
+                      }}
+                    >
+                      {cancelTask.loading && loadingTaskId === item.id ? (
+                        <ButtonLoader4 />
+                      ) : (
+                        <>
+                          <IoMdClose />
+                          Cancel Task
+                        </>
+                      )}
+                    </button>
+                  </>
+                )}
               </div>
             </div>
           ))}
