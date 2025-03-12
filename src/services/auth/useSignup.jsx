@@ -18,6 +18,8 @@ function useSignup() {
         setAuthModalType("successfully-registered");
       })
       .catch((error) => {
+        console.log({ error });
+
         setErrorMessage(error?.response?.data?.message);
         setLoading(false);
       });

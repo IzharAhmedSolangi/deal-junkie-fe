@@ -4,19 +4,19 @@ import GlobalContext from "../../context/GlobalContext";
 import { Link, useLocation } from "react-router-dom";
 import { FiUser, FiLogOut } from "react-icons/fi";
 import { BsClipboardCheck, BsCreditCard2Front } from "react-icons/bs";
-import { FaUserCircle } from "react-icons/fa";
-import { IoIosNotificationsOutline, IoIosSwitch } from "react-icons/io";
+import { IoIosSwitch } from "react-icons/io";
 import { FaRegComments } from "react-icons/fa6";
 
 import {
   getAccessToken,
   removeAccessToken,
-  removeRefreshToken,
+  removeRefreshToken
 } from "../../storage/storage";
 import Auth from "../modals/Auth";
 import PostProject from "../modals/PostProject";
 import useEditProfile from "../../services/common/useEditProfile";
 import { LuLayoutDashboard } from "react-icons/lu";
+import Notifications from "./Notifications";
 
 const Navbar = () => {
   const token = getAccessToken();
@@ -60,7 +60,7 @@ const Navbar = () => {
             { name: "Home", path: "/" },
             { name: "About Us", path: "/about-us" },
             { name: "How it Works", path: "/how-it-works" },
-            { name: "Pricing", path: "/pricing" },
+            { name: "Pricing", path: "/pricing" }
           ].map((item, index) => (
             <Link
               key={index}
@@ -243,18 +243,18 @@ function ProfileDropdown() {
                 {
                   name: "My Account",
                   path: "/dashboard/edit-profile",
-                  icon: <FiUser />,
+                  icon: <FiUser />
                 },
                 {
                   name: "My Tasks",
                   path: "/dashboard/my-tasks",
-                  icon: <BsClipboardCheck />,
+                  icon: <BsClipboardCheck />
                 },
                 {
                   name: "Manage Payments",
                   path: "/dashboard/manage-payments",
-                  icon: <BsCreditCard2Front />,
-                },
+                  icon: <BsCreditCard2Front />
+                }
               ].map((item, index) => (
                 <Link
                   key={index}
@@ -289,18 +289,18 @@ function ProfileDropdown() {
                 {
                   name: "My Account",
                   path: "/dashboard/edit-profile",
-                  icon: <FiUser />,
+                  icon: <FiUser />
                 },
                 {
                   name: "My Jobs",
                   path: "/dashboard/my-jobs",
-                  icon: <BsClipboardCheck />,
+                  icon: <BsClipboardCheck />
                 },
                 {
                   name: "Manage Payments",
                   path: "/dashboard/manage-payments",
-                  icon: <BsCreditCard2Front />,
-                },
+                  icon: <BsCreditCard2Front />
+                }
               ].map((item, index) => (
                 <Link
                   key={index}
@@ -327,8 +327,8 @@ function ProfileDropdown() {
                 {
                   name: "Dashboard",
                   path: "/admin/dashboard",
-                  icon: <LuLayoutDashboard />,
-                },
+                  icon: <LuLayoutDashboard />
+                }
               ].map((item, index) => (
                 <Link
                   key={index}
@@ -349,121 +349,6 @@ function ProfileDropdown() {
               </button>
             </div>
           )}
-        </div>
-      )}
-    </div>
-  );
-}
-
-function Notifications() {
-  const [isOpen, setIsOpen] = useState(false);
-  const dropdownRef = useRef(null);
-
-  // Close dropdown when clicking outside
-  useEffect(() => {
-    function handleClickOutside(event) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setIsOpen(false);
-      }
-    }
-    if (isOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    }
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [isOpen]);
-
-  return (
-    <div className="relative" ref={dropdownRef}>
-      <IoIosNotificationsOutline
-        className="w-7 h-7 text-gray-500 cursor-pointer relative"
-        onClick={() => setIsOpen(!isOpen)}
-      />
-      <div className="absolute w-[14px] h-[14px] rounded-full bg-primary top-0 right-0 text-white text-[10px] flex items-center justify-center">
-        4
-      </div>
-      {isOpen && (
-        <div className="absolute right-0 mt-2 w-80 bg-white shadow-lg rounded-sm h-[400px] overflow-y-auto ">
-          <div className="p-3">
-            <h3 className="font-semibold text-lg">Notifications</h3>
-          </div>
-
-          <ul className="py-2">
-            <li className="px-4 py-2 flex items-center gap-3 bg-green-100">
-              <FaUserCircle className="w-8 h-8 text-gray-500" />
-              <div>
-                <span className="font-semibold">James Smith</span> accepted your
-                job offer
-                <p className="text-sm text-gray-500">Just now</p>
-              </div>
-            </li>
-
-            <li className="px-4 py-2 flex items-center gap-3 hover:bg-gray-100 cursor-pointer">
-              <FaUserCircle className="w-8 h-8 text-gray-500" />
-              <div>
-                Pay <span className="font-semibold">$234 to Susan Smith</span>{" "}
-                as task is completed.
-                <div className="flex gap-2 mt-1">
-                  <button className="px-3 py-1 bg-blue-500 text-white text-sm rounded">
-                    Accept
-                  </button>
-                  <button className="px-3 py-1 bg-red-500 text-white text-sm rounded">
-                    Reject
-                  </button>
-                </div>
-                <p className="text-sm text-gray-500">5 mins ago</p>
-              </div>
-            </li>
-
-            <li className="px-4 py-2 flex items-center gap-3 hover:bg-gray-100 cursor-pointer">
-              <FaUserCircle className="w-8 h-8 text-gray-500" />
-              <div>
-                Payment is sent to{" "}
-                <span className="font-semibold">Robert Davis</span>
-                <p className="text-sm text-gray-500">Yesterday</p>
-              </div>
-            </li>
-
-            <li className="px-4 py-2 flex items-center gap-3 hover:bg-gray-100 cursor-pointer">
-              <FaUserCircle className="w-8 h-8 text-gray-500" />
-              <div>
-                <span className="font-semibold">Karen Miller</span> sent you a
-                text message.
-                <p className="text-sm text-gray-500">10 Jun 2023</p>
-              </div>
-            </li>
-
-            <li className="px-4 py-2 flex items-center gap-3 hover:bg-gray-100 cursor-pointer">
-              <FaUserCircle className="w-8 h-8 text-gray-500" />
-              <div>
-                <span className="font-semibold">Ralph Edwards</span> has
-                refunded your amount.
-                <p className="text-sm text-gray-500">10 Jun 2023</p>
-              </div>
-            </li>
-
-            <li className="px-4 py-2 flex items-center gap-3 hover:bg-gray-100 cursor-pointer">
-              <FaUserCircle className="w-8 h-8 text-gray-500" />
-              <div>
-                Your task has been deleted.
-                <p className="text-sm text-gray-500">Yesterday</p>
-              </div>
-            </li>
-            {[...Array(3)].map((_, index) => (
-              <li
-                key={index}
-                className="px-4 py-2 flex items-center gap-3 hover:bg-gray-100 cursor-pointer"
-              >
-                <FaUserCircle className="w-8 h-8 text-gray-500" />
-                <div>
-                  <span className="font-semibold">User {index + 1}</span> sent
-                  you a message.
-                  <p className="text-sm text-gray-500">{index + 1} days ago</p>
-                </div>
-              </li>
-            ))}
-          </ul>
         </div>
       )}
     </div>

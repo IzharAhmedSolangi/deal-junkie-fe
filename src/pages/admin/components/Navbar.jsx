@@ -4,6 +4,7 @@ import { useContext } from "react";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { MdOutlineMenu } from "react-icons/md";
 import GlobalContext from "../../../context/GlobalContext";
+import Notifications from "../../../components/shared/Notifications";
 
 const Navbar = (props) => {
   const { toggleSidebar } = props;
@@ -24,6 +25,7 @@ const Navbar = (props) => {
           </h1>
         </div>
         <div className="flex items-center gap-2">
+          <Notifications />
           <div className="flex items-center gap-2">
             <svg
               className="w-10 h-10 text-gray-300 dark:text-gray-700"

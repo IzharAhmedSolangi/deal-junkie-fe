@@ -185,7 +185,7 @@ function Profile(props) {
         icon="/assets/icons/icon-3.png"
         title="Are you sure you want to delete your profile?"
         description="Your delete request will be submitted to admin and your profile will be deleted permanently once approved from admin."
-        url="/api/accounts/delete/"
+        url="/api/accounts/delete-my-account/"
         isOpenModal={isOpenDeleteModal}
         setIsOpenModal={setIsOpenDeleteModal}
       />

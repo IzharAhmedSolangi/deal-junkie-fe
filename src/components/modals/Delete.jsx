@@ -26,14 +26,18 @@ function Delete(props) {
     await axios
       .delete(`${BASE_URL}${url}`, {
         headers: {
-          Authorization: `Bearer ${token}`,
-        },
+          Authorization: `Bearer ${token}`
+        }
       })
       .then((response) => {
         setIsOpenModal(!isOpenModal);
         setUpdateResponse(true);
         setLoading(false);
         handleClose();
+        removeAccessToken();
+        removeRefreshToken();
+        window.location = "/";
+        window.location.reload();
       })
       .catch((error) => {
         setLoading(false);
