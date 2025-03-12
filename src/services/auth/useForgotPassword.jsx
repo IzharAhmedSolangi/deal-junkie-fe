@@ -18,7 +18,7 @@ function useForgotPassword() {
         setErrorMessage(null);
       })
       .catch((error) => {
-        setErrorMessage(error?.response?.data?.error);
+        setErrorMessage(error?.response?.data?.message);
         setLoading(false);
       });
   };

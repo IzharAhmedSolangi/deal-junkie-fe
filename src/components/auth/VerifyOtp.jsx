@@ -70,6 +70,7 @@ function VerifyOtp(props) {
         })
         .catch((error) => {
           setLoading(false);
+          setError("Please enter the valid 4-digit code.");
         });
     }
   };

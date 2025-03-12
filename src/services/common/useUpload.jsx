@@ -36,7 +36,7 @@ function useUpload() {
         }));
       })
       .catch((error) => {
-        ErrorToaster("Error", error?.response?.data?.error);
+        ErrorToaster("Error", error?.response?.data?.message);
         setUpload((prevState) => ({
           ...prevState,
           loading: false,

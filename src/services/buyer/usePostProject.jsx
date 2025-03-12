@@ -38,12 +38,12 @@ function usePostProject() {
         }));
       })
       .catch((error) => {
-        ErrorToaster("Error", error?.response?.data?.error);
+        ErrorToaster("Error", error?.response?.data?.message);
         setPostProject((prevState) => ({
           ...prevState,
           loading: false,
           data: null,
-          error: error?.response?.data?.error,
+          error: error?.response?.data?.message,
           success: false,
         }));
       });

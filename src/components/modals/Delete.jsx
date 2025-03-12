@@ -7,6 +7,7 @@ import axios from "axios";
 import GlobalContext from "../../context/GlobalContext";
 import { getAccessToken } from "../../storage/storage";
 import { ButtonLoader1 } from "../shared/ButtonLoaders";
+import { ErrorToaster } from "../shared/Toster";
 
 function Delete(props) {
   const { isOpenModal, setIsOpenModal, url, icon, title, description } = props;
@@ -36,6 +37,7 @@ function Delete(props) {
       })
       .catch((error) => {
         setLoading(false);
+        ErrorToaster("Error", error?.response?.data?.message);
       });
   };
 

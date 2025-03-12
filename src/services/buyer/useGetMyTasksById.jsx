@@ -37,7 +37,7 @@ function useGetMyTasksById() {
           ...prevState,
           loading: false,
           data: null,
-          message: error?.response?.data?.error || "Internal server error",
+          message: error?.response?.data?.message || "Internal server error",
         }));
       });
   };

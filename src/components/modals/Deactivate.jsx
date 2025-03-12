@@ -7,17 +7,17 @@ import axios from "axios";
 import {
   getAccessToken,
   removeAccessToken,
-  removeRefreshToken
+  removeRefreshToken,
 } from "../../storage/storage";
 import { ButtonLoader1 } from "../shared/ButtonLoaders";
 import Dropdown from "../shared/Dropdown";
-import { SuccessToaster } from "../shared/Toster";
+import { ErrorToaster, SuccessToaster } from "../shared/Toster";
 
 const Reasons = [
   { name: "Reason 1", value: 1 },
   { name: "Reason 2", value: 2 },
   { name: "Reason 3", value: 3 },
-  { name: "Reason 4", value: 4 }
+  { name: "Reason 4", value: 4 },
 ];
 
 function Deactivate(props) {
@@ -41,8 +41,8 @@ function Deactivate(props) {
         {},
         {
           headers: {
-            Authorization: `Bearer ${token}`
-          }
+            Authorization: `Bearer ${token}`,
+          },
         }
       )
       .then((response) => {
@@ -62,6 +62,7 @@ function Deactivate(props) {
       })
       .catch((error) => {
         setLoading(false);
+        ErrorToaster("Error", error?.response?.data?.message);
       });
   };
 

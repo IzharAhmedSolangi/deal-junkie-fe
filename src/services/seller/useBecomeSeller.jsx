@@ -22,7 +22,7 @@ function useBecomeSeller() {
       })
       .catch((error) => {
         setSellerLoading(false);
-        ErrorToaster("Error", error?.response?.data?.error);
+        ErrorToaster("Error", error?.response?.data?.message);
       });
   };
   return { BecomeSeller, sellerLoading };

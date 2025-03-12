@@ -25,7 +25,7 @@ function useContactUs() {
         setLoading(false);
       })
       .catch((error) => {
-        ErrorToaster("Error", error?.response?.data?.error);
+        ErrorToaster("Error", error?.response?.data?.message);
         setLoading(false);
       });
   };

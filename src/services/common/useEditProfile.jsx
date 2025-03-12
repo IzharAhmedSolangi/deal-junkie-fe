@@ -37,7 +37,7 @@ function useEditProfile() {
       })
       .catch((error) => {
         setLoading(false);
-        ErrorToaster("Error", error?.response?.data?.error);
+        ErrorToaster("Error", error?.response?.data?.message);
       });
   };
   return { EditProfile, loading, setShowMessage, showMessage };
