@@ -1,6 +1,8 @@
 import Layout from "../../components/shared/Layout";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import useContactUs from "../../services/common/useContactUs";
+import { ButtonLoader1 } from "../../components/shared/ButtonLoaders";
 
 const validationSchema = Yup.object({
   firstname: Yup.string()
@@ -22,6 +24,8 @@ const validationSchema = Yup.object({
 });
 
 function ContactUs() {
+  const { ContactUs, loading } = useContactUs();
+
   const initialValues = {
     firstname: "",
     lastname: "",
@@ -191,8 +195,9 @@ function ContactUs() {
                   <button
                     className="bg-secondary cursor-pointer hover:opacity-80 w-[150px] h-[40px] text-white rounded flex justify-center items-center"
                     type="submit"
+                    disabled={loading}
                   >
-                    Send Message
+                    {loading ? <ButtonLoader1 /> : "Send Message"}
                   </button>
                 </div>
               </div>
