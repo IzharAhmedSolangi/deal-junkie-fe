@@ -5,6 +5,7 @@ import SellerInformation from "./components/SellerInformation";
 import SellerTimeDetails from "./components/SellerTimeDetails";
 import useFindExpertById from "../../../services/buyer/useFindExpertById";
 import { useEffect } from "react";
+import { ButtonLoader3 } from "../../../components/shared/ButtonLoaders";
 
 function FindExpertDetails() {
   const { sellerId } = useParams();
@@ -25,14 +26,21 @@ function FindExpertDetails() {
             <h1 className="font-bold text-3xl md:text-5xl text-center text-secondary mt-10">
               Seller Details
             </h1>
-            <div className="flex md:flex-row flex-col gap-8 mt-32 px-[5%]">
-              <div className="w-full">
-                <SellerInformation findExpert={findExpert} />
+            {!findExpert.data && findExpert.loading && (
+              <div className="flex justify-center items-center w-full h-[300px]">
+                <ButtonLoader3 />
               </div>
-              <div className="md:w-[600px] w-full">
-                <SellerTimeDetails findExpert={findExpert} />
+            )}
+            {findExpert.data && (
+              <div className="flex md:flex-row flex-col gap-8 mt-32 px-[5%]">
+                <div className="w-full">
+                  <SellerInformation findExpert={findExpert} />
+                </div>
+                <div className="md:w-[600px] w-full">
+                  <SellerTimeDetails findExpert={findExpert} />
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
       </Layout>

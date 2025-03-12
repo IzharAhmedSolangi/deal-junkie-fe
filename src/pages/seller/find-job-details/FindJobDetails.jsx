@@ -5,6 +5,7 @@ import BuyerInfo from "./components/BuyerInfo";
 import JobInfo from "./components/JobInfo";
 import useFindJobById from "../../../services/seller/useFindJobById";
 import { useEffect } from "react";
+import { ButtonLoader3 } from "../../../components/shared/ButtonLoaders";
 
 function FindJobDetails() {
   const { jobId } = useParams();
@@ -25,14 +26,21 @@ function FindJobDetails() {
             <h1 className="font-bold text-3xl md:text-5xl text-center text-secondary mt-10">
               Job Details
             </h1>
-            <div className="flex md:flex-row flex-col gap-8 mt-32 px-[5%]">
-              <div className="w-full">
-                <JobInfo findJob={findJob} />
+            {!findJob.data && findJob.loading && (
+              <div className="flex justify-center items-center w-full h-[300px]">
+                <ButtonLoader3 />
               </div>
-              <div className="md:w-[600px] w-full">
-                <BuyerInfo findJob={findJob} />
+            )}
+            {findJob.data && (
+              <div className="flex md:flex-row flex-col gap-8 mt-32 px-[5%]">
+                <div className="w-full">
+                  <JobInfo findJob={findJob} />
+                </div>
+                <div className="md:w-[600px] w-full">
+                  <BuyerInfo findJob={findJob} />
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
       </Layout>

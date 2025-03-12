@@ -5,6 +5,7 @@ import useGetJobById from "../../services/admin/useGetJobById";
 import { useEffect } from "react";
 import ShowMessage from "../../components/shared/ShowMessage";
 import { IoMdClose } from "react-icons/io";
+import { ButtonLoader3 } from "../../components/shared/ButtonLoaders";
 
 function JobDetails() {
   const { jobId } = useParams();
@@ -19,26 +20,35 @@ function JobDetails() {
   return (
     <>
       <div className="w-full h-auto p-5">
-        <div className="flex items-center gap-1 mb-3">
-          <Link
-            to={"/admin/jobs"}
-            className="text-[#02174C] hover:text-primary text-[18px] font-[500]"
-          >
-            Jobs
-          </Link>
-          /
-          <p className="text-primary text-[18px] font-[500]">
-            {job.data?.title}
-          </p>
-        </div>
-        <div className="rounded-[12px] bg-white shadow-md p-5">
-          <TaskDetails job={job} />
-          <Proposals job={job} />
-          <button className="bg-[#EA51670F] w-full h-[35px] border border-[#EA5167] rounded-sm text-[#EA5167] text-[13px] cursor-pointer flex justify-center items-center gap-1 mt-5">
-            <IoMdClose />
-            Cancel
-          </button>
-        </div>
+        {!job.data && job.loading && (
+          <div className="flex justify-center items-center w-full h-[300px]">
+            <ButtonLoader3 />
+          </div>
+        )}
+        {job.data && (
+          <>
+            <div className="flex items-center gap-1 mb-3">
+              <Link
+                to={"/admin/jobs"}
+                className="text-[#02174C] hover:text-primary text-[18px] font-[500]"
+              >
+                Jobs
+              </Link>
+              /
+              <p className="text-primary text-[18px] font-[500]">
+                {job.data?.title}
+              </p>
+            </div>
+            <div className="rounded-[12px] bg-white shadow-md p-5">
+              <TaskDetails job={job} />
+              <Proposals job={job} />
+              <button className="bg-[#EA51670F] w-full h-[35px] border border-[#EA5167] rounded-sm text-[#EA5167] text-[13px] cursor-pointer flex justify-center items-center gap-1 mt-5">
+                <IoMdClose />
+                Cancel
+              </button>
+            </div>
+          </>
+        )}
       </div>
     </>
   );
