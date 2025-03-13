@@ -52,20 +52,20 @@ const Navbar = () => {
           {/* Logo */}
           <Link
             to="/"
-            className="md:flex hidden items-center gap-2 text-2xl font-extrabold"
+            className="md:flex hidden items-center gap-2 text-2xl font-extrabold w-[33.33%]"
           >
             <img src="/assets/logo/logo.png" alt="" className="h-8" />
             <h1 className="text-[#003F63]">Deal Junkie</h1>
           </Link>
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className=" text-gray-700 hover:text-primary cursor-pointer md:hidden"
+            className=" text-gray-700 hover:text-primary cursor-pointer md:hidden w-[33.33%]"
           >
             <FaBars className="text-2xl" />
           </button>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex gap-5 items-center">
+          <div className="hidden md:flex gap-5 justify-center items-center w-[33.33%]">
             {[
               { name: "Home", path: "/" },
               { name: "About Us", path: "/about-us" },
@@ -89,13 +89,13 @@ const Navbar = () => {
           {/* Mobile Menu Button */}
           <Link
             to="/"
-            className="flex items-center gap-1 text-2xl font-extrabold md:hidden"
+            className="flex items-center justify-center gap-1 text-2xl font-extrabold md:hidden w-[33.33%]"
           >
-            <img src="/assets/logo/logo.png" alt="" className="h-8" />
-            <h1 className="text-[#003F63]">Deal Junkie</h1>
+            <img src="/assets/logo/logo.png" alt="" className="h-5" />
+            <h1 className="text-[#003F63] text-[15px]">Deal Junkie</h1>
           </Link>
           {token ? (
-            <div className="flex justify-center items-center gap-2 md:hidden">
+            <div className="flex justify-end items-center gap-2 md:hidden w-[33.33%]">
               {" "}
               <Notifications />
               <Link to="/inbox" className="relative">
@@ -107,7 +107,7 @@ const Navbar = () => {
               <ProfileDropdown />
             </div>
           ) : (
-            <div className="flex md:hidden items-center gap-1">
+            <div className="flex md:hidden items-center justify-end gap-1 w-[33.33%]">
               <button
                 className="text-gray-700 hover:text-primary cursor-pointer"
                 onClick={() => {
@@ -181,7 +181,7 @@ const Navbar = () => {
           )}
 
           {/* Auth & User Menu */}
-          <div className="hidden md:flex items-center gap-3">
+          <div className="hidden md:flex items-center justify-end gap-3 w-[33.33%]">
             {token ? (
               <>
                 <Notifications />
