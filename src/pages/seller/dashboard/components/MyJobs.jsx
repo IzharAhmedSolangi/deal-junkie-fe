@@ -12,7 +12,7 @@ const Tasks = [
   { name: "All Jobs", value: 1 },
   { name: "Completed", value: 2 },
   { name: "Cancelled", value: 3 },
-  { name: "In Process", value: 4 },
+  { name: "In Progress", value: 4 },
 ];
 
 function MyJobs() {
@@ -23,8 +23,8 @@ function MyJobs() {
   const [loadingTaskId, setLoadingTaskId] = useState(null);
 
   useEffect(() => {
-    GetMyTasks();
-  }, []);
+    GetMyTasks(1, false, selectedTaskFilter?.name);
+  }, [selectedTaskFilter]);
 
   const handleLoadMore = () => {
     if (myTasks.currentPage < myTasks.totalPages) {
@@ -33,7 +33,7 @@ function MyJobs() {
         loading: true,
       }));
       const nextPage = myTasks.currentPage + 1;
-      GetMyTasks(nextPage, true);
+      GetMyTasks(nextPage, true, selectedTaskFilter?.name);
     }
   };
 
@@ -132,12 +132,12 @@ function MyJobs() {
           </div>
         )}
         {!myTasks.data && myTasks.loading && (
-          <div className="flex justify-center items-center w-full md:h-[300px] h-[150px]">
+          <div className="flex justify-center items-center w-full md:h-[200px] h-[150px]">
             <ButtonLoader3 />
           </div>
         )}
         {!myTasks.loading && myTasks.message && (
-          <div className="flex justify-center items-center w-full md:h-[300px] h-[150px]">
+          <div className="flex justify-center items-center w-full md:h-[200px] h-[150px]">
             <ShowMessage title={myTasks.message} />
           </div>
         )}

@@ -19,8 +19,9 @@ const Tasks = [
   { name: "All Tasks", value: 1 },
   { name: "Completed", value: 2 },
   { name: "Cancelled", value: 3 },
-  { name: "In Process", value: 4 },
+  { name: "In Progress", value: 4 },
   { name: "Receiving Offers", value: 5 },
+  { name: "Hold", value: 6 },
 ];
 
 function MyTasks() {
@@ -33,8 +34,8 @@ function MyTasks() {
   const [loadingTaskId, setLoadingTaskId] = useState(null);
 
   useEffect(() => {
-    GetMyTasks();
-  }, [updateResponse]);
+    GetMyTasks(1, false, selectedTaskFilter?.name);
+  }, [updateResponse, selectedTaskFilter]);
 
   const handleLoadMore = () => {
     if (myTasks.currentPage < myTasks.totalPages) {
@@ -43,7 +44,7 @@ function MyTasks() {
         loading: true,
       }));
       const nextPage = myTasks.currentPage + 1;
-      GetMyTasks(nextPage, true);
+      GetMyTasks(nextPage, true, selectedTaskFilter?.name);
     }
   };
 
@@ -164,12 +165,12 @@ function MyTasks() {
         </div>
       )}
       {!myTasks.data && myTasks.loading && (
-        <div className="flex justify-center items-center w-full md:h-[300px] h-[150px]">
+        <div className="flex justify-center items-center w-full md:h-[200px] h-[150px]">
           <ButtonLoader3 />
         </div>
       )}
       {!myTasks.loading && myTasks.message && (
-        <div className="flex justify-center items-center w-full md:h-[300px] h-[150px]">
+        <div className="flex justify-center items-center w-full md:h-[200px] h-[150px]">
           <ShowMessage title={myTasks.message} />
         </div>
       )}

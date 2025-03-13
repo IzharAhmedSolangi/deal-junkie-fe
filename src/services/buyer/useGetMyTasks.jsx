@@ -15,17 +15,24 @@ function useGetMyTasks() {
     currentPage: 1,
   });
 
-  const GetMyTasks = async (page = 1, append = updateResponse || false) => {
+  const GetMyTasks = async (
+    page = 1,
+    append = updateResponse || false,
+    selectedTaskFilter
+  ) => {
     setMyTasks((prevState) => ({
       ...prevState,
       message: null,
     }));
     await axios
-      .get(`${BASE_URL}/api/buyer/my-tasks/?page=${page}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .get(
+        `${BASE_URL}/api/buyer/my-tasks/?page=${page}&filter=${selectedTaskFilter}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((response) => {
         setUpdateResponse(false);
         setMyTasks((prevState) => ({
