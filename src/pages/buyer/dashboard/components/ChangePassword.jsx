@@ -52,7 +52,7 @@ function ChangePassword() {
       </h1>
       <form onSubmit={handleSubmit} className="w-full">
         <div className="w-full mt-3">
-          <div className="mt-2 grid grid-cols-2 gap-2">
+          <div className="mt-2 grid md:grid-cols-2 grid-cols-1 gap-2">
             <div>
               <div className="relative">
                 <input

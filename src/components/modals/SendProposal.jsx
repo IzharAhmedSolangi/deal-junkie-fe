@@ -149,8 +149,8 @@ function SendProposal(props) {
                 <Dialog.Panel
                   className={`relative transform overflow-hidden rounded-[16px] bg-white text-left shadow-xl transition-all  ${
                     sendProposal.success
-                      ? "w-[600px] h-auto py-12 md:px-[5%] px-2"
-                      : "w-full h-auto py-12 md:px-[5%] px-2"
+                      ? "w-[600px] h-auto md:py-12 md:px-6 p-5"
+                      : "w-full h-auto md:py-12 md:px-6 p-5"
                   }`}
                 >
                   <div

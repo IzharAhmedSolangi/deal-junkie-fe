@@ -1,19 +1,41 @@
-import { useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useState } from "react";
 import Dropdown from "../../../../components/shared/Dropdown";
 import { CiCalendar, CiTimer } from "react-icons/ci";
 import { IoEyeOutline } from "react-icons/io5";
-import { PiCurrencyDollarBold } from "react-icons/pi";
-import { IoMdClose } from "react-icons/io";
+import useGetMyTasks from "../../../../services/seller/useGetMyTasks";
+import ShowMessage from "../../../../components/shared/ShowMessage";
+import { ButtonLoader3 } from "../../../../components/shared/ButtonLoaders";
+import { TiTick } from "react-icons/ti";
 
 const Tasks = [
-  { name: "All Tasks", value: 1 },
+  { name: "All Jobs", value: 1 },
   { name: "Completed", value: 2 },
   { name: "Cancelled", value: 3 },
   { name: "In Process", value: 4 },
 ];
 
 function MyJobs() {
-  const [selectedJob, setSelectedJob] = useState(Tasks[0]);
+  const { GetMyTasks, myTasks, setMyTasks } = useGetMyTasks();
+  const [selectedTaskFilter, setSelectedTaskFilter] = useState(Tasks[0]);
+  const [selectedTask, setSelectedTask] = useState(null);
+  const [isOpenTaskDetailsModal, setIsOpenTaskDetailsModal] = useState(false);
+  const [loadingTaskId, setLoadingTaskId] = useState(null);
+
+  useEffect(() => {
+    GetMyTasks();
+  }, []);
+
+  const handleLoadMore = () => {
+    if (myTasks.currentPage < myTasks.totalPages) {
+      setMyTasks((prevState) => ({
+        ...prevState,
+        loading: true,
+      }));
+      const nextPage = myTasks.currentPage + 1;
+      GetMyTasks(nextPage, true);
+    }
+  };
 
   return (
     <>
@@ -21,60 +43,104 @@ function MyJobs() {
         <h1 className="font-semibold text-[30px] text-secondary">My Jobs</h1>
         <div className="min-w-[150px]">
           <Dropdown
-            placeholder="Select Task"
+            placeholder="Select Job"
             options={Tasks}
-            selected={selectedJob}
+            selected={selectedTaskFilter}
             onChange={(option) => {
-              setSelectedJob(option);
+              setSelectedTaskFilter(option);
             }}
           />
         </div>
       </div>
       <div className="w-full mt-5 flex flex-col gap-5">
-        {Array.from({ length: 10 }).map((item, index) => (
-          <div
-            key={index}
-            className="border border-[#15202712] rounded-[10px] shadow-md w-full h-[200px] p-3"
-          >
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-1">
-                <div className="flex items-center gap-[2px] text-[#98A2B3] text-[14px] font-[500]">
-                  <CiCalendar />
-                  July 25, 2025
+        {!myTasks.loading && (
+          <div className="w-full mt-5 flex flex-col gap-5">
+            {myTasks.data?.map((item, index) => (
+              <div
+                key={index}
+                className="border border-[#15202712] rounded-[10px] shadow-md w-full h-auto md:p-3 p-2"
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-1">
+                    <div className="flex items-center gap-[2px] text-[#98A2B3] text-[14px] font-[500]">
+                      <CiCalendar />
+                      {item.expected_completion_date}
+                    </div>
+                    <div className="flex items-center gap-[2px] text-[#98A2B3] text-[14px] font-[500]">
+                      <CiTimer />
+                      11:59 PM
+                    </div>
+                  </div>
+                  {item.status === "Completed" && (
+                    <div className="px-2 py-1 shadow-sm rounded-sm bg-secondary text-white text-[12px] font-[700]">
+                      {item.status}
+                    </div>
+                  )}
+                  {item.status === "In Progress" && (
+                    <div className="px-2 py-1 shadow-sm rounded-sm bg-primary text-white text-[12px] font-[700]">
+                      {item.status}
+                    </div>
+                  )}
+                  {item.status === "Cancelled" && (
+                    <div className="px-2 py-1 shadow-sm rounded-sm bg-[#D92D20] text-white text-[12px] font-[700]">
+                      {item.status}
+                    </div>
+                  )}
                 </div>
-                <div className="flex items-center gap-[2px] text-[#98A2B3] text-[14px] font-[500]">
-                  <CiTimer />
-                  3:30PM
+                <h1 className="text-[#222222] md:text-[20px] text-[16px] font-[600] mt-3">
+                  {item.title}
+                </h1>
+                <p className="text-[#98A2B3] md:text-[16px] text-[12px] mt-1">
+                  {item.description}
+                </p>
+                <div className="flex items-center gap-1 mt-3">
+                  <button
+                    onClick={() => {
+                      setSelectedTask(item);
+                      setIsOpenTaskDetailsModal(true);
+                    }}
+                    className="bg-[#51B8EA0F] w-full h-[35px] border border-[#2D9ACF] rounded-sm text-[#2D9ACF] text-[13px] cursor-pointer flex justify-center items-center gap-1"
+                  >
+                    <IoEyeOutline />
+                    See Details
+                  </button>
+                  {item.status === "In Progress" && (
+                    <button className="bg-[#0AF8860D] w-full h-[35px] border border-primary rounded-sm text-primary text-[13px] cursor-pointer flex justify-center items-center">
+                      <TiTick />
+                      Complete As Complete
+                    </button>
+                  )}
                 </div>
               </div>
-              <div className="px-2 py-1 shadow-sm rounded-sm bg-secondary text-white text-[12px] font-[700]">
-                RECEIVING OFFERS
-              </div>
-            </div>
-            <h1 className="text-[#222222] text-[20px] font-[600] mt-3">
-              Seeking skilled contractors for home improvement project
-            </h1>
-            <p className="text-[#98A2B3] text-[16px] mt-1">
-              Its not always easy to do whats not popular, but thats where you
-              make your money. Its not always easy to do whats not popular, but
-              thats where you make your money.
-            </p>
-            <div className="flex items-center gap-1 mt-3">
-              <button className="bg-[#51B8EA0F] w-full h-[35px] border border-[#2D9ACF] rounded-sm text-[#2D9ACF] text-[13px] cursor-pointer flex justify-center items-center gap-1">
-                <IoEyeOutline />
-                See Details
-              </button>
-              <button className="bg-[#AF2DCF0F] w-full h-[35px] border border-[#AF2DCF] rounded-sm text-[#AF2DCF] text-[13px] cursor-pointer flex justify-center items-center gap-1">
-                <PiCurrencyDollarBold />
-                Update Price
-              </button>
-              <button className="bg-[#EA51670F] w-full h-[35px] border border-[#EA5167] rounded-sm text-[#EA5167] text-[13px] cursor-pointer flex justify-center items-center gap-1">
-                <IoMdClose />
-                Cancel Job
-              </button>
-            </div>
+            ))}
           </div>
-        ))}
+        )}
+        {myTasks.currentPage < myTasks.totalPages && !myTasks.loading && (
+          <div className="flex justify-center mt-4">
+            <button
+              className="bg-primary text-secondary py-2 px-6 rounded-md cursor-pointer"
+              onClick={handleLoadMore}
+              disabled={myTasks.loading}
+            >
+              See More
+            </button>
+          </div>
+        )}
+        {myTasks.data && myTasks.loading && (
+          <div className="w-full flex justify-center mt-2">
+            <ButtonLoader3 />
+          </div>
+        )}
+        {!myTasks.data && myTasks.loading && (
+          <div className="flex justify-center items-center w-full md:h-[300px] h-[150px]">
+            <ButtonLoader3 />
+          </div>
+        )}
+        {!myTasks.loading && myTasks.message && (
+          <div className="flex justify-center items-center w-full md:h-[300px] h-[150px]">
+            <ShowMessage title={myTasks.message} />
+          </div>
+        )}
       </div>
     </>
   );

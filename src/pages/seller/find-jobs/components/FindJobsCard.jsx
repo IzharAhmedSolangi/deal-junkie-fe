@@ -16,17 +16,17 @@ function FindJobsCard(props) {
 
   return (
     <>
-      <div className="px-10">
+      <div className="md:px-10 px-5">
         {!findJobs.loading && (
           <div className="mt-24">
             <h1 className="text-[#1D2939] text-[32px] font-[600]">
               Latest Jobs
             </h1>
-            <div className="w-full grid grid-cols-2 gap-4 mt-1">
+            <div className="w-full grid md:grid-cols-2 grid-cols-1 gap-4 mt-1">
               {findJobs.data?.map((item, index) => (
                 <div
                   key={index}
-                  className="border border-[#15202712] rounded-[10px] shadow-md w-full h-[200px] p-3"
+                  className="border border-[#15202712] rounded-[10px] shadow-md w-full h-auto md:p-3 p-2"
                 >
                   <div>
                     <div className="flex items-center gap-1">
@@ -40,10 +40,10 @@ function FindJobsCard(props) {
                       </div>
                     </div>
                   </div>
-                  <h1 className="text-[#222222] text-[20px] font-[600] mt-3">
+                  <h1 className="text-[#222222] md:text-[20px] text-[16px] font-[600] mt-3">
                     {item.title}
                   </h1>
-                  <p className="text-[#98A2B3] text-[16px] mt-1">
+                  <p className="text-[#98A2B3] md:text-[16px] text-[12px] mt-1">
                     {item.description}
                   </p>
                   <div className="flex items-center gap-1 mt-3">

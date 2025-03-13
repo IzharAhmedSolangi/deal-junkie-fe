@@ -124,8 +124,8 @@ function PostProject(props) {
                 <Dialog.Panel
                   className={`relative transform overflow-hidden rounded-[16px] bg-white text-left shadow-xl transition-all  ${
                     postProject.success
-                      ? "w-[600px] h-auto py-12 md:px-[5%] px-2"
-                      : "w-full h-auto py-12 md:px-[5%] px-2"
+                      ? "w-[600px] h-auto md:py-12 md:px-6 p-5"
+                      : "w-full h-auto md:py-12 md:px-6 p-5"
                   }`}
                 >
                   <div
@@ -162,10 +162,10 @@ function PostProject(props) {
                     {postProject.success && (
                       <div className="flex flex-col justify-center items-center w-full">
                         <img src="/assets/icons/icon-2.png" alt="" />
-                        <h1 className="font-[600] text-[32px] text-secondary">
+                        <h1 className="font-[600] md:text-[32px] text-[24px] text-secondary">
                           Your request is sent!
                         </h1>
-                        <p className="font-[500] text-[16px] text-[#6F7487] text-center">
+                        <p className="font-[500] md:text-[16px] text-[13px] text-[#6F7487] text-center">
                           Thank you for submitting your task request. Your
                           Expert is on it and will get back to you shortly.
                         </p>
@@ -247,16 +247,16 @@ function StepOne(props) {
       <div className="w-full">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="font-[600] text-[30px] text-secondary">
+            <h1 className="font-[600] md:text-[30px] text-[24px] text-secondary">
               Post a request
             </h1>
-            <p className="font-[500] text-[20px] text-[#6F7487]">
+            <p className="font-[500] md:text-[20px] text-[15px] text-[#6F7487]">
               Describe details about your request
             </p>
           </div>
           <CircularProgress percentage={percentage} />
         </div>
-        <div className="pt-5 pb-10">
+        <div className="md:pt-5 md:pb-10 py-2">
           <div>
             <input
               type="text"
@@ -271,7 +271,7 @@ function StepOne(props) {
             )}
           </div>
 
-          <div className="mt-4">
+          <div className="md:mt-4 mt-2">
             <input
               type="text"
               placeholder="Category"
@@ -285,7 +285,7 @@ function StepOne(props) {
             )}
           </div>
 
-          <div className="mt-4">
+          <div className="md:mt-4 mt-2">
             <Dropdown
               placeholder="Select Experience"
               options={[
@@ -304,16 +304,16 @@ function StepOne(props) {
             )}
           </div>
 
-          <div className="mt-4">
+          <div className="md:mt-4 mt-2">
             <label className="text-[16px] text-[#222222] font-[600]">
               Your estimated budget
             </label>
-            <div className="flex items-center justify-between gap-2 mt-2">
-              <div className="flex items-center gap-2 w-full">
+            <div className="flex md:flex-row flex-col md:items-center md:justify-between gap-2 mt-2">
+              <div className="flex flex-wrap items-center md:gap-2 gap-1 w-full">
                 {budgets.map((budget, index) => (
                   <button
                     key={index}
-                    className={`rounded-[40px] px-6 w-auto h-[40px] border text-[14px] font-[500] cursor-pointer hover:text-secondary hover:bg-primary hover:border-primary ${
+                    className={`rounded-[40px] md:px-6 px-3 w-auto h-[40px] border md:text-[14px] text-[12px] font-[500] cursor-pointer hover:text-secondary hover:bg-primary hover:border-primary ${
                       values.budget === budget.value
                         ? "bg-primary border-primary text-secondary"
                         : "border-[#02174C33] text-[#6F7487]"
@@ -328,7 +328,7 @@ function StepOne(props) {
                 type="number"
                 placeholder="Other"
                 onChange={handleBudgetChange}
-                className="w-[300px] h-[40px] px-3 rounded-[4px] bg-transparent border border-[#02174C33] outline-none hover:border-secondary focus:border-secondary"
+                className="md:w-[300px] w-full h-[40px] px-3 rounded-[4px] bg-transparent border border-[#02174C33] outline-none hover:border-secondary focus:border-secondary"
               />
             </div>
             {errors.budget && touched.budget && (
@@ -336,7 +336,7 @@ function StepOne(props) {
             )}
           </div>
 
-          <div className="mt-4">
+          <div className="md:mt-4 mt-2">
             <label className="text-[16px] text-[#222222] font-[600]">
               Tags <span className="text-primary font-normal">(optional)</span>
             </label>
@@ -369,7 +369,7 @@ function StepOne(props) {
             )}
           </div>
 
-          <div className="mt-4">
+          <div className="md:mt-4 mt-2">
             <label className="text-[16px] text-[#222222] font-[600]">
               Tell us the details of your task
             </label>
@@ -427,10 +427,10 @@ function StepTwo(props) {
       <div className="w-full">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="font-[600] text-[30px] text-secondary">
+            <h1 className="font-[600] md:text-[30px] text-[24px] text-secondary">
               Your task schedule
             </h1>
-            <p className="font-[500] text-[20px] text-[#6F7487]">
+            <p className="font-[500] md:text-[20px] text-[15px] text-[#6F7487]">
               When do you need an Expert to be available to work?
             </p>
           </div>

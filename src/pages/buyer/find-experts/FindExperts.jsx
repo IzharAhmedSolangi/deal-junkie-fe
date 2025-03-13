@@ -84,13 +84,13 @@ function FindExperts() {
   return (
     <>
       <Layout>
-        <div className="bg-white w-full h-auto pt-[70px] pb-40 relative">
-          <div className="absolute top-[-100px] left-0 w-full h-[400px] bg-cover bg-center bg-[url('/assets/images/Banner2.png')]"></div>
-          <h1 className="font-[700] text-[48px] text-center text-secondary">
+        <div className="bg-white w-full h-auto pt-[70px] md:pb-40 pb-28 relative">
+          <div className="absolute md:top-[-100px] top-[-70px] left-0 w-full md:h-[400px] h-[350px] bg-cover bg-center bg-[url('/assets/images/Banner2.png')]"></div>
+          <h1 className="font-[700] md:text-[48px] text-[30px] text-center text-secondary">
             Find Experts For Your Needs
           </h1>
           <div className="w-full flex justify-center">
-            <div className="md:w-[50%] w-full flex gap-2 justify-between items-center bg-white shadow-lg p-2 rounded relative">
+            <div className="md:w-[50%] w-[95%] flex gap-2 justify-between items-center bg-white shadow-lg p-2 rounded relative">
               <input
                 type="search"
                 value={filters.search}

@@ -47,20 +47,20 @@ function ContactUs() {
   return (
     <>
       <Layout>
-        <div className="bg-white w-full h-auto pt-[70px] pb-40 relative">
-          <div className="absolute top-[-100px] left-0 w-full h-[400px] bg-cover bg-center bg-[url('/assets/images/Banner2.png')]"></div>
-          <h1 className="font-[700] text-[48px] text-center text-secondary mt-4">
+        <div className="bg-white w-full h-auto pt-[70px] md:pb-40 pb-28 relative">
+          <div className="absolute md:top-[-100px] top-[-70px] left-0 w-full md:h-[400px] h-[350px] bg-cover bg-center bg-[url('/assets/images/Banner2.png')]"></div>
+          <h1 className="font-[700] md:text-[48px] text-[36px] text-center text-secondary mt-4">
             Contact Us
           </h1>
-          <div className="mt-32 w-full flex justify-center">
+          <div className="mt-32 w-full flex justify-center px-5">
             <form onSubmit={handleSubmit} className="md:w-[80%] w-full">
-              <h1 className="font-[600] text-[32px] text-secondary">
+              <h1 className="font-[600] md:text-[32px] text-[26px] text-secondary">
                 Reach out to us
               </h1>
-              <p className="font-[500] text-[16px] text-[#6F7487]">
+              <p className="font-[500] md:text-[16px] text-[12px] text-[#6F7487]">
                 Have a question or need assistance? Fill out the form below and
-                our dedicated support team will get <br /> back to you as soon
-                as possible. We&apos;re here to help!
+                our dedicated support team will get back to you as soon as
+                possible. We&apos;re here to help!
               </p>
               <div className="w-full mt-4">
                 <div className="mt-2 grid grid-cols-2 gap-2">

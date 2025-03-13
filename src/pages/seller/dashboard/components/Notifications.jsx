@@ -76,10 +76,10 @@ function Notifications() {
         {notifications.map((item, index) => (
           <div key={index} className="w-full flex justify-between mt-3">
             <div className="w-[70%]">
-              <h1 className="text-[20px] text-[#222222] font-[600]">
+              <h1 className="md:text-[20px] text-[15px] text-[#222222] font-[600]">
                 {item.title}
               </h1>
-              <p className="text-[16px] font-[400] text-[#6F7487]">
+              <p className="md:text-[16px] text-[10px] font-[400] text-[#6F7487]">
                 {item.description}
               </p>
             </div>

@@ -72,7 +72,7 @@ function MyTaskDetailsModal(props) {
                 leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                 leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
               >
-                <Dialog.Panel className="relative transform overflow-hidden rounded-[16px] bg-white text-left shadow-xl transition-all w-full min-h-full py-12 md:px-[5%] px-2">
+                <Dialog.Panel className="relative transform overflow-hidden rounded-[16px] bg-white text-left shadow-xl transition-all w-full min-h-full md:py-12 md:px-6 p-5">
                   <div
                     onClick={handleClose}
                     className="absolute top-[15px] right-[15px] cursor-pointer rounded border border-[#02174C33] w-[30px] h-[30px] flex justify-center items-center"
@@ -96,10 +96,10 @@ function MyTaskDetailsModal(props) {
                           {myTask.data?.status}
                         </div>
                       )}
-                      <h1 className="text-[#222222] text-[20px] font-[600] mt-2">
+                      <h1 className="text-[#222222] md:text-[20px] text-[16px] font-[600] mt-2">
                         Request details
                       </h1>
-                      <p className="text-[#98A2B3] text-[16px]">
+                      <p className="text-[#98A2B3] md:text-[16px] text-[12px]">
                         Please review carefully your request details before
                         submitting, you can edit or reschedule your task anytime
                         from your account.
@@ -157,27 +157,33 @@ function TaskDetails(props) {
   const { myTask } = props;
 
   return (
-    <div className="w-full mt-3">
-      <h2 className="text-[#222222] text-[18px] font-[600]">Task details</h2>
-      <div className="grid grid-cols-2 gap-2 w-full mt-3">
+    <div className="w-full md:mt-3 mt-1">
+      <h2 className="text-[#222222] md:text-[18px] text-[15px] font-[600]">
+        Task details
+      </h2>
+      <div className="grid grid-cols-2 md:gap-2 gap-1 w-full md:mt-3 mt-1">
         <div>
-          <label className="text-[#222222] text-[16px] font-[500]">
+          <label className="text-[#222222] md:text-[16px] text-[13px] font-[500]">
             Category
           </label>
-          <p className="text-[#6F7487] text-[16px] font-[400]">
+          <p className="text-[#6F7487] md:text-[16px] text-[12px] font-[400]">
             {myTask.data?.category}
           </p>
         </div>
         <div>
-          <label className="text-[#222222] text-[16px] font-[500]">Title</label>
-          <p className="text-[#6F7487] text-[16px] font-[400]">
+          <label className="text-[#222222] md:text-[16px] text-[13px] font-[500]">
+            Title
+          </label>
+          <p className="text-[#6F7487] md:text-[16px] text-[12px] font-[400]">
             {myTask.data?.title}
           </p>
         </div>
       </div>
-      <div className="grid grid-cols-2 gap-2 w-full mt-3">
+      <div className="grid grid-cols-2 gap-2 w-full mt-2">
         <div>
-          <label className="text-[#222222] text-[16px] font-[500]">Tags</label>
+          <label className="text-[#222222] md:text-[16px] text-[13px] font-[500]">
+            Tags
+          </label>
           <div className="flex flex-wrap gap-2">
             {myTask.data?.tags?.map((tag, i) => (
               <span
@@ -190,20 +196,20 @@ function TaskDetails(props) {
           </div>
         </div>
         <div>
-          <label className="text-[#222222] text-[16px] font-[500]">
+          <label className="text-[#222222] md:text-[16px] text-[13px] font-[500]">
             Estimated budget
           </label>
-          <p className="text-[#6F7487] text-[16px] font-[400]">
+          <p className="text-[#6F7487] md:text-[16px] text-[12px] font-[400]">
             ${myTask.data?.budget} / hr
           </p>
         </div>
       </div>
-      <div className="grid grid-cols-1 w-full mt-3">
+      <div className="grid grid-cols-1 w-full mt-2">
         <div>
-          <label className="text-[#222222] text-[16px] font-[500]">
+          <label className="text-[#222222] md:text-[16px] text-[13px] font-[500]">
             Task description
           </label>
-          <p className="text-[#6F7487] text-[16px] font-[400]">
+          <p className="text-[#6F7487] md:text-[16px] text-[12px] font-[400]">
             {myTask.data?.description}
           </p>
         </div>
@@ -216,16 +222,18 @@ function Proposals(props) {
   const { myTask, handleAcceptRequest, acceptProposal } = props;
 
   return (
-    <div className="w-full mt-5">
-      <h2 className="text-[#222222] text-[18px] font-[600]">Experts</h2>
+    <div className="w-full md:mt-5 mt-2">
+      <h2 className="text-[#222222] md:text-[18px] text-[16px] font-[600]">
+        Experts
+      </h2>
       {myTask.data?.proposals?.length > 0 && (
-        <div className="mt-3 flex flex-col gap-3">
+        <div className="md:mt-3 mt-1 flex flex-col gap-3">
           {myTask.data?.proposals?.map((item, index) => (
             <div
-              className="w-full h-[110px] p-5 rounded-xl border border-[#02174C33] flex items-center justify-between"
+              className="w-full h-auto md:p-4 p-2 rounded-xl border border-[#02174C33] flex md:flex-row flex-col md:items-center md:justify-between"
               key={index}
             >
-              <div className="flex items-center gap-3">
+              <div className="flex items-center md:gap-3 gap-2">
                 <img
                   src={item.seller.user.profile_picture}
                   alt=""
@@ -240,20 +248,20 @@ function Proposals(props) {
                   </h2>
                 </div>
               </div>
-              <div className="flex items-center gap-3">
+              <div className="flex items-center md:gap-3 gap-2 md:mt-0 mt-2">
                 <Link
                   to={`/find-experts/${item.seller.id}`}
-                  className="bg-[#02174C0F] w-[120px] h-[35px] border border-secondary rounded-sm text-secondary text-[13px] cursor-pointer flex justify-center items-center"
+                  className="bg-[#02174C0F] md:w-[120px] w-full h-[35px] border border-secondary rounded-sm text-secondary text-[12px] cursor-pointer flex justify-center items-center"
                 >
                   See Profile
                 </Link>
                 {myTask.data?.status === "In Progress" ? (
-                  <button className="w-[120px] h-[35px] border border-[#6F7487] rounded-sm text-[#6F7487] text-[13px] flex justify-center items-center">
+                  <button className="md:w-[120px] w-full h-[35px] border border-[#6F7487] rounded-sm text-[#6F7487] text-[12px] flex justify-center items-center">
                     Approved
                   </button>
                 ) : (
                   <button
-                    className="bg-[#0AF8860D] w-[120px] h-[35px] border border-[#039855] rounded-sm text-[#039855] text-[13px] cursor-pointer flex justify-center items-center"
+                    className="bg-[#0AF8860D] md:w-[120px] w-full h-[35px] border border-[#039855] rounded-sm text-[#039855] text-[12px] cursor-pointer flex justify-center items-center"
                     disabled={acceptProposal.loading}
                     onClick={() => handleAcceptRequest(item.id)}
                   >

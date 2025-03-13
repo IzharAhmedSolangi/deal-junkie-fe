@@ -20,10 +20,10 @@ function FindExpertDetails() {
   return (
     <>
       <Layout>
-        <div className="relative w-full h-auto bg-white pt-[70px] pb-40">
-          <div className="absolute top-[-100px] left-0 w-full h-[400px] bg-cover bg-center bg-[url('/assets/images/Banner2.png')]" />
+        <div className="relative w-full h-auto bg-white pt-[70px] md:pb-40 pb-28">
+          <div className="absolute md:top-[-100px] top-[-70px] left-0 w-full md:h-[400px] h-[350px] bg-cover bg-center bg-[url('/assets/images/Banner2.png')]"></div>
           <div className="">
-            <h1 className="font-bold text-3xl md:text-5xl text-center text-secondary mt-10">
+            <h1 className="font-bold md:text-[48px] text-[30px] text-center text-secondary mt-10">
               Seller Details
             </h1>
             {!findExpert.data && findExpert.loading && (

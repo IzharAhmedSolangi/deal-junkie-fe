@@ -2,7 +2,7 @@ function ManagePayments() {
   return (
     <>
       <h1 className="font-semibold text-[30px] text-secondary">My Payments</h1>
-      <div className="mt-2 flex gap-3">
+      <div className="mt-2 flex md:flex-row flex-col gap-3">
         <div className="bg-secondary rounded-[10px] w-full h-[160px] flex flex-col justify-center px-8">
           <h1 className="font-semibold text-[30px] text-[#FAFAFA]">$ 2,000</h1>
           <p className="font-normal text-[18px] text-[#F9FAFB]">

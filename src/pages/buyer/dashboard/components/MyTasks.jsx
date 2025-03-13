@@ -71,7 +71,7 @@ function MyTasks() {
           {myTasks.data?.map((item, index) => (
             <div
               key={index}
-              className="border border-[#15202712] rounded-[10px] shadow-md w-full h-[200px] p-3"
+              className="border border-[#15202712] rounded-[10px] shadow-md w-full h-auto md:p-3 p-2"
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-1">
@@ -100,10 +100,10 @@ function MyTasks() {
                   </div>
                 )}
               </div>
-              <h1 className="text-[#222222] text-[20px] font-[600] mt-3">
+              <h1 className="text-[#222222] md:text-[20px] text-[16px] font-[600] mt-3">
                 {item.title}
               </h1>
-              <p className="text-[#98A2B3] text-[16px] mt-1">
+              <p className="text-[#98A2B3] md:text-[16px] text-[12px] mt-1">
                 {item.description}
               </p>
               <div className="flex items-center gap-1 mt-3">
@@ -164,12 +164,12 @@ function MyTasks() {
         </div>
       )}
       {!myTasks.data && myTasks.loading && (
-        <div className="flex justify-center items-center w-full h-[300px]">
+        <div className="flex justify-center items-center w-full md:h-[300px] h-[150px]">
           <ButtonLoader3 />
         </div>
       )}
-      {!myTasks.data && !myTasks.loading && myTasks.message && (
-        <div className="flex justify-center items-center w-full h-[300px]">
+      {!myTasks.loading && myTasks.message && (
+        <div className="flex justify-center items-center w-full md:h-[300px] h-[150px]">
           <ShowMessage title={myTasks.message} />
         </div>
       )}

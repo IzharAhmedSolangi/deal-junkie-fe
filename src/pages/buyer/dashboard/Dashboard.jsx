@@ -39,21 +39,21 @@ function Dashboard() {
   return (
     <>
       <Layout>
-        <div className="bg-white w-full h-auto pt-[70px] pb-40 relative">
-          <div className="absolute top-[-100px] left-0 w-full h-[400px] bg-cover bg-center bg-[url('/assets/images/Banner2.png')]"></div>
-          <h1 className="font-[700] text-[48px] text-center text-secondary mt-4">
+        <div className="bg-white w-full h-auto pt-[70px] md:pb-40 pb-28 relative">
+          <div className="absolute md:top-[-100px] top-[-70px] left-0 w-full md:h-[400px] h-[350px] bg-cover bg-center bg-[url('/assets/images/Banner2.png')]"></div>
+          <h1 className="font-[700] md:text-[48px] text-[36px] text-center text-secondary mt-4">
             Dashboard
           </h1>
-          <div className="px-[100px] mt-32 flex items-start gap-5">
-            <div className="w-[30%] border border-[#02174C33] rounded-xl p-5 sticky top-[80px]">
+          <div className="lg:px-[80px] px-5 mt-32 flex lg:flex-row flex-col items-start gap-5">
+            <div className="lg:w-[30%] w-full border border-[#02174C33] rounded-xl p-5 lg:sticky lg:top-[80px]">
               <Profile handleTabClick={handleTabClick} />
             </div>
-            <div className="w-[70%]">
-              <div className="flex gap-5 border-b border-b-[#6F748729]">
+            <div className="lg:w-[70%] w-full">
+              <div className="flex md:gap-5 gap-2 border-b border-b-[#6F748729]">
                 {tabs.map((item, index) => (
                   <p
                     key={index}
-                    className={`py-1 pe-5 cursor-pointer text-[#6F7487] text-[14px] font-[500] hover:text-secondary ${
+                    className={`py-1 md:pe-5 pe-1 cursor-pointer text-[#6F7487] sm:text-[14px] xs:text-[10px] font-[500] hover:text-secondary ${
                       tabName === item.path
                         ? "border-b-[2px] border-b-secondary text-secondary font-[600]"
                         : ""

@@ -87,13 +87,13 @@ function FAQs() {
   return (
     <>
       <Layout>
-        <div className="bg-white w-full h-auto pt-[70px] pb-40 relative">
-          <div className="absolute top-[-100px] left-0 w-full h-[400px] bg-cover bg-center bg-[url('/assets/images/Banner2.png')]"></div>
-          <h1 className="font-[700] text-[48px] text-center text-secondary mt-4">
+        <div className="bg-white w-full h-auto pt-[70px] md:pb-40 pb-28 relative">
+          <div className="absolute md:top-[-100px] top-[-70px] left-0 w-full md:h-[400px] h-[350px] bg-cover bg-center bg-[url('/assets/images/Banner2.png')]"></div>
+          <h1 className="font-[700] md:text-[48px] text-[30px] text-center text-secondary mt-4">
             Frequently asked Questions
           </h1>
-          <div className="px-[100px] mt-32 flex items-start gap-10">
-            <div className="w-[20%] border border-[#02174C12] rounded-md">
+          <div className="md:px-[80px] px-5 mt-32 flex md:flex-row flex-col items-start md:gap-10 gap-5">
+            <div className="md:w-[20%] w-full border border-[#02174C12] rounded-md">
               {faqsList.map((item, index) => (
                 <div
                   key={index}
@@ -112,7 +112,7 @@ function FAQs() {
               ))}
             </div>
             {/* FAQs Content */}
-            <div className="w-[80%]">
+            <div className="md:w-[80%] w-full">
               {selectedFaqs.length > 0 ? (
                 selectedFaqs.map((item, index) => (
                   <div
