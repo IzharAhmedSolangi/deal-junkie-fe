@@ -10,44 +10,44 @@ const testimonials = [
   {
     name: "Ronald Richards",
     review:
-      "I spent five years in investment banking but wanted a more flexible lifestyle. Deal Junkie lets me leverage my expertise by helping small business buyers and investors with valuations, diligence, and structuring. I’ve built a steady stream of clients while having complete control over my schedule!"
+      "I spent five years in investment banking but wanted a more flexible lifestyle. Deal Junkie lets me leverage my expertise by helping small business buyers and investors with valuations, diligence, and structuring. I’ve built a steady stream of clients while having complete control over my schedule!",
   },
   {
     name: "Eleanor Pena",
     review:
-      "I spent five years in investment banking but wanted a more flexible lifestyle. Deal Junkie lets me leverage my expertise by helping small business buyers and investors with valuations, diligence, and structuring. I’ve built a steady stream of clients while having complete control over my schedule!"
+      "I spent five years in investment banking but wanted a more flexible lifestyle. Deal Junkie lets me leverage my expertise by helping small business buyers and investors with valuations, diligence, and structuring. I’ve built a steady stream of clients while having complete control over my schedule!",
   },
   {
     name: "Savannah Nguyen",
     review:
-      "I spent five years in investment banking but wanted a more flexible lifestyle. Deal Junkie lets me leverage my expertise by helping small business buyers and investors with valuations, diligence, and structuring. I’ve built a steady stream of clients while having complete control over my schedule!"
+      "I spent five years in investment banking but wanted a more flexible lifestyle. Deal Junkie lets me leverage my expertise by helping small business buyers and investors with valuations, diligence, and structuring. I’ve built a steady stream of clients while having complete control over my schedule!",
   },
   {
     name: "Jacob Jones",
     review:
-      "I spent five years in investment banking but wanted a more flexible lifestyle. Deal Junkie lets me leverage my expertise by helping small business buyers and investors with valuations, diligence, and structuring. I’ve built a steady stream of clients while having complete control over my schedule!"
+      "I spent five years in investment banking but wanted a more flexible lifestyle. Deal Junkie lets me leverage my expertise by helping small business buyers and investors with valuations, diligence, and structuring. I’ve built a steady stream of clients while having complete control over my schedule!",
   },
   {
     name: "Jacob Jones",
     review:
-      "I spent five years in investment banking but wanted a more flexible lifestyle. Deal Junkie lets me leverage my expertise by helping small business buyers and investors with valuations, diligence, and structuring. I’ve built a steady stream of clients while having complete control over my schedule!"
+      "I spent five years in investment banking but wanted a more flexible lifestyle. Deal Junkie lets me leverage my expertise by helping small business buyers and investors with valuations, diligence, and structuring. I’ve built a steady stream of clients while having complete control over my schedule!",
   },
   {
     name: "Jacob Jones",
     review:
-      "I spent five years in investment banking but wanted a more flexible lifestyle. Deal Junkie lets me leverage my expertise by helping small business buyers and investors with valuations, diligence, and structuring. I’ve built a steady stream of clients while having complete control over my schedule!"
+      "I spent five years in investment banking but wanted a more flexible lifestyle. Deal Junkie lets me leverage my expertise by helping small business buyers and investors with valuations, diligence, and structuring. I’ve built a steady stream of clients while having complete control over my schedule!",
   },
   {
     name: "Jacob Jones",
     review:
-      "I spent five years in investment banking but wanted a more flexible lifestyle. Deal Junkie lets me leverage my expertise by helping small business buyers and investors with valuations, diligence, and structuring. I’ve built a steady stream of clients while having complete control over my schedule!"
-  }
+      "I spent five years in investment banking but wanted a more flexible lifestyle. Deal Junkie lets me leverage my expertise by helping small business buyers and investors with valuations, diligence, and structuring. I’ve built a steady stream of clients while having complete control over my schedule!",
+  },
 ];
 
 function CustomerSaid() {
   return (
-    <div className="bg-[#F2F4F7] pt-10 pb-40">
-      <h1 className="text-[40px] font-[600] text-[#1D2939] text-center mb-10">
+    <div className="bg-[#F2F4F7] pt-10 md:pb-40 pb-28">
+      <h1 className="text-[40px] font-[600] text-[#1D2939] text-center mb-5">
         Customer Said About Us
       </h1>
 
@@ -60,7 +60,7 @@ function CustomerSaid() {
           breakpoints={{
             1024: { slidesPerView: 3.5 },
             768: { slidesPerView: 2.5 },
-            640: { slidesPerView: 1 }
+            640: { slidesPerView: 1 },
           }}
         >
           {testimonials.map((item, index) => (
@@ -100,7 +100,7 @@ function CustomerSaid() {
           breakpoints={{
             1024: { slidesPerView: 2.5 },
             768: { slidesPerView: 2.5 },
-            640: { slidesPerView: 1 }
+            640: { slidesPerView: 1 },
           }}
         >
           {testimonials.map((item, index) => (

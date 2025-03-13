@@ -176,7 +176,7 @@ function Banner() {
   return (
     <>
       <div className="bg-[#003F63] md:w-[90%] w-[95%] md:h-[200px] h-[150px] rounded-[16px] absolute md:top-[-100px] top-[-75px] flex items-center justify-between px-[5%]">
-        <h1 className="text-white md:w-[50%] w-[80%] md:text-[32px] text-[20px] font-[600]">
+        <h1 className="text-white md:w-[50%] w-[80%] md:text-[32px] text-[16px] font-[600]">
           Schedule your first meeting now for a hassle-free experience
         </h1>
         <button className="rounded w-[120px] h-[40px] bg-primary text-[#003F63] text-center cursor-pointer hover:opacity-80">

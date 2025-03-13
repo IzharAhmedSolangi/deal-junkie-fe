@@ -35,7 +35,7 @@ const Dropdown = (props) => {
         className="w-full bg-transparent border border-[#02174C33] hover:border-secondary rounded pl-3 pr-10 py-[6px] text-left cursor-pointer focus:outline-none  focus:border-secondary sm:text-sm"
         onClick={handleToggle}
       >
-        <span className="text-[#333] text-[18px] font-[500]">
+        <span className="text-[#333] md:text-[18px] text-[14px] font-[500]">
           {selected?.name ? selected?.name : placeholder}
         </span>
         <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">

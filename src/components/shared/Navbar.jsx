@@ -10,7 +10,7 @@ import { FaBars, FaRegComments } from "react-icons/fa6";
 import {
   getAccessToken,
   removeAccessToken,
-  removeRefreshToken
+  removeRefreshToken,
 } from "../../storage/storage";
 import Auth from "../modals/Auth";
 import PostProject from "../modals/PostProject";
@@ -48,29 +48,29 @@ const Navbar = () => {
           isScrolled ? "bg-white shadow-2xl" : ""
         }`}
       >
-        <div className="max-w-7xl mx-auto flex items-center justify-between  xs:px-5 md:px-0 py-4">
+        <div className="w-full flex items-center justify-between md:px-5 px-3 py-4">
           {/* Logo */}
           <Link
             to="/"
             className="md:flex hidden items-center gap-2 text-2xl font-extrabold"
           >
-            <img src="/assets/logo/logo.png" alt="Logo" className="h-8" />
+            <img src="/assets/logo/logo.png" alt="" className="h-8" />
             <h1 className="text-[#003F63]">Deal Junkie</h1>
           </Link>
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className=" text-gray-700 lg:hidden"
+            className=" text-gray-700 hover:text-primary cursor-pointer md:hidden"
           >
             <FaBars className="text-2xl" />
           </button>
 
           {/* Desktop Menu */}
-          <div className="hidden lg:flex gap-5 items-center">
+          <div className="hidden md:flex gap-5 items-center">
             {[
               { name: "Home", path: "/" },
               { name: "About Us", path: "/about-us" },
               { name: "How it Works", path: "/how-it-works" },
-              { name: "Pricing", path: "/pricing" }
+              { name: "Pricing", path: "/pricing" },
             ].map((item, index) => (
               <Link
                 key={index}
@@ -89,13 +89,13 @@ const Navbar = () => {
           {/* Mobile Menu Button */}
           <Link
             to="/"
-            className="flex items-center gap-2 text-2xl font-extrabold lg:hidden"
+            className="flex items-center gap-1 text-2xl font-extrabold md:hidden"
           >
-            <img src="/assets/logo/logo.png" alt="Logo" className="h-8" />
+            <img src="/assets/logo/logo.png" alt="" className="h-8" />
             <h1 className="text-[#003F63]">Deal Junkie</h1>
           </Link>
-          {token && (
-            <div className=" flex justify-center items-center gap-2 lg:hidden">
+          {token ? (
+            <div className="flex justify-center items-center gap-2 md:hidden">
               {" "}
               <Notifications />
               <Link to="/inbox" className="relative">
@@ -106,26 +106,48 @@ const Navbar = () => {
               </Link>
               <ProfileDropdown />
             </div>
+          ) : (
+            <div className="flex md:hidden items-center gap-1">
+              <button
+                className="text-gray-700 hover:text-primary cursor-pointer"
+                onClick={() => {
+                  setIsOpenAuthModal(true);
+                  setAuthModalType("login");
+                }}
+              >
+                Login
+              </button>
+              /
+              <button
+                className="text-gray-700 hover:text-primary cursor-pointer"
+                onClick={() => {
+                  setIsOpenAuthModal(true);
+                  setAuthModalType("signup");
+                }}
+              >
+                Register
+              </button>
+            </div>
           )}
 
           {isMenuOpen && (
-            <div className="absolute top-0 gap-4 left-0 w-full bg-white shadow-lg lg:hidden h-[100vh] flex flex-col items-start px-5 py-5 space-y-4">
+            <div className="absolute top-0 left-0 w-full bg-white shadow-lg lg:hidden h-[100vh] flex flex-col items-center justify-center gap-6">
               <button
                 onClick={() => setIsMenuOpen(false)}
-                className="lg:hidden text-gray-700"
+                className="lg:hidden text-gray-700 hover:text-primary cursor-pointer fixed right-3 top-3"
               >
-                <FaTimes className="text-2xl fixed right-3" />
+                <FaTimes className="text-2xl" />
               </button>
               {[
                 { name: "Home", path: "/" },
                 { name: "About Us", path: "/about-us" },
                 { name: "How it Works", path: "/how-it-works" },
-                { name: "Pricing", path: "/pricing" }
+                { name: "Pricing", path: "/pricing" },
               ].map((item, index) => (
                 <Link
                   key={index}
                   to={item.path}
-                  className={`text-sm font-medium  transition-colors duration-200 ${
+                  className={`text-[20px] font-medium  transition-colors duration-200 ${
                     location.pathname === item.path
                       ? "text-primary "
                       : "text-gray-700 hover:text-primary"
@@ -135,7 +157,7 @@ const Navbar = () => {
                   {item.name}
                 </Link>
               ))}
-              {token ? (
+              {token && (
                 <>
                   {userInfo?.user?.role === "seller" && (
                     <Link
@@ -154,34 +176,12 @@ const Navbar = () => {
                     </button>
                   )}
                 </>
-              ) : (
-                <div className="flex items-center space-x-2">
-                  <button
-                    className="text-gray-700 hover:text-primary"
-                    onClick={() => {
-                      setIsOpenAuthModal(true);
-                      setAuthModalType("login");
-                    }}
-                  >
-                    Login
-                  </button>
-                  /
-                  <button
-                    className="text-gray-700 hover:text-primary"
-                    onClick={() => {
-                      setIsOpenAuthModal(true);
-                      setAuthModalType("signup");
-                    }}
-                  >
-                    Register
-                  </button>
-                </div>
               )}
             </div>
           )}
 
           {/* Auth & User Menu */}
-          <div className="hidden lg:flex items-center gap-3">
+          <div className="hidden md:flex items-center gap-3">
             {token ? (
               <>
                 <Notifications />
@@ -210,9 +210,9 @@ const Navbar = () => {
                 )}
               </>
             ) : (
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center gap-1">
                 <button
-                  className="text-gray-700 hover:text-primary"
+                  className="text-gray-700 hover:text-primary cursor-pointer"
                   onClick={() => {
                     setIsOpenAuthModal(true);
                     setAuthModalType("login");
@@ -222,7 +222,7 @@ const Navbar = () => {
                 </button>
                 /
                 <button
-                  className="text-gray-700 hover:text-primary"
+                  className="text-gray-700 hover:text-primary cursor-pointer"
                   onClick={() => {
                     setIsOpenAuthModal(true);
                     setAuthModalType("signup");
@@ -348,18 +348,18 @@ function ProfileDropdown() {
                 {
                   name: "My Account",
                   path: "/dashboard/edit-profile",
-                  icon: <FiUser />
+                  icon: <FiUser />,
                 },
                 {
                   name: "My Tasks",
                   path: "/dashboard/my-tasks",
-                  icon: <BsClipboardCheck />
+                  icon: <BsClipboardCheck />,
                 },
                 {
                   name: "Manage Payments",
                   path: "/dashboard/manage-payments",
-                  icon: <BsCreditCard2Front />
-                }
+                  icon: <BsCreditCard2Front />,
+                },
               ].map((item, index) => (
                 <Link
                   key={index}
@@ -394,18 +394,18 @@ function ProfileDropdown() {
                 {
                   name: "My Account",
                   path: "/dashboard/edit-profile",
-                  icon: <FiUser />
+                  icon: <FiUser />,
                 },
                 {
                   name: "My Jobs",
                   path: "/dashboard/my-jobs",
-                  icon: <BsClipboardCheck />
+                  icon: <BsClipboardCheck />,
                 },
                 {
                   name: "Manage Payments",
                   path: "/dashboard/manage-payments",
-                  icon: <BsCreditCard2Front />
-                }
+                  icon: <BsCreditCard2Front />,
+                },
               ].map((item, index) => (
                 <Link
                   key={index}
@@ -432,8 +432,8 @@ function ProfileDropdown() {
                 {
                   name: "Dashboard",
                   path: "/admin/dashboard",
-                  icon: <LuLayoutDashboard />
-                }
+                  icon: <LuLayoutDashboard />,
+                },
               ].map((item, index) => (
                 <Link
                   key={index}
