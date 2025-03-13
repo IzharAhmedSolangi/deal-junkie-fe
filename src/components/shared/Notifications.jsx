@@ -58,7 +58,7 @@ function Notifications() {
         timeLabel = createdAt.toLocaleDateString("en-US", {
           day: "2-digit",
           month: "short",
-          year: "numeric",
+          year: "numeric"
         });
       }
     }
@@ -78,7 +78,7 @@ function Notifications() {
         </div>
       )}
       {isOpen && (
-        <div className="absolute right-0 mt-2 lg:w-[350px] w-80 bg-white shadow-lg rounded-sm h-[400px] overflow-y-auto p-3">
+        <div className="absolute right-0 mt-2 lg:w-[350px] xs:w-70 md:w-80 bg-white shadow-lg rounded-sm h-[400px] overflow-y-auto p-3">
           <h3 className="font-semibold text-lg">Notifications</h3>
           <ul className="mt-1">
             {notifications.data?.map((notification) => (

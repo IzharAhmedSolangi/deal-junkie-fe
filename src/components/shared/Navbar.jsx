@@ -5,18 +5,19 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FiUser, FiLogOut } from "react-icons/fi";
 import { BsClipboardCheck, BsCreditCard2Front } from "react-icons/bs";
 import { IoIosSwitch } from "react-icons/io";
-import { FaRegComments } from "react-icons/fa6";
+import { FaBars, FaRegComments } from "react-icons/fa6";
 
 import {
   getAccessToken,
   removeAccessToken,
-  removeRefreshToken,
+  removeRefreshToken
 } from "../../storage/storage";
 import Auth from "../modals/Auth";
 import PostProject from "../modals/PostProject";
 import useEditProfile from "../../services/common/useEditProfile";
 import { LuLayoutDashboard } from "react-icons/lu";
 import Notifications from "./Notifications";
+import { FaTimes } from "react-icons/fa";
 
 const Navbar = () => {
   const token = getAccessToken();
@@ -25,6 +26,7 @@ const Navbar = () => {
   const [isOpenAuthModal, setIsOpenAuthModal] = useState(false);
   const [authModalType, setAuthModalType] = useState(null);
   const [isOpenPostProjectModal, setIsOpenPostProjectModal] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const [isScrolled, setIsScrolled] = useState(null);
   useEffect(() => {
@@ -42,95 +44,196 @@ const Navbar = () => {
   return (
     <>
       <nav
-        className={`bg-transparent w-full h-[60px] fixed top-0 xs:hidden lg:flex justify-between items-center px-5 z-50 ${
+        className={`bg-transparent w-full fixed top-0 z-50 transition-all duration-300 ${
           isScrolled ? "bg-white shadow-2xl" : ""
         }`}
       >
-        <Link
-          to="/"
-          className="flex items-center gap-1 text-[24px] font-extrabold w-[20%]"
-        >
-          <img src="/assets/logo/logo.png" alt="Logo" />
-          <h1 className="text-2xl font-extrabold text-[#003F63]">
-            Deal Junkie
-          </h1>
-        </Link>
-        <div className="flex items-center justify-center gap-5 w-[60%]">
-          {[
-            { name: "Home", path: "/" },
-            { name: "About Us", path: "/about-us" },
-            { name: "How it Works", path: "/how-it-works" },
-            { name: "Pricing", path: "/pricing" },
-          ].map((item, index) => (
-            <Link
-              key={index}
-              to={item.path}
-              className={`text-sm font-[500] hover:text-primary ${
-                location.pathname === item.path
-                  ? "text-primary"
-                  : "text-[#1D2939]"
-              }`}
-            >
-              {item.name}
-            </Link>
-          ))}
-        </div>
-        {token ? (
-          <div className="flex items-center justify-end gap-3 w-[20%]">
-            <div className="flex items-center gap-4 ">
+        <div className="max-w-7xl mx-auto flex items-center justify-between  xs:px-5 md:px-0 py-4">
+          {/* Logo */}
+          <Link
+            to="/"
+            className="md:flex hidden items-center gap-2 text-2xl font-extrabold"
+          >
+            <img src="/assets/logo/logo.png" alt="Logo" className="h-8" />
+            <h1 className="text-[#003F63]">Deal Junkie</h1>
+          </Link>
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className=" text-gray-700 lg:hidden"
+          >
+            <FaBars className="text-2xl" />
+          </button>
+
+          {/* Desktop Menu */}
+          <div className="hidden lg:flex gap-5 items-center">
+            {[
+              { name: "Home", path: "/" },
+              { name: "About Us", path: "/about-us" },
+              { name: "How it Works", path: "/how-it-works" },
+              { name: "Pricing", path: "/pricing" }
+            ].map((item, index) => (
+              <Link
+                key={index}
+                to={item.path}
+                className={`text-sm font-medium transition-colors duration-200 ${
+                  location.pathname === item.path
+                    ? "text-primary"
+                    : "text-gray-700 hover:text-primary"
+                }`}
+              >
+                {item.name}
+              </Link>
+            ))}
+          </div>
+
+          {/* Mobile Menu Button */}
+          <Link
+            to="/"
+            className="flex items-center gap-2 text-2xl font-extrabold lg:hidden"
+          >
+            <img src="/assets/logo/logo.png" alt="Logo" className="h-8" />
+            <h1 className="text-[#003F63]">Deal Junkie</h1>
+          </Link>
+          {token && (
+            <div className=" flex justify-center items-center gap-2 lg:hidden">
+              {" "}
               <Notifications />
               <Link to="/inbox" className="relative">
-                <FaRegComments className="w-7 h-7 text-gray-500 cursor-pointer relative" />
-                <div className="absolute w-[14px] h-[14px] rounded-full bg-primary top-0 right-0 text-white text-[10px] flex items-center justify-center">
+                <FaRegComments className="text-xl text-gray-500 text-[30px]" />
+                <span className="absolute top-0 right-0 bg-primary text-secondary text-xs w-4 h-4 text-[10px] flex items-center justify-center rounded-full">
                   2
-                </div>
+                </span>
               </Link>
               <ProfileDropdown />
             </div>
-            {userInfo?.user?.role === "seller" && (
-              <Link
-                to="/find-jobs"
-                className="rounded bg-primary text-[#02174C] px-4 py-2 cursor-pointer hover:opacity-80"
-              >
-                Find Jobs
-              </Link>
-            )}
-            {userInfo?.user?.role === "buyer" && (
+          )}
+
+          {isMenuOpen && (
+            <div className="absolute top-0 gap-4 left-0 w-full bg-white shadow-lg lg:hidden h-[100vh] flex flex-col items-start px-5 py-5 space-y-4">
               <button
-                className="rounded bg-primary text-[#02174C] px-4 py-2 cursor-pointer hover:opacity-80"
-                onClick={() => {
-                  setIsOpenPostProjectModal(true);
-                }}
+                onClick={() => setIsMenuOpen(false)}
+                className="lg:hidden text-gray-700"
               >
-                Post a Project
+                <FaTimes className="text-2xl fixed right-3" />
               </button>
-            )}
-          </div>
-        ) : (
-          <div className="flex items-center justify-end w-[20%]">
-            <div className="flex items-center gap-1">
-              <button
-                className="text-[#1D2939] hover:text-primary cursor-pointer"
-                onClick={() => {
-                  setIsOpenAuthModal(true);
-                  setAuthModalType("login");
-                }}
-              >
-                Login
-              </button>
-              /
-              <button
-                className="text-[#1D2939] hover:text-primary cursor-pointer"
-                onClick={() => {
-                  setIsOpenAuthModal(true);
-                  setAuthModalType("signup");
-                }}
-              >
-                Register
-              </button>
+              {[
+                { name: "Home", path: "/" },
+                { name: "About Us", path: "/about-us" },
+                { name: "How it Works", path: "/how-it-works" },
+                { name: "Pricing", path: "/pricing" }
+              ].map((item, index) => (
+                <Link
+                  key={index}
+                  to={item.path}
+                  className={`text-sm font-medium  transition-colors duration-200 ${
+                    location.pathname === item.path
+                      ? "text-primary "
+                      : "text-gray-700 hover:text-primary"
+                  }`}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {item.name}
+                </Link>
+              ))}
+              {token ? (
+                <>
+                  {userInfo?.user?.role === "seller" && (
+                    <Link
+                      to="/find-jobs"
+                      className="rounded bg-primary text-[#02174C] px-4 py-2 cursor-pointer hover:opacity-80"
+                    >
+                      Find Jobs
+                    </Link>
+                  )}
+                  {userInfo?.user?.role === "buyer" && (
+                    <button
+                      className="rounded bg-primary text-[#02174C] px-4 py-2 cursor-pointer hover:opacity-80"
+                      onClick={() => setIsOpenPostProjectModal(true)}
+                    >
+                      Post a Project
+                    </button>
+                  )}
+                </>
+              ) : (
+                <div className="flex items-center space-x-2">
+                  <button
+                    className="text-gray-700 hover:text-primary"
+                    onClick={() => {
+                      setIsOpenAuthModal(true);
+                      setAuthModalType("login");
+                    }}
+                  >
+                    Login
+                  </button>
+                  /
+                  <button
+                    className="text-gray-700 hover:text-primary"
+                    onClick={() => {
+                      setIsOpenAuthModal(true);
+                      setAuthModalType("signup");
+                    }}
+                  >
+                    Register
+                  </button>
+                </div>
+              )}
             </div>
+          )}
+
+          {/* Auth & User Menu */}
+          <div className="hidden lg:flex items-center gap-3">
+            {token ? (
+              <>
+                <Notifications />
+                <Link to="/inbox" className="relative">
+                  <FaRegComments className="text-xl text-gray-500 text-[30px]" />
+                  <span className="absolute top-0 right-0 bg-primary text-secondary text-xs w-4 h-4 text-[10px] flex items-center justify-center rounded-full">
+                    2
+                  </span>
+                </Link>
+                <ProfileDropdown />
+                {userInfo?.user?.role === "seller" && (
+                  <Link
+                    to="/find-jobs"
+                    className="rounded bg-primary text-[#02174C] px-4 py-2 cursor-pointer hover:opacity-80"
+                  >
+                    Find Jobs
+                  </Link>
+                )}
+                {userInfo?.user?.role === "buyer" && (
+                  <button
+                    className="rounded bg-primary text-[#02174C] px-4 py-2 cursor-pointer hover:opacity-80"
+                    onClick={() => setIsOpenPostProjectModal(true)}
+                  >
+                    Post a Project
+                  </button>
+                )}
+              </>
+            ) : (
+              <div className="flex items-center space-x-2">
+                <button
+                  className="text-gray-700 hover:text-primary"
+                  onClick={() => {
+                    setIsOpenAuthModal(true);
+                    setAuthModalType("login");
+                  }}
+                >
+                  Login
+                </button>
+                /
+                <button
+                  className="text-gray-700 hover:text-primary"
+                  onClick={() => {
+                    setIsOpenAuthModal(true);
+                    setAuthModalType("signup");
+                  }}
+                >
+                  Register
+                </button>
+              </div>
+            )}
           </div>
-        )}
+        </div>
       </nav>
       <Auth
         isOpenModal={isOpenAuthModal}
@@ -245,18 +348,18 @@ function ProfileDropdown() {
                 {
                   name: "My Account",
                   path: "/dashboard/edit-profile",
-                  icon: <FiUser />,
+                  icon: <FiUser />
                 },
                 {
                   name: "My Tasks",
                   path: "/dashboard/my-tasks",
-                  icon: <BsClipboardCheck />,
+                  icon: <BsClipboardCheck />
                 },
                 {
                   name: "Manage Payments",
                   path: "/dashboard/manage-payments",
-                  icon: <BsCreditCard2Front />,
-                },
+                  icon: <BsCreditCard2Front />
+                }
               ].map((item, index) => (
                 <Link
                   key={index}
@@ -291,18 +394,18 @@ function ProfileDropdown() {
                 {
                   name: "My Account",
                   path: "/dashboard/edit-profile",
-                  icon: <FiUser />,
+                  icon: <FiUser />
                 },
                 {
                   name: "My Jobs",
                   path: "/dashboard/my-jobs",
-                  icon: <BsClipboardCheck />,
+                  icon: <BsClipboardCheck />
                 },
                 {
                   name: "Manage Payments",
                   path: "/dashboard/manage-payments",
-                  icon: <BsCreditCard2Front />,
-                },
+                  icon: <BsCreditCard2Front />
+                }
               ].map((item, index) => (
                 <Link
                   key={index}
@@ -329,8 +432,8 @@ function ProfileDropdown() {
                 {
                   name: "Dashboard",
                   path: "/admin/dashboard",
-                  icon: <LuLayoutDashboard />,
-                },
+                  icon: <LuLayoutDashboard />
+                }
               ].map((item, index) => (
                 <Link
                   key={index}

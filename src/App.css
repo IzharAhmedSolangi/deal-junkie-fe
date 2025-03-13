@@ -76,3 +76,14 @@ input[type="number"] {
 .VIpgJd-ZVi9od-aZ2wEe-wOHMyf {
   display: none !important;
 }
+/* Ensure Swiper container takes full width */
+.mySwiper {
+  width: 100%;
+}
+
+/* Ensure slides take full width on mobile */
+@media (max-width: 375px) {
+  .mySwiper .swiper-slide {
+    width: 100% !important;
+  }
+}

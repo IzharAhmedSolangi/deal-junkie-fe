@@ -19,9 +19,9 @@ function HowItWorks() {
       </div>
 
       {/* Introduction Section */}
-      <div className="max-w-7xl mx-auto px-6 py-16 flex flex-col md:flex-row items-center gap-10">
+      <div className="w-full mx-auto px-6 py-16 flex flex-col md:flex-row items-center gap-10">
         <div className="w-full flex flex-col items-center">
-          <div className="w-[80%]">
+          <div className="xs:w-full md:w-[80%]">
             <h2 className="text-[#01E678] text-justify text-[20px] font-[600]">
               Welcome to Deal Junkie
             </h2>
@@ -38,11 +38,11 @@ function HowItWorks() {
               deals, assess risks, and make informed investment decisions.
             </p>
           </div>
-          <div className="w-[80%] flex justify-center mt-2">
+          <div className="xs:w-full md:w-[80%] flex justify-center mt-2">
             <img
               src="/assets/images/mask-group.png"
               alt="Financial Meeting"
-              className="rounded-lg shadow-lg w-full h-[450px]"
+              className="rounded-lg shadow-lg w-full xs:h-[300px] md:h-[450px]"
             />
           </div>
         </div>
@@ -56,13 +56,13 @@ function HowItWorks() {
             <img
               src="/assets/images/howwork.png"
               alt="Our Team"
-              className="rounded-lg shadow-lg w-full h-[400px]"
+              className="rounded-lg shadow-lg w-full xs:h-[300px] md:h-[400px]"
             />
           </div>
 
           {/* Right side: Image */}
-          <div className="md:w-[50%] h-[350px] px-6 rounded-lg shadow-l">
-            <h2 className="text-3xl font-bold text-gray-900">
+          <div className="md:w-[50%] xs:h-auto md:h-[350px] xs:px-0 md:px-6 rounded-lg shadow-l">
+            <h2 className="text-3xl font-bold text-gray-900 xs:mt-2 md:mt-0">
               Get Expert Deal Support
               <br /> On Demand
             </h2>
@@ -104,9 +104,9 @@ function HowItWorks() {
       </div>
       {/* Section 2 */}
       <div className=" py-16">
-        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center">
+        <div className="max-w-7xl mx-auto  px-6 flex flex-col md:flex-row items-center">
           {/* Left side: Text Content */}
-          <div className="md:w-[50%] h-[350px] px-6 rounded-lg shadow-l">
+          <div className="xs:w-[100%] md:w-[50%] xs:h-auto md:h-[350px] px-6 rounded-lg shadow-l">
             <h2 className="text-3xl font-bold text-gray-900">
               Unlock Deep Market &
               <br /> Investment Research
@@ -169,7 +169,7 @@ function HowItWorks() {
           </div>
 
           {/* Right side: Image */}
-          <div className="md:w-[50%] h-[350px] px-6 rounded-lg shadow-l">
+          <div className="md:w-[50%] xs:h-auto md:h-[350px] px-6 rounded-lg shadow-l">
             <h2 className="text-3xl font-bold text-gray-900">
               Streamline M&A and Due
               <br /> Diligence Processes
@@ -282,7 +282,7 @@ function HowItWorks() {
           ].map((item, index) => (
             <div
               key={index}
-              className="bg-white shadow-lg p-6 rounded-lg  w-[45%] m-4 hover:bg-secondary hover:text-white"
+              className="bg-white shadow-lg p-6 rounded-lg  xs:w-full md:w-[45%] m-4 hover:bg-secondary hover:text-white"
             >
               <img
                 src="/assets/icons/frame22.png"
@@ -297,9 +297,11 @@ function HowItWorks() {
       </div>
 
       {/* Call-to-Action Section */}
-      <div className="bg-green-100 relative py-6 mx-10  mb-40 rounded-[7px] px-10 flex justify-between items-center w-full">
-        <div className="w-[50%]">
-          <h3 className="text-[38px] font-[600]  text-gray-900">
+
+      <div className="bg-green-100 relative py-6 ml-1 px-6 md:px-10 mb-40 rounded-[7px] flex flex-col md:flex-row justify-between items-center w-full">
+        {/* Text & Button Section */}
+        <div className="w-full md:w-[60%] text-center md:text-left">
+          <h3 className="text-[22px] md:text-[38px] font-semibold text-gray-900">
             Join Deal Junkie and take <br /> your deals to the next <br />{" "}
             level.
           </h3>
@@ -307,11 +309,15 @@ function HowItWorks() {
             Find Experts Now
           </button>
         </div>
-        <img
-          src="/assets/images/image-3.png"
-          alt="Our Team"
-          className="rounded-lg h-[270px] w-[270px] absolute bottom-0 right-30"
-        />
+
+        {/* Image Section */}
+        <div className="w-full md:w-auto flex justify-center mt-6 md:mt-0">
+          <img
+            src="/assets/images/image-3.png"
+            alt="Our Team"
+            className="rounded-lg h-[200px] w-[200px] md:h-[270px] md:w-[270px]"
+          />
+        </div>
       </div>
     </Layout>
   );

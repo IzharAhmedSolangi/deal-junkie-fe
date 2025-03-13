@@ -21,7 +21,7 @@ function AboutUs() {
       {/* Introduction Section */}
       <div className="max-w-7xl mx-auto px-6 py-16 flex flex-col md:flex-row items-center gap-10">
         <div className="w-full flex flex-col items-center">
-          <div className="w-[80%]">
+          <div className="xs:w-[100%] md:w-[80%]">
             <h2 className="text-[#01E678] text-justify text-[20px] font-[600]">
               Welcome to Deal Junkie
             </h2>
@@ -39,11 +39,11 @@ function AboutUs() {
               full-time team.
             </p>
           </div>
-          <div className="w-[80%] flex justify-center mt-2">
+          <div className="xs:w-[100%] md:w-[80%] flex justify-center mt-2">
             <img
               src="/assets/images/mask-group.png"
               alt="Financial Meeting"
-              className="rounded-lg shadow-lg w-full h-[450px]"
+              className="rounded-lg shadow-lg w-full xs:h-[300px] md:h-[450px]"
             />
           </div>
         </div>
@@ -53,7 +53,7 @@ function AboutUs() {
       <div className="bg-gray-100 py-16">
         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center gap-10">
           {/* Left side: Text Content */}
-          <div className="md:w-1/2 h-[550px] p-6 rounded-lg shadow-l">
+          <div className="md:w-1/2 xs:h-auto md:h-[550px] p-6 rounded-lg shadow-l">
             <h2 className="text-3xl font-bold text-gray-900">Who we are</h2>
             <p className="mt-4 text-[#98A2B3] text-[16px] font-[400]">
               At Deal Junkie, we believe that great deals start with great
@@ -126,18 +126,18 @@ function AboutUs() {
             <img
               src="/assets/images/mask-group1.png"
               alt="Our Team"
-              className="rounded-lg shadow-lg h-[500px]"
+              className="rounded-lg shadow-lg xs:h-[300px] md:h-[500px]"
             />
           </div>
         </div>
       </div>
 
       {/* Why Choose Us Section */}
-      <div className="max-w-7xl mx-auto px-6 py-16">
-        <h2 className="text-[40px]  font-[600] text-center text-[#1D2939]">
+      <div className="w-full mx-auto py-16">
+        <h2 className="xs:text-[25px] md:text-[40px]  font-[600] text-center text-[#1D2939]">
           Why Choose Deal Junkie?
         </h2>
-        <p className="text-[14px] font-[400] text-[#98A2B3] text-center px-50">
+        <p className="text-[14px] font-[400] text-[#98A2B3] text-center xs:px-5 md:px-50">
           At Deal Junkie, we believe that great deals start with great insights.
           We created this platform to bridge the gap between those seeking
           expert due diligence, investment analysis, and deal execution support
@@ -184,9 +184,10 @@ function AboutUs() {
       </div>
 
       {/* Call-to-Action Section */}
-      <div className="bg-green-100 relative py-6 mx-10  mb-40 rounded-[7px] px-10 flex justify-between items-center w-full">
-        <div className="w-[50%]">
-          <h3 className="text-[38px] font-[600]  text-gray-900">
+      <div className="bg-green-100 relative py-6 ml-1 px-6 md:px-10 mb-40 rounded-[7px] flex flex-col md:flex-row justify-between items-center w-full">
+        {/* Text & Button Section */}
+        <div className="w-full md:w-[60%] text-center md:text-left">
+          <h3 className="text-[22px] md:text-[38px] font-semibold text-gray-900">
             Deal Junkie connects you with the expertise you need to make better
             investment decisions.
           </h3>
@@ -194,11 +195,15 @@ function AboutUs() {
             Find Experts Now
           </button>
         </div>
-        <img
-          src="/assets/images/image-3.png"
-          alt="Our Team"
-          className="rounded-lg h-[270px] w-[270px] absolute bottom-0 right-30"
-        />
+
+        {/* Image Section */}
+        <div className="w-full md:w-auto flex justify-center mt-6 md:mt-0">
+          <img
+            src="/assets/images/image-3.png"
+            alt="Our Team"
+            className="rounded-lg h-[200px] w-[200px] md:h-[270px] md:w-[270px]"
+          />
+        </div>
       </div>
     </Layout>
   );
