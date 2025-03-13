@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useContext } from "react";
 import GlobalContext from "../../context/GlobalContext";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FiUser, FiLogOut } from "react-icons/fi";
 import { BsClipboardCheck, BsCreditCard2Front } from "react-icons/bs";
 import { IoIosSwitch } from "react-icons/io";
@@ -10,7 +10,7 @@ import { FaRegComments } from "react-icons/fa6";
 import {
   getAccessToken,
   removeAccessToken,
-  removeRefreshToken
+  removeRefreshToken,
 } from "../../storage/storage";
 import Auth from "../modals/Auth";
 import PostProject from "../modals/PostProject";
@@ -60,7 +60,7 @@ const Navbar = () => {
             { name: "Home", path: "/" },
             { name: "About Us", path: "/about-us" },
             { name: "How it Works", path: "/how-it-works" },
-            { name: "Pricing", path: "/pricing" }
+            { name: "Pricing", path: "/pricing" },
           ].map((item, index) => (
             <Link
               key={index}
@@ -149,7 +149,8 @@ const Navbar = () => {
 export default Navbar;
 
 function ProfileDropdown() {
-  const { userInfo } = useContext(GlobalContext);
+  const Navigate = useNavigate();
+  const { userInfo, setUserInfo } = useContext(GlobalContext);
   const { EditProfile, loading } = useEditProfile();
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
@@ -171,7 +172,8 @@ function ProfileDropdown() {
   const Logout = () => {
     removeAccessToken();
     removeRefreshToken();
-    window.location = "/";
+    setUserInfo(null);
+    Navigate("/");
   };
 
   const SwitchMode = (role) => {
@@ -243,18 +245,18 @@ function ProfileDropdown() {
                 {
                   name: "My Account",
                   path: "/dashboard/edit-profile",
-                  icon: <FiUser />
+                  icon: <FiUser />,
                 },
                 {
                   name: "My Tasks",
                   path: "/dashboard/my-tasks",
-                  icon: <BsClipboardCheck />
+                  icon: <BsClipboardCheck />,
                 },
                 {
                   name: "Manage Payments",
                   path: "/dashboard/manage-payments",
-                  icon: <BsCreditCard2Front />
-                }
+                  icon: <BsCreditCard2Front />,
+                },
               ].map((item, index) => (
                 <Link
                   key={index}
@@ -289,18 +291,18 @@ function ProfileDropdown() {
                 {
                   name: "My Account",
                   path: "/dashboard/edit-profile",
-                  icon: <FiUser />
+                  icon: <FiUser />,
                 },
                 {
                   name: "My Jobs",
                   path: "/dashboard/my-jobs",
-                  icon: <BsClipboardCheck />
+                  icon: <BsClipboardCheck />,
                 },
                 {
                   name: "Manage Payments",
                   path: "/dashboard/manage-payments",
-                  icon: <BsCreditCard2Front />
-                }
+                  icon: <BsCreditCard2Front />,
+                },
               ].map((item, index) => (
                 <Link
                   key={index}
@@ -327,8 +329,8 @@ function ProfileDropdown() {
                 {
                   name: "Dashboard",
                   path: "/admin/dashboard",
-                  icon: <LuLayoutDashboard />
-                }
+                  icon: <LuLayoutDashboard />,
+                },
               ].map((item, index) => (
                 <Link
                   key={index}

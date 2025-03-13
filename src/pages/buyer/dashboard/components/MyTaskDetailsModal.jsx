@@ -15,10 +15,15 @@ import { TiTick } from "react-icons/ti";
 function MyTaskDetailsModal(props) {
   const { isOpenModal, setIsOpenModal, selected, setSelected } = props;
   const cancelButtonRef = useRef(null);
-  const { GetMyTaskById, myTask } = useGetMyTaskById();
+  const { GetMyTaskById, myTask, setMyTask } = useGetMyTaskById();
 
   useEffect(() => {
     if (selected) {
+      setMyTask((prevState) => ({
+        ...prevState,
+        loading: true,
+        message: null,
+      }));
       GetMyTaskById(selected?.id);
     }
   }, [selected]);
@@ -26,6 +31,13 @@ function MyTaskDetailsModal(props) {
   const handleClose = () => {
     setIsOpenModal(false);
     setSelected(null);
+  };
+
+  const { AcceptProposal, acceptProposal } = useAcceptProposal();
+
+  const handleAcceptRequest = (proposalId) => {
+    AcceptProposal(proposalId);
+    GetMyTaskById(selected?.id);
   };
 
   return (
@@ -96,7 +108,11 @@ function MyTaskDetailsModal(props) {
                       <TaskDetails myTask={myTask} />
                       {/* Proposals */}
                       {myTask.data?.status !== "Cancelled" && (
-                        <Proposals myTask={myTask} />
+                        <Proposals
+                          myTask={myTask}
+                          handleAcceptRequest={handleAcceptRequest}
+                          acceptProposal={acceptProposal}
+                        />
                       )}
                       <div className="w-full flex items-center gap-1 mt-8">
                         {myTask.data?.status === "Receiving Offer" && (
@@ -197,12 +213,7 @@ function TaskDetails(props) {
 }
 
 function Proposals(props) {
-  const { myTask } = props;
-  const { AcceptProposal, acceptProposal } = useAcceptProposal();
-
-  const handleAcceptRequest = (proposalId) => {
-    AcceptProposal(proposalId);
-  };
+  const { myTask, handleAcceptRequest, acceptProposal } = props;
 
   return (
     <div className="w-full mt-5">
@@ -236,17 +247,23 @@ function Proposals(props) {
                 >
                   See Profile
                 </Link>
-                <button
-                  className="bg-[#0AF8860D] w-[120px] h-[35px] border border-[#039855] rounded-sm text-[#039855] text-[13px] cursor-pointer flex justify-center items-center"
-                  disabled={acceptProposal.loading}
-                  onClick={() => handleAcceptRequest(item.id)}
-                >
-                  {acceptProposal.loading ? (
-                    <ButtonLoader3 />
-                  ) : (
-                    "Approve Request"
-                  )}
-                </button>
+                {myTask.data?.status === "In Progress" ? (
+                  <button className="w-[120px] h-[35px] border border-[#6F7487] rounded-sm text-[#6F7487] text-[13px] flex justify-center items-center">
+                    Approved
+                  </button>
+                ) : (
+                  <button
+                    className="bg-[#0AF8860D] w-[120px] h-[35px] border border-[#039855] rounded-sm text-[#039855] text-[13px] cursor-pointer flex justify-center items-center"
+                    disabled={acceptProposal.loading}
+                    onClick={() => handleAcceptRequest(item.id)}
+                  >
+                    {acceptProposal.loading ? (
+                      <ButtonLoader3 />
+                    ) : (
+                      "Approve Request"
+                    )}
+                  </button>
+                )}
               </div>
             </div>
           ))}

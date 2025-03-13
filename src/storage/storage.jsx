@@ -1,27 +1,27 @@
 import Cookies from "js-cookie";
 
 export const getAccessToken = () => {
-  return Cookies.get("access_token", false);
+  return Cookies.get("current-session", false);
 };
 
 export const setAccessToken = (token) => {
-  return Cookies.set("access_token", token);
+  return Cookies.set("current-session", token);
 };
 
 export const removeAccessToken = () => {
-  return Cookies.remove("access_token");
+  return Cookies.remove("current-session");
 };
 
 export const getRefreshToken = () => {
-  return Cookies.get("refresh_token", false);
+  return Cookies.get("refresh-session", false);
 };
 
 export const setRefreshToken = (token) => {
-  return Cookies.set("refresh_token", token);
+  return Cookies.set("refresh-session", token);
 };
 
 export const removeRefreshToken = () => {
-  return Cookies.remove("refresh_token");
+  return Cookies.remove("refresh-session");
 };
 
 export const setLanguage = (language_code) => {

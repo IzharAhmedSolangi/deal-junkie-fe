@@ -45,13 +45,14 @@ import AdminJobDetails from "../pages/admin/JobDetails";
 const Routing = () => {
   const token = getAccessToken();
   const { userInfo } = useContext(GlobalContext);
-  const { loading, getCurrentUser } = useCurrentUser();
+  const { loading, setLoading, getCurrentUser } = useCurrentUser();
 
   useEffect(() => {
     if (token) {
+      setLoading(true);
       getCurrentUser(token);
     }
-  }, [token]);
+  }, []);
 
   return (
     <>

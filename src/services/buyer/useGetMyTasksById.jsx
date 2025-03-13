@@ -12,12 +12,6 @@ function useGetMyTasksById() {
   });
 
   const GetMyTaskById = async (taskId) => {
-    setMyTask((prevState) => ({
-      ...prevState,
-      loading: true,
-      data: null,
-      message: null,
-    }));
     await axios
       .get(`${BASE_URL}/api/buyer/my-tasks/${taskId}/`, {
         headers: {

@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import { Fragment, useRef, useState } from "react";
+import { Fragment, useContext, useRef, useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { Dialog, Transition } from "@headlessui/react";
 import axios from "axios";
@@ -10,7 +10,9 @@ import {
   removeRefreshToken,
 } from "../../storage/storage";
 import { ButtonLoader1 } from "../shared/ButtonLoaders";
-import { ErrorToaster } from "../shared/Toster";
+import { ErrorToaster, SuccessToaster } from "../shared/Toster";
+import { useNavigate } from "react-router-dom";
+import GlobalContext from "../../context/GlobalContext";
 
 function DeleteAccount(props) {
   const { isOpenModal, setIsOpenModal, url, icon, title, description } = props;
@@ -18,6 +20,8 @@ function DeleteAccount(props) {
   const BASE_URL = import.meta.env.VITE_API_URL;
   const [loading, setLoading] = useState(false);
   const cancelButtonRef = useRef(null);
+  const Navigate = useNavigate();
+  const { setUserInfo } = useContext(GlobalContext);
 
   const handleClose = () => {
     setIsOpenModal(false);
@@ -34,9 +38,11 @@ function DeleteAccount(props) {
       .then((response) => {
         setLoading(false);
         handleClose();
+        SuccessToaster("Account Deleted", "Your account successfully Deleted");
         removeAccessToken();
         removeRefreshToken();
-        window.location.reload();
+        setUserInfo(null);
+        Navigate("/");
       })
       .catch((error) => {
         setLoading(false);

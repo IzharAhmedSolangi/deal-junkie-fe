@@ -60,7 +60,10 @@ function Auth(props) {
                   </button>
                   <div className="flex justify-center">
                     {authModalType === "login" && (
-                      <Login setAuthModalType={setAuthModalType} />
+                      <Login
+                        setAuthModalType={setAuthModalType}
+                        handleClose={handleClose}
+                      />
                     )}
                     {authModalType === "signup" && (
                       <Signup setAuthModalType={setAuthModalType} />

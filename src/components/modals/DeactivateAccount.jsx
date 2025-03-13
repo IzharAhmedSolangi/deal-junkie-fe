@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import { Fragment, useRef, useState } from "react";
+import { Fragment, useContext, useRef, useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { Dialog, Transition } from "@headlessui/react";
 import axios from "axios";
@@ -12,6 +12,8 @@ import {
 import { ButtonLoader1 } from "../shared/ButtonLoaders";
 import Dropdown from "../shared/Dropdown";
 import { ErrorToaster, SuccessToaster } from "../shared/Toster";
+import { useNavigate } from "react-router-dom";
+import GlobalContext from "../../context/GlobalContext";
 
 const Reasons = [
   { name: "Reason 1", value: 1 },
@@ -27,6 +29,8 @@ function DeactivateAccount(props) {
   const [loading, setLoading] = useState(false);
   const cancelButtonRef = useRef(null);
   const [selectedReason, setSelectedReason] = useState(null);
+  const Navigate = useNavigate();
+  const { setUserInfo } = useContext(GlobalContext);
 
   const handleClose = () => {
     setIsOpenModal(false);
@@ -48,12 +52,13 @@ function DeactivateAccount(props) {
         setLoading(false);
         handleClose();
         SuccessToaster(
-          "Profile updated",
-          "Your profile details successfully updated"
+          "Account Deactivated",
+          "Your account successfully Deactivated"
         );
         removeAccessToken();
         removeRefreshToken();
-        window.location.reload();
+        setUserInfo(null);
+        Navigate("/");
       })
       .catch((error) => {
         setLoading(false);

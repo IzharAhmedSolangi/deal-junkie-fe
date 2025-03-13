@@ -4,6 +4,7 @@ import { FaUserCircle } from "react-icons/fa";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import useNotifications from "../../services/common/useNotifications";
 import GlobalContext from "../../context/GlobalContext";
+import { ButtonLoader2 } from "./ButtonLoaders";
 function Notifications() {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
@@ -71,7 +72,7 @@ function Notifications() {
         className="w-7 h-7 text-gray-500 cursor-pointer relative"
         onClick={() => setIsOpen(!isOpen)}
       />
-      {notifications.unread && (
+      {notifications.unread > 0 && (
         <div className="absolute w-[14px] h-[14px] rounded-full bg-primary top-0 right-0 text-white text-[10px] flex items-center justify-center">
           {notifications.unread}
         </div>
@@ -96,6 +97,16 @@ function Notifications() {
                 </p>
               </li>
             ))}
+            {notifications.data?.length === 0 && (
+              <div className="w-full h-[300px] flex justify-center items-center">
+                No notifications
+              </div>
+            )}
+            {notifications.loading && (
+              <div className="w-full h-[300px] flex justify-center items-center">
+                <ButtonLoader2 />
+              </div>
+            )}
 
             {/* <li className="px-4 py-2 flex items-center gap-3 hover:bg-gray-100 cursor-pointer">
               <FaUserCircle className="w-8 h-8 text-gray-500" />

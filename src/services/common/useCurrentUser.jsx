@@ -9,7 +9,6 @@ const useCurrentUser = () => {
   const [loading, setLoading] = useState(false);
 
   const getCurrentUser = async (token) => {
-    setLoading(true);
     await axios
       .get(`${BASE_URL}/api/seller/profile/`, {
         headers: {
@@ -30,6 +29,6 @@ const useCurrentUser = () => {
         }
       });
   };
-  return { loading, getCurrentUser };
+  return { loading, setLoading, getCurrentUser };
 };
 export default useCurrentUser;

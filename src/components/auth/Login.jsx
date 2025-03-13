@@ -15,7 +15,7 @@ const validationSchema = Yup.object({
 });
 
 function Login(props) {
-  const { setAuthModalType } = props;
+  const { setAuthModalType, handleClose } = props;
   const [password, setPassword] = useState(false);
   const { Login, loading, errorMessage } = useLogin();
 
@@ -28,10 +28,13 @@ function Login(props) {
     initialValues,
     validationSchema,
     onSubmit: async (values) => {
-      Login({
-        email: values.email,
-        password: values.password,
-      });
+      Login(
+        {
+          email: values.email,
+          password: values.password,
+        },
+        handleClose
+      );
     },
   });
 
