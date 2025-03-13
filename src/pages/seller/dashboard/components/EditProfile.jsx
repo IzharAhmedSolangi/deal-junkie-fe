@@ -204,7 +204,6 @@ function EditProfile() {
       }
       if (userInfo?.seller_profile === null) {
         BecomeSeller({
-          user: userInfo?.user?.id,
           experience: values.experience,
           rate_per_hour: values.rate_per_hour,
 

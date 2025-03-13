@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useContext, useState } from "react";
 import {
   MdOutlineLocationOn,
   MdOutlineMail,
@@ -7,10 +7,13 @@ import {
 } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import SendProposal from "../../../../components/modals/SendProposal";
+import { ErrorToaster } from "../../../../components/shared/Toster";
+import GlobalContext from "../../../../context/GlobalContext";
 
 function BuyerInfo(props) {
   const { findJob } = props;
   const Navigate = useNavigate();
+  const { userInfo } = useContext(GlobalContext);
   const [isOpenSendProposalModal, setIsOpenSendProposalModal] = useState(false);
   const [selectedJob, setSelectedJob] = useState(false);
 
@@ -61,8 +64,16 @@ function BuyerInfo(props) {
           <button
             className="w-full bg-secondary text-white py-2 rounded-sm cursor-pointer"
             onClick={() => {
-              setIsOpenSendProposalModal(true);
-              setSelectedJob(findJob.data);
+              if (userInfo.seller_profile) {
+                setIsOpenSendProposalModal(true);
+                setSelectedJob(findJob.data);
+              } else {
+                ErrorToaster(
+                  "Seller Profile",
+                  "Complete your seller profile before applying any job"
+                );
+                Navigate("/dashboard/edit-profile");
+              }
             }}
           >
             Send Request

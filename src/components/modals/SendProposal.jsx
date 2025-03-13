@@ -149,8 +149,8 @@ function SendProposal(props) {
                 <Dialog.Panel
                   className={`relative transform overflow-hidden rounded-[16px] bg-white text-left shadow-xl transition-all  ${
                     sendProposal.success
-                      ? "w-[600px] h-auto md:py-12 md:px-6 p-5"
-                      : "w-full h-auto md:py-12 md:px-6 p-5"
+                      ? "w-[600px] h-auto md:py-12 md:px-6 px-5 py-8"
+                      : "w-full h-auto md:py-12 md:px-6 px-5 py-8"
                   }`}
                 >
                   <div
@@ -164,17 +164,17 @@ function SendProposal(props) {
                       <form onSubmit={handleSubmit} className="w-full">
                         <div className="flex items-center justify-between">
                           <div>
-                            <h1 className="font-[600] text-[30px] text-secondary">
+                            <h1 className="font-[600] md:text-[30px] text-[24px] text-secondary">
                               Send Service Request
                             </h1>
-                            <p className="font-[500] text-[20px] text-[#6F7487]">
+                            <p className="font-[500] md:text-[20px] text-[15px] text-[#6F7487]">
                               Describe details about your service
                             </p>
                           </div>
                           <CircularProgress percentage={percentage} />
                         </div>
-                        <div className="pt-5 pb-10">
-                          <div className="mt-4">
+                        <div className="md:pt-5 md:pb-10 py-2">
+                          <div className="md:mt-4 mt-2">
                             <label
                               onDrop={handleDrop}
                               onDragOver={handleDragOver}
@@ -191,16 +191,16 @@ function SendProposal(props) {
                               just drag & drop
                             </label>
                           </div>
-                          <div className="mt-4">
+                          <div className="md:mt-4 mt-2">
                             <label className="text-[16px] text-[#222222] font-[600]">
                               Your hourly budget
                             </label>
-                            <div className="flex items-center justify-between gap-2 mt-2">
-                              <div className="flex items-center gap-2 w-full">
+                            <div className="flex md:flex-row flex-col md:items-center md:justify-between gap-2 mt-2">
+                              <div className="flex flex-wrap items-center md:gap-2 gap-1 w-full">
                                 {budgets.map((budget, index) => (
                                   <button
                                     key={index}
-                                    className={`rounded-[40px] px-6 w-auto h-[40px] border text-[14px] font-[500] cursor-pointer hover:text-secondary hover:bg-primary hover:border-primary ${
+                                    className={`rounded-[40px] md:px-6 px-3 w-auto h-[40px] border md:text-[14px] text-[12px] font-[500] cursor-pointer hover:text-secondary hover:bg-primary hover:border-primary ${
                                       values.budget === budget.value
                                         ? "bg-primary border-primary text-secondary"
                                         : "border-[#02174C33] text-[#6F7487]"
@@ -217,7 +217,7 @@ function SendProposal(props) {
                                 type="number"
                                 placeholder="Other"
                                 onChange={handleBudgetChange}
-                                className="w-[300px] h-[40px] px-3 rounded-[4px] bg-transparent border border-[#02174C33] outline-none hover:border-secondary focus:border-secondary"
+                                className="md:w-[300px] w-full h-[40px] px-3 rounded-[4px] bg-transparent border border-[#02174C33] outline-none hover:border-secondary focus:border-secondary"
                               />
                             </div>
                             {errors.budget && touched.budget && (
@@ -227,7 +227,7 @@ function SendProposal(props) {
                             )}
                           </div>
 
-                          <div className="grid grid-cols-2 gap-2 mt-4">
+                          <div className="grid md:grid-cols-2 grid-cols-1 gap-2 md:mt-4 mt-2">
                             <div>
                               <Dropdown
                                 placeholder="Select Availabilty"
@@ -268,7 +268,7 @@ function SendProposal(props) {
                             </div>
                           </div>
 
-                          <div className="mt-4">
+                          <div className="md:mt-4 mt-2">
                             <input
                               type="text"
                               placeholder="Portfolio link"
@@ -285,7 +285,7 @@ function SendProposal(props) {
                               )}
                           </div>
 
-                          <div className="mt-4">
+                          <div className="md:mt-4 mt-2">
                             <label className="text-[16px] text-[#222222] font-[600]">
                               Tell us the details of your service
                             </label>

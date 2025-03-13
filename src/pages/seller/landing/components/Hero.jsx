@@ -12,12 +12,12 @@ function Hero() {
   return (
     <div className="pt-[70px] w-full h-screen bg-[url('/assets/images/Banner.png')] bg-cover bg-center">
       <div className="flex flex-col items-center">
-        <h1 className="text-[#1D2939] lg:text-[48px] text-[24px] font-[600] text-center lg:w-[40%] w-full">
+        <h1 className="text-[#1D2939] lg:text-[48px] text-[24px] font-[600] text-center lg:w-[40%] w-[95%]">
           Unlock Your Full Potential with Deal Junkie
         </h1>
 
         <div className="w-full flex justify-center mt-3">
-          <div className="md:w-[50%] w-full flex gap-2 justify-between items-center bg-white shadow-lg p-2 rounded relative">
+          <div className="md:w-[50%] w-[95%] flex gap-2 justify-between items-center bg-white shadow-lg p-2 rounded relative">
             <input
               type="search"
               value={query}

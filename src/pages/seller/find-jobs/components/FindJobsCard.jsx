@@ -5,12 +5,15 @@ import { ButtonLoader3 } from "../../../../components/shared/ButtonLoaders";
 import ShowMessage from "../../../../components/shared/ShowMessage";
 import { MdOutlineMessage } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import SendProposal from "../../../../components/modals/SendProposal";
+import GlobalContext from "../../../../context/GlobalContext";
+import { ErrorToaster } from "../../../../components/shared/Toster";
 
 function FindJobsCard(props) {
   const { findJobs, handleLoadMore } = props;
   const Navigate = useNavigate();
+  const { userInfo } = useContext(GlobalContext);
   const [isOpenSendProposalModal, setIsOpenSendProposalModal] = useState(false);
   const [selectedJob, setSelectedJob] = useState(false);
 
@@ -59,8 +62,16 @@ function FindJobsCard(props) {
                     <button
                       className="bg-[#00B75F0F] w-full h-[35px] border border-[#00B75F] rounded-sm text-[#00B75F] text-[13px] cursor-pointer flex justify-center items-center gap-1"
                       onClick={() => {
-                        setIsOpenSendProposalModal(true);
-                        setSelectedJob(item);
+                        if (userInfo.seller_profile) {
+                          setIsOpenSendProposalModal(true);
+                          setSelectedJob(item);
+                        } else {
+                          ErrorToaster(
+                            "Seller Profile",
+                            "Complete your seller profile before applying any job"
+                          );
+                          Navigate("/dashboard/edit-profile");
+                        }
                       }}
                     >
                       <MdOutlineMessage />
