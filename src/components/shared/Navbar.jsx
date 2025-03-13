@@ -54,7 +54,11 @@ const Navbar = () => {
             to="/"
             className="md:flex hidden items-center gap-2 text-2xl font-extrabold w-[33.33%]"
           >
-            <img src="/assets/logo/logo.png" alt="" className="h-8" />
+            <img
+              src="/assets/logo/logo.png"
+              alt="Deal Junkie"
+              className="h-8"
+            />
             <h1 className="text-[#003F63]">Deal Junkie</h1>
           </Link>
           <button
@@ -91,7 +95,11 @@ const Navbar = () => {
             to="/"
             className="flex items-center justify-center gap-1 text-2xl font-extrabold md:hidden w-[33.33%]"
           >
-            <img src="/assets/logo/logo.png" alt="" className="h-5" />
+            <img
+              src="/assets/logo/logo.png"
+              alt="Deal Junkie"
+              className="h-5"
+            />
             <h1 className="text-[#003F63] text-[15px]">Deal Junkie</h1>
           </Link>
           {token ? (
