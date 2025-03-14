@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import GlobalContext from "../context/GlobalContext";
 import useCurrentUser from "../services/common/useCurrentUser";
 import { getAccessToken } from "../storage/storage";
@@ -57,100 +57,89 @@ const Routing = () => {
   return (
     <>
       {loading && <PageLoader />}
-      <Router>
-        <Routes>
-          {token && (
-            <>
-              {/* Buyer pages */}
-              {userInfo?.user?.role === "buyer" && (
-                <>
-                  <Route path="/" element={<BuyerLanding />} />
-                  <Route path="*" element={<BuyerLanding />} />
-                  <Route path="/find-experts" element={<FindExperts />} />
+      <Routes>
+        {token && (
+          <>
+            {/* Buyer pages */}
+            {userInfo?.user?.role === "buyer" && (
+              <>
+                <Route path="/" element={<BuyerLanding />} />
+                <Route path="*" element={<BuyerLanding />} />
+                <Route path="/find-experts" element={<FindExperts />} />
+                <Route
+                  path="/find-experts/:sellerId"
+                  element={<FindExpertDetails />}
+                />
+                <Route
+                  path="/dashboard/:tabName"
+                  element={<BuyerDashboard />}
+                />
+                <Route path="/inbox" element={<Inbox />} />
+              </>
+            )}
+            {userInfo?.user?.role === "seller" && (
+              <>
+                <Route path="/" element={<SellerLanding />} />
+                <Route path="*" element={<SellerLanding />} />
+                <Route path="/find-jobs" element={<FindJobs />} />
+                <Route path="/find-jobs/:jobId" element={<FindJobDetails />} />
+                <Route
+                  path="/dashboard/:tabName"
+                  element={<SellerDashboard />}
+                />
+                <Route path="/inbox" element={<Inbox />} />
+              </>
+            )}
+            {/* Admin pages */}
+            {userInfo?.user?.role === "admin" && (
+              <>
+                <Route path="/" element={<AdminLayout />}>
+                  <Route path="admin/dashboard" element={<AdminDashboard />} />
+                  <Route path="admin/jobs" element={<AdminJobs />} />
                   <Route
-                    path="/find-experts/:sellerId"
-                    element={<FindExpertDetails />}
+                    path="admin/jobs/:jobId"
+                    element={<AdminJobDetails />}
                   />
+                  <Route path="admin/earnings" element={<AdminEarnings />} />
+                  <Route path="admin/buyers" element={<AdminBuyers />} />
                   <Route
-                    path="/dashboard/:tabName"
-                    element={<BuyerDashboard />}
+                    path="admin/buyers/:buyerId"
+                    element={<AdminBuyerDetails />}
                   />
-                  <Route path="/inbox" element={<Inbox />} />
-                </>
-              )}
-              {userInfo?.user?.role === "seller" && (
-                <>
-                  <Route path="/" element={<SellerLanding />} />
-                  <Route path="*" element={<SellerLanding />} />
-                  <Route path="/find-jobs" element={<FindJobs />} />
+                  <Route path="admin/sellers" element={<AdminSellers />} />
                   <Route
-                    path="/find-jobs/:jobId"
-                    element={<FindJobDetails />}
+                    path="admin/sellers/:sellerId"
+                    element={<AdminSellerDetails />}
                   />
+                  <Route path="admin/chats" element={<AdminChats />} />
                   <Route
-                    path="/dashboard/:tabName"
-                    element={<SellerDashboard />}
+                    path="admin/support-messages"
+                    element={<AdminSupportMessages />}
                   />
-                  <Route path="/inbox" element={<Inbox />} />
-                </>
-              )}
-              {/* Admin pages */}
-              {userInfo?.user?.role === "admin" && (
-                <>
-                  <Route path="/" element={<AdminLayout />}>
-                    <Route
-                      path="admin/dashboard"
-                      element={<AdminDashboard />}
-                    />
-                    <Route path="admin/jobs" element={<AdminJobs />} />
-                    <Route
-                      path="admin/jobs/:jobId"
-                      element={<AdminJobDetails />}
-                    />
-                    <Route path="admin/earnings" element={<AdminEarnings />} />
-                    <Route path="admin/buyers" element={<AdminBuyers />} />
-                    <Route
-                      path="admin/buyers/:buyerId"
-                      element={<AdminBuyerDetails />}
-                    />
-                    <Route path="admin/sellers" element={<AdminSellers />} />
-                    <Route
-                      path="admin/sellers/:sellerId"
-                      element={<AdminSellerDetails />}
-                    />
-                    <Route path="admin/chats" element={<AdminChats />} />
-                    <Route
-                      path="admin/support-messages"
-                      element={<AdminSupportMessages />}
-                    />
-                  </Route>
-                  <Route path="/find-experts" element={<FindExperts />} />
-                  <Route
-                    path="/find-experts/:sellerId"
-                    element={<FindExpertDetails />}
-                  />
-                  <Route path="/find-jobs" element={<FindJobs />} />
-                  <Route
-                    path="/find-jobs/:jobId"
-                    element={<FindJobDetails />}
-                  />
-                </>
-              )}
-            </>
-          )}
+                </Route>
+                <Route path="/find-experts" element={<FindExperts />} />
+                <Route
+                  path="/find-experts/:sellerId"
+                  element={<FindExpertDetails />}
+                />
+                <Route path="/find-jobs" element={<FindJobs />} />
+                <Route path="/find-jobs/:jobId" element={<FindJobDetails />} />
+              </>
+            )}
+          </>
+        )}
 
-          {/* Public pages (Seller & Buyer) */}
-          <Route path="/" element={<BuyerLanding />} />
-          <Route path="*" element={<BuyerLanding />} />
-          <Route path="/buyer-faqs" element={<BuyerFAQs />} />
-          <Route path="/seller-faqs" element={<SellerFAQs />} />
-          <Route path="/contact-us" element={<ContactUs />} />
-          <Route path="/about-us" element={<AboutUs />} />
-          <Route path="/how-it-works" element={<HowItWorks />} />
-          <Route path="/pricing" element={<Pricing />} />
-        </Routes>
-        <ScrollToTop />
-      </Router>
+        {/* Public pages (Seller & Buyer) */}
+        <Route path="/" element={<BuyerLanding />} />
+        <Route path="*" element={<BuyerLanding />} />
+        <Route path="/buyer-faqs" element={<BuyerFAQs />} />
+        <Route path="/seller-faqs" element={<SellerFAQs />} />
+        <Route path="/contact-us" element={<ContactUs />} />
+        <Route path="/about-us" element={<AboutUs />} />
+        <Route path="/how-it-works" element={<HowItWorks />} />
+        <Route path="/pricing" element={<Pricing />} />
+      </Routes>
+      <ScrollToTop />
     </>
   );
 };
