@@ -7,6 +7,7 @@ import useGetMyTasks from "../../../../services/seller/useGetMyTasks";
 import ShowMessage from "../../../../components/shared/ShowMessage";
 import { ButtonLoader3 } from "../../../../components/shared/ButtonLoaders";
 import { TiTick } from "react-icons/ti";
+import { TruncateText } from "../../../../utils/TruncateText";
 
 const Tasks = [
   { name: "All Jobs", value: 1 },
@@ -47,6 +48,14 @@ function MyJobs() {
             options={Tasks}
             selected={selectedTaskFilter}
             onChange={(option) => {
+              setMyTasks((prevState) => ({
+                ...prevState,
+                loading: true,
+                data: null,
+                message: null,
+                totalPages: 1,
+                currentPage: 1,
+              }));
               setSelectedTaskFilter(option);
             }}
           />
@@ -91,7 +100,7 @@ function MyJobs() {
                   {item.title}
                 </h1>
                 <p className="text-[#98A2B3] md:text-[16px] text-[12px] mt-1">
-                  {item.description}
+                  {TruncateText(item.description)}
                 </p>
                 <div className="flex items-center gap-1 mt-3">
                   <button

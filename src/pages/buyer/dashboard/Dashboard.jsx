@@ -44,7 +44,7 @@ function Dashboard() {
           <h1 className="font-[700] md:text-[48px] text-[36px] text-center text-secondary mt-4">
             Dashboard
           </h1>
-          <div className="lg:px-[80px] px-5 mt-32 flex lg:flex-row flex-col items-start gap-5">
+          <div className="lg:px-[80px] px-5 mt-32 flex lg:flex-row flex-col-reverse items-start gap-5">
             <div className="lg:w-[30%] w-full border border-[#02174C33] rounded-xl p-5 lg:sticky lg:top-[80px]">
               <Profile handleTabClick={handleTabClick} />
             </div>

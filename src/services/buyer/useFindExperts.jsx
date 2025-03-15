@@ -15,11 +15,6 @@ function useFindExperts() {
   });
 
   const FindExperts = async (payload, page = 1, append = false) => {
-    setFindExperts((prevState) => ({
-      ...prevState,
-      loading: true,
-      message: null,
-    }));
     await axios
       .post(`${BASE_URL}/api/seller/get-sellers/?page=${page}`, payload, {
         headers: {

@@ -15,7 +15,6 @@ import { format } from "date-fns";
 import CircularProgress from "../shared/CircularProgress";
 import { useNavigate } from "react-router-dom";
 import Dropdown from "../shared/Dropdown";
-import { ErrorToaster } from "../shared/Toster";
 
 const validationSchema = Yup.object({
   title: Yup.string().required("Title is required").max(100, "Limit exceeded"),

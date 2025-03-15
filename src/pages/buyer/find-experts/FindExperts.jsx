@@ -33,7 +33,12 @@ function FindExperts() {
   const handleFilters = () => {
     setFindExperts((prevState) => ({
       ...prevState,
+      loading: true,
       buttonLoading: true,
+      data: null,
+      message: null,
+      totalPages: 1,
+      currentPage: 1,
     }));
     FindExperts({
       search: filters.search,
@@ -49,7 +54,12 @@ function FindExperts() {
   const handleSearch = () => {
     setFindExperts((prevState) => ({
       ...prevState,
+      loading: true,
       buttonLoading: true,
+      data: null,
+      message: null,
+      totalPages: 1,
+      currentPage: 1,
     }));
     FindExperts({
       search: filters.search,
@@ -65,6 +75,10 @@ function FindExperts() {
   const handleLoadMore = () => {
     if (findExperts.currentPage < findExperts.totalPages) {
       const nextPage = findExperts.currentPage + 1;
+      setFindExperts((prevState) => ({
+        ...prevState,
+        loading: true,
+      }));
       FindExperts(
         {
           search: filters.search,

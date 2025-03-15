@@ -20,10 +20,6 @@ function useGetMyTasks() {
     append = updateResponse || false,
     selectedTaskFilter
   ) => {
-    setMyTasks((prevState) => ({
-      ...prevState,
-      message: null,
-    }));
     await axios
       .get(
         `${BASE_URL}/api/buyer/my-tasks/?page=${page}&filter=${selectedTaskFilter}`,

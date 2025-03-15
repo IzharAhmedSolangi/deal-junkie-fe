@@ -9,6 +9,7 @@ import { useContext, useState } from "react";
 import SendProposal from "../../../../components/modals/SendProposal";
 import GlobalContext from "../../../../context/GlobalContext";
 import { ErrorToaster } from "../../../../components/shared/Toster";
+import { TruncateText } from "../../../../utils/TruncateText";
 
 function FindJobsCard(props) {
   const { findJobs, handleLoadMore } = props;
@@ -47,7 +48,7 @@ function FindJobsCard(props) {
                     {item.title}
                   </h1>
                   <p className="text-[#98A2B3] md:text-[16px] text-[12px] mt-1">
-                    {item.description}
+                    {TruncateText(item.description)}
                   </p>
                   <div className="flex items-center gap-1 mt-3">
                     <button

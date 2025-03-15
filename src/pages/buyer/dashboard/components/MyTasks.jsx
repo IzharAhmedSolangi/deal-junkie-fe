@@ -14,6 +14,7 @@ import ShowMessage from "../../../../components/shared/ShowMessage";
 import MyTaskDetailsModal from "./MyTaskDetailsModal";
 import useCancelTask from "../../../../services/buyer/useCancelTask";
 import GlobalContext from "../../../../context/GlobalContext";
+import { TruncateText } from "../../../../utils/TruncateText";
 
 const Tasks = [
   { name: "All Tasks", value: 1 },
@@ -62,6 +63,14 @@ function MyTasks() {
             options={Tasks}
             selected={selectedTaskFilter}
             onChange={(option) => {
+              setMyTasks((prevState) => ({
+                ...prevState,
+                loading: true,
+                data: null,
+                message: null,
+                totalPages: 1,
+                currentPage: 1,
+              }));
               setSelectedTaskFilter(option);
             }}
           />
@@ -105,7 +114,7 @@ function MyTasks() {
                 {item.title}
               </h1>
               <p className="text-[#98A2B3] md:text-[16px] text-[12px] mt-1">
-                {item.description}
+                {TruncateText(item.description)}
               </p>
               <div className="flex items-center gap-1 mt-3">
                 <button

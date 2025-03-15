@@ -38,7 +38,12 @@ function FindJobs() {
   const handleFilters = () => {
     setFindJobs((prevState) => ({
       ...prevState,
+      loading: true,
       buttonLoading: true,
+      data: null,
+      message: null,
+      totalPages: 1,
+      currentPage: 1,
     }));
     FindJobs({
       search: filters.search,
@@ -53,7 +58,12 @@ function FindJobs() {
   const handleSearch = () => {
     setFindJobs((prevState) => ({
       ...prevState,
+      loading: true,
       buttonLoading: true,
+      data: null,
+      message: null,
+      totalPages: 1,
+      currentPage: 1,
     }));
     FindJobs({
       search: filters.search,
@@ -69,6 +79,10 @@ function FindJobs() {
 
   const handleLoadMore = () => {
     if (findJobs.currentPage < findJobs.totalPages) {
+      setFindJobs((prevState) => ({
+        ...prevState,
+        loading: true,
+      }));
       const nextPage = findJobs.currentPage + 1;
       FindJobs(
         {

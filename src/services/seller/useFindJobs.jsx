@@ -15,11 +15,6 @@ function useFindJobs() {
   });
 
   const FindJobs = async (payload, page = 1, append = false) => {
-    setFindJobs((prevState) => ({
-      ...prevState,
-      loading: true,
-      message: null,
-    }));
     await axios
       .post(`${BASE_URL}/api/seller/job-search/?page=${page}`, payload, {
         headers: {
