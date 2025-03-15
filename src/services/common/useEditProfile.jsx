@@ -27,7 +27,7 @@ function useEditProfile() {
         if (showMessage) {
           SuccessToaster(
             "Profile updated",
-            "Your profile details successfully updated"
+            "Your profile details successfully updated!"
           );
           setShowMessage(false);
         }

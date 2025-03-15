@@ -10,11 +10,6 @@ function FindExpertsCard(props) {
 
   return (
     <>
-      {!findExperts.data && !findExperts.loading && findExperts.message && (
-        <div className="flex justify-center mt-24 mb-10">
-          <ShowMessage title={findExperts.message} />
-        </div>
-      )}
       {!findExperts.loading && (
         <div className="mt-24">
           <h1 className="text-center md:text-[24px] text-[16px] text-secondary font-bold">
@@ -98,6 +93,11 @@ function FindExpertsCard(props) {
       {!findExperts.data && findExperts.loading && (
         <div className="flex justify-center items-center w-full h-[300px]">
           <ButtonLoader3 />
+        </div>
+      )}
+      {!findExperts.loading && findExperts.message && (
+        <div className="flex justify-center mt-24 mb-10">
+          <ShowMessage title={findExperts.message} />
         </div>
       )}
     </>

@@ -152,8 +152,8 @@ function EditProfile() {
     validationSchema,
     enableReinitialize: true,
     onSubmit: async (values) => {
-      setShowMessage(true);
       if (userInfo?.seller_profile !== null) {
+        setShowMessage(true);
         EditProfile({
           user: {
             first_name: values.firstname,

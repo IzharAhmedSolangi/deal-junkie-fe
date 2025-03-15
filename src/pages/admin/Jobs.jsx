@@ -7,6 +7,7 @@ import { IoEyeOutline } from "react-icons/io5";
 import { CiCalendar, CiTimer } from "react-icons/ci";
 import { IoMdClose } from "react-icons/io";
 import { Link } from "react-router-dom";
+import { TruncateText } from "../../utils/TruncateText";
 
 function Jobs() {
   const { GetAllJobs, jobs } = useGetAllJobs();
@@ -34,7 +35,7 @@ function Jobs() {
               {jobs.data?.map((item, index) => (
                 <div
                   key={index}
-                  className="bg-white border border-[#15202712] rounded-[10px] shadow-md w-full h-[200px] p-3"
+                  className="bg-white border border-[#15202712] rounded-[10px] shadow-md w-full h-auto md:p-3 p-2"
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-1">
@@ -55,7 +56,7 @@ function Jobs() {
                     {item.title}
                   </h1>
                   <p className="text-[#98A2B3] text-[16px] mt-1">
-                    {item.description}
+                    {TruncateText(item.description, 130)}
                   </p>
                   <div className="flex items-center gap-1 mt-3">
                     <Link
@@ -95,7 +96,7 @@ function Jobs() {
               <ButtonLoader3 />
             </div>
           )}
-          {!jobs.data && !jobs.loading && jobs.message && (
+          {!jobs.loading && jobs.message && (
             <div className="flex justify-center items-center w-full h-[300px]">
               <ShowMessage title={jobs.message} />
             </div>

@@ -2,7 +2,7 @@
 import axios from "axios";
 import { getAccessToken } from "../../storage/storage";
 import { useState } from "react";
-import { ErrorToaster } from "../../components/shared/Toster";
+import { ErrorToaster, SuccessToaster } from "../../components/shared/Toster";
 
 function useBecomeSeller() {
   const BASE_URL = import.meta.env.VITE_API_URL;
@@ -18,6 +18,10 @@ function useBecomeSeller() {
         },
       })
       .then((response) => {
+        SuccessToaster(
+          "Congratulations",
+          "You have successfully become a seller!"
+        );
         setSellerLoading(false);
       })
       .catch((error) => {
