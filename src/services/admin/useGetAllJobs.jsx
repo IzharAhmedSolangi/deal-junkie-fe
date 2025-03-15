@@ -1,10 +1,13 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import axios from "axios";
 import { getAccessToken } from "../../storage/storage";
+import GlobalContext from "../../context/GlobalContext";
 
 function useGetAllJobs() {
   const BASE_URL = import.meta.env.VITE_API_URL;
   const token = getAccessToken();
+  const { setUpdateResponse } = useContext(GlobalContext);
+
   const [jobs, setJobs] = useState({
     loading: true,
     buttonLoading: false,
@@ -17,7 +20,6 @@ function useGetAllJobs() {
   const GetAllJobs = async (page = 1, append = false) => {
     setJobs((prevState) => ({
       ...prevState,
-      loading: true,
       message: null,
     }));
     await axios
@@ -27,6 +29,7 @@ function useGetAllJobs() {
         },
       })
       .then((response) => {
+        setUpdateResponse(false);
         setJobs((prevState) => ({
           ...prevState,
           loading: false,

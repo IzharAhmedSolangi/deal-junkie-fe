@@ -1,26 +1,42 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import useGetAllJobs from "../../services/admin/useGetAllJobs";
-import { ButtonLoader3 } from "../../components/shared/ButtonLoaders";
+import {
+  ButtonLoader3,
+  ButtonLoader4,
+} from "../../components/shared/ButtonLoaders";
 import ShowMessage from "../../components/shared/ShowMessage";
 import { IoEyeOutline } from "react-icons/io5";
 import { CiCalendar, CiTimer } from "react-icons/ci";
 import { IoMdClose } from "react-icons/io";
 import { Link } from "react-router-dom";
 import { TruncateText } from "../../utils/TruncateText";
+import useCancelTask from "../../services/admin/useCancelTask";
+import GlobalContext from "../../context/GlobalContext";
 
 function Jobs() {
-  const { GetAllJobs, jobs } = useGetAllJobs();
+  const { GetAllJobs, jobs, setJobs } = useGetAllJobs();
+  const { CancelTask, cancelTask } = useCancelTask();
+  const { updateResponse } = useContext(GlobalContext);
+  const [loadingTaskId, setLoadingTaskId] = useState(null);
 
   useEffect(() => {
     GetAllJobs();
-  }, []);
+  }, [updateResponse]);
 
   const handleLoadMore = () => {
     if (jobs.currentPage < jobs.totalPages) {
+      setJobs((prevState) => ({
+        ...prevState,
+        loading: true,
+      }));
       const nextPage = jobs.currentPage + 1;
       GetAllJobs(nextPage, true);
     }
+  };
+
+  const handleCancelJob = (taskId) => {
+    CancelTask(taskId);
   };
 
   return (
@@ -48,15 +64,27 @@ function Jobs() {
                         11:59 PM
                       </div>
                     </div>
-                    <div className="px-2 py-1 shadow-sm rounded-sm bg-secondary text-white text-[12px] font-[700]">
-                      {item.status}
-                    </div>
+                    {item.status === "Receiving Offer" && (
+                      <div className="px-2 py-1 shadow-sm rounded-sm bg-secondary text-white text-[12px] font-[700]">
+                        {item.status}
+                      </div>
+                    )}
+                    {item.status === "In Progress" && (
+                      <div className="px-2 py-1 shadow-sm rounded-sm bg-primary text-white text-[12px] font-[700]">
+                        {item.status}
+                      </div>
+                    )}
+                    {item.status === "Cancelled" && (
+                      <div className="px-2 py-1 shadow-sm rounded-sm bg-[#D92D20] text-white text-[12px] font-[700]">
+                        {item.status}
+                      </div>
+                    )}
                   </div>
-                  <h1 className="text-[#222222] text-[20px] font-[600] mt-3">
+                  <h1 className="text-[#222222] md:text-[20px] text-[16px] font-[600] mt-3">
                     {item.title}
                   </h1>
-                  <p className="text-[#98A2B3] text-[16px] mt-1">
-                    {TruncateText(item.description, 130)}
+                  <p className="text-[#98A2B3] md:text-[16px] text-[12px] mt-1">
+                    {TruncateText(item.description)}
                   </p>
                   <div className="flex items-center gap-1 mt-3">
                     <Link
@@ -66,10 +94,25 @@ function Jobs() {
                       <IoEyeOutline />
                       See Details
                     </Link>
-                    <button className="bg-[#EA51670F] w-full h-[35px] border border-[#EA5167] rounded-sm text-[#EA5167] text-[13px] cursor-pointer flex justify-center items-center gap-1">
-                      <IoMdClose />
-                      Cancel Job
-                    </button>
+                    {item.status === "Receiving Offer" && (
+                      <button
+                        className="bg-[#EA51670F] w-full h-[35px] border border-[#EA5167] rounded-sm text-[#EA5167] text-[13px] cursor-pointer flex justify-center items-center gap-1"
+                        disabled={cancelTask.loading}
+                        onClick={() => {
+                          setLoadingTaskId(item.id);
+                          handleCancelJob(item.id);
+                        }}
+                      >
+                        {cancelTask.loading && loadingTaskId === item.id ? (
+                          <ButtonLoader4 />
+                        ) : (
+                          <>
+                            <IoMdClose />
+                            Cancel Job
+                          </>
+                        )}
+                      </button>
+                    )}
                   </div>
                 </div>
               ))}

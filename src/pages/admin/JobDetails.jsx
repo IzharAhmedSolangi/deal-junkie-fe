@@ -2,20 +2,31 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Link, useParams } from "react-router-dom";
 import useGetJobById from "../../services/admin/useGetJobById";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import ShowMessage from "../../components/shared/ShowMessage";
 import { IoMdClose } from "react-icons/io";
-import { ButtonLoader3 } from "../../components/shared/ButtonLoaders";
+import {
+  ButtonLoader3,
+  ButtonLoader4,
+} from "../../components/shared/ButtonLoaders";
+import GlobalContext from "../../context/GlobalContext";
+import useCancelTask from "../../services/admin/useCancelTask";
 
 function JobDetails() {
   const { jobId } = useParams();
   const { GetJobById, job } = useGetJobById();
+  const { CancelTask, cancelTask } = useCancelTask();
+  const { updateResponse } = useContext(GlobalContext);
 
   useEffect(() => {
     if (jobId) {
       GetJobById(jobId);
     }
-  }, [jobId]);
+  }, [jobId, updateResponse]);
+
+  const handleCancelJob = (taskId) => {
+    CancelTask(taskId);
+  };
 
   return (
     <>
@@ -42,10 +53,24 @@ function JobDetails() {
             <div className="rounded-[12px] bg-white shadow-md p-5">
               <TaskDetails job={job} />
               <Proposals job={job} />
-              <button className="bg-[#EA51670F] w-full h-[35px] border border-[#EA5167] rounded-sm text-[#EA5167] text-[13px] cursor-pointer flex justify-center items-center gap-1 mt-5">
-                <IoMdClose />
-                Cancel
-              </button>
+              {job.data?.status === "Receiving Offer" && (
+                <button
+                  className="bg-[#EA51670F] w-full h-[35px] border border-[#EA5167] rounded-sm text-[#EA5167] text-[13px] cursor-pointer flex justify-center items-center gap-1"
+                  disabled={cancelTask.loading}
+                  onClick={() => {
+                    handleCancelJob(job.data?.id);
+                  }}
+                >
+                  {cancelTask.loading ? (
+                    <ButtonLoader4 />
+                  ) : (
+                    <>
+                      <IoMdClose />
+                      Cancel Job
+                    </>
+                  )}
+                </button>
+              )}
             </div>
           </>
         )}
