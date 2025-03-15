@@ -12,7 +12,7 @@ function useContactUs() {
   const ContactUs = async (payload) => {
     setLoading(true);
     await axios
-      .post(`${BASE_URL}/api/contact-us/`, payload, {
+      .post(`${BASE_URL}/api/accounts/contact-us`, payload, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

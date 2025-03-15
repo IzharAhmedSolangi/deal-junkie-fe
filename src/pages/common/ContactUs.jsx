@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import Layout from "../../components/shared/Layout";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -42,7 +41,16 @@ function ContactUs() {
     initialValues,
     validationSchema,
     onSubmit: async (values) => {
-      console.log({ values });
+      ContactUs({
+        first_name: values.firstname,
+        last_name: values.lastname,
+        email: values.email,
+        phone_no: values.phone,
+        state: values.state,
+        city: values.city,
+        street_address: values.address,
+        reason: values.query,
+      });
     },
   });
   return (
