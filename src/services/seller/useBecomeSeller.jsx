@@ -3,11 +3,13 @@ import axios from "axios";
 import { getAccessToken } from "../../storage/storage";
 import { useState } from "react";
 import { ErrorToaster, SuccessToaster } from "../../components/shared/Toster";
+import useCurrentUser from "../common/useCurrentUser";
 
 function useBecomeSeller() {
   const BASE_URL = import.meta.env.VITE_API_URL;
   const token = getAccessToken();
   const [sellerLoading, setSellerLoading] = useState(false);
+  const { getCurrentUser } = useCurrentUser();
 
   const BecomeSeller = async (payload) => {
     setSellerLoading(true);
@@ -18,6 +20,7 @@ function useBecomeSeller() {
         },
       })
       .then((response) => {
+        getCurrentUser(token);
         SuccessToaster(
           "Congratulations",
           "You have successfully become a seller!"
