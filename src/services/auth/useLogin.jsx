@@ -24,10 +24,10 @@ function useLogin() {
         setRefreshToken(response.data.refresh_token);
         // setUserInfo(response.data);
         if (response.data.user.role === "admin") {
-          window.location.href = "/admin/dashboard";
+          window.location.href = "/#/admin/dashboard";
           // Navigate("/admin/dashboard");
         } else {
-          window.location.href = "/";
+          window.location.href = "/#/";
           // Navigate("/");
         }
       })

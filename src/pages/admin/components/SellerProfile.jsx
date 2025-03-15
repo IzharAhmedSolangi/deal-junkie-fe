@@ -55,7 +55,7 @@ function SellerProfile(props) {
       <div className="mt-6 border-t border-gray-400 pt-4">
         <h3 className="text-lg font-semibold">Working Hours</h3>
         <ul className="mt-2 text-gray-400 text-[14px]">
-          {seller.data?.working_hours.monday_available && (
+          {seller.data?.working_hours?.monday_available && (
             <div className="flex justify-between items-center mt-2">
               <li>Monday</li>
               <li>
@@ -64,7 +64,7 @@ function SellerProfile(props) {
               </li>
             </div>
           )}
-          {seller.data?.working_hours.tuesday_available && (
+          {seller.data?.working_hours?.tuesday_available && (
             <div className="flex justify-between items-center mt-2">
               <li>Tuesday</li>
               <li>
@@ -73,7 +73,7 @@ function SellerProfile(props) {
               </li>
             </div>
           )}
-          {seller.data?.working_hours.wednesday_available && (
+          {seller.data?.working_hours?.wednesday_available && (
             <div className="flex justify-between items-center mt-2">
               <li>Wednesday</li>
               <li>
@@ -82,7 +82,7 @@ function SellerProfile(props) {
               </li>
             </div>
           )}
-          {seller.data?.working_hours.thursday_available && (
+          {seller.data?.working_hours?.thursday_available && (
             <div className="flex justify-between items-center mt-2">
               <li>Thursday</li>
               <li>
@@ -91,7 +91,7 @@ function SellerProfile(props) {
               </li>
             </div>
           )}
-          {seller.data?.working_hours.friday_available && (
+          {seller.data?.working_hours?.friday_available && (
             <div className="flex justify-between items-center mt-2">
               <li>Friday</li>
               <li>
@@ -100,7 +100,7 @@ function SellerProfile(props) {
               </li>
             </div>
           )}
-          {seller.data?.working_hours.saturday_available && (
+          {seller.data?.working_hours?.saturday_available && (
             <div className="flex justify-between items-center mt-2">
               <li>Saturday</li>
               <li>
@@ -109,7 +109,7 @@ function SellerProfile(props) {
               </li>
             </div>
           )}
-          {seller.data?.working_hours.sunday_available && (
+          {seller.data?.working_hours?.sunday_available && (
             <div className="flex justify-between items-center mt-2">
               <li>Sunday</li>
               <li>
