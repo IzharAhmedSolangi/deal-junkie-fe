@@ -15,6 +15,7 @@ import { format } from "date-fns";
 import CircularProgress from "../shared/CircularProgress";
 import { useNavigate } from "react-router-dom";
 import Dropdown from "../shared/Dropdown";
+import { ErrorToaster } from "../shared/Toster";
 
 const validationSchema = Yup.object({
   title: Yup.string().required("Title is required").max(100, "Limit exceeded"),
@@ -54,6 +55,7 @@ function PostProject(props) {
       }));
       setStep(1);
       setPercentage(0);
+      resetForm();
     }
   }, [isOpenModal]);
 
@@ -71,14 +73,21 @@ function PostProject(props) {
     experience: "",
   };
 
-  const { values, errors, handleChange, handleSubmit, touched, setFieldValue } =
-    useFormik({
-      initialValues,
-      validationSchema,
-      onSubmit: (values) => {
-        PostProject(values);
-      },
-    });
+  const {
+    values,
+    errors,
+    handleChange,
+    handleSubmit,
+    touched,
+    setFieldValue,
+    resetForm,
+  } = useFormik({
+    initialValues,
+    validationSchema,
+    onSubmit: async (values) => {
+      PostProject(values);
+    },
+  });
 
   useEffect(() => {
     const totalFields = Object.keys(initialValues).length;
@@ -215,9 +224,15 @@ function StepOne(props) {
   const [newTag, setNewTag] = useState("");
   const addTag = (e) => {
     if (e.key === "Enter" && newTag.trim()) {
+      e.preventDefault();
+      saveTag();
+    }
+  };
+
+  const saveTag = () => {
+    if (newTag.trim()) {
       setFieldValue("tags", [...values.tags, newTag.trim()]);
       setNewTag("");
-      e.preventDefault();
     }
   };
 
@@ -360,8 +375,9 @@ function StepOne(props) {
                 value={newTag}
                 onChange={(e) => setNewTag(e.target.value)}
                 onKeyDown={addTag}
+                onBlur={saveTag}
                 placeholder="Add a tag and press Enter"
-                className="border-none outline-none bg-none"
+                className="w-full border-none outline-none bg-none"
               />
             </div>
             {errors.tags && touched.tags && (
