@@ -122,7 +122,7 @@ const Navbar = () => {
               )}
             </div>
           ) : (
-            <div className="flex md:hidden items-center justify-end gap-1 w-[33.33%]">
+            <div className="flex items-center justify-end gap-1 w-[33.33%]">
               <button
                 className="text-gray-700 hover:text-primary cursor-pointer"
                 onClick={() => {
