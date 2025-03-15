@@ -48,28 +48,31 @@ const Navbar = () => {
           isScrolled ? "bg-white shadow-2xl" : ""
         }`}
       >
-        <div className="w-full flex items-center justify-between md:px-5 px-3 py-4">
-          {/* Logo */}
-          <Link
-            to="/"
-            className="md:flex hidden items-center gap-2 text-2xl font-extrabold w-[33.33%]"
-          >
-            <img
-              src="/assets/logo/logo.png"
-              alt="Deal Junkie"
-              className="h-8"
-            />
-            <h1 className="text-[#003F63]">Deal Junkie</h1>
-          </Link>
+        <div className="w-full flex items-center justify-between md:px-5 px-2 py-4">
+          {/* Menu Button Mobile */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className=" text-gray-700 hover:text-primary cursor-pointer md:hidden w-[33.33%]"
           >
             <FaBars className="text-2xl" />
           </button>
+          {/* Logo */}
+          <Link
+            to="/"
+            className="flex items-center md:justify-start justify-center md:gap-2 gap-1 w-[33.33%]"
+          >
+            <img
+              src="/assets/logo/logo.png"
+              alt="Deal Junkie"
+              className="md:h-8 h-5"
+            />
+            <h1 className="text-[#003F63] font-extrabold md:text-2xl text-[15px]">
+              Deal Junkie
+            </h1>
+          </Link>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex gap-5 justify-center items-center w-[33.33%]">
+          <div className="md:flex hidden gap-5 justify-center items-center w-[33.33%]">
             {[
               { name: "Home", path: "/" },
               { name: "About Us", path: "/about-us" },
@@ -90,20 +93,8 @@ const Navbar = () => {
             ))}
           </div>
 
-          {/* Mobile Menu Button */}
-          <Link
-            to="/"
-            className="flex items-center justify-center gap-1 text-2xl font-extrabold md:hidden w-[33.33%]"
-          >
-            <img
-              src="/assets/logo/logo.png"
-              alt="Deal Junkie"
-              className="h-5"
-            />
-            <h1 className="text-[#003F63] text-[15px]">Deal Junkie</h1>
-          </Link>
           {token ? (
-            <div className="flex justify-end items-center gap-2 md:hidden w-[33.33%]">
+            <div className="flex justify-end items-center gap-2 w-[33.33%]">
               {" "}
               <Notifications />
               <Link to="/inbox" className="relative">
@@ -113,6 +104,22 @@ const Navbar = () => {
                 </span>
               </Link>
               <ProfileDropdown />
+              {userInfo?.user?.role === "seller" && (
+                <Link
+                  to="/find-jobs"
+                  className="md:flex hidden rounded-sm bg-primary text-[#02174C] px-4 py-2 cursor-pointer hover:opacity-80"
+                >
+                  Find Jobs
+                </Link>
+              )}
+              {userInfo?.user?.role === "buyer" && (
+                <button
+                  className="md:flex hidden rounded-sm bg-primary text-[#02174C] px-4 py-2 cursor-pointer hover:opacity-80"
+                  onClick={() => setIsOpenPostProjectModal(true)}
+                >
+                  Post a Project
+                </button>
+              )}
             </div>
           ) : (
             <div className="flex md:hidden items-center justify-end gap-1 w-[33.33%]">
@@ -187,60 +194,6 @@ const Navbar = () => {
               )}
             </div>
           )}
-
-          {/* Auth & User Menu */}
-          <div className="hidden md:flex items-center justify-end gap-3 w-[33.33%]">
-            {token ? (
-              <>
-                <Notifications />
-                <Link to="/inbox" className="relative">
-                  <FaRegComments className="text-xl text-gray-500 text-[30px]" />
-                  <span className="absolute top-0 right-0 bg-primary text-secondary text-xs w-4 h-4 text-[10px] flex items-center justify-center rounded-full">
-                    2
-                  </span>
-                </Link>
-                <ProfileDropdown />
-                {userInfo?.user?.role === "seller" && (
-                  <Link
-                    to="/find-jobs"
-                    className="rounded bg-primary text-[#02174C] px-4 py-2 cursor-pointer hover:opacity-80"
-                  >
-                    Find Jobs
-                  </Link>
-                )}
-                {userInfo?.user?.role === "buyer" && (
-                  <button
-                    className="rounded bg-primary text-[#02174C] px-4 py-2 cursor-pointer hover:opacity-80"
-                    onClick={() => setIsOpenPostProjectModal(true)}
-                  >
-                    Post a Project
-                  </button>
-                )}
-              </>
-            ) : (
-              <div className="flex items-center gap-1">
-                <button
-                  className="text-gray-700 hover:text-primary cursor-pointer"
-                  onClick={() => {
-                    setIsOpenAuthModal(true);
-                    setAuthModalType("login");
-                  }}
-                >
-                  Login
-                </button>
-                /
-                <button
-                  className="text-gray-700 hover:text-primary cursor-pointer"
-                  onClick={() => {
-                    setIsOpenAuthModal(true);
-                    setAuthModalType("signup");
-                  }}
-                >
-                  Register
-                </button>
-              </div>
-            )}
-          </div>
         </div>
       </nav>
       <Auth
