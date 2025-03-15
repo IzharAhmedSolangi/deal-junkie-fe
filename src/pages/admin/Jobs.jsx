@@ -84,7 +84,7 @@ function Jobs() {
                     {item.title}
                   </h1>
                   <p className="text-[#98A2B3] md:text-[16px] text-[12px] mt-1">
-                    {TruncateText(item.description)}
+                    {TruncateText(item.description, 130)}
                   </p>
                   <div className="flex items-center gap-1 mt-3">
                     <Link

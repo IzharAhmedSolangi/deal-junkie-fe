@@ -96,7 +96,7 @@ function Footer() {
           </h1>
           <div className="flex flex-col gap-3 mt-3">
             <Link
-              to="/find-buyers"
+              to="/find-jobs"
               className="text-[#667085] text-[14px] font-normal hover:text-primary"
             >
               Find Buyers

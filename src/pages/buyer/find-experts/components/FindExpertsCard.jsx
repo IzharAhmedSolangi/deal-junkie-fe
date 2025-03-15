@@ -30,7 +30,7 @@ function FindExpertsCard(props) {
                     className="w-full md:h-[200px] xs:h-[120px] object-cover rounded-sm"
                   />
                 ) : (
-                  <div className="w-full bg-gray-200 rounded-sm flex justify-center items-center">
+                  <div className="w-full md:h-[200px] xs:h-[120px] bg-gray-200 rounded-sm flex justify-center items-center">
                     {item?.user?.first_name} {item?.user?.last_name}
                   </div>
                 )}
