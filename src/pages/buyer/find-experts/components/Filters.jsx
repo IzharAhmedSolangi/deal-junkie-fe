@@ -75,7 +75,7 @@ const filterCategories = [
 ];
 
 function Filters(props) {
-  const { filters, setFilters, findExperts, handleFilters } = props;
+  const { filters, setFilters, isLoading, handleFilters, resetFilters } = props;
   const [isOpen, setIsOpen] = useState(false);
 
   const handleFilterChange = (category, option, type) => {
@@ -102,17 +102,6 @@ function Filters(props) {
         [name]: value,
       },
     }));
-  };
-
-  const resetFilters = () => {
-    setFilters({
-      expertise: [],
-      hourly_rate: { min: null, max: null },
-      experience: "",
-      availability: "",
-      project_type: "",
-      industry_focus: "",
-    });
   };
 
   return (
@@ -221,14 +210,10 @@ function Filters(props) {
             <div className="flex flex-col gap-2 mt-4">
               <button
                 onClick={handleFilters}
-                disabled={findExperts.buttonLoading}
+                disabled={isLoading}
                 className="bg-secondary text-white w-full h-[40px] rounded flex justify-center items-center cursor-pointer"
               >
-                {findExperts.buttonLoading ? (
-                  <ButtonLoader1 />
-                ) : (
-                  "Apply Filters"
-                )}
+                {isLoading ? <ButtonLoader1 /> : "Apply Filters"}
               </button>
               <button
                 onClick={resetFilters}

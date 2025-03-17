@@ -1,98 +1,78 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import Layout from "../../../components/shared/Layout";
-import useFindExperts from "../../../services/buyer/useFindExperts";
 import Filters from "./components/Filters";
 import { ButtonLoader1 } from "../../../components/shared/ButtonLoaders";
 import FindExpertsCard from "./components/FindExpertsCard";
+import useFindExpertsInfinite from "../../../services/buyer/useFindExperts";
+import { useSearchParams } from "react-router-dom";
 
 function FindExperts() {
-  const { FindExperts, findExperts, setFindExperts } = useFindExperts();
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const getParam = (key, defaultValue) => {
+    const value = searchParams.get(key);
+    return value ? JSON.parse(value) : defaultValue;
+  };
+
   const [filters, setFilters] = useState({
-    search: "",
-    expertise: [],
-    hourly_rate: { min: null, max: null },
-    experience: "",
-    availability: "",
-    project_type: "",
-    industry_focus: "",
+    search: getParam("search", ""),
+    expertise: getParam("expertise", []),
+    hourly_rate: getParam("hourly_rate", { min: null, max: null }),
+    experience: getParam("experience", ""),
+    availability: getParam("availability", ""),
+    project_type: getParam("project_type", ""),
+    industry_focus: getParam("industry_focus", ""),
   });
 
-  useEffect(() => {
-    FindExperts({
-      search: filters.search,
-      expertise: filters.expertise,
-      hourly_rate: filters.hourly_rate,
-      experience: [filters.experience],
-      availability: [filters.availability],
-      project_type: [filters.project_type],
-      industry_focus: [filters.industry_focus],
-    });
-  }, []);
+  const [appliedFilters, setAppliedFilters] = useState(filters);
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
+    useFindExpertsInfinite(appliedFilters);
 
-  const handleFilters = () => {
-    setFindExperts((prevState) => ({
-      ...prevState,
-      loading: true,
-      buttonLoading: true,
-      data: null,
-      message: null,
-      totalPages: 1,
-      currentPage: 1,
-    }));
-    FindExperts({
-      search: filters.search,
-      expertise: filters.expertise,
-      hourly_rate: filters.hourly_rate,
-      experience: [filters.experience],
-      availability: [filters.availability],
-      project_type: [filters.project_type],
-      industry_focus: [filters.industry_focus],
-    });
+  const observer = useRef();
+
+  const lastItemRef = useCallback(
+    (node) => {
+      if (isFetchingNextPage) return;
+      if (observer.current) observer.current.disconnect();
+
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && hasNextPage) {
+          fetchNextPage();
+        }
+      });
+
+      if (node) observer.current.observe(node);
+    },
+    [isFetchingNextPage, hasNextPage, fetchNextPage]
+  );
+
+  const resetFilters = () => {
+    const defaultFilters = {
+      search: "",
+      expertise: [],
+      hourly_rate: { min: null, max: null },
+      experience: "",
+      availability: "",
+      project_type: "",
+      industry_focus: "",
+    };
+    setFilters(defaultFilters);
+    setAppliedFilters(defaultFilters);
+    setSearchParams();
   };
 
-  const handleSearch = () => {
-    setFindExperts((prevState) => ({
-      ...prevState,
-      loading: true,
-      buttonLoading: true,
-      data: null,
-      message: null,
-      totalPages: 1,
-      currentPage: 1,
-    }));
-    FindExperts({
-      search: filters.search,
-      expertise: filters.expertise,
-      hourly_rate: filters.hourly_rate,
-      experience: [filters.experience],
-      availability: [filters.availability],
-      project_type: [filters.project_type],
-      industry_focus: [filters.industry_focus],
-    });
-  };
-
-  const handleLoadMore = () => {
-    if (findExperts.currentPage < findExperts.totalPages) {
-      const nextPage = findExperts.currentPage + 1;
-      setFindExperts((prevState) => ({
-        ...prevState,
-        loading: true,
-      }));
-      FindExperts(
-        {
-          search: filters.search,
-          expertise: filters.expertise,
-          hourly_rate: filters.hourly_rate,
-          experience: [filters.experience],
-          availability: [filters.availability],
-          project_type: [filters.project_type],
-          industry_focus: [filters.industry_focus],
-        },
-        nextPage,
-        true
-      );
-    }
+  const applyFilters = () => {
+    setAppliedFilters({ ...filters });
+    const params = {
+      search: JSON.stringify(filters.search),
+      expertise: JSON.stringify(filters.expertise),
+      hourly_rate: JSON.stringify(filters.hourly_rate),
+      experience: JSON.stringify(filters.experience),
+      availability: JSON.stringify(filters.availability),
+      project_type: JSON.stringify(filters.project_type),
+      industry_focus: JSON.stringify(filters.industry_focus),
+    };
+    setSearchParams(params);
   };
 
   return (
@@ -119,23 +99,26 @@ function FindExperts() {
               />
               <button
                 className="cursor-pointer bg-secondary rounded text-white hover:opacity-80 w-[60px] h-[40px] flex justify-center items-center"
-                disabled={findExperts.buttonLoading}
-                onClick={handleSearch}
+                disabled={isLoading}
+                onClick={applyFilters}
               >
-                {findExperts.buttonLoading ? <ButtonLoader1 /> : "Go"}
+                {isLoading ? <ButtonLoader1 /> : "Go"}
               </button>
               {/* Filter Button */}
               <Filters
                 filters={filters}
                 setFilters={setFilters}
-                findExperts={findExperts}
-                handleFilters={handleFilters}
+                isLoading={isLoading}
+                handleFilters={applyFilters}
+                resetFilters={resetFilters}
               />
             </div>
           </div>
           <FindExpertsCard
-            findExperts={findExperts}
-            handleLoadMore={handleLoadMore}
+            data={data}
+            isLoading={isLoading}
+            isFetchingNextPage={isFetchingNextPage}
+            lastItemRef={lastItemRef}
           />
         </div>
       </Layout>
