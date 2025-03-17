@@ -3,13 +3,14 @@ import axios from "axios";
 import { setAccessToken, setRefreshToken } from "../../storage/storage";
 import { useNavigate } from "react-router-dom";
 import GlobalContext from "../../context/GlobalContext";
+import useCurrentUser from "../common/useCurrentUser";
 
 function useLogin() {
   const BASE_URL = import.meta.env.VITE_API_URL;
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
   const Navigate = useNavigate();
-  const { setUserInfo } = useContext(GlobalContext);
+  const { getCurrentUser } = useCurrentUser();
 
   const Login = async (payload, handleClose) => {
     setLoading(true);
@@ -22,13 +23,13 @@ function useLogin() {
         setErrorMessage(null);
         setAccessToken(response.data.access_token);
         setRefreshToken(response.data.refresh_token);
-        // setUserInfo(response.data);
+        getCurrentUser(response.data.access_token);
         if (response.data.user.role === "admin") {
-          window.location.href = "/#/admin/dashboard";
-          // Navigate("/admin/dashboard");
+          // window.location.href = "/#/admin/dashboard";
+          Navigate("/#/admin/dashboard");
         } else {
-          window.location.href = "/#/";
-          // Navigate("/");
+          // window.location.href = "/#/";
+          Navigate("/#/");
         }
       })
       .catch((error) => {
