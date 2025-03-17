@@ -1,5 +1,4 @@
 import { MdKeyboardArrowRight } from "react-icons/md";
-import Layout from "../../../components/shared/Layout";
 import { useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 
@@ -86,80 +85,76 @@ function FAQs() {
 
   return (
     <>
-      <Layout>
-        <div className="bg-white w-full h-auto pt-[70px] md:pb-40 pb-28 relative">
-          <div className="absolute md:top-[-100px] top-[-70px] left-0 w-full md:h-[400px] h-[350px] bg-cover bg-center bg-[url('/assets/images/Banner2.png')]"></div>
-          <h1 className="font-[700] md:text-[48px] text-[30px] text-center text-secondary mt-4">
-            Frequently asked Questions
-          </h1>
-          <div className="md:px-[80px] px-5 mt-32 flex md:flex-row flex-col items-start md:gap-10 gap-5">
-            <div className="md:w-[20%] w-full border border-[#02174C12] rounded-md">
-              {faqsList.map((item, index) => (
+      <div className="bg-white w-full h-auto pt-[70px] md:pb-40 pb-28 relative">
+        <div className="absolute md:top-[-100px] top-[-70px] left-0 w-full md:h-[400px] h-[350px] bg-cover bg-center bg-[url('/assets/images/Banner2.png')]"></div>
+        <h1 className="font-[700] md:text-[48px] text-[30px] text-center text-secondary mt-4">
+          Frequently asked Questions
+        </h1>
+        <div className="md:px-[80px] px-5 mt-32 flex md:flex-row flex-col items-start md:gap-10 gap-5">
+          <div className="md:w-[20%] w-full border border-[#02174C12] rounded-md">
+            {faqsList.map((item, index) => (
+              <div
+                key={index}
+                className={`${item.id === 1 && "rounded-tl-md rounded-tr-md"} ${
+                  item.id === 7 && "rounded-bl-md rounded-br-md border-none"
+                } w-full h-[50px] cursor-pointer px-2 flex items-center justify-between border-b border-b-[#02174C12] text-[15px] font-normal text-[#222222] hover:bg-secondary hover:text-white ${
+                  selectedCategory === item.id && "bg-secondary text-white"
+                }`}
+                onClick={() => setSelectedCategory(item.id)}
+              >
+                <span>{item.name}</span>
+                <MdKeyboardArrowRight />
+              </div>
+            ))}
+          </div>
+          {/* FAQs Content */}
+          <div className="md:w-[80%] w-full">
+            {selectedFaqs.length > 0 ? (
+              selectedFaqs.map((item, index) => (
                 <div
                   key={index}
-                  className={`${
-                    item.id === 1 && "rounded-tl-md rounded-tr-md"
-                  } ${
-                    item.id === 7 && "rounded-bl-md rounded-br-md border-none"
-                  } w-full h-[50px] cursor-pointer px-2 flex items-center justify-between border-b border-b-[#02174C12] text-[15px] font-normal text-[#222222] hover:bg-secondary hover:text-white ${
-                    selectedCategory === item.id && "bg-secondary text-white"
-                  }`}
-                  onClick={() => setSelectedCategory(item.id)}
+                  className="w-full py-3 border-t border-t-[#02174C12] transition-all duration-300 ease-in-out"
                 >
-                  <span>{item.name}</span>
-                  <MdKeyboardArrowRight />
-                </div>
-              ))}
-            </div>
-            {/* FAQs Content */}
-            <div className="md:w-[80%] w-full">
-              {selectedFaqs.length > 0 ? (
-                selectedFaqs.map((item, index) => (
                   <div
-                    key={index}
-                    className="w-full py-3 border-t border-t-[#02174C12] transition-all duration-300 ease-in-out"
+                    onClick={() => toggleQuestion(index)}
+                    className="flex justify-between items-center w-full cursor-pointer"
                   >
-                    <div
-                      onClick={() => toggleQuestion(index)}
-                      className="flex justify-between items-center w-full cursor-pointer"
-                    >
-                      <span
-                        className={`w-auto text-[18px] font-semibold ${
-                          selectedQuestion === index
-                            ? "text-secondary"
-                            : "text-[#222222]"
-                        }`}
-                      >
-                        {item.question}
-                      </span>
-                      <span
-                        className={`${
-                          selectedQuestion === index ? "rotate-180" : "rotate-0"
-                        } transition-transform duration-300 ease-in-out w-[25px] h-[25px] bg-[#F9FAFF] rounded-full flex justify-center items-center`}
-                      >
-                        <IoIosArrowDown className="text-[#222]" />
-                      </span>
-                    </div>
-                    <div
-                      className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                        selectedQuestion === index ? "h-auto py-6" : "max-h-0"
+                    <span
+                      className={`w-auto text-[18px] font-semibold ${
+                        selectedQuestion === index
+                          ? "text-secondary"
+                          : "text-[#222222]"
                       }`}
                     >
-                      <div className="text-[#6F7487] text-[14px] font-normal w-full">
-                        <p>{item.answer}</p>
-                      </div>
+                      {item.question}
+                    </span>
+                    <span
+                      className={`${
+                        selectedQuestion === index ? "rotate-180" : "rotate-0"
+                      } transition-transform duration-300 ease-in-out w-[25px] h-[25px] bg-[#F9FAFF] rounded-full flex justify-center items-center`}
+                    >
+                      <IoIosArrowDown className="text-[#222]" />
+                    </span>
+                  </div>
+                  <div
+                    className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                      selectedQuestion === index ? "h-auto py-6" : "max-h-0"
+                    }`}
+                  >
+                    <div className="text-[#6F7487] text-[14px] font-normal w-full">
+                      <p>{item.answer}</p>
                     </div>
                   </div>
-                ))
-              ) : (
-                <p className="text-[#6F7487] text-[18px] font-normal flex justify-center items-center w-full h-[300px]">
-                  No FAQs available for this category.
-                </p>
-              )}
-            </div>
+                </div>
+              ))
+            ) : (
+              <p className="text-[#6F7487] text-[18px] font-normal flex justify-center items-center w-full h-[300px]">
+                No FAQs available for this category.
+              </p>
+            )}
           </div>
         </div>
-      </Layout>
+      </div>
     </>
   );
 }

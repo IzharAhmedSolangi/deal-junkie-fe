@@ -1,15 +1,6 @@
-import Layout from "../../components/shared/Layout";
-import {
-  FaBriefcase,
-  FaChartLine,
-  FaMoneyBillWave,
-  FaBuilding,
-  FaLightbulb
-} from "react-icons/fa";
-
 function AboutUs() {
   return (
-    <Layout>
+    <>
       {/* Hero Section */}
       <div className="relative w-full h-auto bg-white pt-[50px] pb-30 ">
         <div className="absolute top-[-100px] left-0 w-full h-[400px] bg-cover bg-center bg-[url('/assets/images/Banner2.png')]"></div>
@@ -148,24 +139,24 @@ function AboutUs() {
           {[
             {
               title: "Flexible & On-Demand",
-              desc: "Access finance professionals for one-time projects or ongoing advisory work."
+              desc: "Access finance professionals for one-time projects or ongoing advisory work.",
             },
             {
               title: "Top-Tier Talent",
-              desc: "Work with experts from investment banking, private equity, hedge funds, and consulting."
+              desc: "Work with experts from investment banking, private equity, hedge funds, and consulting.",
             },
             {
               title: "Cost-Effective Solutions",
-              desc: "Get institutional-quality analysis without the overhead of a full-time hire."
+              desc: "Get institutional-quality analysis without the overhead of a full-time hire.",
             },
             {
               title: "Seamless Matching Process",
-              desc: "Quickly find the right expert for your needs through our tailored search."
+              desc: "Quickly find the right expert for your needs through our tailored search.",
             },
             {
               title: "Elevate Your Business With Us",
-              desc: "Whether you're acquiring a company, investing in real estate, analyzing a stock, or conducting due diligence,"
-            }
+              desc: "Whether you're acquiring a company, investing in real estate, analyzing a stock, or conducting due diligence,",
+            },
           ].map((item, index) => (
             <div
               key={index}
@@ -205,7 +196,7 @@ function AboutUs() {
           />
         </div>
       </div>
-    </Layout>
+    </>
   );
 }
 

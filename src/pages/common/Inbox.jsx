@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef, useContext } from "react";
-import Layout from "../../components/shared/Layout";
 import { FaUserCircle } from "react-icons/fa";
 import { TbSend } from "react-icons/tb";
 import { CiSearch, CiVideoOn } from "react-icons/ci";
@@ -36,7 +35,7 @@ const formatDate = (timestamp) => {
   return date.toLocaleDateString("en-US", {
     month: "long",
     day: "numeric",
-    year: "numeric"
+    year: "numeric",
   });
 };
 
@@ -72,8 +71,11 @@ function Inbox() {
               message: response.message,
               sender_id: response.sender_id,
               receiver_id: response.receiver_id,
-              timestamp: new Date().toISOString().replace("T", " ").slice(0, 19)
-            }
+              timestamp: new Date()
+                .toISOString()
+                .replace("T", " ")
+                .slice(0, 19),
+            },
           ]);
         }
         if (response.users_chat_list) {
@@ -120,8 +122,8 @@ function Inbox() {
         message: newMessage,
         receiver_id: selectedUser?.chat_with,
         sender_id: userInfo?.user?.id,
-        timestamp: new Date().toISOString().replace("T", " ").slice(0, 19)
-      }
+        timestamp: new Date().toISOString().replace("T", " ").slice(0, 19),
+      },
     ]);
     setNewMessage("");
   };
@@ -130,7 +132,7 @@ function Inbox() {
     if (socketRef.current && socketRef.current.readyState === WebSocket.OPEN) {
       const payload = JSON.stringify({
         message: message,
-        receiver_id: selectedUser?.chat_with
+        receiver_id: selectedUser?.chat_with,
       });
       socketRef.current.send(payload);
     } else {
@@ -165,7 +167,7 @@ function Inbox() {
     }, {});
 
   return (
-    <Layout>
+    <>
       <div className="relative w-full h-auto bg-white pt-[70px] pb-30">
         <div className="absolute top-[-100px] left-0 w-full h-[400px] bg-cover bg-center bg-[url('/assets/images/Banner2.png')]"></div>
         <h1 className="font-[700] text-[48px] text-center text-secondary mt-7">
@@ -282,7 +284,7 @@ function Inbox() {
                         ).toLocaleTimeString("en-US", {
                           hour: "2-digit",
                           minute: "2-digit",
-                          hour12: true
+                          hour12: true,
                         })}
                       </span>
                     </div>
@@ -318,7 +320,7 @@ function Inbox() {
           </div>
         </div>
       </div>
-    </Layout>
+    </>
   );
 }
 

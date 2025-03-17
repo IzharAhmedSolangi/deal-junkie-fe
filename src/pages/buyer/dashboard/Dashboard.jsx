@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 import { useNavigate, useParams } from "react-router-dom";
-import Layout from "../../../components/shared/Layout";
 import MyTasks from "./components/MyTasks";
 import EditProfile from "./components/EditProfile";
 import Notifications from "./components/Notifications";
@@ -38,43 +37,41 @@ function Dashboard() {
   };
   return (
     <>
-      <Layout>
-        <div className="bg-white w-full h-auto pt-[70px] md:pb-40 pb-28 relative">
-          <div className="absolute md:top-[-100px] top-[-70px] left-0 w-full md:h-[400px] h-[350px] bg-cover bg-center bg-[url('/assets/images/Banner2.png')]"></div>
-          <h1 className="font-[700] md:text-[48px] text-[36px] text-center text-secondary mt-4">
-            Dashboard
-          </h1>
-          <div className="lg:px-[80px] px-5 mt-32 flex lg:flex-row flex-col-reverse items-start gap-5">
-            <div className="lg:w-[30%] w-full border border-[#02174C33] rounded-xl p-5 lg:sticky lg:top-[80px]">
-              <Profile handleTabClick={handleTabClick} />
+      <div className="bg-white w-full h-auto pt-[70px] md:pb-40 pb-28 relative">
+        <div className="absolute md:top-[-100px] top-[-70px] left-0 w-full md:h-[400px] h-[350px] bg-cover bg-center bg-[url('/assets/images/Banner2.png')]"></div>
+        <h1 className="font-[700] md:text-[48px] text-[36px] text-center text-secondary mt-4">
+          Dashboard
+        </h1>
+        <div className="lg:px-[80px] px-5 mt-32 flex lg:flex-row flex-col-reverse items-start gap-5">
+          <div className="lg:w-[30%] w-full border border-[#02174C33] rounded-xl p-5 lg:sticky lg:top-[80px]">
+            <Profile handleTabClick={handleTabClick} />
+          </div>
+          <div className="lg:w-[70%] w-full">
+            <div className="flex md:gap-5 gap-2 border-b border-b-[#6F748729]">
+              {tabs.map((item, index) => (
+                <p
+                  key={index}
+                  className={`py-1 md:pe-5 pe-1 cursor-pointer text-[#6F7487] sm:text-[14px] xs:text-[10px] font-[500] hover:text-secondary ${
+                    tabName === item.path
+                      ? "border-b-[2px] border-b-secondary text-secondary font-[600]"
+                      : ""
+                  }`}
+                  onClick={() => handleTabClick(item.path)}
+                >
+                  {item.name}
+                </p>
+              ))}
             </div>
-            <div className="lg:w-[70%] w-full">
-              <div className="flex md:gap-5 gap-2 border-b border-b-[#6F748729]">
-                {tabs.map((item, index) => (
-                  <p
-                    key={index}
-                    className={`py-1 md:pe-5 pe-1 cursor-pointer text-[#6F7487] sm:text-[14px] xs:text-[10px] font-[500] hover:text-secondary ${
-                      tabName === item.path
-                        ? "border-b-[2px] border-b-secondary text-secondary font-[600]"
-                        : ""
-                    }`}
-                    onClick={() => handleTabClick(item.path)}
-                  >
-                    {item.name}
-                  </p>
-                ))}
-              </div>
-              <div className="mt-5">
-                {tabName === "my-tasks" && <MyTasks />}
-                {tabName === "change-password" && <ChangePassword />}
-                {tabName === "manage-payments" && <ManagePayments />}
-                {tabName === "notifications" && <Notifications />}
-                {tabName === "edit-profile" && <EditProfile />}
-              </div>
+            <div className="mt-5">
+              {tabName === "my-tasks" && <MyTasks />}
+              {tabName === "change-password" && <ChangePassword />}
+              {tabName === "manage-payments" && <ManagePayments />}
+              {tabName === "notifications" && <Notifications />}
+              {tabName === "edit-profile" && <EditProfile />}
             </div>
           </div>
         </div>
-      </Layout>
+      </div>
     </>
   );
 }

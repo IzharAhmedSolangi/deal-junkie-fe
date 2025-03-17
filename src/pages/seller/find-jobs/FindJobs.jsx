@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
-import Layout from "../../../components/shared/Layout";
 import useFindJobs from "../../../services/seller/useFindJobs";
 import Filters from "./components/Filters";
 import { ButtonLoader1 } from "../../../components/shared/ButtonLoaders";
@@ -103,45 +102,43 @@ function FindJobs() {
 
   return (
     <>
-      <Layout>
-        <div className="bg-white w-full h-auto pt-[70px] md:pb-40 pb-28 relative">
-          <div className="absolute top-[-100px] left-0 w-full h-[400px] bg-cover bg-center bg-[url('/assets/images/Banner2.png')]"></div>
-          <h1 className="font-[700] text-[48px] text-center text-secondary">
-            Explore New Jobs
-          </h1>
-          <div className="w-full flex justify-center">
-            <div className="md:w-[50%] w-[95%] flex gap-2 justify-between items-center bg-white shadow-lg p-2 rounded relative">
-              <input
-                type="search"
-                value={filters.search}
-                onChange={(e) =>
-                  setFilters((prevState) => ({
-                    ...prevState,
-                    search: e.target.value,
-                  }))
-                }
-                placeholder="Find jobs in M&A, Real Estate..."
-                className="w-full h-[40px] rounded border border-[#02174C33] px-2 hover:border-secondary focus:border-secondary"
-              />
-              <button
-                className="cursor-pointer bg-secondary rounded text-white hover:opacity-80 w-[60px] h-[40px] flex justify-center items-center"
-                disabled={findJobs.buttonLoading}
-                onClick={handleSearch}
-              >
-                {findJobs.buttonLoading ? <ButtonLoader1 /> : "Go"}
-              </button>
-              {/* Filter Button */}
-              <Filters
-                filters={filters}
-                setFilters={setFilters}
-                findJobs={findJobs}
-                handleFilters={handleFilters}
-              />
-            </div>
+      <div className="bg-white w-full h-auto pt-[70px] md:pb-40 pb-28 relative">
+        <div className="absolute top-[-100px] left-0 w-full h-[400px] bg-cover bg-center bg-[url('/assets/images/Banner2.png')]"></div>
+        <h1 className="font-[700] text-[48px] text-center text-secondary">
+          Explore New Jobs
+        </h1>
+        <div className="w-full flex justify-center">
+          <div className="md:w-[50%] w-[95%] flex gap-2 justify-between items-center bg-white shadow-lg p-2 rounded relative">
+            <input
+              type="search"
+              value={filters.search}
+              onChange={(e) =>
+                setFilters((prevState) => ({
+                  ...prevState,
+                  search: e.target.value,
+                }))
+              }
+              placeholder="Find jobs in M&A, Real Estate..."
+              className="w-full h-[40px] rounded border border-[#02174C33] px-2 hover:border-secondary focus:border-secondary"
+            />
+            <button
+              className="cursor-pointer bg-secondary rounded text-white hover:opacity-80 w-[60px] h-[40px] flex justify-center items-center"
+              disabled={findJobs.buttonLoading}
+              onClick={handleSearch}
+            >
+              {findJobs.buttonLoading ? <ButtonLoader1 /> : "Go"}
+            </button>
+            {/* Filter Button */}
+            <Filters
+              filters={filters}
+              setFilters={setFilters}
+              findJobs={findJobs}
+              handleFilters={handleFilters}
+            />
           </div>
-          <FindJobsCard findJobs={findJobs} handleLoadMore={handleLoadMore} />
         </div>
-      </Layout>
+        <FindJobsCard findJobs={findJobs} handleLoadMore={handleLoadMore} />
+      </div>
     </>
   );
 }

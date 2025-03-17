@@ -41,6 +41,7 @@ import AdminSupportMessages from "../pages/admin/SupportMessages";
 import AdminSellerDetails from "../pages/admin/SellerDetails";
 import AdminBuyerDetails from "../pages/admin/BuyerDetails";
 import AdminJobDetails from "../pages/admin/JobDetails";
+import Layout from "../components/shared/Layout";
 
 const Routing = () => {
   const token = getAccessToken();
@@ -62,82 +63,69 @@ const Routing = () => {
           <>
             {/* Buyer pages */}
             {userInfo?.user?.role === "buyer" && (
-              <>
-                <Route path="/" element={<BuyerLanding />} />
+              <Route path="/" element={<Layout />}>
+                <Route index element={<BuyerLanding />} />
                 <Route path="*" element={<BuyerLanding />} />
-                <Route path="/find-experts" element={<FindExperts />} />
+                <Route path="find-experts" element={<FindExperts />} />
                 <Route
-                  path="/find-experts/:sellerId"
+                  path="find-experts/:sellerId"
                   element={<FindExpertDetails />}
                 />
-                <Route
-                  path="/dashboard/:tabName"
-                  element={<BuyerDashboard />}
-                />
-                <Route path="/inbox" element={<Inbox />} />
-              </>
+                <Route path="dashboard/:tabName" element={<BuyerDashboard />} />
+                <Route path="inbox" element={<Inbox />} />
+              </Route>
             )}
             {userInfo?.user?.role === "seller" && (
-              <>
-                <Route path="/" element={<SellerLanding />} />
+              <Route path="/" element={<Layout />}>
+                <Route index element={<SellerLanding />} />
                 <Route path="*" element={<SellerLanding />} />
-                <Route path="/find-jobs" element={<FindJobs />} />
-                <Route path="/find-jobs/:jobId" element={<FindJobDetails />} />
+                <Route path="find-jobs" element={<FindJobs />} />
+                <Route path="find-jobs/:jobId" element={<FindJobDetails />} />
                 <Route
-                  path="/dashboard/:tabName"
+                  path="dashboard/:tabName"
                   element={<SellerDashboard />}
                 />
-                <Route path="/inbox" element={<Inbox />} />
-              </>
+                <Route path="inbox" element={<Inbox />} />
+              </Route>
             )}
             {/* Admin pages */}
             {userInfo?.user?.role === "admin" && (
-              <>
-                <Route path="/" element={<AdminLayout />}>
-                  <Route path="admin/dashboard" element={<AdminDashboard />} />
-                  <Route path="admin/jobs" element={<AdminJobs />} />
-                  <Route
-                    path="admin/jobs/:jobId"
-                    element={<AdminJobDetails />}
-                  />
-                  <Route path="admin/earnings" element={<AdminEarnings />} />
-                  <Route path="admin/buyers" element={<AdminBuyers />} />
-                  <Route
-                    path="admin/buyers/:buyerId"
-                    element={<AdminBuyerDetails />}
-                  />
-                  <Route path="admin/sellers" element={<AdminSellers />} />
-                  <Route
-                    path="admin/sellers/:sellerId"
-                    element={<AdminSellerDetails />}
-                  />
-                  <Route path="admin/chats" element={<AdminChats />} />
-                  <Route
-                    path="admin/support-messages"
-                    element={<AdminSupportMessages />}
-                  />
-                </Route>
-                <Route path="/find-experts" element={<FindExperts />} />
+              <Route path="/" element={<AdminLayout />}>
+                <Route path="admin/dashboard" element={<AdminDashboard />} />
+                <Route path="admin/jobs" element={<AdminJobs />} />
+                <Route path="admin/jobs/:jobId" element={<AdminJobDetails />} />
+                <Route path="admin/earnings" element={<AdminEarnings />} />
+                <Route path="admin/buyers" element={<AdminBuyers />} />
                 <Route
-                  path="/find-experts/:sellerId"
-                  element={<FindExpertDetails />}
+                  path="admin/buyers/:buyerId"
+                  element={<AdminBuyerDetails />}
                 />
-                <Route path="/find-jobs" element={<FindJobs />} />
-                <Route path="/find-jobs/:jobId" element={<FindJobDetails />} />
-              </>
+                <Route path="admin/sellers" element={<AdminSellers />} />
+                <Route
+                  path="admin/sellers/:sellerId"
+                  element={<AdminSellerDetails />}
+                />
+                <Route path="admin/chats" element={<AdminChats />} />
+                <Route
+                  path="admin/support-messages"
+                  element={<AdminSupportMessages />}
+                />
+              </Route>
             )}
           </>
         )}
 
         {/* Public pages (Seller & Buyer) */}
-        <Route path="/" element={<BuyerLanding />} />
-        <Route path="*" element={<BuyerLanding />} />
-        <Route path="/buyer-faqs" element={<BuyerFAQs />} />
-        <Route path="/seller-faqs" element={<SellerFAQs />} />
-        <Route path="/contact-us" element={<ContactUs />} />
-        <Route path="/about-us" element={<AboutUs />} />
-        <Route path="/how-it-works" element={<HowItWorks />} />
-        <Route path="/pricing" element={<Pricing />} />
+        <Route path="/" element={<Layout />}>
+          <Route index element={<BuyerLanding />} />
+          <Route path="*" element={<BuyerLanding />} />
+          <Route path="buyer-faqs" element={<BuyerFAQs />} />
+          <Route path="seller-faqs" element={<SellerFAQs />} />
+          <Route path="contact-us" element={<ContactUs />} />
+          <Route path="about-us" element={<AboutUs />} />
+          <Route path="how-it-works" element={<HowItWorks />} />
+          <Route path="pricing" element={<Pricing />} />
+        </Route>
       </Routes>
       <ScrollToTop />
     </>

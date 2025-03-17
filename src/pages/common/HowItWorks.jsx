@@ -1,15 +1,6 @@
-import Layout from "../../components/shared/Layout";
-import {
-  FaBriefcase,
-  FaChartLine,
-  FaMoneyBillWave,
-  FaBuilding,
-  FaLightbulb
-} from "react-icons/fa";
-
 function HowItWorks() {
   return (
-    <Layout>
+    <>
       {/* Hero Section */}
       <div className="relative w-full h-auto bg-white pt-[50px] pb-30 ">
         <div className="absolute top-[-100px] left-0 w-full h-[400px] bg-cover bg-center bg-[url('/assets/images/Banner2.png')]"></div>
@@ -272,13 +263,13 @@ function HowItWorks() {
             {
               title:
                 "Are you an investor, entrepreneur, or firm looking for financial expertise?",
-              desc: "Post a project and get matched with the right finance professional."
+              desc: "Post a project and get matched with the right finance professional.",
             },
             {
               title:
                 "Are you a finance professional looking for flexible deal work?",
-              desc: "Join Deal Junkie and offer your expertise to businesses and investors.."
-            }
+              desc: "Join Deal Junkie and offer your expertise to businesses and investors..",
+            },
           ].map((item, index) => (
             <div
               key={index}
@@ -319,7 +310,7 @@ function HowItWorks() {
           />
         </div>
       </div>
-    </Layout>
+    </>
   );
 }
 
