@@ -2,7 +2,7 @@ import { useCallback, useRef, useState } from "react";
 import Filters from "./components/Filters";
 import { ButtonLoader1 } from "../../../components/shared/ButtonLoaders";
 import FindExpertsCard from "./components/FindExpertsCard";
-import useFindExpertsInfinite from "../../../services/buyer/useFindExperts";
+import useFindExperts from "../../../services/buyer/useFindExperts";
 import { useSearchParams } from "react-router-dom";
 
 function FindExperts() {
@@ -25,7 +25,7 @@ function FindExperts() {
 
   const [appliedFilters, setAppliedFilters] = useState(filters);
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
-    useFindExpertsInfinite(appliedFilters);
+    useFindExperts(appliedFilters);
 
   const observer = useRef();
 

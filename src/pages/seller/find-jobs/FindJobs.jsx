@@ -1,103 +1,73 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import useFindJobs from "../../../services/seller/useFindJobs";
 import Filters from "./components/Filters";
 import { ButtonLoader1 } from "../../../components/shared/ButtonLoaders";
 import FindJobsCard from "./components/FindJobsCard";
-import { useLocation } from "react-router-dom";
-
-const useQuery = () => {
-  return new URLSearchParams(useLocation().search);
-};
+import { useSearchParams } from "react-router-dom";
 
 function FindJobs() {
-  const query = useQuery();
-  const q = query.get("query") || "";
-  const { FindJobs, findJobs, setFindJobs } = useFindJobs();
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const getParam = (key, defaultValue) => {
+    const value = searchParams.get(key);
+    return value ? JSON.parse(value) : defaultValue;
+  };
+
   const [filters, setFilters] = useState({
-    search: q || "",
-    expertise: [],
-    hourly_rate: { min: null, max: null },
-    project_budget: { min: null, max: null },
-    experience: "",
-    availability: "",
+    search: getParam("search", ""),
+    expertise: getParam("expertise", []),
+    hourly_rate: getParam("hourly_rate", { min: null, max: null }),
+    project_budget: getParam("project_budget", { min: null, max: null }),
+    experience: getParam("experience", ""),
+    availability: getParam("availability", ""),
   });
 
-  useEffect(() => {
-    FindJobs({
-      search: filters.search,
-      expertise: filters.expertise,
-      hourly_rate: filters.hourly_rate,
-      project_budget: filters.project_budget,
-      experience: [filters.experience],
-      availability: [filters.availability],
-    });
-  }, []);
+  const [appliedFilters, setAppliedFilters] = useState(filters);
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
+    useFindJobs(appliedFilters);
 
-  const handleFilters = () => {
-    setFindJobs((prevState) => ({
-      ...prevState,
-      loading: true,
-      buttonLoading: true,
-      data: null,
-      message: null,
-      totalPages: 1,
-      currentPage: 1,
-    }));
-    FindJobs({
-      search: filters.search,
-      expertise: filters.expertise,
-      hourly_rate: filters.hourly_rate,
-      project_budget: filters.project_budget,
-      experience: [filters.experience],
-      availability: [filters.availability],
-    });
+  const observer = useRef();
+  const lastItemRef = useCallback(
+    (node) => {
+      if (isFetchingNextPage) return;
+      if (observer.current) observer.current.disconnect();
+
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && hasNextPage) {
+          fetchNextPage();
+        }
+      });
+
+      if (node) observer.current.observe(node);
+    },
+    [isFetchingNextPage, hasNextPage, fetchNextPage]
+  );
+
+  const resetFilters = () => {
+    const defaultFilters = {
+      search: "",
+      expertise: [],
+      hourly_rate: { min: null, max: null },
+      project_budget: { min: null, max: null },
+      experience: "",
+      availability: "",
+    };
+    setFilters(defaultFilters);
+    setAppliedFilters(defaultFilters);
+    setSearchParams();
   };
 
-  const handleSearch = () => {
-    setFindJobs((prevState) => ({
-      ...prevState,
-      loading: true,
-      buttonLoading: true,
-      data: null,
-      message: null,
-      totalPages: 1,
-      currentPage: 1,
-    }));
-    FindJobs({
-      search: filters.search,
-      expertise: filters.expertise,
-      hourly_rate: filters.hourly_rate,
-      project_budget: filters.project_budget,
-      experience: [filters.experience],
-      availability: [filters.availability],
-      project_type: [filters.project_type],
-      industry_focus: [filters.industry_focus],
-    });
-  };
-
-  const handleLoadMore = () => {
-    if (findJobs.currentPage < findJobs.totalPages) {
-      setFindJobs((prevState) => ({
-        ...prevState,
-        loading: true,
-      }));
-      const nextPage = findJobs.currentPage + 1;
-      FindJobs(
-        {
-          search: filters.search,
-          expertise: filters.expertise,
-          hourly_rate: filters.hourly_rate,
-          project_budget: filters.project_budget,
-          experience: [filters.experience],
-          availability: [filters.availability],
-          project_type: [filters.project_type],
-          industry_focus: [filters.industry_focus],
-        },
-        nextPage,
-        true
-      );
-    }
+  const applyFilters = () => {
+    setAppliedFilters({ ...filters });
+    const params = {
+      search: JSON.stringify(filters.search),
+      expertise: JSON.stringify(filters.expertise),
+      hourly_rate: JSON.stringify(filters.hourly_rate),
+      project_budget: JSON.stringify(filters.project_budget),
+      experience: JSON.stringify(filters.experience),
+      availability: JSON.stringify(filters.availability),
+    };
+    setSearchParams(params);
   };
 
   return (
@@ -123,21 +93,27 @@ function FindJobs() {
             />
             <button
               className="cursor-pointer bg-secondary rounded text-white hover:opacity-80 w-[60px] h-[40px] flex justify-center items-center"
-              disabled={findJobs.buttonLoading}
-              onClick={handleSearch}
+              disabled={isLoading}
+              onClick={applyFilters}
             >
-              {findJobs.buttonLoading ? <ButtonLoader1 /> : "Go"}
+              {isLoading ? <ButtonLoader1 /> : "Go"}
             </button>
             {/* Filter Button */}
             <Filters
               filters={filters}
               setFilters={setFilters}
-              findJobs={findJobs}
-              handleFilters={handleFilters}
+              isLoading={isLoading}
+              handleFilters={applyFilters}
+              resetFilters={resetFilters}
             />
           </div>
         </div>
-        <FindJobsCard findJobs={findJobs} handleLoadMore={handleLoadMore} />
+        <FindJobsCard
+          data={data}
+          isLoading={isLoading}
+          isFetchingNextPage={isFetchingNextPage}
+          lastItemRef={lastItemRef}
+        />
       </div>
     </>
   );

@@ -2,6 +2,7 @@
 import { useNavigate } from "react-router-dom";
 import { ButtonLoader3 } from "../../../../components/shared/ButtonLoaders";
 import RatingStars from "../../../../components/shared/RatingStars";
+import ShowMessage from "../../../../components/shared/ShowMessage";
 
 function FindExpertsCard({ data, isLoading, isFetchingNextPage, lastItemRef }) {
   const navigate = useNavigate();
@@ -9,7 +10,7 @@ function FindExpertsCard({ data, isLoading, isFetchingNextPage, lastItemRef }) {
 
   return (
     <>
-      {!isLoading && (
+      {allExperts.length > 0 && !isLoading && (
         <div className="mt-24">
           <h1 className="text-center md:text-[24px] text-[16px] text-secondary font-bold">
             We have {allExperts.length} results that match your details
@@ -62,6 +63,12 @@ function FindExpertsCard({ data, isLoading, isFetchingNextPage, lastItemRef }) {
               );
             })}
           </div>
+        </div>
+      )}
+
+      {allExperts.length === 0 && !isLoading && (
+        <div className="w-full h-[300px] flex justify-center items-center">
+          <ShowMessage title="We didn't find any sellers" />
         </div>
       )}
 

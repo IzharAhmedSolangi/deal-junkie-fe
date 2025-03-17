@@ -25,7 +25,7 @@ const fetchExperts = async ({ pageParam = 1, queryKey }) => {
   };
 };
 
-function useFindExpertsInfinite(filters) {
+function useFindExperts(filters) {
   const query = useInfiniteQuery({
     queryKey: ["find-experts", filters],
     queryFn: fetchExperts,
@@ -42,4 +42,4 @@ function useFindExpertsInfinite(filters) {
   };
 }
 
-export default useFindExpertsInfinite;
+export default useFindExperts;
