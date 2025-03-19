@@ -42,6 +42,7 @@ import AdminSellerDetails from "../pages/admin/SellerDetails";
 import AdminBuyerDetails from "../pages/admin/BuyerDetails";
 import AdminJobDetails from "../pages/admin/JobDetails";
 import Layout from "../components/shared/Layout";
+import ScrollToTopButton from "./ScrollToTopButton";
 
 const Routing = () => {
   const token = getAccessToken();
@@ -128,6 +129,7 @@ const Routing = () => {
         </Route>
       </Routes>
       <ScrollToTop />
+      <ScrollToTopButton />
     </>
   );
 };

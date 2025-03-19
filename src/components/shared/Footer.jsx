@@ -7,6 +7,8 @@ import GlobalContext from "../../context/GlobalContext";
 import FindExpertsButton from "./FindExpertsButton";
 import { getAccessToken } from "../../storage/storage";
 
+import Aos from "aos";
+import { useEffect } from "react";
 function Footer() {
   return (
     <footer className="w-full h-auto bg-[#F6FFFF] bg-[url('/assets/images/footer-bg.png')] bg-cover bg-center md:px-[5%] px-[2.5%] pt-40 relative">
@@ -156,7 +158,6 @@ function Footer() {
           </div>
         </div>
       </div>
-
       {/* Bottom Section */}
       <div className="flex flex-col md:flex-row items-center justify-between border-t-[1px] border-[#6F7487] md:py-5 py-2 md:mt-6 mt-2 text-center md:text-left">
         <p className="text-[#667085] text-[14px] font-normal">
@@ -177,7 +178,6 @@ function Footer() {
           </Link>
         </div>
       </div>
-
       <Banner />
     </footer>
   );
@@ -188,9 +188,17 @@ export default Footer;
 function Banner() {
   const token = getAccessToken();
   const { userInfo } = useContext(GlobalContext);
+  useEffect(() => {
+    Aos.init();
+    Aos.refresh();
+  }, []);
   return (
     <>
-      <div className="bg-[#003F63] md:w-[90%] w-[95%] md:h-[200px] h-[150px] rounded-[16px] absolute md:top-[-100px] top-[-75px] flex items-center justify-between px-[5%]">
+      <div
+        data-aos="flip-up"
+        data-aos-duration="2000"
+        className="bg-[#003F63] md:w-[90%] w-[95%] md:h-[200px] h-[150px] rounded-[16px] absolute md:top-[-100px] top-[-75px] flex items-center justify-between px-[5%]"
+      >
         <h1 className="text-white md:w-[50%] w-[80%] md:text-[32px] text-[16px] font-[600]">
           Schedule your first meeting now for a hassle-free experience
         </h1>

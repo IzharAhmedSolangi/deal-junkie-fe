@@ -57,6 +57,32 @@ input[type="number"] {
   -moz-appearance: textfield;
 }
 
+.scrollBtn {
+  position: fixed;
+  bottom: 15px;
+  right: 25px;
+  background: #022247;
+  color: white;
+  border: none;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: 0.5s all ease;
+  z-index: 99999999999999;
+}
+
+.scrollBtn:hover {
+  box-shadow: 0px 0px 15px #022247;
+}
+
+.scrollBtn .icon {
+  font-size: 25px;
+}
+
 #goog-gt-vt {
   display: none !important;
 }
