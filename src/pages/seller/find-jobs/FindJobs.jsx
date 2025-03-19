@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useCallback, useRef, useState } from "react";
 import useFindJobs from "../../../services/seller/useFindJobs";
 import Filters from "./components/Filters";
@@ -10,7 +11,16 @@ function FindJobs() {
 
   const getParam = (key, defaultValue) => {
     const value = searchParams.get(key);
-    return value ? JSON.parse(value) : defaultValue;
+    if (value === null) return defaultValue;
+
+    if (typeof defaultValue === "object") {
+      try {
+        return JSON.parse(value);
+      } catch (e) {
+        return defaultValue;
+      }
+    }
+    return value;
   };
 
   const [filters, setFilters] = useState({
@@ -60,12 +70,12 @@ function FindJobs() {
   const applyFilters = () => {
     setAppliedFilters({ ...filters });
     const params = {
-      search: JSON.stringify(filters.search),
+      search: filters.search,
       expertise: JSON.stringify(filters.expertise),
       hourly_rate: JSON.stringify(filters.hourly_rate),
       project_budget: JSON.stringify(filters.project_budget),
-      experience: JSON.stringify(filters.experience),
-      availability: JSON.stringify(filters.availability),
+      experience: filters.experience,
+      availability: filters.availability,
     };
     setSearchParams(params);
   };
@@ -88,6 +98,11 @@ function FindJobs() {
                   search: e.target.value,
                 }))
               }
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  applyFilters();
+                }
+              }}
               placeholder="Find jobs in M&A, Real Estate..."
               className="w-full h-[40px] rounded border border-[#02174C33] px-2 hover:border-secondary focus:border-secondary"
             />

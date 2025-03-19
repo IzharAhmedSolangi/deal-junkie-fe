@@ -6,7 +6,7 @@ function Hero() {
   const [query, setQuery] = useState("");
 
   const handleSearchJobs = () => {
-    Navigate(`/find-jobs?query=${query}`);
+    Navigate(`/find-jobs?search=${query}`);
   };
 
   return (
@@ -22,6 +22,11 @@ function Hero() {
               type="search"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  handleSearchJobs();
+                }
+              }}
               placeholder="Find jobs in M&A, Real Estate..."
               className="w-full h-[40px] rounded border border-[#02174C33] px-2 hover:border-secondary focus:border-secondary"
             />

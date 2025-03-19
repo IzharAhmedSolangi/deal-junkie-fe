@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useCallback, useRef, useState } from "react";
 import Filters from "./components/Filters";
 import { ButtonLoader1 } from "../../../components/shared/ButtonLoaders";
@@ -10,7 +11,16 @@ function FindExperts() {
 
   const getParam = (key, defaultValue) => {
     const value = searchParams.get(key);
-    return value ? JSON.parse(value) : defaultValue;
+    if (value === null) return defaultValue;
+
+    if (typeof defaultValue === "object") {
+      try {
+        return JSON.parse(value);
+      } catch (e) {
+        return defaultValue;
+      }
+    }
+    return value;
   };
 
   const [filters, setFilters] = useState({
@@ -63,13 +73,13 @@ function FindExperts() {
   const applyFilters = () => {
     setAppliedFilters({ ...filters });
     const params = {
-      search: JSON.stringify(filters.search),
+      search: filters.search,
       expertise: JSON.stringify(filters.expertise),
       hourly_rate: JSON.stringify(filters.hourly_rate),
-      experience: JSON.stringify(filters.experience),
-      availability: JSON.stringify(filters.availability),
-      project_type: JSON.stringify(filters.project_type),
-      industry_focus: JSON.stringify(filters.industry_focus),
+      experience: filters.experience,
+      availability: filters.availability,
+      project_type: filters.project_type,
+      industry_focus: filters.industry_focus,
     };
     setSearchParams(params);
   };
@@ -92,6 +102,11 @@ function FindExperts() {
                   search: e.target.value,
                 }))
               }
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  applyFilters();
+                }
+              }}
               placeholder="Search..."
               className="w-full h-[40px] rounded border border-[#02174C33] px-2 hover:border-secondary focus:border-secondary"
             />

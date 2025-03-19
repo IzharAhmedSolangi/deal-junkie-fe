@@ -1,3 +1,6 @@
+import FindExpertsButton from "../../../../components/shared/FindExpertsButton";
+import PostProjectButton from "../../../../components/shared/PostProjectButton";
+
 function HowItWorks() {
   return (
     <>
@@ -18,9 +21,9 @@ function HowItWorks() {
             <br /> with seasoned deal
             <br /> professionals
           </h1>
-          <button className="mt-3 rounded w-[120px] h-[40px] bg-secondary text-white text-center cursor-pointer hover:opacity-80">
-            Find Experts
-          </button>
+          <div className="mt-3">
+            <FindExpertsButton />
+          </div>
           <div className="absolute bottom-0">
             <img src="/assets/images/image-3.png" alt="" />
           </div>
@@ -31,9 +34,9 @@ function HowItWorks() {
             <br /> professional to help drive
             <br /> your business
           </h1>
-          <button className="mt-3 rounded w-[120px] h-[40px] bg-primary text-[#003F63] text-center cursor-pointer hover:opacity-80">
-            Post a Project
-          </button>
+          <div className="mt-3">
+            <PostProjectButton />
+          </div>
           <div className="absolute bottom-0">
             <img src="/assets/images/image-2.png" alt="" />
           </div>
