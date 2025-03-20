@@ -11,6 +11,7 @@ import {
 } from "../../components/shared/ButtonLoaders";
 import GlobalContext from "../../context/GlobalContext";
 import useCancelTask from "../../services/admin/useCancelTask";
+import AppHead from "../../seo/AppHead";
 
 function JobDetails() {
   const { jobId } = useParams();
@@ -30,6 +31,7 @@ function JobDetails() {
 
   return (
     <>
+      <AppHead title="Job Details - Deal Junkie" />
       <div className="w-full h-auto p-5">
         {!job.data && job.loading && (
           <div className="flex justify-center items-center w-full h-[300px]">

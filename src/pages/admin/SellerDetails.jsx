@@ -5,6 +5,7 @@ import SellerProfile from "./components/SellerProfile";
 import useGetSellerById from "../../services/admin/useGetSellerById";
 import { useEffect } from "react";
 import { ButtonLoader3 } from "../../components/shared/ButtonLoaders";
+import AppHead from "../../seo/AppHead";
 
 function SellerDetails() {
   const { sellerId } = useParams();
@@ -18,6 +19,7 @@ function SellerDetails() {
 
   return (
     <>
+      <AppHead title="Seller Details - Deal Junkie" />
       <div className="w-full h-auto p-5">
         {!seller.data && seller.loading && (
           <div className="flex justify-center items-center w-full h-[300px]">

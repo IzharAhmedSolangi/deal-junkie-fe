@@ -4,6 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import BuyerProfile from "./components/BuyerProfile";
 import useGetBuyerById from "../../services/admin/useGetBuyerById ";
 import { ButtonLoader3 } from "../../components/shared/ButtonLoaders";
+import AppHead from "../../seo/AppHead";
 
 function BuyerDetails() {
   const { buyerId } = useParams();
@@ -17,6 +18,7 @@ function BuyerDetails() {
 
   return (
     <>
+      <AppHead title="Buyer Details - Deal Junkie" />
       <div className="w-full h-auto p-5">
         {!buyer.data && buyer.loading && (
           <div className="flex justify-center items-center w-full h-[300px]">

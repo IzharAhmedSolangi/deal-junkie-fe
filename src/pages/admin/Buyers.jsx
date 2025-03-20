@@ -9,6 +9,7 @@ import {
   MdPhoneAndroid,
 } from "react-icons/md";
 import { Link } from "react-router-dom";
+import AppHead from "../../seo/AppHead";
 
 function Buyers() {
   const { GetAllBuyers, buyers } = useGetAllBuyers();
@@ -25,6 +26,7 @@ function Buyers() {
   };
   return (
     <>
+      <AppHead title="Buyers - Deal Junkie" />
       <div className="w-full h-auto p-5">
         <div className="flex items-center justify-between">
           <h1 className="text-[#02174C] text-[30px] font-[600]">Buyers</h1>

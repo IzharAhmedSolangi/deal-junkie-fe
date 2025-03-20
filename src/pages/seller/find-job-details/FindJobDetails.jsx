@@ -5,6 +5,7 @@ import JobInfo from "./components/JobInfo";
 import useFindJobById from "../../../services/seller/useFindJobById";
 import { useEffect } from "react";
 import { ButtonLoader3 } from "../../../components/shared/ButtonLoaders";
+import AppHead from "../../../seo/AppHead";
 
 function FindJobDetails() {
   const { jobId } = useParams();
@@ -18,6 +19,7 @@ function FindJobDetails() {
 
   return (
     <>
+      <AppHead title="Job Details - Deal Junkie" />
       <div className="bg-white w-full h-auto md:pb-40 pb-28 relative">
         <div className="w-full md:h-[320px] h-[260px] flex flex-col justify-center items-center px-3">
           <img

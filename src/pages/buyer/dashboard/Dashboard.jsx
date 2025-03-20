@@ -21,6 +21,7 @@ import DeleteAccount from "../../../components/modals/DeleteAccount";
 import DeactivateAccount from "../../../components/modals/DeactivateAccount";
 import useUpload from "../../../services/common/useUpload";
 import useEditProfile from "../../../services/common/useEditProfile";
+import AppHead from "../../../seo/AppHead";
 
 const tabs = [
   { name: "My Task", path: "my-tasks" },
@@ -37,6 +38,7 @@ function Dashboard() {
   };
   return (
     <>
+      <AppHead title="Dashboard - Deal Junkie" />
       <div className="bg-white w-full h-auto md:pb-40 pb-28 relative">
         <div className="w-full md:h-[320px] h-[260px] flex justify-center items-center">
           <img

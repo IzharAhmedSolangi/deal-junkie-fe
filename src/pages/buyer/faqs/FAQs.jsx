@@ -1,6 +1,7 @@
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
+import AppHead from "../../../seo/AppHead";
 
 const faqsList = [
   {
@@ -85,6 +86,7 @@ function FAQs() {
 
   return (
     <>
+      <AppHead title="FAQs - Deal Junkie" />
       <div className="bg-white w-full h-auto md:pb-40 pb-28 relative">
         <div className="w-full md:h-[320px] h-[260px] flex justify-center items-center px-3">
           <img

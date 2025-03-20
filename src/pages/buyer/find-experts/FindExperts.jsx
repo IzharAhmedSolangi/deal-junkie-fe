@@ -5,6 +5,7 @@ import { ButtonLoader1 } from "../../../components/shared/ButtonLoaders";
 import FindExpertsCard from "./components/FindExpertsCard";
 import useFindExperts from "../../../services/buyer/useFindExperts";
 import { useSearchParams } from "react-router-dom";
+import AppHead from "../../../seo/AppHead";
 
 function FindExperts() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -86,6 +87,7 @@ function FindExperts() {
 
   return (
     <>
+      <AppHead title="Find Experts - Deal Junkie" />
       <div className="bg-white w-full h-auto md:pb-40 pb-28 relative">
         <div className="w-full md:h-[320px] h-[260px] flex flex-col justify-center items-center px-3">
           <img

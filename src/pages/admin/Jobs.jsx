@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 import { TruncateText } from "../../utils/TruncateText";
 import useCancelTask from "../../services/admin/useCancelTask";
 import GlobalContext from "../../context/GlobalContext";
+import AppHead from "../../seo/AppHead";
 
 function Jobs() {
   const { GetAllJobs, jobs, setJobs } = useGetAllJobs();
@@ -41,6 +42,7 @@ function Jobs() {
 
   return (
     <>
+      <AppHead title="Jobs - Deal Junkie" />
       <div className="w-full h-auto p-5">
         <div className="flex items-center justify-between">
           <h1 className="text-[#02174C] text-[30px] font-[600]">All Jobs</h1>

@@ -5,6 +5,7 @@ import { ButtonLoader3 } from "../../components/shared/ButtonLoaders";
 import ShowMessage from "../../components/shared/ShowMessage";
 import RatingStars from "../../components/shared/RatingStars";
 import { Link } from "react-router-dom";
+import AppHead from "../../seo/AppHead";
 
 function Sellers() {
   const { GetAllSellers, sellers } = useGetAllSellers();
@@ -22,6 +23,7 @@ function Sellers() {
 
   return (
     <>
+      <AppHead title="Sellers - Deal Junkie" />
       <div className="w-full h-auto p-5">
         <div className="flex items-center justify-between">
           <h1 className="text-[#02174C] text-[30px] font-[600]">Sellers</h1>
