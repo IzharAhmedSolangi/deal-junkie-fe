@@ -11,7 +11,7 @@ function FindExpertsCard({ data, isLoading, isFetchingNextPage, lastItemRef }) {
   return (
     <>
       {allExperts.length > 0 && !isLoading && (
-        <div className="mt-24">
+        <div className="mt-5">
           <h1 className="text-center md:text-[24px] text-[16px] text-secondary font-bold">
             We have {allExperts.length} results that match your details
           </h1>
@@ -67,13 +67,13 @@ function FindExpertsCard({ data, isLoading, isFetchingNextPage, lastItemRef }) {
       )}
 
       {allExperts.length === 0 && !isLoading && (
-        <div className="w-full h-[300px] flex justify-center items-center">
+        <div className="w-full h-[200px] flex justify-center items-center">
           <ShowMessage title="We didn't find any sellers" />
         </div>
       )}
 
       {isLoading && (
-        <div className="w-full h-[300px] flex justify-center items-center">
+        <div className="w-full h-[200px] flex justify-center items-center">
           <ButtonLoader3 />
         </div>
       )}

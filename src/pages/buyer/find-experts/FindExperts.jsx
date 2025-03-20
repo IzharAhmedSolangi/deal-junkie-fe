@@ -86,45 +86,51 @@ function FindExperts() {
 
   return (
     <>
-      <div className="bg-white w-full h-auto pt-[70px] md:pb-40 pb-28 relative">
-        <div className="absolute md:top-[-100px] top-[-70px] left-0 w-full md:h-[400px] h-[350px] bg-cover bg-center bg-[url('/assets/images/Banner2.png')]"></div>
-        <h1 className="font-[700] md:text-[48px] text-[30px] text-center text-secondary">
-          Find Experts For Your Needs
-        </h1>
-        <div className="w-full flex justify-center">
-          <div className="md:w-[50%] w-[95%] flex gap-2 justify-between items-center bg-white shadow-lg p-2 rounded relative">
-            <input
-              type="search"
-              value={filters.search}
-              onChange={(e) =>
-                setFilters((prevState) => ({
-                  ...prevState,
-                  search: e.target.value,
-                }))
-              }
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  applyFilters();
+      <div className="bg-white w-full h-auto md:pb-40 pb-28 relative">
+        <div className="w-full md:h-[320px] h-[260px] flex flex-col justify-center items-center px-3">
+          <img
+            src="/assets/images/Banner2.png"
+            alt=""
+            className="absolute top-0 left-0 w-full md:h-[320px] h-[260px]"
+          />
+          <h1 className="font-[700] md:text-[48px] text-[30px] text-secondary z-10 text-center">
+            Find Experts For Your Needs
+          </h1>
+          <div className="w-full flex justify-center mt-1">
+            <div className="md:w-[50%] w-[95%] flex gap-2 justify-between items-center bg-white shadow-lg p-2 rounded relative">
+              <input
+                type="search"
+                value={filters.search}
+                onChange={(e) =>
+                  setFilters((prevState) => ({
+                    ...prevState,
+                    search: e.target.value,
+                  }))
                 }
-              }}
-              placeholder="Search..."
-              className="w-full h-[40px] rounded border border-[#02174C33] px-2 hover:border-secondary focus:border-secondary"
-            />
-            <button
-              className="cursor-pointer bg-secondary rounded text-white hover:opacity-80 w-[60px] h-[40px] flex justify-center items-center"
-              disabled={isLoading}
-              onClick={applyFilters}
-            >
-              {isLoading ? <ButtonLoader1 /> : "Go"}
-            </button>
-            {/* Filter Button */}
-            <Filters
-              filters={filters}
-              setFilters={setFilters}
-              isLoading={isLoading}
-              handleFilters={applyFilters}
-              resetFilters={resetFilters}
-            />
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    applyFilters();
+                  }
+                }}
+                placeholder="Search..."
+                className="w-full h-[40px] rounded border border-[#02174C33] px-2 hover:border-secondary focus:border-secondary"
+              />
+              <button
+                className="cursor-pointer bg-secondary rounded text-white hover:opacity-80 w-[60px] h-[40px] flex justify-center items-center"
+                disabled={isLoading}
+                onClick={applyFilters}
+              >
+                {isLoading ? <ButtonLoader1 /> : "Go"}
+              </button>
+              {/* Filter Button */}
+              <Filters
+                filters={filters}
+                setFilters={setFilters}
+                isLoading={isLoading}
+                handleFilters={applyFilters}
+                resetFilters={resetFilters}
+              />
+            </div>
           </div>
         </div>
         <FindExpertsCard

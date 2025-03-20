@@ -24,7 +24,7 @@ function FindJobsCard(props) {
     <>
       <div className="md:px-10 px-5">
         {!isLoading && allJobs.length > 0 && (
-          <div className="mt-24">
+          <div className="mt-5">
             <h1 className="text-[#1D2939] text-[32px] font-[600]">
               Latest Jobs
             </h1>
@@ -92,13 +92,13 @@ function FindJobsCard(props) {
         )}
 
         {allJobs.length === 0 && !isLoading && (
-          <div className="w-full h-[300px] flex justify-center items-center">
+          <div className="w-full h-[200px] flex justify-center items-center">
             <ShowMessage title="We didn't find any jobs" />
           </div>
         )}
 
         {isLoading && (
-          <div className="w-full h-[300px] flex justify-center items-center">
+          <div className="w-full h-[200px] flex justify-center items-center">
             <ButtonLoader3 />
           </div>
         )}

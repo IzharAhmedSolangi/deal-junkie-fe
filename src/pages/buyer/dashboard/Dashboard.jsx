@@ -37,12 +37,18 @@ function Dashboard() {
   };
   return (
     <>
-      <div className="bg-white w-full h-auto pt-[70px] md:pb-40 pb-28 relative">
-        <div className="absolute md:top-[-100px] top-[-70px] left-0 w-full md:h-[400px] h-[350px] bg-cover bg-center bg-[url('/assets/images/Banner2.png')]"></div>
-        <h1 className="font-[700] md:text-[48px] text-[36px] text-center text-secondary mt-4">
-          Dashboard
-        </h1>
-        <div className="lg:px-[80px] px-5 mt-32 flex lg:flex-row flex-col-reverse items-start gap-5">
+      <div className="bg-white w-full h-auto md:pb-40 pb-28 relative">
+        <div className="w-full md:h-[320px] h-[260px] flex justify-center items-center">
+          <img
+            src="/assets/images/Banner2.png"
+            alt=""
+            className="absolute top-0 left-0 w-full md:h-[320px] h-[260px]"
+          />
+          <h1 className="font-[700] md:text-[48px] text-[30px] text-secondary z-10 text-center">
+            Dashboard
+          </h1>
+        </div>
+        <div className="lg:px-[80px] px-5 mt-5 flex lg:flex-row flex-col-reverse items-start gap-5">
           <div className="lg:w-[30%] w-full border border-[#02174C33] rounded-xl p-5 lg:sticky lg:top-[80px]">
             <Profile handleTabClick={handleTabClick} />
           </div>
