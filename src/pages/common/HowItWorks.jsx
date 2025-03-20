@@ -1,6 +1,9 @@
+import AppHead from "../../seo/AppHead";
+
 function HowItWorks() {
   return (
     <>
+      <AppHead title="How it Works - Deal Junkie" />
       {/* Hero Section */}
       <div className="relative w-full h-auto bg-white pb-30">
         <div className="w-full md:h-[320px] h-[260px] flex justify-center items-center">

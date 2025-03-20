@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { Helmet } from "react-helmet";
-import config from "../config";
+import config from "../../config";
 
 function AppHead({ title, description }) {
   const { seo } = config;

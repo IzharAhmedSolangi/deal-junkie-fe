@@ -1,10 +1,12 @@
 import { IoCheckmarkCircleOutline } from "react-icons/io5";
 import { MdOutlineSecurity } from "react-icons/md";
 import { TbCashBanknoteOff, TbUserStar } from "react-icons/tb";
+import AppHead from "../../seo/AppHead";
 
 function Pricing() {
   return (
     <>
+      <AppHead title="Pricing - Deal Junkie" />
       <div className="bg-white w-full h-auto relative">
         <div className="w-full md:h-[320px] h-[260px] flex justify-center items-center">
           <img

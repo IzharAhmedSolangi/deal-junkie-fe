@@ -2,6 +2,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import useContactUs from "../../services/common/useContactUs";
 import { ButtonLoader1 } from "../../components/shared/ButtonLoaders";
+import AppHead from "../../seo/AppHead";
 
 const validationSchema = Yup.object({
   firstname: Yup.string()
@@ -54,6 +55,7 @@ function ContactUs() {
   });
   return (
     <>
+      <AppHead title="Contact Us - Deal Junkie" />
       <div className="bg-white w-full h-auto md:pb-40 pb-28 relative">
         <div className="w-full md:h-[320px] h-[260px] flex justify-center items-center">
           <img

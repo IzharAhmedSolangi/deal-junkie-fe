@@ -8,6 +8,7 @@ import { getAccessToken } from "../../storage/storage";
 import ReconnectingWebSocket from "reconnecting-websocket";
 import GlobalContext from "../../context/GlobalContext";
 import { useLocation } from "react-router-dom";
+import AppHead from "../../seo/AppHead";
 const useQuery = () => {
   return new URLSearchParams(useLocation().search);
 };
@@ -168,6 +169,7 @@ function Inbox() {
 
   return (
     <>
+      <AppHead title="Inbox - Deal Junkie" />
       <div className="relative w-full h-auto bg-white pb-30">
         <div className="w-full md:h-[320px] h-[260px] flex justify-center items-center">
           <img
