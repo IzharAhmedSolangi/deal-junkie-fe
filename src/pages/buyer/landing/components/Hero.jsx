@@ -13,9 +13,9 @@ function Hero() {
     Navigate(`/find-experts?search=${query}`);
   };
   return (
-    <div className="pt-[70px] w-full h-screen bg-[url('/assets/images/Banner.png')] bg-cover bg-center">
-      <div className="flex flex-col items-center">
-        <h1 className="text-[#1D2939] lg:text-[48px] text-[24px] font-[600] text-center">
+    <div className="pt-[80px] w-full h-screen bg-[url('/assets/images/Banner.png')] bg-cover bg-center">
+      <div className="flex flex-col items-center md:px-0 px-3">
+        <h1 className="text-[#1D2939] lg:text-[48px] text-[22px] font-[600] text-center">
           Connecting You with Finance <br />
           Experts to Achieve Your Deal Goals
         </h1>

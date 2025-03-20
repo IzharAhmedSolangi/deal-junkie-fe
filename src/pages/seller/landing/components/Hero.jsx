@@ -11,8 +11,8 @@ function Hero() {
 
   return (
     <div className="pt-[70px] w-full h-screen bg-[url('/assets/images/Banner.png')] bg-cover bg-center">
-      <div className="flex flex-col items-center">
-        <h1 className="text-[#1D2939] lg:text-[48px] text-[24px] font-[600] text-center lg:w-[40%] w-[95%]">
+      <div className="flex flex-col items-center md:px-0 px-3">
+        <h1 className="text-[#1D2939] lg:text-[48px] text-[22px] font-[600] text-center lg:w-[40%] w-full">
           Unlock Your Full Potential with Deal Junkie
         </h1>
 

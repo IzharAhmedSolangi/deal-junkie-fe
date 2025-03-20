@@ -15,8 +15,8 @@ function HowItWorks() {
         <div className="bg-secondary w-full h-full"></div>
       </div>
       <div className="w-full grid md:grid-cols-2 grid-cols-1 gap-5 md:py-10 py-5 md:px-24 px-5">
-        <div className="w-full h-[668px] rounded-[20px] bg-[#E9FFDB] flex flex-col items-center pt-10 relative">
-          <h1 className="text-[#022247] xs:text-[22px] md:text-[32px] font-[600] text-center">
+        <div className="w-full h-[668px] rounded-[20px] bg-[#E9FFDB] flex flex-col items-center pt-10 px-3 relative">
+          <h1 className="text-[#022247] md:text-[32px] text-[25px] font-[600] text-center">
             Empowering you
             <br /> with seasoned deal
             <br /> professionals
@@ -28,8 +28,8 @@ function HowItWorks() {
             <img src="/assets/images/image-3.png" alt="" />
           </div>
         </div>
-        <div className="w-full h-[668px] rounded-[20px] bg-[#F0F0FF] flex flex-col items-center pt-10 relative">
-          <h1 className="text-[#022247] xs:text-[22px] md:text-[32px] font-[600] text-center">
+        <div className="w-full h-[668px] rounded-[20px] bg-[#F0F0FF] flex flex-col items-center pt-10 px-3 relative">
+          <h1 className="text-[#022247] md:text-[32px] text-[25px] font-[600] text-center">
             Find a seasoned finance
             <br /> professional to help drive
             <br /> your business

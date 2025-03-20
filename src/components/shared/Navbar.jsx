@@ -48,7 +48,7 @@ const Navbar = () => {
           isScrolled ? "bg-white shadow-2xl" : ""
         }`}
       >
-        <div className="w-full flex items-center justify-between md:px-5 px-2 py-4">
+        <div className="w-full flex items-center justify-between md:px-5 px-3 h-[60px]">
           {/* Menu Button Mobile */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}

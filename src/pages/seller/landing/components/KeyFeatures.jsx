@@ -1,16 +1,19 @@
+import { FaLock, FaNetworkWired } from "react-icons/fa";
+import { TbMessageDots } from "react-icons/tb";
+
 function KeyFeatures() {
   return (
-    <section className="flex flex-col items-center md:py-12 py-5 bg-white">
+    <section className="flex flex-col items-center md:py-12 py-6 bg-white">
       <h2 className="text-[40px] font-[600] text-[#1D2939]">Key Features</h2>
       <p className="text-[#667085] text-[15px] font-[400] text-center">
         Source, Transact, and Communicate with Financial Professionals. All at
         your fingertips.
       </p>
-      <div className="mt-12 grid md:grid-cols-3 grid-cols-1 md:gap-8 gap-5 md:px-10 px-5">
+      <div className="mt-12 grid md:grid-cols-3 grid-cols-1 gap-8 px-10">
         {/* Secure Payments */}
         <div className="bg-white rounded-2xl shadow-lg p-8 flex flex-col items-start">
           <div className="bg-[#01E678] text-white rounded-full w-[60px] h-[60px] flex justify-center items-center">
-            💳
+            <FaLock className="text-[25px]" />
           </div>
           <h3 className="text-lg font-semibold mt-1">Secure Payments</h3>
           <p className="text-[#667085] text-[15px] font-[400]">
@@ -23,7 +26,7 @@ function KeyFeatures() {
         {/* Expert Network (Highlighted) */}
         <div className="bg-[#003F63] rounded-2xl shadow-lg p-8 flex flex-col items-start -rotate-6">
           <div className="bg-[#01E678] text-white rounded-full w-[60px] h-[60px] flex justify-center items-center">
-            🌍
+            <FaNetworkWired className="text-[25px]" />
           </div>
           <h3 className="text-lg text-white font-semibold mt-1">
             Expert Network
@@ -38,7 +41,7 @@ function KeyFeatures() {
         {/* Real-Time Messaging */}
         <div className="bg-white rounded-2xl shadow-lg p-8 flex flex-col items-start">
           <div className="bg-[#01E678] text-white rounded-full w-[60px] h-[60px] flex justify-center items-center">
-            💬
+            <TbMessageDots className="text-[25px]" />
           </div>
           <h3 className="text-lg font-semibold mt-1">Real-Time Messaging</h3>
           <p className="text-[#667085] text-[15px] font-[400]">

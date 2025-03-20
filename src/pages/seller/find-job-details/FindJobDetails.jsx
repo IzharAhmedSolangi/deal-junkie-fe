@@ -20,7 +20,7 @@ function FindJobDetails() {
     <>
       <div className="relative w-full h-auto bg-white pt-[70px] md:pb-40 pb-28">
         <div className="absolute md:top-[-100px] top-[-70px] left-0 w-full md:h-[400px] h-[350px] bg-cover bg-center bg-[url('/assets/images/Banner2.png')]"></div>
-        <div className="">
+        <div>
           <h1 className="font-bold md:text-[48px] text-[30px] text-center text-secondary mt-10">
             Job Details
           </h1>

@@ -168,154 +168,160 @@ function Inbox() {
 
   return (
     <>
-      <div className="relative w-full h-auto bg-white pt-[70px] pb-30">
-        <div className="absolute top-[-100px] left-0 w-full h-[400px] bg-cover bg-center bg-[url('/assets/images/Banner2.png')]"></div>
-        <h1 className="font-[700] text-[48px] text-center text-secondary mt-7">
-          Inbox
-        </h1>
-      </div>
+      <div className="relative w-full h-auto bg-white pb-30">
+        <div className="w-full md:h-[320px] h-[260px] flex justify-center items-center">
+          <img
+            src="/assets/images/Banner2.png"
+            alt=""
+            className="absolute top-0 left-0 w-full md:h-[320px] h-[260px]"
+          />
+          <h1 className="font-[700] md:text-[48px] text-[30px] text-secondary z-10 text-center">
+            Inbox
+          </h1>
+        </div>
 
-      <div className="w-full h-[90vh] mb-40 px-30">
-        <div className="w-full h-full bg-white border-[0.5px] border-[#02174C33] shadow-2xl flex">
-          {/* Chat Sidebar */}
-          <div className="w-[300px] flex-shrink-0 flex flex-col border-r-[0.5px] border-r-[#02174C33]">
-            <div className="w-full h-[80px] px-3 flex items-center">
-              <div className="w-full border border-[#02174C33] flex items-center px-2 rounded-sm">
-                <CiSearch className="w-5 h-5 text-gray-500" />
-                <input
-                  type="text"
-                  placeholder="Search chat"
-                  className="bg-transparent outline-none w-full rounded p-2"
-                />
+        <div className="w-full h-[90vh] px-30">
+          <div className="w-full h-full bg-white border-[0.5px] border-[#02174C33] shadow-2xl flex">
+            {/* Chat Sidebar */}
+            <div className="w-[300px] flex-shrink-0 flex flex-col border-r-[0.5px] border-r-[#02174C33]">
+              <div className="w-full h-[80px] px-3 flex items-center">
+                <div className="w-full border border-[#02174C33] flex items-center px-2 rounded-sm">
+                  <CiSearch className="w-5 h-5 text-gray-500" />
+                  <input
+                    type="text"
+                    placeholder="Search chat"
+                    className="bg-transparent outline-none w-full rounded p-2"
+                  />
+                </div>
               </div>
-            </div>
-            {/* Chat List */}
-            <div className="overflow-y-auto w-full h-full flex-grow">
-              {users?.map((item, index) => (
-                <div
-                  key={index}
-                  className={`flex relative items-center py-3 px-3 border-t-[0.5px] border-t-[#02174C33] 
+              {/* Chat List */}
+              <div className="overflow-y-auto w-full h-full flex-grow">
+                {users?.map((item, index) => (
+                  <div
+                    key={index}
+                    className={`flex relative items-center py-3 px-3 border-t-[0.5px] border-t-[#02174C33] 
                     cursor-pointer ${
                       selectedUser?.chat_with === item.chat_with
                         ? "bg-blue-50"
                         : "hover:bg-[#0AF8860F]"
                     }`}
-                  onClick={() => {
-                    setSelectedUser(item);
-                    setMessages(item.messages);
-                  }}
-                >
-                  <div className="w-8 h-8 text-gray-300 rounded-full flex justify-center items-center">
-                    <FaUserCircle className="w-8 h-8" />
-                  </div>
-                  <div className="ml-3">
-                    <div className="flex items-center gap-2">
-                      <h3 className="font-[600] text-[16px] text-[#003F63]">
-                        {item.username || "Unknown"}
-                      </h3>
-                      {/* <div className="bg-primary p-1 rounded-[30px] w-[18px] h-[18px] text-[10px] flex justify-center items-center font-[600]">
+                    onClick={() => {
+                      setSelectedUser(item);
+                      setMessages(item.messages);
+                    }}
+                  >
+                    <div className="w-8 h-8 text-gray-300 rounded-full flex justify-center items-center">
+                      <FaUserCircle className="w-8 h-8" />
+                    </div>
+                    <div className="ml-3">
+                      <div className="flex items-center gap-2">
+                        <h3 className="font-[600] text-[16px] text-[#003F63]">
+                          {item.username || "Unknown"}
+                        </h3>
+                        {/* <div className="bg-primary p-1 rounded-[30px] w-[18px] h-[18px] text-[10px] flex justify-center items-center font-[600]">
                         40
                       </div> */}
+                      </div>
+                      <p className="font-[500] text-[14px] text-[#6F7487]">
+                        {/* {item.message} */}
+                      </p>
+                      <p className="font-[500] text-[12px] text-[#6F7487] absolute right-3 top-8">
+                        10:27 AM
+                      </p>
                     </div>
-                    <p className="font-[500] text-[14px] text-[#6F7487]">
-                      {/* {item.message} */}
-                    </p>
-                    <p className="font-[500] text-[12px] text-[#6F7487] absolute right-3 top-8">
-                      10:27 AM
-                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Chat Window */}
+            <div className="flex-1 flex flex-col w-[810px]">
+              <div className="px-4 w-full h-[80px] bg-white border-b-[0.5px] border-b-[#02174C33] flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <FaUserCircle className="w-8 h-8 text-gray-300" />
+                  <div>
+                    <h3 className="font-[600] text-[16px] text-[#003F63]">
+                      {selectedUser?.username || "Unknown"}
+                    </h3>
+                    <p className="text-sm text-gray-600">Online</p>
                   </div>
                 </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Chat Window */}
-          <div className="flex-1 flex flex-col w-[810px]">
-            <div className="px-4 w-full h-[80px] bg-white border-b-[0.5px] border-b-[#02174C33] flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <FaUserCircle className="w-8 h-8 text-gray-300" />
-                <div>
-                  <h3 className="font-[600] text-[16px] text-[#003F63]">
-                    {selectedUser?.username || "Unknown"}
-                  </h3>
-                  <p className="text-sm text-gray-600">Online</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-2">
-                {/* <button className="bg-primary text-secondary px-3 py-1 rounded">
+                <div className="flex items-center gap-2">
+                  {/* <button className="bg-primary text-secondary px-3 py-1 rounded">
                   Next Milestone: March 2
                 </button> */}
-                <CiVideoOn className="text-[25px] text-gray-400" />
-                <HiDotsVertical className="text-[25px] text-gray-400" />
+                  <CiVideoOn className="text-[25px] text-gray-400" />
+                  <HiDotsVertical className="text-[25px] text-gray-400" />
+                </div>
               </div>
-            </div>
 
-            {/* Chat Messages */}
-            <div className="bg-[#D9D9D945] flex-1 overflow-y-auto p-4 space-y-3 w-full">
-              {Object.entries(groupedMessages).map(([date, msgs], index) => (
-                <div key={index}>
-                  {/* Date Separator */}
-                  <div className="text-center text-gray-500 text-sm my-2">
-                    {date}
-                  </div>
+              {/* Chat Messages */}
+              <div className="bg-[#D9D9D945] flex-1 overflow-y-auto p-4 space-y-3 w-full">
+                {Object.entries(groupedMessages).map(([date, msgs], index) => (
+                  <div key={index}>
+                    {/* Date Separator */}
+                    <div className="text-center text-gray-500 text-sm my-2">
+                      {date}
+                    </div>
 
-                  {/* Messages */}
-                  {msgs.map((item, idx) => (
-                    <div
-                      key={idx}
-                      className={`flex relative ${
-                        item.sender_id === userInfo?.user?.id
-                          ? "justify-end"
-                          : "justify-start"
-                      }`}
-                    >
+                    {/* Messages */}
+                    {msgs.map((item, idx) => (
                       <div
-                        className={`p-3 my-3 rounded-lg max-w-[75%] break-words mb-5 ${
+                        key={idx}
+                        className={`flex relative ${
                           item.sender_id === userInfo?.user?.id
-                            ? "bg-[#003F63] text-white rounded-xl rounded-br-none"
-                            : "bg-[#FAFAFA] text-black rounded-xl rounded-bl-none"
+                            ? "justify-end"
+                            : "justify-start"
                         }`}
                       >
-                        {item.message}
+                        <div
+                          className={`p-3 my-3 rounded-lg max-w-[75%] break-words mb-5 ${
+                            item.sender_id === userInfo?.user?.id
+                              ? "bg-[#003F63] text-white rounded-xl rounded-br-none"
+                              : "bg-[#FAFAFA] text-black rounded-xl rounded-bl-none"
+                          }`}
+                        >
+                          {item.message}
+                        </div>
+                        <span className="text-[10px] text-gray-500 absolute bottom-0">
+                          {new Date(
+                            item.timestamp.replace(" ", "T")
+                          ).toLocaleTimeString("en-US", {
+                            hour: "2-digit",
+                            minute: "2-digit",
+                            hour12: true,
+                          })}
+                        </span>
                       </div>
-                      <span className="text-[10px] text-gray-500 absolute bottom-0">
-                        {new Date(
-                          item.timestamp.replace(" ", "T")
-                        ).toLocaleTimeString("en-US", {
-                          hour: "2-digit",
-                          minute: "2-digit",
-                          hour12: true,
-                        })}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              ))}
-            </div>
+                    ))}
+                  </div>
+                ))}
+              </div>
 
-            {/* Message Input */}
-            <div className="w-full p-4 bg-white border-t-[0.5px] border-t-[#02174C33] flex items-center">
-              <form onSubmit={sendMessage} className="w-full relative">
-                <button
-                  type="button"
-                  className="absolute top-0 left-0 h-full px-4 text-[20px]"
-                >
-                  <MdOutlineAttachment />
-                </button>
-                <input
-                  type="text"
-                  placeholder="Write message..."
-                  value={newMessage}
-                  onChange={(e) => setNewMessage(e.target.value)}
-                  className="w-full py-2 px-12 rounded outline-none bg-[#F7F9FA] border border-[#F7F9FA]"
-                />
-                <button
-                  type="submit"
-                  className="absolute top-0 right-0 h-full px-4 text-[20px]"
-                >
-                  <TbSend />
-                </button>
-              </form>
+              {/* Message Input */}
+              <div className="w-full p-4 bg-white border-t-[0.5px] border-t-[#02174C33] flex items-center">
+                <form onSubmit={sendMessage} className="w-full relative">
+                  <button
+                    type="button"
+                    className="absolute top-0 left-0 h-full px-4 text-[20px]"
+                  >
+                    <MdOutlineAttachment />
+                  </button>
+                  <input
+                    type="text"
+                    placeholder="Write message..."
+                    value={newMessage}
+                    onChange={(e) => setNewMessage(e.target.value)}
+                    className="w-full py-2 px-12 rounded outline-none bg-[#F7F9FA] border border-[#F7F9FA]"
+                  />
+                  <button
+                    type="submit"
+                    className="absolute top-0 right-0 h-full px-4 text-[20px]"
+                  >
+                    <TbSend />
+                  </button>
+                </form>
+              </div>
             </div>
           </div>
         </div>

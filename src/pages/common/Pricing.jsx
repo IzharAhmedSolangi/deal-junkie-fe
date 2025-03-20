@@ -5,14 +5,20 @@ import { TbCashBanknoteOff, TbUserStar } from "react-icons/tb";
 function Pricing() {
   return (
     <>
-      <div className="bg-white w-full h-auto pt-[70px] relative">
-        <div className="absolute top-[-100px] left-0 w-full h-[400px] bg-cover bg-center bg-[url('/assets/images/Banner2.png')]"></div>
-        <h1 className="font-[700] text-[48px] text-center text-secondary mt-4">
-          Pricing
-        </h1>
-        <div className="mt-32 w-full h-auto">
+      <div className="bg-white w-full h-auto relative">
+        <div className="w-full md:h-[320px] h-[260px] flex justify-center items-center">
+          <img
+            src="/assets/images/Banner2.png"
+            alt=""
+            className="absolute top-0 left-0 w-full md:h-[320px] h-[260px]"
+          />
+          <h1 className="font-[700] md:text-[48px] text-[30px] text-secondary z-10 text-center">
+            Pricing
+          </h1>
+        </div>
+        <div className="w-full h-auto">
           {/* First Container */}
-          <section className="bg-white w-full flex flex-col items-center justify-center py-10">
+          <section className="bg-white w-full flex flex-col items-center justify-center py-8">
             <div className="lg:w-[50%] w-full">
               <h3 className="font-[600] text-[20px] text-center text-primary">
                 We keep pricing straightforward

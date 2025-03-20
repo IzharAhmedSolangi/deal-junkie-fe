@@ -54,12 +54,18 @@ function ContactUs() {
   });
   return (
     <>
-      <div className="bg-white w-full h-auto pt-[70px] md:pb-40 pb-28 relative">
-        <div className="absolute md:top-[-100px] top-[-70px] left-0 w-full md:h-[400px] h-[350px] bg-cover bg-center bg-[url('/assets/images/Banner2.png')]"></div>
-        <h1 className="font-[700] md:text-[48px] text-[36px] text-center text-secondary mt-4">
-          Contact Us
-        </h1>
-        <div className="mt-32 w-full flex justify-center px-5">
+      <div className="bg-white w-full h-auto md:pb-40 pb-28 relative">
+        <div className="w-full md:h-[320px] h-[260px] flex justify-center items-center">
+          <img
+            src="/assets/images/Banner2.png"
+            alt=""
+            className="absolute top-0 left-0 w-full md:h-[320px] h-[260px]"
+          />
+          <h1 className="font-[700] md:text-[48px] text-[30px] text-secondary z-10 text-center">
+            Contact Us
+          </h1>
+        </div>
+        <div className="w-full flex justify-center px-5 py-8">
           <form onSubmit={handleSubmit} className="md:w-[80%] w-full">
             <h1 className="font-[600] md:text-[32px] text-[26px] text-secondary">
               Reach out to us

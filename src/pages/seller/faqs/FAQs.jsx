@@ -85,12 +85,18 @@ function FAQs() {
 
   return (
     <>
-      <div className="bg-white w-full h-auto pt-[70px] md:pb-40 pb-28 relative">
-        <div className="absolute md:top-[-100px] top-[-70px] left-0 w-full md:h-[400px] h-[350px] bg-cover bg-center bg-[url('/assets/images/Banner2.png')]"></div>
-        <h1 className="font-[700] md:text-[48px] text-[30px] text-center text-secondary mt-4">
-          Frequently asked Questions
-        </h1>
-        <div className="md:px-[80px] px-5 mt-32 flex md:flex-row flex-col items-start md:gap-10 gap-5">
+      <div className="bg-white w-full h-auto md:pb-40 pb-28 relative">
+        <div className="w-full md:h-[320px] h-[260px] flex justify-center items-center px-3">
+          <img
+            src="/assets/images/Banner2.png"
+            alt=""
+            className="absolute top-0 left-0 w-full md:h-[320px] h-[260px]"
+          />
+          <h1 className="font-[700] md:text-[48px] text-[30px] text-secondary z-10 text-center">
+            Frequently asked Questions
+          </h1>
+        </div>
+        <div className="md:px-[80px] px-5 py-8 flex md:flex-row flex-col items-start md:gap-10 gap-5">
           <div className="md:w-[20%] w-full border border-[#02174C12] rounded-md">
             {faqsList.map((item, index) => (
               <div
