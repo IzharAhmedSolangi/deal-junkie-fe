@@ -1,8 +1,7 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { setAccessToken, setRefreshToken } from "../../storage/storage";
 import { useNavigate } from "react-router-dom";
-import GlobalContext from "../../context/GlobalContext";
 import useCurrentUser from "../common/useCurrentUser";
 
 function useLogin() {
@@ -26,10 +25,10 @@ function useLogin() {
         getCurrentUser(response.data.access_token);
         if (response.data.user.role === "admin") {
           // window.location.href = "/#/admin/dashboard";
-          Navigate("/#/admin/dashboard");
+          Navigate("/admin/dashboard");
         } else {
           // window.location.href = "/#/";
-          Navigate("/#/");
+          Navigate("/");
         }
       })
       .catch((error) => {

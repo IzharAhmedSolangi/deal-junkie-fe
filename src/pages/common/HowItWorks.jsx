@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import AppHead from "../../seo/AppHead";
 
 function HowItWorks() {
@@ -18,100 +19,81 @@ function HowItWorks() {
         </div>
 
         {/* Introduction Section */}
-        <div className="w-full mx-auto px-6 py-8 flex flex-col md:flex-row items-center gap-10">
-          <div className="w-full flex flex-col items-center">
-            <div className="xs:w-full md:w-[80%]">
-              <h2 className="text-[#01E678] text-justify text-[20px] font-[600]">
-                Welcome to Deal Junkie
-              </h2>
-              <h2 className="text-3xl font-bold text-gray-900">
-                Your Marketplace for Expert Due Diligence
-                <br /> & Investment Analysis
-              </h2>
-              <p className="mt-4 text-[#98A2B3] text-justify text-[16px] font-[400]">
-                Navigating deals can be complex, whether you're acquiring a
-                business, investing in a startup, or evaluating real estate
-                opportunities. Deal Junkie connects you with experienced finance
-                professionals—former investment bankers, private equity
-                analysts, and consultants—who provide the expertise you need to
-                analyze deals, assess risks, and make informed investment
-                decisions.
-              </p>
-            </div>
-            <div className="xs:w-full md:w-[80%] flex justify-center mt-2">
-              <img
-                src="/assets/images/mask-group.png"
-                alt="Financial Meeting"
-                className="rounded-lg shadow-lg w-full xs:h-[300px] md:h-[450px]"
-              />
-            </div>
-          </div>
+        <div className="w-full lg:px-[10%] md:px-[5%] px-6 md:py-8 py-5">
+          <h1 className="text-primary md:text-[20px] text-[18px] font-[600]">
+            Welcome to Deal Junkie
+          </h1>
+          <h2 className="md:text-[40px] text-[22px] font-bold text-[#1D2939]">
+            Your Marketplace for Expert Due Diligence & Investment Analysis
+          </h2>
+          <p className="text-[#98A2B3] md:text-[16px] text-[12px] font-[400] mt-2">
+            Navigating deals can be complex, whether you're acquiring a
+            business, investing in a startup, or evaluating real estate
+            opportunities. Deal Junkie connects you with experienced finance
+            professionals—former investment bankers, private equity analysts,
+            and consultants—who provide the expertise you need to analyze deals,
+            assess risks, and make informed investment decisions.
+          </p>
+          <img
+            src="/assets/images/mask-group.png"
+            alt="Financial Meeting"
+            className="rounded-lg w-full h-auto object-cover mt-5"
+          />
         </div>
 
         {/* Section 1 */}
-        <div className=" py-16">
-          <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center">
-            {/* Left side: Text Content */}
-            <div className="md:w-[50%]">
-              <img
-                src="/assets/images/howwork.png"
-                alt="Our Team"
-                className="rounded-lg shadow-lg w-full xs:h-[300px] md:h-[400px]"
-              />
-            </div>
-
-            {/* Right side: Image */}
-            <div className="md:w-[50%] xs:h-auto md:h-[350px] xs:px-0 md:px-6 rounded-lg shadow-l">
-              <h2 className="text-3xl font-bold text-gray-900 xs:mt-2 md:mt-0">
+        <div className="w-full lg:px-[10%] md:px-[5%] px-6 md:py-8 py-5">
+          <div className="flex flex-col md:flex-row items-center">
+            <img
+              src="/assets/images/howwork.png"
+              alt="Our Team"
+              className="rounded-lg md:w-[50%] w-full h-auto object-contain"
+            />
+            <div className="md:w-[50%] w-full md:px-6 px-0 md:mt-0 mt-5">
+              <h2 className="md:text-[40px] text-[22px] font-bold text-[#1D2939]">
                 Get Expert Deal Support
                 <br /> On Demand
               </h2>
-              <p className="mt-4 text-[#98A2B3] text-[16px] font-[400]">
+              <p className="text-[#98A2B3] md:text-[16px] text-[12px] font-[400] mt-1">
                 Looking to acquire a business but unsure how to evaluate
                 financials or conduct due diligence? With Deal Junkie, you can
                 instantly connect with ex-investment bankers and M&A
                 professionals who can build financial models, assess risk
                 factors, and guide you through the acquisition process.
               </p>
-              <ul className="mt-6 flex flex-col gap-4">
-                <li className="flex items-start gap-3">
+              <ul className="flex flex-col gap-4 mt-6">
+                <li className="flex items-center gap-3">
                   <img src="/assets/icons/icon-4.png" alt="Our Team" />
-                  <div>
-                    <h1 className=" text-[#003F63] text-[20px] font-[600] mt-1">
-                      Financial modeling & valuation
-                    </h1>
-                  </div>
+                  <h3 className=" text-[#003F63] md:text-[20px] text-[15px] font-[600]">
+                    Financial modeling & valuation
+                  </h3>
                 </li>
-                <li className="flex items-start gap-3">
+                <li className="flex items-center gap-3">
                   <img src="/assets/icons/icon-4.png" alt="Our Team" />
-                  <div>
-                    <h1 className=" text-[#003F63] text-[20px] font-[600] mt-1">
-                      Due diligence checklists & risk assessments
-                    </h1>
-                  </div>
+                  <h3 className=" text-[#003F63] md:text-[20px] text-[15px] font-[600]">
+                    Due diligence checklists & risk assessments
+                  </h3>
                 </li>
-                <li className="flex items-start gap-3">
+                <li className="flex items-center gap-3">
                   <img src="/assets/icons/icon-4.png" alt="Our Team" />
-                  <div>
-                    <h1 className=" text-[#003F63] text-[20px] font-[600] mt-1">
-                      Business acquisition advisory
-                    </h1>
-                  </div>
+                  <h3 className=" text-[#003F63] md:text-[20px] text-[15px] font-[600]">
+                    Business acquisition advisory
+                  </h3>
                 </li>
               </ul>
             </div>
           </div>
         </div>
+
         {/* Section 2 */}
-        <div className=" py-16">
-          <div className="max-w-7xl mx-auto  px-6 flex flex-col md:flex-row items-center">
-            {/* Left side: Text Content */}
-            <div className="xs:w-[100%] md:w-[50%] xs:h-auto md:h-[350px] px-6 rounded-lg shadow-l">
-              <h2 className="text-3xl font-bold text-gray-900">
+        <div className="w-full lg:px-[10%] md:px-[5%] px-6 md:py-8 py-5">
+          <div className="flex flex-col md:flex-row items-center">
+            <div className="md:w-[50%] w-full md:px-6 px-0 md:mt-0 mt-5">
+              <h2 className="md:text-[40px] text-[22px] font-bold text-[#1D2939]">
                 Unlock Deep Market &
                 <br /> Investment Research
               </h2>
-              <p className="mt-4 text-[#98A2B3] text-[16px] font-[400]">
+              <p className="text-[#98A2B3] md:text-[16px] text-[12px] font-[400] mt-1">
                 Investing in public or private markets requires industry
                 expertise and thorough research. Whether you're analyzing a
                 small-cap stock, real estate deal, or venture investment, our
@@ -119,157 +101,127 @@ function HowItWorks() {
                 analysis, and risk assessments to support your investment
                 decisions.
               </p>
-              <ul className="mt-6 flex flex-col gap-4">
-                <li className="flex items-start gap-3">
+              <ul className="flex flex-col gap-4 mt-6">
+                <li className="flex items-center gap-3">
                   <img src="/assets/icons/icon-4.png" alt="Our Team" />
-                  <div>
-                    <h1 className=" text-[#003F63] text-[20px] font-[600] mt-1">
-                      Equity & fixed income research
-                    </h1>
-                  </div>
+                  <h3 className=" text-[#003F63] md:text-[20px] text-[15px] font-[600]">
+                    Equity & fixed income research
+                  </h3>
                 </li>
-                <li className="flex items-start gap-3">
+                <li className="flex items-center gap-3">
                   <img src="/assets/icons/icon-4.png" alt="Our Team" />
-                  <div>
-                    <h1 className=" text-[#003F63] text-[20px] font-[600] mt-1">
-                      Private market due diligence
-                    </h1>
-                  </div>
+                  <h3 className=" text-[#003F63] md:text-[20px] text-[15px] font-[600]">
+                    Private market due diligence
+                  </h3>
                 </li>
-                <li className="flex items-start gap-3">
+                <li className="flex items-center gap-3">
                   <img src="/assets/icons/icon-4.png" alt="Our Team" />
-                  <div>
-                    <h1 className=" text-[#003F63] text-[20px] font-[600] mt-1">
-                      Venture & startup investment analysis{" "}
-                    </h1>
-                  </div>
+                  <h3 className=" text-[#003F63] md:text-[20px] text-[15px] font-[600]">
+                    Venture & startup investment analysis{" "}
+                  </h3>
                 </li>
               </ul>
             </div>
-            {/* Right side: Image */}
-
-            <div className="md:w-[50%]">
-              <img
-                src="/assets/images/howwork.png"
-                alt="Our Team"
-                className="rounded-lg shadow-lg w-full h-[400px]"
-              />
-            </div>
+            <img
+              src="/assets/images/howwork.png"
+              alt="Our Team"
+              className="rounded-lg md:w-[50%] w-full h-auto object-contain"
+            />
           </div>
         </div>
-        {/* Section 3 */}
-        <div className=" py-16">
-          <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center">
-            {/* Left side: Text Content */}
-            <div className="md:w-[50%]">
-              <img
-                src="/assets/images/howwork.png"
-                alt="Our Team"
-                className="rounded-lg shadow-lg w-full h-[400px]"
-              />
-            </div>
 
-            {/* Right side: Image */}
-            <div className="md:w-[50%] xs:h-auto md:h-[350px] px-6 rounded-lg shadow-l">
-              <h2 className="text-3xl font-bold text-gray-900">
+        {/* Section 3 */}
+        <div className="w-full lg:px-[10%] md:px-[5%] px-6 md:py-8 py-5">
+          <div className="flex flex-col md:flex-row items-center">
+            <img
+              src="/assets/images/howwork.png"
+              alt="Our Team"
+              className="rounded-lg md:w-[50%] w-full h-auto object-contain"
+            />
+            <div className="md:w-[50%] w-full md:px-6 px-0 md:mt-0 mt-5">
+              <h2 className="md:text-[40px] text-[22px] font-bold text-[#1D2939]">
                 Streamline M&A and Due
                 <br /> Diligence Processes
               </h2>
-              <p className="mt-4 text-[#98A2B3] text-[16px] font-[400]">
+              <p className="text-[#98A2B3] md:text-[16px] text-[12px] font-[400] mt-1">
                 Managing Virtual Data Rooms (VDRs), preparing Due Diligence
                 Questionnaires (DDQs), and structuring deals can be
                 overwhelming. Our professionals have worked on multi-million
                 dollar transactions and can assist with everything from document
                 reviews to deal structuring.
               </p>
-              <ul className="mt-6 flex flex-col gap-4">
-                <li className="flex items-start gap-3">
+              <ul className="flex flex-col gap-4 mt-6">
+                <li className="flex items-center gap-3">
                   <img src="/assets/icons/icon-4.png" alt="Our Team" />
-                  <div>
-                    <h1 className=" text-[#003F63] text-[20px] font-[600] mt-1">
-                      Virtual Data Room (VDR) setup & management
-                    </h1>
-                  </div>
+                  <h3 className=" text-[#003F63] md:text-[20px] text-[15px] font-[600]">
+                    Virtual Data Room (VDR) setup & management
+                  </h3>
                 </li>
-                <li className="flex items-start gap-3">
+                <li className="flex items-center gap-3">
                   <img src="/assets/icons/icon-4.png" alt="Our Team" />
-                  <div>
-                    <h1 className=" text-[#003F63] text-[20px] font-[600] mt-1">
-                      Due Diligence Questionnaires (DDQs) & compliance checks
-                    </h1>
-                  </div>
+                  <h3 className=" text-[#003F63] md:text-[20px] text-[15px] font-[600]">
+                    Due Diligence Questionnaires (DDQs) & compliance checks
+                  </h3>
                 </li>
-                <li className="flex items-start gap-3">
+                <li className="flex items-center gap-3">
                   <img src="/assets/icons/icon-4.png" alt="Our Team" />
-                  <div>
-                    <h1 className=" text-[#003F63] text-[20px] font-[600] mt-1">
-                      Deal structuring & negotiation support
-                    </h1>
-                  </div>
+                  <h3 className=" text-[#003F63] md:text-[20px] text-[15px] font-[600]">
+                    Deal structuring & negotiation support
+                  </h3>
                 </li>
               </ul>
             </div>
           </div>
         </div>
+
         {/* Section 4 */}
-        <div className=" py-16">
-          <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center">
-            {/* Left side: Text Content */}
-            <div className="md:w-[50%] h-[350px] px-6 rounded-lg shadow-l">
-              <h2 className="text-3xl font-bold text-gray-900">
+        <div className="w-full lg:px-[10%] md:px-[5%] px-6 md:py-8 py-5">
+          <div className="flex flex-col md:flex-row items-center">
+            <div className="md:w-[50%] w-full md:px-6 px-0 md:mt-0 mt-5">
+              <h2 className="md:text-[40px] text-[22px] font-bold text-[#1D2939]">
                 Flexible, On-Demand
                 <br />
                 Expertise for Any Deal
               </h2>
-              <p className="mt-4 text-[#98A2B3] text-[16px] font-[400]">
+              <p className="text-[#98A2B3] md:text-[16px] text-[12px] font-[400] mt-1">
                 Need help for a one-time project or ongoing advisory support?
                 Whether it's a single valuation model or long-term deal
                 execution, Deal Junkie lets you hire top-tier finance
                 professionals on demand—without the overhead of a full-time
                 team.
               </p>
-              <ul className="mt-6 flex flex-col gap-4">
-                <li className="flex items-start gap-3">
+              <ul className="flex flex-col gap-4 mt-6">
+                <li className="flex items-center gap-3">
                   <img src="/assets/icons/icon-4.png" alt="Our Team" />
-                  <div>
-                    <h1 className=" text-[#003F63] text-[20px] font-[600] mt-1">
-                      One-time deal analysis
-                    </h1>
-                  </div>
+                  <h3 className=" text-[#003F63] md:text-[20px] text-[15px] font-[600]">
+                    One-time deal analysis
+                  </h3>
                 </li>
-                <li className="flex items-start gap-3">
+                <li className="flex items-center gap-3">
                   <img src="/assets/icons/icon-4.png" alt="Our Team" />
-                  <div>
-                    <h1 className=" text-[#003F63] text-[20px] font-[600] mt-1">
-                      Retainer-based advisory support
-                    </h1>
-                  </div>
+                  <h3 className=" text-[#003F63] md:text-[20px] text-[15px] font-[600]">
+                    Retainer-based advisory support
+                  </h3>
                 </li>
-                <li className="flex items-start gap-3">
+                <li className="flex items-center gap-3">
                   <img src="/assets/icons/icon-4.png" alt="Our Team" />
-                  <div>
-                    <h1 className=" text-[#003F63] text-[20px] font-[600] mt-1">
-                      Full transaction lifecycle guidance
-                    </h1>
-                  </div>
+                  <h3 className=" text-[#003F63] md:text-[20px] text-[15px] font-[600]">
+                    Full transaction lifecycle guidance
+                  </h3>
                 </li>
               </ul>
             </div>
-            {/* Right side: Image */}
-
-            <div className="md:w-[50%]">
-              <img
-                src="/assets/images/howwork.png"
-                alt="Our Team"
-                className="rounded-lg shadow-lg w-full h-[400px]"
-              />
-            </div>
+            <img
+              src="/assets/images/howwork.png"
+              alt="Our Team"
+              className="rounded-lg md:w-[50%] w-full h-auto object-contain"
+            />
           </div>
         </div>
 
         {/* Why Choose Us Section */}
-        <div className="w-full mx-auto  py-5">
-          <div className="flex justify-center flex-wrap w-full">
+        <div className="w-full lg:px-[5%] md:px-[3%] px-6 md:py-8 py-5">
+          <div className="w-full grid sm:grid-cols-2 grid-cols-1 gap-5">
             {[
               {
                 title:
@@ -284,41 +236,42 @@ function HowItWorks() {
             ].map((item, index) => (
               <div
                 key={index}
-                className="bg-white shadow-lg p-6 rounded-lg  xs:w-full md:w-[45%] m-4 hover:bg-secondary hover:text-white"
+                className="bg-white shadow-lg p-6 rounded-lg w-full"
               >
                 <img
                   src="/assets/icons/frame22.png"
                   alt="Our Team"
                   className="w-[50px] h-[50px]"
                 />
-                <h3 className="text-[24px] font-[600] ">{item.title}</h3>
-                <p className="mt-2 text-[16px] font-[400]">{item.desc}</p>
+                <h3 className="md:text-[24px] text-[18px] font-[600] mt-2 text-[#1D2939]">
+                  {item.title}
+                </h3>
+                <p className="text-[16px] font-[400] text-[#667085]">
+                  {item.desc}
+                </p>
               </div>
             ))}
           </div>
         </div>
 
         {/* Call-to-Action Section */}
-
-        <div className="bg-green-100 relative py-6 ml-1 px-6 md:px-10 mb-40 rounded-[7px] flex flex-col md:flex-row justify-between items-center w-full">
-          {/* Text & Button Section */}
-          <div className="w-full md:w-[60%] text-center md:text-left">
-            <h3 className="text-[22px] md:text-[38px] font-semibold text-gray-900">
-              Join Deal Junkie and take <br /> your deals to the next <br />{" "}
-              level.
-            </h3>
-            <button className="mt-4 px-6 py-3 bg-secondary text-white font-semibold rounded-lg">
-              Find Experts Now
-            </button>
-          </div>
-
-          {/* Image Section */}
-          <div className="w-full md:w-auto flex justify-center mt-6 md:mt-0">
-            <img
-              src="/assets/images/image-3.png"
-              alt="Our Team"
-              className="rounded-lg h-[200px] w-[200px] md:h-[270px] md:w-[270px]"
-            />
+        <div className="bg-white w-full md:h-[400px] h-[550px] lg:px-[5%] md:px-[3%] px-6 md:py-8 py-5">
+          <div className="bg-[#E9FFDB] w-full h-full relative rounded-[20px] md:p-10 p-10 flex flex-col md:items-start items-center md:justify-center justify-start">
+            <div className="w-full md:w-[60%] text-center md:text-left">
+              <h3 className="md:text-[36px] text-[18px] font-semibold text-[#022247]">
+                Join Deal Junkie and take your deals to the next level.
+              </h3>
+              <button className="mt-4 px-6 py-3 bg-secondary text-white font-semibold rounded-lg">
+                Find Experts Now
+              </button>
+            </div>
+            <div className="absolute bottom-0 md:right-16">
+              <img
+                src="/assets/images/image-5.png"
+                alt=""
+                className="w-[220px]"
+              />
+            </div>
           </div>
         </div>
       </div>
