@@ -3,9 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { ButtonLoader3 } from "../../../../components/shared/ButtonLoaders";
 import RatingStars from "../../../../components/shared/RatingStars";
 import ShowMessage from "../../../../components/shared/ShowMessage";
+import { useState } from "react";
+import HireNow from "../../../../components/modals/HireNow";
 
 function FindExpertsCard({ data, isLoading, isFetchingNextPage, lastItemRef }) {
   const navigate = useNavigate();
+  const [selectedSeller, setSelectedSeller] = useState(null);
+  const [isOpenHireNowModal, setIsOpenHireNowModal] = useState(false);
   const allExperts = data?.pages?.flatMap((page) => page.data.results) || [];
 
   return (
@@ -49,11 +53,17 @@ function FindExpertsCard({ data, isLoading, isFetchingNextPage, lastItemRef }) {
                     <RatingStars rating={item?.rating || 0} totalReviews={0} />
                   </div>
                   <div className="flex md:flex-row flex-col md:gap-2 gap-1 md:mt-6 mt-1">
-                    <button className="w-full bg-secondary text-white md:py-2 py-1 rounded-sm cursor-pointer">
+                    <button
+                      className="w-full bg-secondary text-white md:py-2 py-1 rounded-sm cursor-pointer hover:opacity-80"
+                      onClick={() => {
+                        setIsOpenHireNowModal(true);
+                        setSelectedSeller(item);
+                      }}
+                    >
                       Hire Now
                     </button>
                     <button
-                      className="w-full bg-primary text-secondary md:py-2 py-1 rounded-sm cursor-pointer"
+                      className="w-full bg-primary text-secondary md:py-2 py-1 rounded-sm cursor-pointer hover:opacity-80"
                       onClick={() => navigate(`/find-experts/${item.id}`)}
                     >
                       See Details
@@ -82,6 +92,12 @@ function FindExpertsCard({ data, isLoading, isFetchingNextPage, lastItemRef }) {
           <ButtonLoader3 />
         </div>
       )}
+
+      <HireNow
+        isOpenModal={isOpenHireNowModal}
+        setIsOpenModal={setIsOpenHireNowModal}
+        selectedSeller={selectedSeller}
+      />
     </>
   );
 }

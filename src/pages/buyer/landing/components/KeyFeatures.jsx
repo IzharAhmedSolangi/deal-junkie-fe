@@ -11,7 +11,10 @@ function KeyFeatures() {
       </p>
       <div className="mt-12 grid md:grid-cols-3 grid-cols-1 gap-8 px-10">
         {/* Secure Payments */}
-        <div className="bg-white rounded-2xl shadow-lg p-8 flex flex-col items-start">
+        <div
+          className="bg-white rounded-2xl shadow-lg p-8 flex flex-col items-start"
+          data-aos="zoom-in-up"
+        >
           <div className="bg-[#01E678] text-white rounded-full w-[60px] h-[60px] flex justify-center items-center">
             <FaLock className="text-[25px]" />
           </div>
@@ -24,7 +27,10 @@ function KeyFeatures() {
         </div>
 
         {/* Expert Network (Highlighted) */}
-        <div className="bg-[#003F63] rounded-2xl shadow-lg p-8 flex flex-col items-start -rotate-6">
+        <div
+          className="bg-[#003F63] rounded-2xl shadow-lg p-8 flex flex-col items-start -rotate-6"
+          data-aos="zoom-in-up"
+        >
           <div className="bg-[#01E678] text-white rounded-full w-[60px] h-[60px] flex justify-center items-center">
             <FaNetworkWired className="text-[25px]" />
           </div>
@@ -39,7 +45,10 @@ function KeyFeatures() {
         </div>
 
         {/* Real-Time Messaging */}
-        <div className="bg-white rounded-2xl shadow-lg p-8 flex flex-col items-start">
+        <div
+          className="bg-white rounded-2xl shadow-lg p-8 flex flex-col items-start"
+          data-aos="zoom-in-up"
+        >
           <div className="bg-[#01E678] text-white rounded-full w-[60px] h-[60px] flex justify-center items-center">
             <TbMessageDots className="text-[25px]" />
           </div>

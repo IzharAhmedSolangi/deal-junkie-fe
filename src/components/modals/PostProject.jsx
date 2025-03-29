@@ -5,7 +5,6 @@ import { AiOutlineClose } from "react-icons/ai";
 import { Dialog, Transition } from "@headlessui/react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { MdOutlineClose } from "react-icons/md";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import "../../styles/calandar.css";
@@ -201,6 +200,152 @@ function PostProject(props) {
 
 export default PostProject;
 
+const budgets = [
+  { name: "$10.25 / hr", value: 10.25 },
+  { name: "$12.75 / hr", value: 12.75 },
+  { name: "$15.50 / hr", value: 15.5 },
+  { name: "$18.45 / hr", value: 18.45 },
+  { name: "$20.85 / hr", value: 20.85 },
+  { name: "$20.45 / hr", value: 20.45 },
+];
+
+const tags = [
+  // General Finance & Due Diligence
+  "General Finance & Due Diligence",
+  "Due Diligence",
+  "Financial Modeling",
+  "Valuation",
+  "Investment Analysis",
+  "Market Research",
+  "M&A",
+  "Capital Markets",
+  "Private Equity",
+  "Venture Capital",
+  "Hedge Funds",
+  "Investment Banking",
+  "Corporate Finance",
+  "Financial Strategy",
+  "Restructuring",
+  "Financial Statements",
+  "Cash Flow Analysis",
+  "Discounted Cash Flow (DCF)",
+  "Comparable Company Analysis (CCA)",
+  "Precedent Transactions",
+  "Risk Assessment",
+
+  // Industry-Specific Tags
+  // Real Estate
+  "Real Estate",
+  "Multi-Family",
+  "Commercial Real Estate",
+  "Industrial",
+  "Office",
+  "Hospitality",
+  "Campgrounds",
+  "Retail",
+  "Self-Storage",
+  "Data Centers",
+  "Single-Family Rentals (SFR)",
+  "Manufactured Housing",
+  "PropTech",
+  "REITs",
+
+  // Energy
+  "Energy",
+  "Oil & Gas",
+  "Renewables",
+  "Solar",
+  "Wind",
+  "Infrastructure",
+  "Mining",
+  "Metals",
+
+  // Other Industries
+  "Logistics",
+  "Transportation",
+  "Aerospace",
+  "Defense",
+  "Healthcare",
+  "Biotech",
+  "Pharmaceuticals",
+  "MedTech",
+  "Fintech",
+  "Blockchain",
+  "Cryptocurrency",
+  "SaaS",
+  "Software",
+  "Artificial Intelligence (AI)",
+  "Machine Learning",
+  "Cybersecurity",
+  "Consumer Goods",
+  "Retail & E-commerce",
+  "Luxury Goods",
+  "Food & Beverage",
+  "Agribusiness",
+  "Manufacturing",
+  "Industrial Services",
+  "Automotive",
+  "Electric Vehicles (EVs)",
+  "Mobility",
+  "Telecom",
+  "Media",
+  "Entertainment",
+  "Gaming",
+  "Sports",
+  "Education",
+  "Online Learning (EdTech)",
+
+  // Investment Strategies & Structures
+  "Investment Strategies & Structures",
+  "Leveraged Buyouts (LBO)",
+  "Growth Equity",
+  "Distressed Investing",
+  "Turnaround Strategies",
+  "Special Situations",
+  "PIPE Investments",
+  "Private Placements",
+  "SPACs",
+  "IPOs",
+  "Secondary Transactions",
+  "Fundraising",
+  "Joint Ventures (JV)",
+  "Partnerships",
+  "Limited Partners (LPs)",
+  "General Partners (GPs)",
+  "Family Offices",
+  "Sovereign Wealth Funds",
+  "Angel Investing",
+  "Early-Stage Investments",
+  "Series A",
+  "Series B",
+  "Late-Stage Growth",
+  "Small-Cap",
+  "Micro-Cap",
+  "Mid-Cap",
+  "Large-Cap",
+
+  // Technical & Software Skills
+  "Technical & Software Skills",
+  "Excel",
+  "VBA",
+  "PowerPoint",
+  "Pitch Decks",
+  "Tableau",
+  "SQL",
+  "Python",
+  "R Programming",
+  "Data Visualization",
+  "Financial Forecasting",
+  "Scenario Analysis",
+  "Sensitivity Analysis",
+  "Budgeting & Forecasting",
+
+  // ESG
+  "ESG Investing",
+  "Sustainability Analysis",
+  "Corporate Governance",
+];
+
 function StepOne(props) {
   const {
     setStep,
@@ -211,46 +356,36 @@ function StepOne(props) {
     handleChange,
     percentage,
   } = props;
-  const budgets = [
-    { name: "$10.25 / hr", value: 10.25 },
-    { name: "$12.75 / hr", value: 12.75 },
-    { name: "$15.50 / hr", value: 15.5 },
-    { name: "$18.45 / hr", value: 18.45 },
-    { name: "$20.85 / hr", value: 20.85 },
-    { name: "$20.45 / hr", value: 20.45 },
-  ];
 
-  const [newTag, setNewTag] = useState("");
-  const addTag = (e) => {
-    if (e.key === "Enter" && newTag.trim()) {
-      e.preventDefault();
-      saveTag();
+  // Tags
+  const [expanded, setExpanded] = useState(false);
+
+  const toggleExpand = () => {
+    setExpanded(!expanded);
+  };
+  const handleTagClick = (tag) => {
+    if (values.tags.includes(tag)) {
+      setFieldValue(
+        "tags",
+        values.tags.filter((t) => t !== tag)
+      );
+    } else {
+      setFieldValue("tags", [...values.tags, tag]);
     }
   };
+  const displayedTags = expanded ? tags : tags.slice(0, 10);
 
-  const saveTag = () => {
-    if (newTag.trim()) {
-      setFieldValue("tags", [...values.tags, newTag.trim()]);
-      setNewTag("");
-    }
-  };
-
-  const removeTag = (index) => {
-    const updatedTags = values.tags.filter((_, i) => i !== index);
-    setFieldValue("tags", updatedTags);
-  };
-
+  // Budget
   const handleSelectBudget = (budget) => {
     setFieldValue("budget", budget);
   };
-
   const handleBudgetChange = (e) => {
     const value = e.target.value;
     setFieldValue("budget", value);
   };
 
+  // Experience
   const [selectedExperience, setSelectedExperience] = useState(null);
-
   const handleExperieceChange = (item) => {
     setFieldValue("experience", item.value);
     setSelectedExperience(item);
@@ -352,33 +487,34 @@ function StepOne(props) {
 
           <div className="md:mt-4 mt-2">
             <label className="text-[16px] text-[#222222] font-[600]">
-              Tags <span className="text-primary font-normal">(optional)</span>
+              Tags
             </label>
-            <div className="flex items-center flex-wrap gap-2 mt-2 px-3 py-1 min-h-[40px] rounded-[4px] bg-transparent border border-[#02174C33] outline-none hover:border-secondary focus:border-secondary">
-              {values.tags.map((tag, index) => (
-                <span
+            <div className="flex flex-wrap gap-2 mt-2">
+              {displayedTags.map((tag, index) => (
+                <div
                   key={index}
-                  className="flex items-center gap-2 px-3 py-1 bg-[#6F74870F] rounded-full text-[14px] text-[#222222] font-[500]"
+                  onClick={() => handleTagClick(tag)}
+                  className={`px-3 py-1 rounded-full border md:text-[14px] text-[12px] font-[500] cursor-pointer 
+              ${
+                values.tags.includes(tag)
+                  ? "bg-primary border-primary text-secondary"
+                  : "border-[#02174C33] text-[#6F7487]"
+              }`}
                 >
                   {tag}
-                  <button
-                    onClick={() => removeTag(index)}
-                    className="text-primary cursor-pointer"
-                  >
-                    <MdOutlineClose />
-                  </button>
-                </span>
+                </div>
               ))}
-              <input
-                type="text"
-                value={newTag}
-                onChange={(e) => setNewTag(e.target.value)}
-                onKeyDown={addTag}
-                onBlur={saveTag}
-                placeholder="Add a tag and press Enter"
-                className="w-full border-none outline-none bg-none"
-              />
             </div>
+
+            {tags.length > 10 && (
+              <button
+                onClick={toggleExpand}
+                className="mt-2 text-blue-500 text-sm font-medium cursor-pointer underline"
+              >
+                {expanded ? "Show Less" : `Show All (${tags.length})`}
+              </button>
+            )}
+
             {errors.tags && touched.tags && (
               <p className="text-red-700 text-xs mt-1">{errors.tags}</p>
             )}

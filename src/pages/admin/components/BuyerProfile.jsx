@@ -64,11 +64,11 @@ function buyerProfile(props) {
       </div>
 
       <div className="flex gap-2 mt-6">
-        <button className="w-full bg-secondary text-white py-2 rounded-sm cursor-pointer">
+        <button className="w-full bg-secondary text-white py-2 rounded-sm cursor-pointer hover:opacity-80">
           Block User
         </button>
         <Link
-          className="w-full bg-primary text-secondary py-2 rounded-sm cursor-pointer flex justify-center items-center"
+          className="w-full bg-primary text-secondary py-2 rounded-sm cursor-pointer flex justify-center items-center hover:opacity-80"
           to={`/inbox?userId=${buyer.data?.buyer_details?.id}`}
         >
           Send Message

@@ -21,7 +21,7 @@ const Tasks = [
   { name: "Completed", value: 2 },
   { name: "Cancelled", value: 3 },
   { name: "In Progress", value: 4 },
-  { name: "Receiving Offers", value: 5 },
+  { name: "Receiving Offer", value: 5 },
   { name: "Hold", value: 6 },
 ];
 

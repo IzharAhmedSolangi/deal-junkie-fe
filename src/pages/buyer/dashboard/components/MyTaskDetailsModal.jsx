@@ -234,11 +234,15 @@ function Proposals(props) {
               key={index}
             >
               <div className="flex items-center md:gap-3 gap-2">
-                <img
-                  src={item.seller.user.profile_picture}
-                  alt=""
-                  className="w-[80px] h-[80px] rounded-sm object-cover"
-                />
+                {item.seller.user.profile_picture ? (
+                  <img
+                    src={item.seller.user.profile_picture}
+                    alt=""
+                    className="w-[80px] h-[80px] rounded-sm object-cover"
+                  />
+                ) : (
+                  <div className="w-[80px] h-[80px] bg-gray-200 rounded-sm"></div>
+                )}
                 <div>
                   <p className="text-[#6F7487] text-[12px] font-[400]">
                     Request {item.status}
