@@ -14,7 +14,7 @@ function HowItWorks() {
         </div>
         <div className="bg-secondary w-full h-full" data-aos="fade-left"></div>
       </div>
-      <div className="w-full grid md:grid-cols-2 grid-cols-1 gap-5 md:py-10 py-5 md:px-24 px-5">
+      <div className="w-full grid md:grid-cols-2 grid-cols-1 gap-5 md:py-10 py-5 md:px-24 px-5 overflow-hidden">
         <div
           className="w-full h-[668px] rounded-[20px] bg-[#E9FFDB] flex flex-col items-center pt-10 px-3 relative"
           data-aos="fade-left"
