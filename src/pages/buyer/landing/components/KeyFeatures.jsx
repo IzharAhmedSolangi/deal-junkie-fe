@@ -3,7 +3,7 @@ import { TbMessageDots } from "react-icons/tb";
 
 function KeyFeatures() {
   return (
-    <section className="flex flex-col items-center md:py-12 py-6 bg-white">
+    <section className="flex flex-col items-center md:py-12 py-6 bg-white overflow-hidden">
       <h2 className="text-[40px] font-[600] text-[#1D2939]">Key Features</h2>
       <p className="text-[#667085] text-[15px] font-[400] text-center">
         Source, Transact, and Communicate with Financial Professionals. All at
