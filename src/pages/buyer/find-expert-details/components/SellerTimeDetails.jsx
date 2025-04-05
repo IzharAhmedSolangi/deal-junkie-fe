@@ -7,11 +7,13 @@ import {
 import { Link } from "react-router-dom";
 import HireNow from "../../../../components/modals/HireNow";
 import { useState } from "react";
+import ReportUser from "../../../../components/modals/ReportUser";
 
 function SellerTimeDetails(props) {
   const { findExpert } = props;
   const [selectedSeller, setSelectedSeller] = useState(null);
   const [isOpenHireNowModal, setIsOpenHireNowModal] = useState(false);
+  const [isOpenReportUserModal, setIsOpenReportUserModal] = useState(false);
 
   return (
     <>
@@ -59,74 +61,80 @@ function SellerTimeDetails(props) {
 
         <div className="mt-6 border-t border-gray-400 pt-4">
           <h3 className="text-lg font-semibold">Working Hours</h3>
-          <ul className="mt-2 text-gray-400 text-[14px]">
-            {findExpert.data?.working_hours?.monday_available && (
-              <div className="flex justify-between items-center mt-2">
-                <li>Monday</li>
-                <li>
-                  {findExpert.data?.working_hours?.monday_start} -{" "}
-                  {findExpert.data?.working_hours?.monday_close}
-                </li>
-              </div>
-            )}
-            {findExpert.data?.working_hours?.tuesday_available && (
-              <div className="flex justify-between items-center mt-2">
-                <li>Tuesday</li>
-                <li>
-                  {findExpert.data?.working_hours?.tuesday_start} -{" "}
-                  {findExpert.data?.working_hours?.tuesday_close}
-                </li>
-              </div>
-            )}
-            {findExpert.data?.working_hours?.wednesday_available && (
-              <div className="flex justify-between items-center mt-2">
-                <li>Wednesday</li>
-                <li>
-                  {findExpert.data?.working_hours?.wednesday_start} -{" "}
-                  {findExpert.data?.working_hours?.wednesday_close}
-                </li>
-              </div>
-            )}
-            {findExpert.data?.working_hours?.thursday_available && (
-              <div className="flex justify-between items-center mt-2">
-                <li>Thursday</li>
-                <li>
-                  {findExpert.data?.working_hours?.thursday_start} -{" "}
-                  {findExpert.data?.working_hours?.thursday_close}
-                </li>
-              </div>
-            )}
-            {findExpert.data?.working_hours?.friday_available && (
-              <div className="flex justify-between items-center mt-2">
-                <li>Friday</li>
-                <li>
-                  {findExpert.data?.working_hours?.friday_start} -{" "}
-                  {findExpert.data?.working_hours?.friday_close}
-                </li>
-              </div>
-            )}
-            {findExpert.data?.working_hours?.saturday_available && (
-              <div className="flex justify-between items-center mt-2">
-                <li>Saturday</li>
-                <li>
-                  {findExpert.data?.working_hours?.saturday_start} -{" "}
-                  {findExpert.data?.working_hours?.saturday_close}
-                </li>
-              </div>
-            )}
-            {findExpert.data?.working_hours?.sunday_available && (
-              <div className="flex justify-between items-center mt-2">
-                <li>Sunday</li>
-                <li>
-                  {findExpert.data?.working_hours?.sunday_start} -{" "}
-                  {findExpert.data?.working_hours?.sunday_close}
-                </li>
-              </div>
-            )}
-          </ul>
+          {findExpert.data?.working_hours ? (
+            <ul className="mt-2 text-gray-400 text-[14px] mb-6">
+              {findExpert.data?.working_hours?.monday_available && (
+                <div className="flex justify-between items-center mt-2">
+                  <li>Monday</li>
+                  <li>
+                    {findExpert.data?.working_hours?.monday_start} -{" "}
+                    {findExpert.data?.working_hours?.monday_close}
+                  </li>
+                </div>
+              )}
+              {findExpert.data?.working_hours?.tuesday_available && (
+                <div className="flex justify-between items-center mt-2">
+                  <li>Tuesday</li>
+                  <li>
+                    {findExpert.data?.working_hours?.tuesday_start} -{" "}
+                    {findExpert.data?.working_hours?.tuesday_close}
+                  </li>
+                </div>
+              )}
+              {findExpert.data?.working_hours?.wednesday_available && (
+                <div className="flex justify-between items-center mt-2">
+                  <li>Wednesday</li>
+                  <li>
+                    {findExpert.data?.working_hours?.wednesday_start} -{" "}
+                    {findExpert.data?.working_hours?.wednesday_close}
+                  </li>
+                </div>
+              )}
+              {findExpert.data?.working_hours?.thursday_available && (
+                <div className="flex justify-between items-center mt-2">
+                  <li>Thursday</li>
+                  <li>
+                    {findExpert.data?.working_hours?.thursday_start} -{" "}
+                    {findExpert.data?.working_hours?.thursday_close}
+                  </li>
+                </div>
+              )}
+              {findExpert.data?.working_hours?.friday_available && (
+                <div className="flex justify-between items-center mt-2">
+                  <li>Friday</li>
+                  <li>
+                    {findExpert.data?.working_hours?.friday_start} -{" "}
+                    {findExpert.data?.working_hours?.friday_close}
+                  </li>
+                </div>
+              )}
+              {findExpert.data?.working_hours?.saturday_available && (
+                <div className="flex justify-between items-center mt-2">
+                  <li>Saturday</li>
+                  <li>
+                    {findExpert.data?.working_hours?.saturday_start} -{" "}
+                    {findExpert.data?.working_hours?.saturday_close}
+                  </li>
+                </div>
+              )}
+              {findExpert.data?.working_hours?.sunday_available && (
+                <div className="flex justify-between items-center mt-2">
+                  <li>Sunday</li>
+                  <li>
+                    {findExpert.data?.working_hours?.sunday_start} -{" "}
+                    {findExpert.data?.working_hours?.sunday_close}
+                  </li>
+                </div>
+              )}
+            </ul>
+          ) : (
+            <p className="h-[100px] text-gray-400 text-[14px] flex justify-center items-center">
+              Seller didn&apos;t set working hours
+            </p>
+          )}
         </div>
 
-        <div className="flex gap-2 mt-6">
+        <div className="flex gap-2">
           <button
             className="w-full bg-secondary text-white py-2 rounded-sm cursor-pointer hover:opacity-80"
             onClick={() => {
@@ -143,7 +151,10 @@ function SellerTimeDetails(props) {
             Send Message
           </Link>
         </div>
-        <p className="text-gray-400 underline text-center mt-4 font-[600] cursor-pointer">
+        <p
+          className="text-gray-400 hover:text-primary underline text-center mt-4 font-[600] cursor-pointer"
+          onClick={() => setIsOpenReportUserModal(true)}
+        >
           Report User
         </p>
       </div>
@@ -151,6 +162,13 @@ function SellerTimeDetails(props) {
         isOpenModal={isOpenHireNowModal}
         setIsOpenModal={setIsOpenHireNowModal}
         selectedSeller={selectedSeller}
+      />
+      <ReportUser
+        title="Tell us why are you reporting this user?"
+        description="Select your reason for reporting and submit to us, we’ll look into this and take necessary actions."
+        url={`/api/accounts/user/${findExpert.data?.user?.id}/report/`}
+        isOpenModal={isOpenReportUserModal}
+        setIsOpenModal={setIsOpenReportUserModal}
       />
     </>
   );

@@ -7,6 +7,7 @@ import {
 } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import SendProposal from "../../../../components/modals/SendProposal";
+import ReportUser from "../../../../components/modals/ReportUser";
 import { ErrorToaster } from "../../../../components/shared/Toster";
 import GlobalContext from "../../../../context/GlobalContext";
 
@@ -15,6 +16,7 @@ function BuyerInfo(props) {
   const Navigate = useNavigate();
   const { userInfo } = useContext(GlobalContext);
   const [isOpenSendProposalModal, setIsOpenSendProposalModal] = useState(false);
+  const [isOpenReportUserModal, setIsOpenReportUserModal] = useState(false);
   const [selectedJob, setSelectedJob] = useState(false);
 
   return (
@@ -87,7 +89,10 @@ function BuyerInfo(props) {
             Send Message
           </button>
         </div>
-        <p className="text-gray-400 underline text-center mt-4 font-[600] cursor-pointer">
+        <p
+          className="text-gray-400 underline hover:text-primary text-center mt-4 font-[600] cursor-pointer"
+          onClick={() => setIsOpenReportUserModal(true)}
+        >
           Report User
         </p>
       </div>
@@ -95,6 +100,13 @@ function BuyerInfo(props) {
         selected={selectedJob}
         isOpenModal={isOpenSendProposalModal}
         setIsOpenModal={setIsOpenSendProposalModal}
+      />
+      <ReportUser
+        title="Tell us why are you reporting this user?"
+        description="Select your reason for reporting and submit to us, we’ll look into this and take necessary actions."
+        url={`/api/accounts/user/${findJob.data?.user?.id}/report/`}
+        isOpenModal={isOpenReportUserModal}
+        setIsOpenModal={setIsOpenReportUserModal}
       />
     </>
   );

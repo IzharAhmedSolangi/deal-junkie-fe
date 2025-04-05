@@ -352,11 +352,11 @@ function EditProfile() {
           </div>
         </div>
         {/* Work Information */}
-        <div className="w-full mt-3">
+        {/* <div className="w-full mt-3">
           <h1 className="font-semibold text-[30px] text-secondary">
             Work Information
           </h1>
-        </div>
+        </div> */}
         {/* Additional Information */}
         <div className="w-full mt-3">
           <h1 className="font-semibold text-[30px] text-secondary">

@@ -1,57 +1,42 @@
-import { useState } from "react";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { getAccessToken } from "../../storage/storage";
 
-function useGetAllSellers() {
-  const BASE_URL = import.meta.env.VITE_API_URL;
+const BASE_URL = import.meta.env.VITE_API_URL;
+
+const fetchAllSellers = async ({ pageParam = 1 }) => {
   const token = getAccessToken();
-  const [sellers, setSellers] = useState({
-    loading: true,
-    buttonLoading: false,
-    data: null,
-    message: null,
-    totalPages: 1,
-    currentPage: 1,
+  const response = await axios.get(
+    `${BASE_URL}/api/admin/sellers/?page=${pageParam}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  const data = response.data;
+  return {
+    data,
+    nextPage: data.current_page + 1,
+    totalPages: data.total_pages,
+  };
+};
+
+function useGetAllSellers() {
+  const query = useInfiniteQuery({
+    queryKey: ["all-sellers"],
+    queryFn: fetchAllSellers,
+    getNextPageParam: (lastPage) => {
+      if (lastPage.data.current_page >= lastPage.totalPages) return undefined;
+      return lastPage.nextPage;
+    },
+    staleTime: 1000 * 60 * 5,
   });
 
-  const GetAllSellers = async (page = 1, append = false) => {
-    setSellers((prevState) => ({
-      ...prevState,
-      loading: true,
-      message: null,
-    }));
-    await axios
-      .get(`${BASE_URL}/api/admin/sellers/?page=${page}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
-        setSellers((prevState) => ({
-          ...prevState,
-          loading: false,
-          buttonLoading: false,
-          totalPages: response.data.total_pages,
-          currentPage: response.data.current_page,
-          data: append
-            ? [...prevState.data, ...response.data.results]
-            : response.data.results,
-          message:
-            response.data.results.length > 0
-              ? null
-              : "We didn't find any seller",
-        }));
-      })
-      .catch((error) => {
-        setSellers((prevState) => ({
-          ...prevState,
-          loading: false,
-          buttonLoading: false,
-          data: null,
-          message: error?.response?.data?.message || "Internal server error",
-        }));
-      });
+  return {
+    ...query,
+    refetchAllSellers: query.refetch,
   };
-  return { GetAllSellers, sellers, setSellers };
 }
+
 export default useGetAllSellers;

@@ -1,5 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from "react";
 import useGetAllBuyers from "../../services/admin/useGetAllBuyers";
 import { ButtonLoader3 } from "../../components/shared/ButtonLoaders";
 import ShowMessage from "../../components/shared/ShowMessage";
@@ -10,20 +8,31 @@ import {
 } from "react-icons/md";
 import { Link } from "react-router-dom";
 import AppHead from "../../seo/AppHead";
+import { useCallback, useRef } from "react";
 
 function Buyers() {
-  const { GetAllBuyers, buyers } = useGetAllBuyers();
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
+    useGetAllBuyers();
 
-  useEffect(() => {
-    GetAllBuyers();
-  }, []);
+  const observer = useRef();
 
-  const handleLoadMore = () => {
-    if (buyers.currentPage < buyers.totalPages) {
-      const nextPage = buyers.currentPage + 1;
-      GetAllBuyers(nextPage, true);
-    }
-  };
+  const lastItemRef = useCallback(
+    (node) => {
+      if (isFetchingNextPage) return;
+      if (observer.current) observer.current.disconnect();
+
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && hasNextPage) {
+          fetchNextPage();
+        }
+      });
+
+      if (node) observer.current.observe(node);
+    },
+    [isFetchingNextPage, hasNextPage, fetchNextPage]
+  );
+
+  const allBuyers = data?.pages?.flatMap((page) => page.data.results) || [];
   return (
     <>
       <AppHead title="Buyers - Deal Junkie" />
@@ -32,80 +41,76 @@ function Buyers() {
           <h1 className="text-[#02174C] text-[30px] font-[600]">Buyers</h1>
         </div>
         <div className="mt-3">
-          {buyers.data && (
+          {allBuyers && (
             <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-4">
-              {buyers.data?.map((item, index) => (
-                <div
-                  key={index}
-                  className={`rounded-lg p-4 bg-white border-gray-200`}
-                  style={{ boxShadow: "0px 0px 7px #49586D21" }}
-                >
-                  {item?.profile_picture ? (
-                    <img
-                      src={item?.profile_picture}
-                      alt="Profile"
-                      className="w-full md:h-[200px] xs:h-[120px] object-cover rounded-sm"
-                    />
-                  ) : (
-                    <div className="w-full md:h-[200px] xs:h-[120px] bg-gray-200 rounded-sm flex justify-center items-center">
-                      {item?.first_name} {item?.last_name}
-                    </div>
-                  )}
-                  <h3 className="text-lg font-bold mt-2 text-[#022247] text-center">
-                    {item?.first_name} {item?.last_name}
-                  </h3>
-                  <div className="flex justify-center gap-1 mt-2">
-                    <MdOutlineLocationOn className="text-[#6F7487] text-[20px]" />
-                    <p className="font-normal text-[14px] text-[#6F7487] text-center">
-                      {item?.street}
-                    </p>
-                  </div>
-                  <div className="flex justify-center gap-1 mt-2">
-                    <MdOutlineMail className="text-[#6F7487] text-[20px]" />
-                    <p className="font-normal text-[14px] text-[#6F7487]">
-                      {item?.email}
-                    </p>
-                  </div>
-                  <div className="flex justify-center gap-1 mt-2">
-                    <MdPhoneAndroid className="text-[#6F7487] text-[20px]" />
-                    <p className="font-normal text-[14px] text-[#6F7487]">
-                      {item?.phone_number}
-                    </p>
-                  </div>
-                  <Link
-                    to={`/admin/buyers/${item.id}`}
-                    className="w-full bg-secondary text-white py-2 rounded-sm cursor-pointer mt-3 flex justify-center items-center"
+              {allBuyers?.map((item, index) => {
+                const isLast = index === allBuyers.length - 1;
+                return (
+                  <div
+                    key={index}
+                    ref={isLast ? lastItemRef : null}
+                    className={`rounded-lg p-4 bg-white border-gray-200`}
+                    style={{ boxShadow: "0px 0px 7px #49586D21" }}
                   >
-                    View Details
-                  </Link>
-                </div>
-              ))}
+                    {item?.profile_picture ? (
+                      <img
+                        src={item?.profile_picture}
+                        alt="Profile"
+                        className="w-full md:h-[200px] xs:h-[120px] object-cover rounded-sm"
+                      />
+                    ) : (
+                      <div className="w-full md:h-[200px] xs:h-[120px] bg-gray-200 rounded-sm flex justify-center items-center">
+                        {item?.first_name} {item?.last_name}
+                      </div>
+                    )}
+                    <h3 className="text-lg font-bold mt-2 text-[#022247] text-center">
+                      {item?.first_name} {item?.last_name}
+                    </h3>
+                    <div className="flex justify-center gap-1 mt-2">
+                      <MdOutlineLocationOn className="text-[#6F7487] text-[20px]" />
+                      <p className="font-normal text-[14px] text-[#6F7487] text-center">
+                        {item?.street}
+                      </p>
+                    </div>
+                    <div className="flex justify-center gap-1 mt-2">
+                      <MdOutlineMail className="text-[#6F7487] text-[20px]" />
+                      <p className="font-normal text-[14px] text-[#6F7487]">
+                        {item?.email}
+                      </p>
+                    </div>
+                    <div className="flex justify-center gap-1 mt-2">
+                      <MdPhoneAndroid className="text-[#6F7487] text-[20px]" />
+                      <p className="font-normal text-[14px] text-[#6F7487]">
+                        {item?.phone_number}
+                      </p>
+                    </div>
+                    <Link
+                      to={`/admin/buyers/${item.id}`}
+                      className="w-full bg-secondary text-white py-2 rounded-sm cursor-pointer mt-3 flex justify-center items-center"
+                    >
+                      View Details
+                    </Link>
+                  </div>
+                );
+              })}
             </div>
           )}
-          {buyers.currentPage < buyers.totalPages && !buyers.loading && (
-            <div className="flex justify-center mt-4">
-              <button
-                className="bg-primary text-secondary py-2 px-6 rounded-md cursor-pointer"
-                onClick={handleLoadMore}
-                disabled={buyers.loading}
-              >
-                See More
-              </button>
+
+          {allBuyers.length === 0 && !isLoading && (
+            <div className="w-full h-[200px] flex justify-center items-center">
+              <ShowMessage title="We didn't find any buyers" />
             </div>
           )}
-          {buyers.data && buyers.loading && (
-            <div className="w-full flex justify-center mt-4">
+
+          {isLoading && (
+            <div className="w-full h-[200px] flex justify-center items-center">
               <ButtonLoader3 />
             </div>
           )}
-          {!buyers.data && buyers.loading && (
-            <div className="flex justify-center items-center w-full h-[300px]">
+
+          {isFetchingNextPage && allBuyers && (
+            <div className="w-full mt-3 flex justify-center">
               <ButtonLoader3 />
-            </div>
-          )}
-          {!buyers.data && !buyers.loading && buyers.message && (
-            <div className="flex justify-center items-center w-full h-[300px]">
-              <ShowMessage title={buyers.message} />
             </div>
           )}
         </div>
