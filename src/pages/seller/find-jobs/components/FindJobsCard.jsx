@@ -10,6 +10,7 @@ import SendProposal from "../../../../components/modals/SendProposal";
 import GlobalContext from "../../../../context/GlobalContext";
 import { ErrorToaster } from "../../../../components/shared/Toster";
 import { TruncateText } from "../../../../utils/TruncateText";
+import JobCard from "../../../../components/skeltons/JobCard";
 
 function FindJobsCard(props) {
   const { data, isLoading, isFetchingNextPage, lastItemRef } = props;
@@ -98,8 +99,10 @@ function FindJobsCard(props) {
         )}
 
         {isLoading && (
-          <div className="w-full h-[200px] flex justify-center items-center">
-            <ButtonLoader3 />
+          <div className="w-full grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-4 mt-1">
+            {Array.from({ length: 6 }).map((_, index) => (
+              <JobCard key={index} />
+            ))}
           </div>
         )}
 

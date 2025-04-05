@@ -5,6 +5,7 @@ import RatingStars from "../../components/shared/RatingStars";
 import { Link } from "react-router-dom";
 import AppHead from "../../seo/AppHead";
 import { useCallback, useRef } from "react";
+import SellerCard from "../../components/skeltons/SellerCard";
 
 function Sellers() {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
@@ -89,8 +90,10 @@ function Sellers() {
           )}
 
           {isLoading && (
-            <div className="w-full h-[200px] flex justify-center items-center">
-              <ButtonLoader3 />
+            <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-4">
+              {Array.from({ length: 8 }).map((_, index) => (
+                <SellerCard key={index} />
+              ))}
             </div>
           )}
 

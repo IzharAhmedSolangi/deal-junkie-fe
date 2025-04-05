@@ -5,6 +5,7 @@ import RatingStars from "../../../../components/shared/RatingStars";
 import ShowMessage from "../../../../components/shared/ShowMessage";
 import { useState } from "react";
 import HireNow from "../../../../components/modals/HireNow";
+import SellerCard from "../../../../components/skeltons/SellerCard";
 
 function FindExpertsCard({ data, isLoading, isFetchingNextPage, lastItemRef }) {
   const navigate = useNavigate();
@@ -83,8 +84,10 @@ function FindExpertsCard({ data, isLoading, isFetchingNextPage, lastItemRef }) {
       )}
 
       {isLoading && (
-        <div className="w-full h-[200px] flex justify-center items-center">
-          <ButtonLoader3 />
+        <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-4 py-4 md:px-10 px-5">
+          {Array.from({ length: 8 }).map((_, index) => (
+            <SellerCard key={index} />
+          ))}
         </div>
       )}
       {isFetchingNextPage && allExperts && (

@@ -14,6 +14,7 @@ import { TruncateText } from "../../utils/TruncateText";
 import useCancelTask from "../../services/admin/useCancelTask";
 import GlobalContext from "../../context/GlobalContext";
 import AppHead from "../../seo/AppHead";
+import JobCard from "../../components/skeltons/JobCard";
 
 function Jobs() {
   const { GetAllJobs, jobs, setJobs } = useGetAllJobs();
@@ -137,8 +138,10 @@ function Jobs() {
             </div>
           )}
           {!jobs.data && jobs.loading && (
-            <div className="flex justify-center items-center w-full h-[300px]">
-              <ButtonLoader3 />
+            <div className="grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-4">
+              {Array.from({ length: 6 }).map((_, index) => (
+                <JobCard key={index} />
+              ))}
             </div>
           )}
           {!jobs.loading && jobs.message && (

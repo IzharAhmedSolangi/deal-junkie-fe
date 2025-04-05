@@ -9,6 +9,7 @@ import {
 import { Link } from "react-router-dom";
 import AppHead from "../../seo/AppHead";
 import { useCallback, useRef } from "react";
+import BuyerCard from "../../components/skeltons/BuyerCard";
 
 function Buyers() {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
@@ -103,8 +104,10 @@ function Buyers() {
           )}
 
           {isLoading && (
-            <div className="w-full h-[200px] flex justify-center items-center">
-              <ButtonLoader3 />
+            <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-4">
+              {Array.from({ length: 8 }).map((_, index) => (
+                <BuyerCard key={index} />
+              ))}
             </div>
           )}
 
