@@ -143,24 +143,24 @@ function AboutUs() {
             {[
               {
                 title: "Flexible & On-Demand",
-                desc: "Access finance professionals for one-time projects or ongoing advisory work.",
+                desc: "Access finance professionals for one-time projects or ongoing advisory work."
               },
               {
                 title: "Top-Tier Talent",
-                desc: "Work with experts from investment banking, private equity, hedge funds, and consulting.",
+                desc: "Work with experts from investment banking, private equity, hedge funds, and consulting."
               },
               {
                 title: "Cost-Effective Solutions",
-                desc: "Get institutional-quality analysis without the overhead of a full-time hire.",
+                desc: "Get institutional-quality analysis without the overhead of a full-time hire."
               },
               {
                 title: "Seamless Matching Process",
-                desc: "Quickly find the right expert for your needs through our tailored search.",
+                desc: "Quickly find the right expert for your needs through our tailored search."
               },
               {
                 title: "Elevate Your Business With Us",
-                desc: "Whether you're acquiring a company, investing in real estate, analyzing a stock, or conducting due diligence,",
-              },
+                desc: "Whether you're acquiring a company, investing in real estate, analyzing a stock, or conducting due diligence,"
+              }
             ].map((item, index) => (
               <div
                 key={index}
@@ -191,7 +191,7 @@ function AboutUs() {
                 Deal Junkie connects you with the expertise you need to make
                 better investment decisions.
               </h3>
-              <button className="mt-4 px-6 py-3 bg-secondary text-white font-semibold rounded-lg">
+              <button className="hover-slide-button mt-4 px-6 py-3 bg-secondary text-white font-semibold rounded-lg">
                 Find Experts Now
               </button>
             </div>

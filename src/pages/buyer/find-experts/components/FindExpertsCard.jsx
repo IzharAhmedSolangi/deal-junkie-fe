@@ -55,7 +55,7 @@ function FindExpertsCard({ data, isLoading, isFetchingNextPage, lastItemRef }) {
                   </div>
                   <div className="flex md:flex-row flex-col md:gap-2 gap-1 md:mt-6 mt-1">
                     <button
-                      className="w-full bg-secondary text-white md:py-2 py-1 rounded-sm cursor-pointer hover:opacity-80"
+                      className="hover-slide-button w-full bg-secondary text-white md:py-2 py-1 rounded-sm cursor-pointer hover:opacity-80"
                       onClick={() => {
                         setIsOpenHireNowModal(true);
                         setSelectedSeller(item);
@@ -64,7 +64,7 @@ function FindExpertsCard({ data, isLoading, isFetchingNextPage, lastItemRef }) {
                       Hire Now
                     </button>
                     <button
-                      className="w-full bg-primary text-secondary md:py-2 py-1 rounded-sm cursor-pointer hover:opacity-80"
+                      className=" hover-slide-button w-full bg-primary text-secondary md:py-2 py-1 rounded-sm cursor-pointer hover:opacity-80"
                       onClick={() => navigate(`/find-experts/${item.id}`)}
                     >
                       See Details

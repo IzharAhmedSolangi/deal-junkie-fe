@@ -12,13 +12,13 @@ function FindExpertsButton() {
     <>
       {token ? (
         <NavLink to="/find-jobs">
-          <button className="rounded w-[120px] h-[40px] bg-secondary text-white text-center cursor-pointer hover:opacity-80">
+          <button className=" hover-slide-button rounded w-[120px] h-[40px] bg-secondary text-white text-center cursor-pointer hover:opacity-80">
             Find Experts
           </button>
         </NavLink>
       ) : (
         <button
-          className="rounded w-[120px] h-[40px] bg-secondary text-white text-center cursor-pointer hover:opacity-80"
+          className=" hover-slide-button rounded w-[120px] h-[40px] bg-secondary text-white text-center cursor-pointer hover:opacity-80"
           onClick={() => {
             setIsOpenAuthModal(true);
             setAuthModalType("login");

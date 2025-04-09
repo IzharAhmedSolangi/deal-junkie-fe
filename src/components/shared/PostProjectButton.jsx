@@ -12,14 +12,14 @@ function PostProjectButton() {
     <>
       {token ? (
         <button
-          className="rounded w-[120px] h-[40px] bg-primary text-[#003F63] text-center cursor-pointer hover:opacity-80"
+          className=" hover-slide-button rounded w-[120px] h-[40px] bg-primary text-[#003F63] text-center cursor-pointer hover:opacity-80"
           onClick={() => setIsOpenPostProjectModal(true)}
         >
           Post a Project
         </button>
       ) : (
         <button
-          className="rounded w-[120px] h-[40px] bg-primary text-[#003F63] text-center cursor-pointer hover:opacity-80"
+          className=" hover-slide-button rounded w-[120px] h-[40px] bg-primary text-[#003F63] text-center cursor-pointer hover:opacity-80"
           onClick={() => {
             setIsOpenAuthModal(true);
             setAuthModalType("login");

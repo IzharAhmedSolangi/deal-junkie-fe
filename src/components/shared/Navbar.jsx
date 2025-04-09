@@ -10,7 +10,7 @@ import { FaBars, FaRegComments } from "react-icons/fa6";
 import {
   getAccessToken,
   removeAccessToken,
-  removeRefreshToken,
+  removeRefreshToken
 } from "../../storage/storage";
 import Auth from "../modals/Auth";
 import PostProject from "../modals/PostProject";
@@ -77,7 +77,7 @@ const Navbar = () => {
               { name: "Home", path: "/" },
               { name: "About Us", path: "/about-us" },
               { name: "How it Works", path: "/how-it-works" },
-              { name: "Pricing", path: "/pricing" },
+              { name: "Pricing", path: "/pricing" }
             ].map((item, index) => (
               <Link
                 key={index}
@@ -114,7 +114,7 @@ const Navbar = () => {
               )}
               {userInfo?.user?.role === "buyer" && (
                 <button
-                  className="md:flex hidden rounded-sm bg-primary text-[#02174C] px-4 py-2 cursor-pointer hover:opacity-80"
+                  className=" hover-slide-button md:flex hidden rounded-sm bg-primary text-[#02174C] px-4 py-2 cursor-pointer hover:opacity-80"
                   onClick={() => setIsOpenPostProjectModal(true)}
                 >
                   Post a Project
@@ -157,7 +157,7 @@ const Navbar = () => {
                 { name: "Home", path: "/" },
                 { name: "About Us", path: "/about-us" },
                 { name: "How it Works", path: "/how-it-works" },
-                { name: "Pricing", path: "/pricing" },
+                { name: "Pricing", path: "/pricing" }
               ].map((item, index) => (
                 <Link
                   key={index}
@@ -184,7 +184,7 @@ const Navbar = () => {
                   )}
                   {userInfo?.user?.role === "buyer" && (
                     <button
-                      className="rounded bg-primary text-[#02174C] px-4 py-2 cursor-pointer hover:opacity-80"
+                      className="hover-slide-button rounded bg-primary text-[#02174C] px-4 py-2 cursor-pointer hover:opacity-80"
                       onClick={() => setIsOpenPostProjectModal(true)}
                     >
                       Post a Project
@@ -312,18 +312,18 @@ function ProfileDropdown() {
                 {
                   name: "My Account",
                   path: "/dashboard/edit-profile",
-                  icon: <FiUser />,
+                  icon: <FiUser />
                 },
                 {
                   name: "My Tasks",
                   path: "/dashboard/my-tasks",
-                  icon: <BsClipboardCheck />,
+                  icon: <BsClipboardCheck />
                 },
                 {
                   name: "Manage Payments",
                   path: "/dashboard/manage-payments",
-                  icon: <BsCreditCard2Front />,
-                },
+                  icon: <BsCreditCard2Front />
+                }
               ].map((item, index) => (
                 <Link
                   key={index}
@@ -358,18 +358,18 @@ function ProfileDropdown() {
                 {
                   name: "My Account",
                   path: "/dashboard/edit-profile",
-                  icon: <FiUser />,
+                  icon: <FiUser />
                 },
                 {
                   name: "My Jobs",
                   path: "/dashboard/my-jobs",
-                  icon: <BsClipboardCheck />,
+                  icon: <BsClipboardCheck />
                 },
                 {
                   name: "Manage Payments",
                   path: "/dashboard/manage-payments",
-                  icon: <BsCreditCard2Front />,
-                },
+                  icon: <BsCreditCard2Front />
+                }
               ].map((item, index) => (
                 <Link
                   key={index}
@@ -396,8 +396,8 @@ function ProfileDropdown() {
                 {
                   name: "Dashboard",
                   path: "/admin/dashboard",
-                  icon: <LuLayoutDashboard />,
-                },
+                  icon: <LuLayoutDashboard />
+                }
               ].map((item, index) => (
                 <Link
                   key={index}

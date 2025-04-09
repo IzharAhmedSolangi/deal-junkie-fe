@@ -226,13 +226,13 @@ function HowItWorks() {
               {
                 title:
                   "Are you an investor, entrepreneur, or firm looking for financial expertise?",
-                desc: "Post a project and get matched with the right finance professional.",
+                desc: "Post a project and get matched with the right finance professional."
               },
               {
                 title:
                   "Are you a finance professional looking for flexible deal work?",
-                desc: "Join Deal Junkie and offer your expertise to businesses and investors..",
-              },
+                desc: "Join Deal Junkie and offer your expertise to businesses and investors.."
+              }
             ].map((item, index) => (
               <div
                 key={index}
@@ -261,7 +261,7 @@ function HowItWorks() {
               <h3 className="md:text-[36px] text-[18px] font-semibold text-[#022247]">
                 Join Deal Junkie and take your deals to the next level.
               </h3>
-              <button className="mt-4 px-6 py-3 bg-secondary text-white font-semibold rounded-lg">
+              <button className=" hover-slide-button mt-4 px-6 py-3 bg-secondary text-white font-semibold rounded-lg">
                 Find Experts Now
               </button>
             </div>
