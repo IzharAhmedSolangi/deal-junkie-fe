@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getAccessToken } from "../../../../storage/storage";
 import axios from "axios";
 import {
   MdOutlineLocationOn,
@@ -12,7 +11,6 @@ import {
 function Hero() {
   const Navigate = useNavigate();
   const [query, setQuery] = useState("");
-  const token = getAccessToken();
   const BASE_URL = import.meta.env.VITE_API_URL;
   const [allBuyers, setAllBuyers] = useState({
     loading: true,
@@ -26,11 +24,7 @@ function Hero() {
 
   const GetAllBuyers = async () => {
     await axios
-      .get(`${BASE_URL}/api/accounts/random-buyers/`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .get(`${BASE_URL}/api/accounts/random-buyers/`)
       .then((response) => {
         setAllBuyers((prevState) => ({
           ...prevState,

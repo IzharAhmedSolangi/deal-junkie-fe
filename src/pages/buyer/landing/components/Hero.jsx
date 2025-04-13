@@ -24,11 +24,7 @@ function Hero() {
 
   const GetAllSellers = async () => {
     await axios
-      .get(`${BASE_URL}/api/accounts/random-sellers/`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .get(`${BASE_URL}/api/accounts/random-sellers/`)
       .then((response) => {
         setAllSellers((prevState) => ({
           ...prevState,
