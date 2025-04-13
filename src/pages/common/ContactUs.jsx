@@ -200,7 +200,7 @@ function ContactUs() {
               </div>
               <div className="mt-3 w-full flex justify-end">
                 <button
-                  className="bg-secondary cursor-pointer hover:opacity-80 w-[150px] h-[40px] text-white rounded flex justify-center items-center"
+                  className="hover-slide-button bg-secondary cursor-pointer w-[150px] h-[40px] text-white rounded flex justify-center items-center"
                   type="submit"
                   disabled={loading}
                 >

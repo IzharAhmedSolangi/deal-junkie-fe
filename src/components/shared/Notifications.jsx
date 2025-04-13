@@ -58,7 +58,7 @@ function Notifications() {
         timeLabel = createdAt.toLocaleDateString("en-US", {
           day: "2-digit",
           month: "short",
-          year: "numeric"
+          year: "numeric",
         });
       }
     }
@@ -68,12 +68,17 @@ function Notifications() {
 
   return (
     <div className="relative" ref={dropdownRef}>
-      <IoIosNotificationsOutline
-        className="w-7 h-7 text-gray-500 cursor-pointer relative"
-        onClick={() => setIsOpen(!isOpen)}
-      />
+      <button
+        title="Notifications"
+        className="flex justify-center items-center"
+      >
+        <IoIosNotificationsOutline
+          className="w-7 h-7 text-gray-500 hover:text-primary cursor-pointer relative"
+          onClick={() => setIsOpen(!isOpen)}
+        />
+      </button>
       {notifications.unread > 0 && (
-        <div className="absolute w-[14px] h-[14px] rounded-full bg-primary top-0 right-0 text-white text-[10px] flex items-center justify-center">
+        <div className="absolute w-[14px] h-[14px] rounded-full bg-primary top-0 right-0 text-secondary text-[10px] flex items-center justify-center">
           {notifications.unread}
         </div>
       )}

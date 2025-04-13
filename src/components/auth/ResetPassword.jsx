@@ -104,7 +104,7 @@ function ResetPassword(props) {
             </p>
           )}
           <button
-            className="bg-secondary cursor-pointer hover:opacity-80 w-full h-[40px] text-white rounded mt-6 flex justify-center items-center"
+            className="hover-slide-button bg-secondary cursor-pointer w-full h-[40px] text-white rounded mt-6 flex justify-center items-center"
             type="submit"
             disabled={loading}
           >

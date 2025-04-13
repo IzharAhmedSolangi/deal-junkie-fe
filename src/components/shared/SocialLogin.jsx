@@ -33,7 +33,7 @@ export function SocialLogin() {
     <>
       <button
         onClick={() => Login()}
-        className="w-full h-[40px] border text-[#344054] border-[#02174C33] hover:border-secondary hover:bg-secondary hover:text-white rounded flex justify-center items-center cursor-pointer"
+        className="hover-slide-button w-full h-[40px] border text-[#344054] border-[#02174C33] hover:border-secondary hover:bg-secondary hover:text-white rounded flex justify-center items-center cursor-pointer"
       >
         {loading ? (
           <ButtonLoader2 />

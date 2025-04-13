@@ -10,7 +10,7 @@ import { FaBars, FaRegComments } from "react-icons/fa6";
 import {
   getAccessToken,
   removeAccessToken,
-  removeRefreshToken
+  removeRefreshToken,
 } from "../../storage/storage";
 import Auth from "../modals/Auth";
 import PostProject from "../modals/PostProject";
@@ -77,7 +77,7 @@ const Navbar = () => {
               { name: "Home", path: "/" },
               { name: "About Us", path: "/about-us" },
               { name: "How it Works", path: "/how-it-works" },
-              { name: "Pricing", path: "/pricing" }
+              { name: "Pricing", path: "/pricing" },
             ].map((item, index) => (
               <Link
                 key={index}
@@ -98,7 +98,7 @@ const Navbar = () => {
               {" "}
               <Notifications />
               <Link to="/inbox" className="relative">
-                <FaRegComments className="text-xl text-gray-500 text-[30px]" />
+                <FaRegComments className="text-xl text-gray-500 hover:text-primary text-[30px]" />
                 <span className="absolute top-0 right-0 bg-primary text-secondary text-xs w-4 h-4 text-[10px] flex items-center justify-center rounded-full">
                   2
                 </span>
@@ -107,14 +107,14 @@ const Navbar = () => {
               {userInfo?.user?.role === "seller" && (
                 <Link
                   to="/find-jobs"
-                  className="md:flex hidden rounded-sm bg-primary text-[#02174C] px-4 py-2 cursor-pointer hover:opacity-80"
+                  className="hover-slide-button md:flex hidden rounded-sm bg-primary text-[#02174C] px-4 py-2 cursor-pointer"
                 >
                   Find Jobs
                 </Link>
               )}
               {userInfo?.user?.role === "buyer" && (
                 <button
-                  className=" hover-slide-button md:flex hidden rounded-sm bg-primary text-[#02174C] px-4 py-2 cursor-pointer hover:opacity-80"
+                  className="hover-slide-button md:flex hidden rounded-sm bg-primary text-[#02174C] px-4 py-2 cursor-pointer"
                   onClick={() => setIsOpenPostProjectModal(true)}
                 >
                   Post a Project
@@ -124,7 +124,7 @@ const Navbar = () => {
           ) : (
             <div className="flex items-center justify-end gap-1 w-[33.33%]">
               <button
-                className="text-gray-700 hover:text-primary cursor-pointer"
+                className="text-gray-700 hover:text-primary cursor-pointer transition-transform duration-300 hover:scale-120"
                 onClick={() => {
                   setIsOpenAuthModal(true);
                   setAuthModalType("login");
@@ -134,7 +134,7 @@ const Navbar = () => {
               </button>
               /
               <button
-                className="text-gray-700 hover:text-primary cursor-pointer"
+                className="text-gray-700 hover:text-primary cursor-pointer transition-transform duration-300 hover:scale-110"
                 onClick={() => {
                   setIsOpenAuthModal(true);
                   setAuthModalType("signup");
@@ -157,7 +157,7 @@ const Navbar = () => {
                 { name: "Home", path: "/" },
                 { name: "About Us", path: "/about-us" },
                 { name: "How it Works", path: "/how-it-works" },
-                { name: "Pricing", path: "/pricing" }
+                { name: "Pricing", path: "/pricing" },
               ].map((item, index) => (
                 <Link
                   key={index}
@@ -177,7 +177,7 @@ const Navbar = () => {
                   {userInfo?.user?.role === "seller" && (
                     <Link
                       to="/find-jobs"
-                      className="rounded bg-primary text-[#02174C] px-4 py-2 cursor-pointer hover:opacity-80"
+                      className="hover-slide-button rounded bg-primary text-[#02174C] px-4 py-2 cursor-pointer hover:opacity-80"
                     >
                       Find Jobs
                     </Link>
@@ -312,18 +312,18 @@ function ProfileDropdown() {
                 {
                   name: "My Account",
                   path: "/dashboard/edit-profile",
-                  icon: <FiUser />
+                  icon: <FiUser />,
                 },
                 {
                   name: "My Tasks",
                   path: "/dashboard/my-tasks",
-                  icon: <BsClipboardCheck />
+                  icon: <BsClipboardCheck />,
                 },
                 {
                   name: "Manage Payments",
                   path: "/dashboard/manage-payments",
-                  icon: <BsCreditCard2Front />
-                }
+                  icon: <BsCreditCard2Front />,
+                },
               ].map((item, index) => (
                 <Link
                   key={index}
@@ -358,18 +358,18 @@ function ProfileDropdown() {
                 {
                   name: "My Account",
                   path: "/dashboard/edit-profile",
-                  icon: <FiUser />
+                  icon: <FiUser />,
                 },
                 {
                   name: "My Jobs",
                   path: "/dashboard/my-jobs",
-                  icon: <BsClipboardCheck />
+                  icon: <BsClipboardCheck />,
                 },
                 {
                   name: "Manage Payments",
                   path: "/dashboard/manage-payments",
-                  icon: <BsCreditCard2Front />
-                }
+                  icon: <BsCreditCard2Front />,
+                },
               ].map((item, index) => (
                 <Link
                   key={index}
@@ -396,8 +396,8 @@ function ProfileDropdown() {
                 {
                   name: "Dashboard",
                   path: "/admin/dashboard",
-                  icon: <LuLayoutDashboard />
-                }
+                  icon: <LuLayoutDashboard />,
+                },
               ].map((item, index) => (
                 <Link
                   key={index}

@@ -155,7 +155,7 @@ function SendProposal(props) {
                 >
                   <div
                     onClick={handleClose}
-                    className="absolute top-[15px] right-[15px] cursor-pointer rounded border border-[#02174C33] w-[30px] h-[30px] flex justify-center items-center"
+                    className="absolute top-[15px] right-[15px] cursor-pointer rounded border border-[#02174C33] hover:border-primary hover:text-primary w-[30px] h-[30px] flex justify-center items-center"
                   >
                     <AiOutlineClose className="text-[22px]" />
                   </div>
