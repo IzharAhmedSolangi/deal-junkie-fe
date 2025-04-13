@@ -82,7 +82,7 @@ const Navbar = () => {
               <Link
                 key={index}
                 to={item.path}
-                className={`text-sm font-medium transition-colors duration-200 ${
+                className={`text-sm font-medium transition-transform duration-300 hover:scale-110 ${
                   location.pathname === item.path
                     ? "text-primary"
                     : "text-gray-700 hover:text-primary"
@@ -162,7 +162,7 @@ const Navbar = () => {
                 <Link
                   key={index}
                   to={item.path}
-                  className={`text-[20px] font-medium  transition-colors duration-200 ${
+                  className={`text-[20px] font-medium transition-transform duration-300 hover:scale-110 ${
                     location.pathname === item.path
                       ? "text-primary "
                       : "text-gray-700 hover:text-primary"
