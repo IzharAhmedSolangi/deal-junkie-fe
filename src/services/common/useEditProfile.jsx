@@ -33,6 +33,8 @@ function useEditProfile() {
         }
         if (response.data?.seller_profile === null) {
           Navigate("/dashboard/edit-profile");
+        } else {
+          Navigate("/");
         }
       })
       .catch((error) => {

@@ -300,8 +300,8 @@ function ProfileDropdown() {
               <button
                 className="w-full px-4 py-2 flex items-center gap-2 hover:bg-[#0AF8860F] cursor-pointer"
                 onClick={() => {
-                  SwitchMode("seller");
                   setIsOpen(false);
+                  SwitchMode("seller");
                 }}
                 disabled={loading}
               >
@@ -348,7 +348,10 @@ function ProfileDropdown() {
             <div className="py-2">
               <button
                 className="w-full px-4 py-2 flex items-center gap-2 hover:bg-[#0AF8860F] cursor-pointer"
-                onClick={() => SwitchMode("buyer")}
+                onClick={() => {
+                  setIsOpen(false);
+                  SwitchMode("buyer");
+                }}
                 disabled={loading}
               >
                 <IoIosSwitch />

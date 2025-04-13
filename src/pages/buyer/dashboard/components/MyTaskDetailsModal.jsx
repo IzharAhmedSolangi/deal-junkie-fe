@@ -75,7 +75,7 @@ function MyTaskDetailsModal(props) {
                 <Dialog.Panel className="relative transform overflow-hidden rounded-[16px] bg-white text-left shadow-xl transition-all w-full min-h-full md:py-12 md:px-6 p-5">
                   <div
                     onClick={handleClose}
-                    className="absolute top-[15px] right-[15px] cursor-pointer rounded border border-[#02174C33] w-[30px] h-[30px] flex justify-center items-center"
+                    className="absolute top-[15px] right-[15px] cursor-pointer rounded border border-[#02174C33] hover:text-primary hover:border-primary w-[30px] h-[30px] flex justify-center items-center"
                   >
                     <AiOutlineClose className="text-[22px]" />
                   </div>

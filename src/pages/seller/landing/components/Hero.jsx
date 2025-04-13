@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAccessToken } from "../../../../storage/storage";
@@ -5,7 +6,7 @@ import axios from "axios";
 import {
   MdOutlineLocationOn,
   MdOutlineMail,
-  MdPhoneAndroid
+  MdPhoneAndroid,
 } from "react-icons/md";
 
 function Hero() {
@@ -16,7 +17,7 @@ function Hero() {
   const [allBuyers, setAllBuyers] = useState({
     loading: true,
     data: null,
-    message: null
+    message: null,
   });
 
   const handleSearchJobs = () => {
@@ -27,15 +28,15 @@ function Hero() {
     await axios
       .get(`${BASE_URL}/api/accounts/random-buyers/`, {
         headers: {
-          Authorization: `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       })
       .then((response) => {
         setAllBuyers((prevState) => ({
           ...prevState,
           loading: false,
           data: response.data,
-          message: response.data ? null : "We didn't find any buyers"
+          message: response.data ? null : "We didn't find any buyers",
         }));
       })
       .catch((error) => {
@@ -43,7 +44,7 @@ function Hero() {
           ...prevState,
           loading: false,
           data: null,
-          message: error?.response?.data?.message || "Internal server error"
+          message: error?.response?.data?.message || "Internal server error",
         }));
       });
   };
@@ -52,7 +53,7 @@ function Hero() {
   }, []);
 
   return (
-    <div className="pt-[70px] w-full h-screen bg-[url('/assets/images/Banner.png')] bg-cover bg-center">
+    <div className="pt-[70px] w-full h-screen bg-[url('/assets/images/Banner.png')] bg-cover bg-center overflow-hidden">
       <div className="flex flex-col items-center md:px-0 px-3">
         <h1 className="text-[#1D2939] lg:text-[40px] text-[22px] font-[600] text-center lg:w-[40%] w-full">
           Unlock Your Full Potential with Deal Junkie
@@ -81,7 +82,7 @@ function Hero() {
           </div>
         </div>
 
-        <div className="w-[70%] mt-2">
+        <div className="lg:w-[60%] md:w-[70%] w-full mt-5">
           <div className="grid grid-cols-3">
             {allBuyers?.data?.map((item, index) => {
               return (
@@ -98,31 +99,31 @@ function Hero() {
                     <img
                       src={item?.profile_picture}
                       alt="Profile"
-                      className="w-full md:h-[200px] xs:h-[120px] object-cover rounded-sm"
+                      className="w-full md:h-[200px] xs:h-[100px] object-cover rounded-sm"
                     />
                   ) : (
-                    <div className="w-full md:h-[200px] xs:h-[120px] bg-gray-200 rounded-sm flex justify-center items-center">
+                    <div className="w-full md:h-[200px] xs:h-[100px] bg-gray-200 rounded-sm flex justify-center items-center md:text-[15px] text-[10px]">
                       {item?.name}
                     </div>
                   )}
-                  <h3 className="text-lg font-bold mt-2 text-[#022247] text-center">
+                  <h3 className="md:text-lg text-[12px] font-bold md:mt-2 mt-1 text-[#022247] text-center">
                     {item?.name}
                   </h3>
                   <div className="flex justify-center gap-1 mt-2">
-                    <MdOutlineLocationOn className="text-[#6F7487] text-[20px]" />
-                    <p className="font-normal text-[14px] text-[#6F7487] text-center">
+                    <MdOutlineLocationOn className="text-[#6F7487] md:text-[20px] text-[12px]" />
+                    <p className="font-normal md:text-[14px] text-[10px] text-[#6F7487] text-center">
                       {item?.address?.street}
                     </p>
                   </div>
                   <div className="flex justify-center gap-1 mt-2">
-                    <MdOutlineMail className="text-[#6F7487] text-[20px]" />
-                    <p className="font-normal text-[14px] text-[#6F7487]">
+                    <MdOutlineMail className="text-[#6F7487] md:text-[20px] text-[15px]" />
+                    <p className="font-normal md:text-[14px] text-[10px] text-[#6F7487]">
                       {item?.email}
                     </p>
                   </div>
                   <div className="flex justify-center gap-1 mt-2">
-                    <MdPhoneAndroid className="text-[#6F7487] text-[20px]" />
-                    <p className="font-normal text-[14px] text-[#6F7487]">
+                    <MdPhoneAndroid className="text-[#6F7487] md:text-[20px] text-[12px]" />
+                    <p className="font-normal md:text-[14px] text-[10px] text-[#6F7487]">
                       {item?.phone_number}
                     </p>
                   </div>
@@ -130,6 +131,35 @@ function Hero() {
               );
             })}
           </div>
+          {allBuyers.loading && (
+            <div className="grid grid-cols-3">
+              {Array.from({ length: 3 }).map((_, index) => (
+                <div
+                  className={`bg-white rounded-xl shadow p-4 w-full mx-auto animate-pulse
+                    ${index === 0 && "-rotate-8 mt-10"}
+                  ${index === 1 && "z-10"}
+                  ${index === 2 && "rotate-8 mt-10"}
+                    `}
+                  key={index}
+                >
+                  <div className="md:h-[200px] xs:h-[120px] bg-gray-200 rounded-md md:mb-4 mb-2" />
+                  <div className="h-4 bg-gray-200 rounded w-1/2 mx-auto mb-2" />
+                  <div className="flex items-center justify-center gap-2 mb-2">
+                    <div className="h-4 w-4 bg-gray-200 rounded-full" />
+                    <div className="h-4 bg-gray-200 rounded w-1/3" />
+                  </div>
+                  <div className="flex items-center justify-center gap-2 mb-2">
+                    <div className="h-4 w-4 bg-gray-200 rounded-full" />
+                    <div className="h-4 bg-gray-200 rounded w-2/3" />
+                  </div>
+                  <div className="flex items-center justify-center gap-2 mb-4">
+                    <div className="h-4 w-4 bg-gray-200 rounded-full" />
+                    <div className="h-4 bg-gray-200 rounded w-1/2" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </div>

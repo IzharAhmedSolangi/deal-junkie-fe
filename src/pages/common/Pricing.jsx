@@ -85,7 +85,7 @@ function Pricing() {
           {/* Second Container */}
           <section className="bg-[#3A4C5F0A] w-full h-auto flex flex-col items-center pt-12 pb-40 px-10">
             <h2 className="md:text-[40px] text-[22px] font-[600] text-[#1D2939]">
-              Why this Model Work
+              Why this Model Work&apos;s
             </h2>
             <div className="mt-5 grid md:grid-cols-3 grid-cols-1 gap-5">
               {[

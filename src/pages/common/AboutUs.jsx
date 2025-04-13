@@ -30,10 +30,10 @@ function AboutUs() {
             is a marketplace that connects investors, entrepreneurs, and
             businesses with highly experienced finance professionals—including
             former investment bankers, private equity analysts, hedge fund
-            analysts, and consultants. Whether you need due diligence, financial
-            modeling, investment research, or deal structuring, we provide
-            access to top-tier talent without the overhead of hiring a full-time
-            team.
+            analysts, and consultants. Whether you need assistance with due
+            diligence, financial modeling, investment research, or deal
+            structuring, we provide access to top-tier talent without the
+            overhead of hiring a full-time team.
           </p>
           <img
             src="/assets/images/mask-group.png"
@@ -143,24 +143,24 @@ function AboutUs() {
             {[
               {
                 title: "Flexible & On-Demand",
-                desc: "Access finance professionals for one-time projects or ongoing advisory work."
+                desc: "Access finance professionals for one-time projects or ongoing advisory work.",
               },
               {
                 title: "Top-Tier Talent",
-                desc: "Work with experts from investment banking, private equity, hedge funds, and consulting."
+                desc: "Work with experts from investment banking, private equity, hedge funds, and consulting.",
               },
               {
                 title: "Cost-Effective Solutions",
-                desc: "Get institutional-quality analysis without the overhead of a full-time hire."
+                desc: "Get institutional-quality analysis without the overhead of a full-time hire.",
               },
               {
                 title: "Seamless Matching Process",
-                desc: "Quickly find the right expert for your needs through our tailored search."
+                desc: "Quickly find the right expert for your needs through our tailored search.",
               },
               {
                 title: "Elevate Your Business With Us",
-                desc: "Whether you're acquiring a company, investing in real estate, analyzing a stock, or conducting due diligence,"
-              }
+                desc: "Whether you're acquiring a company, investing in real estate, analyzing a stock, or conducting due diligence.",
+              },
             ].map((item, index) => (
               <div
                 key={index}

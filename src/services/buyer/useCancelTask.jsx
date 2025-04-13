@@ -37,9 +37,8 @@ function useCancelTask() {
           ...prevState,
           loading: false,
           data: response.data,
-          message: response.data ? null : "Proposal accepted",
+          message: response.data ? null : "Your task successfully Cancelled",
         }));
-        console.log({ response });
         SuccessToaster("Task Cancelled", response?.data?.message);
       })
       .catch((error) => {

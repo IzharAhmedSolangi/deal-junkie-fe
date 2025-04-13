@@ -6,15 +6,12 @@ import { IoEyeOutline } from "react-icons/io5";
 import { PiCurrencyDollarBold } from "react-icons/pi";
 import { IoMdClose } from "react-icons/io";
 import useGetMyTasks from "../../../../services/buyer/useGetMyTasks";
-import {
-  ButtonLoader3,
-  ButtonLoader4,
-} from "../../../../components/shared/ButtonLoaders";
+import { ButtonLoader3 } from "../../../../components/shared/ButtonLoaders";
 import ShowMessage from "../../../../components/shared/ShowMessage";
 import MyTaskDetailsModal from "./MyTaskDetailsModal";
-import useCancelTask from "../../../../services/buyer/useCancelTask";
 import GlobalContext from "../../../../context/GlobalContext";
 import { TruncateText } from "../../../../utils/TruncateText";
+import CancelTask from "../../../../components/modals/CancelTask";
 
 const Tasks = [
   { name: "All Tasks", value: 1 },
@@ -27,12 +24,11 @@ const Tasks = [
 
 function MyTasks() {
   const { GetMyTasks, myTasks, setMyTasks } = useGetMyTasks();
-  const { CancelTask, cancelTask } = useCancelTask();
   const { updateResponse } = useContext(GlobalContext);
   const [selectedTaskFilter, setSelectedTaskFilter] = useState(Tasks[0]);
   const [selectedTask, setSelectedTask] = useState(null);
   const [isOpenTaskDetailsModal, setIsOpenTaskDetailsModal] = useState(false);
-  const [loadingTaskId, setLoadingTaskId] = useState(null);
+  const [isOpenCancelTaskModal, setIsOpenCancelTaskModal] = useState(false);
 
   useEffect(() => {
     GetMyTasks(1, false, selectedTaskFilter?.name);
@@ -50,7 +46,8 @@ function MyTasks() {
   };
 
   const handleCancelTask = (taskId) => {
-    CancelTask(taskId);
+    setSelectedTask(taskId);
+    setIsOpenCancelTaskModal(true);
   };
 
   return (
@@ -135,20 +132,10 @@ function MyTasks() {
                     </button>
                     <button
                       className="bg-[#EA51670F] w-full h-[35px] border border-[#EA5167] rounded-sm text-[#EA5167] text-[13px] cursor-pointer flex justify-center items-center gap-1"
-                      disabled={cancelTask.loading}
-                      onClick={() => {
-                        setLoadingTaskId(item.id);
-                        handleCancelTask(item.id);
-                      }}
+                      onClick={() => handleCancelTask(item)}
                     >
-                      {cancelTask.loading && loadingTaskId === item.id ? (
-                        <ButtonLoader4 />
-                      ) : (
-                        <>
-                          <IoMdClose />
-                          Cancel Task
-                        </>
-                      )}
+                      <IoMdClose />
+                      Cancel Task
                     </button>
                   </>
                 )}
@@ -183,12 +170,19 @@ function MyTasks() {
           <ShowMessage title={myTasks.message} />
         </div>
       )}
-
       <MyTaskDetailsModal
         selected={selectedTask}
         setSelected={setSelectedTask}
         isOpenModal={isOpenTaskDetailsModal}
         setIsOpenModal={setIsOpenTaskDetailsModal}
+      />
+      <CancelTask
+        icon="/assets/icons/icon-3.png"
+        title="You’re about to cancel your task"
+        description="If you cancel task, your payment will be deducted and this action can’t be undone."
+        url={`/api/buyer/project/${selectedTask?.id}/cancel/`}
+        isOpenModal={isOpenCancelTaskModal}
+        setIsOpenModal={setIsOpenCancelTaskModal}
       />
     </>
   );
