@@ -1,18 +1,60 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { getAccessToken } from "../../../../storage/storage";
+import axios from "axios";
+import {
+  MdOutlineLocationOn,
+  MdOutlineMail,
+  MdPhoneAndroid
+} from "react-icons/md";
 
 function Hero() {
   const Navigate = useNavigate();
   const [query, setQuery] = useState("");
+  const token = getAccessToken();
+  const BASE_URL = import.meta.env.VITE_API_URL;
+  const [allBuyers, setAllBuyers] = useState({
+    loading: true,
+    data: null,
+    message: null
+  });
 
   const handleSearchJobs = () => {
     Navigate(`/find-jobs?search=${query}`);
   };
 
+  const GetAllBuyers = async () => {
+    await axios
+      .get(`${BASE_URL}/api/accounts/random-buyers/`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      .then((response) => {
+        setAllBuyers((prevState) => ({
+          ...prevState,
+          loading: false,
+          data: response.data,
+          message: response.data ? null : "We didn't find any buyers"
+        }));
+      })
+      .catch((error) => {
+        setAllBuyers((prevState) => ({
+          ...prevState,
+          loading: false,
+          data: null,
+          message: error?.response?.data?.message || "Internal server error"
+        }));
+      });
+  };
+  useEffect(() => {
+    GetAllBuyers();
+  }, []);
+
   return (
     <div className="pt-[70px] w-full h-screen bg-[url('/assets/images/Banner.png')] bg-cover bg-center">
       <div className="flex flex-col items-center md:px-0 px-3">
-        <h1 className="text-[#1D2939] lg:text-[48px] text-[22px] font-[600] text-center lg:w-[40%] w-full">
+        <h1 className="text-[#1D2939] lg:text-[40px] text-[22px] font-[600] text-center lg:w-[40%] w-full">
           Unlock Your Full Potential with Deal Junkie
         </h1>
 
@@ -36,6 +78,57 @@ function Hero() {
             >
               Go
             </button>
+          </div>
+        </div>
+
+        <div className="w-[70%] mt-2">
+          <div className="grid grid-cols-3">
+            {allBuyers?.data?.map((item, index) => {
+              return (
+                <div
+                  key={index}
+                  className={`rounded-lg p-4 bg-white border-gray-200 ${
+                    index === 0 && "-rotate-8 mt-10"
+                  } 
+                  ${index === 1 && "z-10"} 
+                  ${index === 2 && "rotate-8 mt-10"}`}
+                  style={{ boxShadow: "0px 0px 7px #49586D21" }}
+                >
+                  {item?.profile_picture ? (
+                    <img
+                      src={item?.profile_picture}
+                      alt="Profile"
+                      className="w-full md:h-[200px] xs:h-[120px] object-cover rounded-sm"
+                    />
+                  ) : (
+                    <div className="w-full md:h-[200px] xs:h-[120px] bg-gray-200 rounded-sm flex justify-center items-center">
+                      {item?.name}
+                    </div>
+                  )}
+                  <h3 className="text-lg font-bold mt-2 text-[#022247] text-center">
+                    {item?.name}
+                  </h3>
+                  <div className="flex justify-center gap-1 mt-2">
+                    <MdOutlineLocationOn className="text-[#6F7487] text-[20px]" />
+                    <p className="font-normal text-[14px] text-[#6F7487] text-center">
+                      {item?.address?.street}
+                    </p>
+                  </div>
+                  <div className="flex justify-center gap-1 mt-2">
+                    <MdOutlineMail className="text-[#6F7487] text-[20px]" />
+                    <p className="font-normal text-[14px] text-[#6F7487]">
+                      {item?.email}
+                    </p>
+                  </div>
+                  <div className="flex justify-center gap-1 mt-2">
+                    <MdPhoneAndroid className="text-[#6F7487] text-[20px]" />
+                    <p className="font-normal text-[14px] text-[#6F7487]">
+                      {item?.phone_number}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
