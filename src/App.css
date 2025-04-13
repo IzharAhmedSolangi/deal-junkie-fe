@@ -107,6 +107,12 @@ input[type="number"] {
   width: 100%;
 }
 
+/* Contact us svg css */
+.phoneSvg {
+  stroke: #01e678;
+  display: block;
+}
+
 /* Ensure slides take full width on mobile */
 @media (max-width: 375px) {
   .mySwiper .swiper-slide {
