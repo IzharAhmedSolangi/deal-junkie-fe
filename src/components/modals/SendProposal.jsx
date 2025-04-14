@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import CircularProgress from "../shared/CircularProgress";
 import Dropdown from "../shared/Dropdown";
 import useUpload from "../../services/common/useUpload";
+import { ButtonLoader1 } from "../shared/ButtonLoaders";
 
 const validationSchema = Yup.object({
   budget: Yup.string()
@@ -185,9 +186,7 @@ function SendProposal(props) {
                                 className="hidden"
                                 onChange={handleFileChange}
                               />
-                              <span className="text-primary">
-                                Upload Thumbnail or
-                              </span>
+                              <span className="text-primary">Upload or</span>
                               just drag & drop
                             </label>
                           </div>
@@ -309,8 +308,9 @@ function SendProposal(props) {
                           <button
                             className="border border-secondary bg-secondary cursor-pointer hover:opacity-80 w-[120px] h-[40px] text-white rounded flex justify-center items-center"
                             type="submit"
+                            disabled={sendProposal.loading}
                           >
-                            Send
+                            {sendProposal.loading ? <ButtonLoader1 /> : "Send"}
                           </button>
                         </div>
                       </form>

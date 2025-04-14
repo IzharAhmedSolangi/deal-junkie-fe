@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-duplicate-props */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import Dropdown from "../../../../components/shared/Dropdown";
@@ -8,6 +9,8 @@ import ShowMessage from "../../../../components/shared/ShowMessage";
 import { ButtonLoader3 } from "../../../../components/shared/ButtonLoaders";
 import { TiTick } from "react-icons/ti";
 import { TruncateText } from "../../../../utils/TruncateText";
+import MarkAsComplete from "../../../../components/modals/MarkAsComplete";
+import MyTaskDetailsModal from "./MyTaskDetailsModal";
 
 const Tasks = [
   { name: "All Jobs", value: 1 },
@@ -21,7 +24,7 @@ function MyJobs() {
   const [selectedTaskFilter, setSelectedTaskFilter] = useState(Tasks[0]);
   const [selectedTask, setSelectedTask] = useState(null);
   const [isOpenTaskDetailsModal, setIsOpenTaskDetailsModal] = useState(false);
-  const [loadingTaskId, setLoadingTaskId] = useState(null);
+  const [isOpenSubmitTaskModal, setIsOpenSubmitTaskModal] = useState(false);
 
   useEffect(() => {
     GetMyTasks(1, false, selectedTaskFilter?.name);
@@ -114,7 +117,13 @@ function MyJobs() {
                     See Details
                   </button>
                   {item.status === "In Progress" && (
-                    <button className="bg-[#0AF8860D] w-full h-[35px] border border-primary rounded-sm text-primary text-[13px] cursor-pointer flex justify-center items-center">
+                    <button
+                      className="bg-[#0AF8860D] w-full h-[35px] border border-primary rounded-sm text-primary text-[13px] cursor-pointer flex justify-center items-center"
+                      onClick={() => {
+                        setIsOpenSubmitTaskModal(true);
+                        setSelectedTask(item);
+                      }}
+                    >
                       <TiTick />
                       Complete As Complete
                     </button>
@@ -151,6 +160,18 @@ function MyJobs() {
           </div>
         )}
       </div>
+
+      <MarkAsComplete
+        isOpenModal={isOpenSubmitTaskModal}
+        setIsOpenModal={setIsOpenSubmitTaskModal}
+        selected={selectedTask}
+      />
+      <MyTaskDetailsModal
+        isOpenModal={isOpenTaskDetailsModal}
+        setIsOpenModal={setIsOpenTaskDetailsModal}
+        selected={selectedTask}
+        setSelected={setSelectedTask}
+      />
     </>
   );
 }
