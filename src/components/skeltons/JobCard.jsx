@@ -6,7 +6,7 @@ function JobCard() {
         <div className="absolute top-4 right-4 h-6 w-24 bg-gray-300 rounded-md" />
 
         {/* Date & Time Row */}
-        <div className="flex items-center space-x-4 mb-3">
+        <div className="flex items-center gap-1 mb-3">
           <div className="h-4 w-28 bg-gray-300 rounded-md" />
           <div className="h-4 w-20 bg-gray-300 rounded-md" />
         </div>

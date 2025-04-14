@@ -10,6 +10,7 @@ import { TiTick } from "react-icons/ti";
 import { TruncateText } from "../../../../utils/TruncateText";
 import MarkAsComplete from "../../../../components/modals/MarkAsComplete";
 import MyTaskDetailsModal from "./MyTaskDetailsModal";
+import JobCard from "../../../../components/skeltons/JobCard";
 
 const Tasks = [
   { name: "All Jobs", value: 1 },
@@ -149,8 +150,10 @@ function MyJobs() {
           </div>
         )}
         {!myTasks.data && myTasks.loading && (
-          <div className="flex justify-center items-center w-full md:h-[200px] h-[150px]">
-            <ButtonLoader3 />
+          <div className="w-full mt-5 flex flex-col gap-5">
+            {Array.from({ length: 3 }).map((_, index) => (
+              <JobCard key={index} />
+            ))}
           </div>
         )}
         {!myTasks.loading && myTasks.message && (

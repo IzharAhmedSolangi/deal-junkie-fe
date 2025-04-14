@@ -12,6 +12,7 @@ import MyTaskDetailsModal from "./MyTaskDetailsModal";
 import GlobalContext from "../../../../context/GlobalContext";
 import { TruncateText } from "../../../../utils/TruncateText";
 import CancelTask from "../../../../components/modals/CancelTask";
+import JobCard from "../../../../components/skeltons/JobCard";
 
 const Tasks = [
   { name: "All Tasks", value: 1 },
@@ -161,8 +162,10 @@ function MyTasks() {
         </div>
       )}
       {!myTasks.data && myTasks.loading && (
-        <div className="flex justify-center items-center w-full md:h-[200px] h-[150px]">
-          <ButtonLoader3 />
+        <div className="w-full mt-5 flex flex-col gap-5">
+          {Array.from({ length: 3 }).map((_, index) => (
+            <JobCard key={index} />
+          ))}
         </div>
       )}
       {!myTasks.loading && myTasks.message && (
