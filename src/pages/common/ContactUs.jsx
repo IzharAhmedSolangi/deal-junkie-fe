@@ -5,6 +5,13 @@ import { ButtonLoader1 } from "../../components/shared/ButtonLoaders";
 import AppHead from "../../seo/AppHead";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import Input from "../../components/shared/Input";
+import { FaCity, FaRegUser } from "react-icons/fa";
+import {
+  MdOutlineEmail,
+  MdOutlineLocationOn,
+  MdOutlinePhoneIphone,
+} from "react-icons/md";
 
 const validationSchema = Yup.object({
   firstname: Yup.string()
@@ -123,13 +130,13 @@ function ContactUs() {
               <div className="w-full mt-4">
                 <div className="mt-2 grid grid-cols-2 gap-2">
                   <div>
-                    <input
+                    <Input
                       type="text"
                       placeholder="First name"
                       name="firstname"
                       value={values.firstname}
-                      onChange={handleChange}
-                      className="w-full h-[40px] px-3 rounded-[4px] bg-transparent border border-[#02174C33] outline-none hover:border-secondary focus:border-secondary"
+                      handleChange={handleChange}
+                      icon={<FaRegUser />}
                     />
                     {errors.firstname && touched.firstname && (
                       <p className="text-red-700 text-xs mt-1">
@@ -138,13 +145,13 @@ function ContactUs() {
                     )}
                   </div>
                   <div>
-                    <input
+                    <Input
                       type="text"
                       placeholder="Last name"
                       name="lastname"
                       value={values.lastname}
-                      onChange={handleChange}
-                      className="w-full h-[40px] px-3 rounded-[4px] bg-transparent border border-[#02174C33] outline-none hover:border-secondary focus:border-secondary"
+                      handleChange={handleChange}
+                      icon={<FaRegUser />}
                     />
                     {errors.lastname && touched.lastname && (
                       <p className="text-red-700 text-xs mt-1">
@@ -155,13 +162,13 @@ function ContactUs() {
                 </div>
                 <div className="mt-3 grid grid-cols-2 gap-2">
                   <div>
-                    <input
+                    <Input
                       type="text"
-                      placeholder="Email address"
+                      placeholder="Email"
                       name="email"
                       value={values.email}
-                      onChange={handleChange}
-                      className="w-full h-[40px] px-3 rounded-[4px] bg-transparent border border-[#02174C33] outline-none hover:border-secondary focus:border-secondary"
+                      handleChange={handleChange}
+                      icon={<MdOutlineEmail />}
                     />
                     {errors.email && touched.email && (
                       <p className="text-red-700 text-xs mt-1">
@@ -170,13 +177,13 @@ function ContactUs() {
                     )}
                   </div>
                   <div>
-                    <input
-                      type="text"
-                      placeholder="Enter phone number"
+                    <Input
+                      type="number"
+                      placeholder="Phone number"
                       name="phone"
                       value={values.phone}
-                      onChange={handleChange}
-                      className="w-full h-[40px] px-3 rounded-[4px] bg-transparent border border-[#02174C33] outline-none hover:border-secondary focus:border-secondary"
+                      handleChange={handleChange}
+                      icon={<MdOutlinePhoneIphone />}
                     />
                     {errors.phone && touched.phone && (
                       <p className="text-red-700 text-xs mt-1">
@@ -187,13 +194,13 @@ function ContactUs() {
                 </div>
                 <div className="mt-3 grid grid-cols-2 gap-2">
                   <div>
-                    <input
+                    <Input
                       type="text"
                       placeholder="State"
                       name="state"
                       value={values.state}
-                      onChange={handleChange}
-                      className="w-full h-[40px] px-3 rounded-[4px] bg-transparent border border-[#02174C33] outline-none hover:border-secondary focus:border-secondary"
+                      handleChange={handleChange}
+                      icon={<FaCity />}
                     />
                     {errors.state && touched.state && (
                       <p className="text-red-700 text-xs mt-1">
@@ -202,13 +209,13 @@ function ContactUs() {
                     )}
                   </div>
                   <div>
-                    <input
+                    <Input
                       type="text"
                       placeholder="City"
                       name="city"
                       value={values.city}
-                      onChange={handleChange}
-                      className="w-full h-[40px] px-3 rounded-[4px] bg-transparent border border-[#02174C33] outline-none hover:border-secondary focus:border-secondary"
+                      handleChange={handleChange}
+                      icon={<FaCity />}
                     />
                     {errors.city && touched.city && (
                       <p className="text-red-700 text-xs mt-1">{errors.city}</p>
@@ -217,13 +224,13 @@ function ContactUs() {
                 </div>
                 <div className="mt-3 grid grid-cols-1">
                   <div>
-                    <input
+                    <Input
                       type="text"
                       placeholder="Address"
                       name="address"
                       value={values.address}
-                      onChange={handleChange}
-                      className="w-full h-[40px] px-3 rounded-[4px] bg-transparent border border-[#02174C33] outline-none hover:border-secondary focus:border-secondary"
+                      handleChange={handleChange}
+                      icon={<MdOutlineLocationOn />}
                     />
                     {errors.address && touched.address && (
                       <p className="text-red-700 text-xs mt-1">

@@ -119,7 +119,7 @@ function Signup(props) {
               <div>
                 <Input
                   type="text"
-                  placeholder="Enter email"
+                  placeholder="Email"
                   name="email"
                   value={values.email}
                   handleChange={handleChange}
@@ -132,7 +132,7 @@ function Signup(props) {
               <div>
                 <Input
                   type="number"
-                  placeholder="Enter phone number"
+                  placeholder="Phone number"
                   name="phone"
                   value={values.phone}
                   handleChange={handleChange}
@@ -190,7 +190,7 @@ function Signup(props) {
               <div>
                 <Input
                   type={password ? "text" : "password"}
-                  placeholder="Enter your password"
+                  placeholder="Password"
                   name="password"
                   value={values.password}
                   handleChange={handleChange}

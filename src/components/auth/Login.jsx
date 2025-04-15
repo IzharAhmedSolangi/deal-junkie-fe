@@ -55,7 +55,7 @@ function Login(props) {
             <div className="mt-2">
               <Input
                 type="text"
-                placeholder="Enter email"
+                placeholder="Email"
                 name="email"
                 value={values.email}
                 handleChange={handleChange}
@@ -68,7 +68,7 @@ function Login(props) {
             <div className="mt-3">
               <Input
                 type={password ? "text" : "password"}
-                placeholder="Enter password"
+                placeholder="Password"
                 name="password"
                 value={values.password}
                 handleChange={handleChange}

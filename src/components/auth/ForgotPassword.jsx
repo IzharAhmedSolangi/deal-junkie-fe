@@ -47,7 +47,7 @@ function ForgotPassword(props) {
             <div className="mt-2">
               <Input
                 type="text"
-                placeholder="Enter email"
+                placeholder="Email"
                 name="email"
                 value={values.email}
                 handleChange={handleChange}
