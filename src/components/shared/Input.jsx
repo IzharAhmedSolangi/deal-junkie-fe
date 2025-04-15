@@ -32,7 +32,7 @@ function Input(props) {
       />
       <label
         htmlFor={name}
-        className="absolute top-1/2 translate-y-[-50%] bg-white left-[25px] px-2 peer-focus:top-0 peer-focus:left-[22px] font-light text-base text-[12px] text-[#6F7487] peer-focus:text-[12px] peer-focus:text-secondary duration-150"
+        className="absolute top-1/2 translate-y-[-50%] bg-white left-[25px] px-2 peer-focus:top-0 peer-focus:left-[22px] font-light text-base text-[12px] text-[#6F7487] peer-focus:text-[12px] peer-focus:text-secondary peer-valid:top-0 peer-valid:left-[22px] duration-150"
       >
         {placeholder}
       </label>
