@@ -201,12 +201,13 @@ function PostProject(props) {
 export default PostProject;
 
 const budgets = [
-  { name: "$10.25 / hr", value: 10.25 },
-  { name: "$12.75 / hr", value: 12.75 },
-  { name: "$15.50 / hr", value: 15.5 },
-  { name: "$18.45 / hr", value: 18.45 },
-  { name: "$20.85 / hr", value: 20.85 },
-  { name: "$20.45 / hr", value: 20.45 },
+  { name: "$75 / hr", value: 75 },
+  { name: "$125 / hr", value: 125 },
+  { name: "$175 / hr", value: 175 },
+  { name: "$225 / hr", value: 225 },
+  { name: "$275 / hr", value: 275 },
+  { name: "$325 / hr", value: 325 },
+  { name: "$375 / hr", value: 375 },
 ];
 
 const tags = [
