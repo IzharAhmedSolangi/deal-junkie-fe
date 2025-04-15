@@ -171,7 +171,7 @@ function Footer() {
             Privacy Policy
           </Link>
           <Link
-            to="/terms"
+            to="/terms-conditions"
             className="text-[#667085] text-[14px] font-normal hover:text-primary"
           >
             Terms & Conditions

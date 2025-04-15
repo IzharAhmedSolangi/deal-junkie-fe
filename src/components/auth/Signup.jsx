@@ -30,7 +30,7 @@ const validationSchema = Yup.object({
 });
 
 function Signup(props) {
-  const { setAuthModalType } = props;
+  const { setAuthModalType, handleClose } = props;
   const [password, setPassword] = useState(false);
   const { Signup, loading, errorMessage } = useSignup();
 
@@ -207,11 +207,19 @@ function Signup(props) {
                 <input type="checkbox" />
                 <div className="text-[#6F7487] text-[14px] font-normal">
                   Accept to{" "}
-                  <Link to="#" className="text-primary">
+                  <Link
+                    to="/privacy-policy"
+                    onClick={handleClose}
+                    className="text-primary"
+                  >
                     Privacy Policy
                   </Link>{" "}
                   and{" "}
-                  <Link to="#" className="text-primary">
+                  <Link
+                    to="/terms-conditions"
+                    onClick={handleClose}
+                    className="text-primary"
+                  >
                     Terms & conditions
                   </Link>
                 </div>

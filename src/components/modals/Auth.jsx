@@ -66,7 +66,10 @@ function Auth(props) {
                       />
                     )}
                     {authModalType === "signup" && (
-                      <Signup setAuthModalType={setAuthModalType} />
+                      <Signup
+                        setAuthModalType={setAuthModalType}
+                        handleClose={handleClose}
+                      />
                     )}
                     {authModalType === "forgot-password" && (
                       <ForgotPassword
