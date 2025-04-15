@@ -4,9 +4,16 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import useSignup from "../../services/auth/useSignup";
 import { SocialLogin } from "../shared/SocialLogin";
-import { PiEyeSlash, PiEyeLight } from "react-icons/pi";
 import { ButtonLoader1 } from "../shared/ButtonLoaders";
 import { Link } from "react-router-dom";
+import Input from "../shared/Input";
+import {
+  MdLockOutline,
+  MdOutlineEmail,
+  MdOutlineLocationOn,
+  MdOutlinePhoneIphone,
+} from "react-icons/md";
+import { FaCity, FaRegUser } from "react-icons/fa";
 
 const validationSchema = Yup.object({
   firstname: Yup.string()
@@ -80,13 +87,13 @@ function Signup(props) {
           <div className="w-full mt-4">
             <div className="mt-2 grid grid-cols-2 gap-2">
               <div>
-                <input
+                <Input
                   type="text"
                   placeholder="First name"
                   name="firstname"
                   value={values.firstname}
-                  onChange={handleChange}
-                  className="w-full h-[40px] px-3 rounded-[4px] bg-transparent border border-[#02174C33] outline-none hover:border-secondary focus:border-secondary"
+                  handleChange={handleChange}
+                  icon={<FaRegUser />}
                 />
                 {errors.firstname && touched.firstname && (
                   <p className="text-red-700 text-xs mt-1">
@@ -95,13 +102,13 @@ function Signup(props) {
                 )}
               </div>
               <div>
-                <input
+                <Input
                   type="text"
                   placeholder="Last name"
                   name="lastname"
                   value={values.lastname}
-                  onChange={handleChange}
-                  className="w-full h-[40px] px-3 rounded-[4px] bg-transparent border border-[#02174C33] outline-none hover:border-secondary focus:border-secondary"
+                  handleChange={handleChange}
+                  icon={<FaRegUser />}
                 />
                 {errors.lastname && touched.lastname && (
                   <p className="text-red-700 text-xs mt-1">{errors.lastname}</p>
@@ -110,26 +117,26 @@ function Signup(props) {
             </div>
             <div className="mt-3 grid grid-cols-2 gap-2">
               <div>
-                <input
+                <Input
                   type="text"
-                  placeholder="Email address"
+                  placeholder="Enter email"
                   name="email"
                   value={values.email}
-                  onChange={handleChange}
-                  className="w-full h-[40px] px-3 rounded-[4px] bg-transparent border border-[#02174C33] outline-none hover:border-secondary focus:border-secondary"
+                  handleChange={handleChange}
+                  icon={<MdOutlineEmail />}
                 />
                 {errors.email && touched.email && (
                   <p className="text-red-700 text-xs mt-1">{errors.email}</p>
                 )}
               </div>
               <div>
-                <input
+                <Input
                   type="number"
                   placeholder="Enter phone number"
                   name="phone"
                   value={values.phone}
-                  onChange={handleChange}
-                  className="w-full h-[40px] px-3 rounded-[4px] bg-transparent border border-[#02174C33] outline-none hover:border-secondary focus:border-secondary"
+                  handleChange={handleChange}
+                  icon={<MdOutlinePhoneIphone />}
                 />
                 {errors.phone && touched.phone && (
                   <p className="text-red-700 text-xs mt-1">{errors.phone}</p>
@@ -138,26 +145,26 @@ function Signup(props) {
             </div>
             <div className="mt-3 grid grid-cols-2 gap-2">
               <div>
-                <input
+                <Input
                   type="text"
                   placeholder="State"
                   name="state"
                   value={values.state}
-                  onChange={handleChange}
-                  className="w-full h-[40px] px-3 rounded-[4px] bg-transparent border border-[#02174C33] outline-none hover:border-secondary focus:border-secondary"
+                  handleChange={handleChange}
+                  icon={<FaCity />}
                 />
                 {errors.state && touched.state && (
                   <p className="text-red-700 text-xs mt-1">{errors.state}</p>
                 )}
               </div>
               <div>
-                <input
+                <Input
                   type="text"
                   placeholder="City"
                   name="city"
                   value={values.city}
-                  onChange={handleChange}
-                  className="w-full h-[40px] px-3 rounded-[4px] bg-transparent border border-[#02174C33] outline-none hover:border-secondary focus:border-secondary"
+                  handleChange={handleChange}
+                  icon={<FaCity />}
                 />
                 {errors.city && touched.city && (
                   <p className="text-red-700 text-xs mt-1">{errors.city}</p>
@@ -166,13 +173,13 @@ function Signup(props) {
             </div>
             <div className="mt-3 grid grid-cols-1">
               <div>
-                <input
+                <Input
                   type="text"
                   placeholder="Address"
                   name="address"
                   value={values.address}
-                  onChange={handleChange}
-                  className="w-full h-[40px] px-3 rounded-[4px] bg-transparent border border-[#02174C33] outline-none hover:border-secondary focus:border-secondary"
+                  handleChange={handleChange}
+                  icon={<MdOutlineLocationOn />}
                 />
                 {errors.address && touched.address && (
                   <p className="text-red-700 text-xs mt-1">{errors.address}</p>
@@ -181,22 +188,17 @@ function Signup(props) {
             </div>
             <div className="mt-3  grid grid-cols-1">
               <div>
-                <div className="relative">
-                  <input
-                    placeholder="Enter your password"
-                    name="password"
-                    value={values.password}
-                    onChange={handleChange}
-                    type={password ? "text" : "password"}
-                    className="w-full h-[40px] px-3 rounded-[4px] bg-transparent border border-[#02174C33] outline-none hover:border-secondary focus:border-secondary"
-                  />
-                  <div
-                    className="h-full absolute top-0 right-2 cursor-pointer flex items-center justify-center text-center"
-                    onClick={() => setPassword(!password)}
-                  >
-                    {password ? <PiEyeSlash /> : <PiEyeLight />}
-                  </div>
-                </div>
+                <Input
+                  type={password ? "text" : "password"}
+                  placeholder="Enter your password"
+                  name="password"
+                  value={values.password}
+                  handleChange={handleChange}
+                  icon={<MdLockOutline />}
+                  field="password"
+                  password={password}
+                  setPassword={setPassword}
+                />
                 {errors.password && touched.password && (
                   <p className="text-red-700 text-xs mt-1">{errors.password}</p>
                 )}

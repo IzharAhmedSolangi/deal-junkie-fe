@@ -3,6 +3,8 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { ButtonLoader1 } from "../shared/ButtonLoaders";
 import useForgotPassword from "../../services/auth/useForgotPassword";
+import Input from "../shared/Input";
+import { MdOutlineEmail } from "react-icons/md";
 
 const validationSchema = Yup.object({
   email: Yup.string().required("Email is required").max(100, "Limit exceeded"),
@@ -43,13 +45,13 @@ function ForgotPassword(props) {
           </p>
           <div className="w-full mt-4">
             <div className="mt-2">
-              <input
+              <Input
                 type="text"
                 placeholder="Enter email"
                 name="email"
                 value={values.email}
-                onChange={handleChange}
-                className="w-full h-[40px] px-3 rounded-[4px] bg-transparent border border-[#02174C33] outline-none hover:border-secondary focus:border-secondary"
+                handleChange={handleChange}
+                icon={<MdOutlineEmail />}
               />
               {errors.email && touched.email && (
                 <p className="text-red-700 text-xs mt-1">{errors.email}</p>

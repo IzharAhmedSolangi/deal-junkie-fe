@@ -3,9 +3,10 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import useLogin from "../../services/auth/useLogin";
 import { SocialLogin } from "../shared/SocialLogin";
-import { PiEyeSlash, PiEyeLight } from "react-icons/pi";
 import { ButtonLoader1 } from "../shared/ButtonLoaders";
 import { useState } from "react";
+import Input from "../shared/Input";
+import { MdLockOutline, MdOutlineEmail } from "react-icons/md";
 
 const validationSchema = Yup.object({
   email: Yup.string().required("Email is required").max(100, "Limit exceeded"),
@@ -52,35 +53,30 @@ function Login(props) {
           </p>
           <div className="w-full mt-4">
             <div className="mt-2">
-              <input
+              <Input
                 type="text"
                 placeholder="Enter email"
                 name="email"
                 value={values.email}
-                onChange={handleChange}
-                className="w-full h-[40px] px-3 rounded-[4px] bg-transparent border border-[#02174C33] outline-none hover:border-secondary focus:border-secondary"
+                handleChange={handleChange}
+                icon={<MdOutlineEmail />}
               />
               {errors.email && touched.email && (
                 <p className="text-red-700 text-xs mt-1">{errors.email}</p>
               )}
             </div>
             <div className="mt-3">
-              <div className="relative">
-                <input
-                  placeholder="Password"
-                  name="password"
-                  value={values.password}
-                  onChange={handleChange}
-                  type={password ? "text" : "password"}
-                  className="w-full h-[40px] px-3 rounded-[4px] bg-transparent border border-[#02174C33] outline-none hover:border-secondary focus:border-secondary"
-                />
-                <div
-                  className="h-full absolute top-0 right-2 cursor-pointer flex items-center justify-center text-center"
-                  onClick={() => setPassword(!password)}
-                >
-                  {password ? <PiEyeSlash /> : <PiEyeLight />}
-                </div>
-              </div>
+              <Input
+                type={password ? "text" : "password"}
+                placeholder="Enter password"
+                name="password"
+                value={values.password}
+                handleChange={handleChange}
+                icon={<MdLockOutline />}
+                field="password"
+                password={password}
+                setPassword={setPassword}
+              />
               {errors.password && touched.password && (
                 <p className="text-red-700 text-xs mt-1">{errors.password}</p>
               )}

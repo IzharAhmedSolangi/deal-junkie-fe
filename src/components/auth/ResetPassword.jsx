@@ -1,10 +1,11 @@
 /* eslint-disable react/prop-types */
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { PiEyeSlash, PiEyeLight } from "react-icons/pi";
 import { ButtonLoader1 } from "../shared/ButtonLoaders";
 import { useState } from "react";
 import useResetPassword from "../../services/auth/useResetPassword";
+import Input from "../shared/Input";
+import { MdLockOutline } from "react-icons/md";
 
 const validationSchema = Yup.object({
   password: Yup.string()
@@ -54,43 +55,33 @@ function ResetPassword(props) {
           </p>
           <div className="w-full mt-4">
             <div className="mt-2">
-              <div className="relative">
-                <input
-                  placeholder="New password"
-                  name="password"
-                  value={values.password}
-                  onChange={handleChange}
-                  type={password ? "text" : "password"}
-                  className="w-full h-[40px] px-3 rounded-[4px] bg-transparent border border-[#02174C33] outline-none hover:border-secondary focus:border-secondary"
-                />
-                <div
-                  className="h-full absolute top-0 right-2 cursor-pointer flex items-center justify-center text-center"
-                  onClick={() => setPassword(!password)}
-                >
-                  {password ? <PiEyeSlash /> : <PiEyeLight />}
-                </div>
-              </div>
+              <Input
+                type={password ? "text" : "password"}
+                placeholder="New password"
+                name="password"
+                value={values.password}
+                handleChange={handleChange}
+                icon={<MdLockOutline />}
+                field="password"
+                password={password}
+                setPassword={setPassword}
+              />
               {errors.password && touched.password && (
                 <p className="text-red-700 text-xs mt-1">{errors.password}</p>
               )}
             </div>
             <div className="mt-3">
-              <div className="relative">
-                <input
-                  placeholder="Confirm password"
-                  name="confirm_password"
-                  value={values.confirm_password}
-                  onChange={handleChange}
-                  type={confirmPassword ? "text" : "password"}
-                  className="w-full h-[40px] px-3 rounded-[4px] bg-transparent border border-[#02174C33] outline-none hover:border-secondary focus:border-secondary"
-                />
-                <div
-                  className="h-full absolute top-0 right-2 cursor-pointer flex items-center justify-center text-center"
-                  onClick={() => setConfirmPassword(!confirmPassword)}
-                >
-                  {confirmPassword ? <PiEyeSlash /> : <PiEyeLight />}
-                </div>
-              </div>
+              <Input
+                type={password ? "text" : "password"}
+                placeholder="Confirm new password"
+                name="confirm_password"
+                value={values.confirm_password}
+                handleChange={handleChange}
+                icon={<MdLockOutline />}
+                field="password"
+                password={confirmPassword}
+                setPassword={setConfirmPassword}
+              />
               {errors.confirm_password && touched.confirm_password && (
                 <p className="text-red-700 text-xs mt-1">
                   {errors.confirm_password}
