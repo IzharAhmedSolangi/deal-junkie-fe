@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 import { Fragment, useRef } from "react";
 import { AiOutlineClose } from "react-icons/ai";
@@ -7,9 +6,12 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 import useUpload from "../../services/common/useUpload";
-import { ButtonLoader1 } from "../shared/ButtonLoaders";
+import { ButtonLoader1, ButtonLoader2 } from "../shared/ButtonLoaders";
+import useMarkAsCompleted from "../../services/seller/useMarkAsCompleted";
+import { getFileNameFromMediaUrl } from "../../utils/Extract";
 
 const validationSchema = Yup.object({
+  order_id: Yup.string().required("Order ID is required"),
   attachment: Yup.string().required("Attachment is required"),
   description: Yup.string().required("Description is required"),
 });
@@ -19,24 +21,36 @@ function MarkAsComplete(props) {
   const cancelButtonRef = useRef(null);
   const Navigate = useNavigate();
   const { Upload, upload } = useUpload();
-  const success = false;
-  const loading = false;
+  const { MarkAsCompleted, completed, setCompleted } = useMarkAsCompleted();
 
   const initialValues = {
-    attachment: "",
+    order_id: selected?.id,
+    attachment: upload.url,
     description: "",
   };
 
   const { values, errors, handleChange, handleSubmit, touched } = useFormik({
     initialValues,
     validationSchema,
+    enableReinitialize: true,
     onSubmit: (values) => {
-      console.log({ values });
+      MarkAsCompleted({
+        order_id: values.order_id,
+        file: values.attachment,
+        description: values.description,
+      });
     },
   });
 
   const handleClose = () => {
     setIsOpenModal(false);
+    setCompleted((prevState) => ({
+      ...prevState,
+      loading: true,
+      data: null,
+      error: null,
+      success: false,
+    }));
   };
 
   const handleFileChange = (e) => {
@@ -91,7 +105,7 @@ function MarkAsComplete(props) {
               >
                 <Dialog.Panel
                   className={`relative transform overflow-hidden rounded-[16px] bg-white text-left shadow-xl transition-all  ${
-                    success
+                    completed.success
                       ? "w-[600px] h-auto md:py-12 md:px-6 px-5 py-8"
                       : "w-full h-auto md:py-12 md:px-6 px-5 py-8"
                   }`}
@@ -103,25 +117,36 @@ function MarkAsComplete(props) {
                     <AiOutlineClose className="text-[22px]" />
                   </div>
                   <div className="flex flex-col">
-                    {!success && (
+                    {!completed.success && (
                       <form onSubmit={handleSubmit} className="w-full">
                         <h1 className="font-[600] md:text-[30px] text-[24px] text-secondary">
                           Submit Task
                         </h1>
                         <div className="mt-2">
-                          <label
-                            onDrop={handleDrop}
-                            onDragOver={handleDragOver}
-                            className="w-full h-[200px] rounded-lg border border-dotted border-[#02174C33] text-secondary hover:border-primary flex flex-col justify-center items-center cursor-pointer"
-                          >
-                            <input
-                              type="file"
-                              className="hidden"
-                              onChange={handleFileChange}
-                            />
-                            <span className="text-primary">Upload or</span>
-                            just drag & drop
-                          </label>
+                          {upload.loading ? (
+                            <div className="w-full h-[200px] rounded-lg border border-dotted border-[#02174C33] flex flex-col justify-center items-center cursor-pointer">
+                              <ButtonLoader2 />
+                            </div>
+                          ) : (
+                            <label
+                              onDrop={handleDrop}
+                              onDragOver={handleDragOver}
+                              className="w-full h-[200px] rounded-lg border border-dotted border-[#02174C33] text-secondary hover:border-primary cursor-pointer flex flex-col justify-center items-center"
+                            >
+                              <input
+                                type="file"
+                                className="hidden"
+                                onChange={handleFileChange}
+                              />
+                              <span className="text-primary">Upload or</span>
+                              just drag & drop
+                            </label>
+                          )}
+                          {upload.url && (
+                            <p className="text-secondary text-xs mt-1">
+                              {getFileNameFromMediaUrl(upload.url)}
+                            </p>
+                          )}
                           {errors.attachment && touched.attachment && (
                             <p className="text-red-700 text-xs mt-1">
                               {errors.attachment}
@@ -152,14 +177,14 @@ function MarkAsComplete(props) {
                           <button
                             className="border border-secondary bg-secondary cursor-pointer hover:opacity-80 w-[120px] h-[40px] text-white rounded flex justify-center items-center"
                             type="submit"
-                            disabled={loading}
+                            disabled={completed.loading}
                           >
-                            {loading ? <ButtonLoader1 /> : "Submit"}
+                            {completed.loading ? <ButtonLoader1 /> : "Submit"}
                           </button>
                         </div>
                       </form>
                     )}
-                    {success && (
+                    {completed.success && (
                       <div className="flex flex-col justify-center items-center w-full">
                         <img src="/assets/icons/icon-2.png" alt="" />
                         <h1 className="font-[600] text-[32px] text-secondary">
