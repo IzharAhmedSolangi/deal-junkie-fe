@@ -9,7 +9,7 @@ function useAcceptProposal() {
   const [acceptProposal, setAcceptProposal] = useState({
     loading: false,
     data: null,
-    message: null,
+    message: null
   });
 
   const AcceptProposal = async (proposalId) => {
@@ -17,16 +17,16 @@ function useAcceptProposal() {
       ...prevState,
       loading: true,
       data: null,
-      message: null,
+      message: null
     }));
     await axios
-      .patch(
+      .post(
         `${BASE_URL}/api/buyer/proposals/${proposalId}/accept/`,
         {},
         {
           headers: {
-            Authorization: `Bearer ${token}`,
-          },
+            Authorization: `Bearer ${token}`
+          }
         }
       )
       .then((response) => {
@@ -34,9 +34,8 @@ function useAcceptProposal() {
           ...prevState,
           loading: false,
           data: response.data,
-          message: response.data ? null : "Proposal accepted",
+          message: response.data ? null : "Proposal accepted"
         }));
-        console.log({ response });
         SuccessToaster("Proposal Accepted", response?.data?.message);
       })
       .catch((error) => {
@@ -45,7 +44,7 @@ function useAcceptProposal() {
           ...prevState,
           loading: false,
           data: null,
-          message: error?.response?.data?.message || "Internal server error",
+          message: error?.response?.data?.message || "Internal server error"
         }));
       });
   };

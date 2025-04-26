@@ -17,10 +17,11 @@ import JobCard from "../../../../components/skeltons/JobCard";
 const Tasks = [
   { name: "All Tasks", value: 1 },
   { name: "Completed", value: 2 },
-  { name: "Cancelled", value: 3 },
-  { name: "In Progress", value: 4 },
-  { name: "Receiving Offer", value: 5 },
-  { name: "Hold", value: 6 },
+  { name: "Delivered", value: 3 },
+  { name: "Cancelled", value: 4 },
+  { name: "In Progress", value: 5 },
+  { name: "Receiving Offer", value: 6 },
+  { name: "Hold", value: 6 }
 ];
 
 function MyTasks() {
@@ -39,7 +40,7 @@ function MyTasks() {
     if (myTasks.currentPage < myTasks.totalPages) {
       setMyTasks((prevState) => ({
         ...prevState,
-        loading: true,
+        loading: true
       }));
       const nextPage = myTasks.currentPage + 1;
       GetMyTasks(nextPage, true, selectedTaskFilter?.name);
@@ -67,7 +68,7 @@ function MyTasks() {
                 data: null,
                 message: null,
                 totalPages: 1,
-                currentPage: 1,
+                currentPage: 1
               }));
               setSelectedTaskFilter(option);
             }}
@@ -92,6 +93,11 @@ function MyTasks() {
                     11:59 PM
                   </div>
                 </div>
+                {item.status === "Delivered" && (
+                  <div className="px-2 py-1 shadow-sm rounded-sm bg-primary text-white text-[12px] font-[700]">
+                    {item.status}
+                  </div>
+                )}
                 {item.status === "Receiving Offer" && (
                   <div className="px-2 py-1 shadow-sm rounded-sm bg-secondary text-white text-[12px] font-[700]">
                     {item.status}
@@ -125,12 +131,13 @@ function MyTasks() {
                   <IoEyeOutline />
                   See Details
                 </button>
+
                 {item.status === "Receiving Offer" && (
                   <>
-                    <button className="bg-[#AF2DCF0F] w-full h-[35px] border border-[#AF2DCF] rounded-sm text-[#AF2DCF] text-[13px] cursor-pointer flex justify-center items-center gap-1">
+                    {/* <button className="bg-[#AF2DCF0F] w-full h-[35px] border border-[#AF2DCF] rounded-sm text-[#AF2DCF] text-[13px] cursor-pointer flex justify-center items-center gap-1">
                       <PiCurrencyDollarBold />
                       Update Price
-                    </button>
+                    </button> */}
                     <button
                       className="bg-[#EA51670F] w-full h-[35px] border border-[#EA5167] rounded-sm text-[#EA5167] text-[13px] cursor-pointer flex justify-center items-center gap-1"
                       onClick={() => handleCancelTask(item)}

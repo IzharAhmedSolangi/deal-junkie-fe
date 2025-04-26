@@ -1,28 +1,38 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
-import { Fragment, useEffect, useRef } from "react";
+import { Fragment, useContext, useEffect, useRef, useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { Dialog, Transition } from "@headlessui/react";
 import useGetMyTaskById from "../../../../services/buyer/useGetMyTasksById";
 import { Link } from "react-router-dom";
-import { PiCurrencyDollarBold } from "react-icons/pi";
 import { IoMdClose } from "react-icons/io";
-import { ButtonLoader3 } from "../../../../components/shared/ButtonLoaders";
+import {
+  ButtonLoader1,
+  ButtonLoader3
+} from "../../../../components/shared/ButtonLoaders";
 import ShowMessage from "../../../../components/shared/ShowMessage";
 import useAcceptProposal from "../../../../services/buyer/useAcceptProposal";
 import { TiTick } from "react-icons/ti";
+import { IoCloudDownloadOutline } from "react-icons/io5";
+import GlobalContext from "../../../../context/GlobalContext";
+import { FaStar } from "react-icons/fa";
+import useRatingReviews from "../../../../services/buyer/useRatingReviews";
+import * as Yup from "yup";
+import { useFormik } from "formik";
 
 function MyTaskDetailsModal(props) {
   const { isOpenModal, setIsOpenModal, selected, setSelected } = props;
   const cancelButtonRef = useRef(null);
   const { GetMyTaskById, myTask, setMyTask } = useGetMyTaskById();
+  const [completed, setCompleted] = useState(false);
+  const { userInfo } = useContext(GlobalContext);
 
   useEffect(() => {
     if (selected) {
       setMyTask((prevState) => ({
         ...prevState,
         loading: true,
-        message: null,
+        message: null
       }));
       GetMyTaskById(selected?.id);
     }
@@ -31,10 +41,10 @@ function MyTaskDetailsModal(props) {
   const handleClose = () => {
     setIsOpenModal(false);
     setSelected(null);
+    setCompleted(false);
   };
 
   const { AcceptProposal, acceptProposal } = useAcceptProposal();
-
   const handleAcceptRequest = (proposalId) => {
     AcceptProposal(proposalId);
     GetMyTaskById(selected?.id);
@@ -79,66 +89,86 @@ function MyTaskDetailsModal(props) {
                   >
                     <AiOutlineClose className="text-[22px]" />
                   </div>
-                  {myTask.data && !myTask.loading && (
-                    <div className="flex flex-col items-start">
-                      {myTask.data?.status === "Receiving Offer" && (
-                        <div className="px-3 py-1 shadow-sm rounded-sm bg-secondary text-white text-[15px] font-[700]">
-                          {myTask.data?.status}
+                  {completed ? (
+                    <CompleteAndReviews
+                      userInfo={userInfo}
+                      handleClose={handleClose}
+                      setCompleted={setCompleted}
+                    />
+                  ) : (
+                    <div>
+                      {myTask.data && !myTask.loading && (
+                        <div className="flex flex-col items-start">
+                          {myTask.data?.status === "Receiving Offer" && (
+                            <div className="px-3 py-1 shadow-sm rounded-sm bg-secondary text-white text-[15px] font-[700]">
+                              {myTask.data?.status}
+                            </div>
+                          )}
+                          {myTask.data?.status === "Delivered" && (
+                            <div className="px-2 py-1 shadow-sm rounded-sm bg-primary text-white text-[12px] font-[700]">
+                              {myTask.data?.status}
+                            </div>
+                          )}
+                          {myTask.data?.status === "In Progress" && (
+                            <div className="px-2 py-1 shadow-sm rounded-sm bg-primary text-white text-[12px] font-[700]">
+                              {myTask.data?.status}
+                            </div>
+                          )}
+                          {myTask.data?.status === "Cancelled" && (
+                            <div className="px-2 py-1 shadow-sm rounded-sm bg-[#D92D20] text-white text-[12px] font-[700]">
+                              {myTask.data?.status}
+                            </div>
+                          )}
+                          <h1 className="text-[#222222] md:text-[20px] text-[16px] font-[600] mt-2">
+                            Request details
+                          </h1>
+                          <p className="text-[#98A2B3] md:text-[16px] text-[12px]">
+                            Please review carefully your request details before
+                            submitting, you can edit or reschedule your task
+                            anytime from your account.
+                          </p>
+                          {/* Task details */}
+                          <TaskDetails myTask={myTask} />
+                          {/* Proposals */}
+                          {myTask.data?.status !== "Cancelled" && (
+                            <Proposals
+                              myTask={myTask}
+                              handleAcceptRequest={handleAcceptRequest}
+                              acceptProposal={acceptProposal}
+                            />
+                          )}
+                          {/* Order Details */}
+                          <OrderDelivered myTask={myTask} />
+                          <div className="w-full flex items-center gap-1 mt-8">
+                            {myTask.data?.status === "Receiving Offer" && (
+                              <>
+                                {/* <button className="bg-[#AF2DCF0F] w-full h-[35px] border border-[#AF2DCF] rounded-sm text-[#AF2DCF] text-[13px] cursor-pointer flex justify-center items-center gap-1">
+                                  <PiCurrencyDollarBold />
+                                  Update Price
+                                </button> */}
+                                <button className="bg-[#EA51670F] w-full h-[35px] border border-[#EA5167] rounded-sm text-[#EA5167] text-[13px] cursor-pointer flex justify-center items-center gap-1">
+                                  <IoMdClose />
+                                  Delete Task
+                                </button>
+                              </>
+                            )}
+                            {myTask.data?.status === "Delivered" && (
+                              <button
+                                onClick={() => setCompleted(true)}
+                                className="bg-[#0AF8860D] w-full h-[35px] border border-primary rounded-sm text-primary text-[13px] cursor-pointer flex justify-center items-center"
+                              >
+                                <TiTick />
+                                Complete Project
+                              </button>
+                            )}
+                          </div>
                         </div>
                       )}
-                      {myTask.data?.status === "In Progress" && (
-                        <div className="px-2 py-1 shadow-sm rounded-sm bg-primary text-white text-[12px] font-[700]">
-                          {myTask.data?.status}
+                      {myTask.loading && (
+                        <div className="flex justify-center items-center w-full h-[300px]">
+                          <ButtonLoader3 />
                         </div>
                       )}
-                      {myTask.data?.status === "Cancelled" && (
-                        <div className="px-2 py-1 shadow-sm rounded-sm bg-[#D92D20] text-white text-[12px] font-[700]">
-                          {myTask.data?.status}
-                        </div>
-                      )}
-                      <h1 className="text-[#222222] md:text-[20px] text-[16px] font-[600] mt-2">
-                        Request details
-                      </h1>
-                      <p className="text-[#98A2B3] md:text-[16px] text-[12px]">
-                        Please review carefully your request details before
-                        submitting, you can edit or reschedule your task anytime
-                        from your account.
-                      </p>
-                      {/* Task details */}
-                      <TaskDetails myTask={myTask} />
-                      {/* Proposals */}
-                      {myTask.data?.status !== "Cancelled" && (
-                        <Proposals
-                          myTask={myTask}
-                          handleAcceptRequest={handleAcceptRequest}
-                          acceptProposal={acceptProposal}
-                        />
-                      )}
-                      <div className="w-full flex items-center gap-1 mt-8">
-                        {myTask.data?.status === "Receiving Offer" && (
-                          <>
-                            <button className="bg-[#AF2DCF0F] w-full h-[35px] border border-[#AF2DCF] rounded-sm text-[#AF2DCF] text-[13px] cursor-pointer flex justify-center items-center gap-1">
-                              <PiCurrencyDollarBold />
-                              Update Price
-                            </button>
-                            <button className="bg-[#EA51670F] w-full h-[35px] border border-[#EA5167] rounded-sm text-[#EA5167] text-[13px] cursor-pointer flex justify-center items-center gap-1">
-                              <IoMdClose />
-                              Delete Task
-                            </button>
-                          </>
-                        )}
-                        {myTask.data?.status === "In Progress" && (
-                          <button className="bg-[#0AF8860D] w-full h-[35px] border border-primary rounded-sm text-primary text-[13px] cursor-pointer flex justify-center items-center">
-                            <TiTick />
-                            Complete Project
-                          </button>
-                        )}
-                      </div>
-                    </div>
-                  )}
-                  {myTask.loading && (
-                    <div className="flex justify-center items-center w-full h-[300px]">
-                      <ButtonLoader3 />
                     </div>
                   )}
                 </Dialog.Panel>
@@ -179,31 +209,33 @@ function TaskDetails(props) {
           </p>
         </div>
       </div>
-      <div className="grid grid-cols-2 gap-2 w-full mt-2">
-        <div>
-          <label className="text-[#222222] md:text-[16px] text-[13px] font-[500]">
-            Tags
-          </label>
-          <div className="flex flex-wrap gap-2">
-            {myTask.data?.tags?.map((tag, i) => (
-              <span
-                key={i}
-                className="bg-[#F2F4F7] text-[#222222] text-xs px-2 py-1 rounded-full text-[13px]"
-              >
-                {tag}
-              </span>
-            ))}
+      {myTask.data?.tags && (
+        <div className="grid grid-cols-2 gap-2 w-full mt-2">
+          <div>
+            <label className="text-[#222222] md:text-[16px] text-[13px] font-[500]">
+              Tags
+            </label>
+            <div className="flex flex-wrap gap-2">
+              {myTask.data?.tags?.map((tag, i) => (
+                <span
+                  key={i}
+                  className="bg-[#F2F4F7] text-[#222222] text-xs px-2 py-1 rounded-full text-[13px]"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+          <div>
+            <label className="text-[#222222] md:text-[16px] text-[13px] font-[500]">
+              Estimated budget
+            </label>
+            <p className="text-[#6F7487] md:text-[16px] text-[12px] font-[400]">
+              ${myTask.data?.budget} / hr
+            </p>
           </div>
         </div>
-        <div>
-          <label className="text-[#222222] md:text-[16px] text-[13px] font-[500]">
-            Estimated budget
-          </label>
-          <p className="text-[#6F7487] md:text-[16px] text-[12px] font-[400]">
-            ${myTask.data?.budget} / hr
-          </p>
-        </div>
-      </div>
+      )}
       <div className="grid grid-cols-1 w-full mt-2">
         <div>
           <label className="text-[#222222] md:text-[16px] text-[13px] font-[500]">
@@ -259,7 +291,7 @@ function Proposals(props) {
                 >
                   See Profile
                 </Link>
-                {myTask.data?.status === "In Progress" ? (
+                {item?.status === "accepted" ? (
                   <button className="md:w-[120px] w-full h-[35px] border border-[#6F7487] rounded-sm text-[#6F7487] text-[12px] flex justify-center items-center">
                     Approved
                   </button>
@@ -286,6 +318,163 @@ function Proposals(props) {
           <ShowMessage title="Didn't received any proposal yet" />
         </div>
       )}
+    </div>
+  );
+}
+
+function OrderDelivered(props) {
+  const { myTask } = props;
+
+  const handleDownload = async (url) => {
+    try {
+      const response = await fetch(url, {
+        mode: "cors"
+      });
+      const blob = await response.blob();
+      const blobUrl = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = blobUrl;
+      link.setAttribute("download", "downloaded_file.png");
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(blobUrl);
+    } catch (error) {
+      console.error("Download error:", error);
+    }
+  };
+
+  return (
+    <>
+      <div className="w-full md:mt-5 mt-2">
+        <h2 className="text-[#222222] md:text-[18px] text-[16px] font-[600]">
+          Order Submitted
+        </h2>
+        <div className="w-full h-auto md:p-4 p-2 rounded-xl border border-[#02174C33] mt-3 flex flex-col gap-2">
+          <div>
+            <label className="text-[#222222] md:text-[16px] text-[13px] font-[500]">
+              Delivered Date
+            </label>
+            <p className="text-[#6F7487]">
+              {myTask?.data?.delivered_order?.delivered_at}
+            </p>
+          </div>
+          <div>
+            <label className="text-[#222222] md:text-[16px] text-[13px] font-[500]">
+              Delivered Description
+            </label>
+            <p className="text-[#6F7487]">
+              {myTask?.data?.delivered_order?.delivery_description}
+            </p>
+          </div>
+          <div
+            onClick={() =>
+              handleDownload(myTask?.data?.delivered_order?.delivery_file)
+            }
+            className="flex items-center gap-2 border border-gray-300 p-2 rounded-[4px] w-[130px] cursor-pointer"
+          >
+            <IoCloudDownloadOutline className="text-primary text-[22px]" />
+            <p className="text-[#6F7487]">Attachment</p>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+
+const validationSchema = Yup.object({
+  rating: Yup.number().required("Rating is required"),
+  description: Yup.string()
+    .required("Description is required")
+    .max(1000, "Limit exceeded")
+});
+function CompleteAndReviews(props) {
+  const { userInfo, setCompleted, handleClose } = props;
+  const { RatingReviews, ratingResponse } = useRatingReviews();
+
+  const initialValues = {
+    rating: 0,
+    description: ""
+  };
+
+  const { values, errors, handleChange, handleSubmit, touched, setFieldValue } =
+    useFormik({
+      initialValues,
+      validationSchema,
+      onSubmit: async (values) => {
+        RatingReviews(
+          {
+            rating: values.rating,
+            description: values.description
+          },
+          handleClose
+        );
+      }
+    });
+
+  const handleRating = (index) => {
+    setFieldValue("rating", index);
+  };
+
+  return (
+    <div className="px-10">
+      <h2 className="text-[#02174C] md:text-[18px] lg:text-[30px] font-[600] ">
+        {userInfo?.user?.first_name} {userInfo?.user?.last_name}
+      </h2>
+      <p className="text-[#6F7487]">
+        Give some feedback to tasker about your project
+      </p>
+      <h2 className="text-[#02174C] md:text-[14px] lg:text-[16px] font-[600] mt-3">
+        Rate the pro
+      </h2>
+      <div className="flex items-center gap-3 mt-2">
+        {[1, 2, 3, 4, 5].map((index) => (
+          <FaStar
+            key={index}
+            className={`text-[25px] cursor-pointer ${
+              index <= values.rating ? "text-primary" : "text-gray-300"
+            }`}
+            name="rating"
+            value={values.rating}
+            handleChange={handleChange}
+            onClick={() => handleRating(index)}
+          />
+        ))}
+      </div>
+      {errors.rating && touched.rating && (
+        <p className="text-red-700 text-xs mt-1">{errors.rating}</p>
+      )}
+      <textarea
+        id=""
+        className="border border-gray-300 rounded-[4px] p-2 w-full min-h-[200px] mt-3 text-gray-400 outline-none"
+        placeholder="Write something"
+        name="description"
+        value={values.description}
+        onChange={handleChange}
+      ></textarea>
+      {errors.description && touched.description && (
+        <p className="text-red-700 text-xs mt-1">{errors.description}</p>
+      )}
+
+      <div className="flex justify-end mt-5 gap-2 cursor-pointer">
+        <button
+          onClick={() => setCompleted(false)}
+          className="bg-gray-300 py-2 px-3 rounded-[4px] cursor-pointer"
+        >
+          Cancel
+        </button>
+        <button
+          onClick={handleSubmit}
+          disabled={ratingResponse.loading}
+          className="hover-slide-button bg-secondary text-white py-2 px-5 rounded-[4px] cursor-pointer"
+        >
+          {ratingResponse.loading ? (
+            <ButtonLoader1 />
+          ) : (
+            "Submit Review & Complete"
+          )}
+        </button>
+      </div>
     </div>
   );
 }
