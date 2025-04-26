@@ -23,7 +23,7 @@ function useMarkAsCompleted() {
       success: false,
     }));
     await axios
-      .post(`${BASE_URL}/api/buyer/order-submission/`, payload, {
+      .post(`${BASE_URL}/api/seller/submit-order/`, payload, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import { IoMdClose } from "react-icons/io";
 import {
   ButtonLoader1,
-  ButtonLoader3
+  ButtonLoader3,
 } from "../../../../components/shared/ButtonLoaders";
 import ShowMessage from "../../../../components/shared/ShowMessage";
 import useAcceptProposal from "../../../../services/buyer/useAcceptProposal";
@@ -32,7 +32,7 @@ function MyTaskDetailsModal(props) {
       setMyTask((prevState) => ({
         ...prevState,
         loading: true,
-        message: null
+        message: null,
       }));
       GetMyTaskById(selected?.id);
     }
@@ -284,7 +284,13 @@ function Proposals(props) {
                   </h2>
                 </div>
               </div>
-              <div className="flex items-center md:gap-3 gap-2 md:mt-0 mt-2">
+              <div className="flex items-center md:gap-2 gap-1 md:mt-0 mt-2">
+                <Link
+                  className="w-full bg-primary text-secondary py-2 rounded-sm cursor-pointer flex justify-center items-center hover:opacity-80"
+                  to={`/inbox?userId=${item.seller.id}`}
+                >
+                  Send Message
+                </Link>
                 <Link
                   to={`/find-experts/${item.seller.id}`}
                   className="bg-[#02174C0F] md:w-[120px] w-full h-[35px] border border-secondary rounded-sm text-secondary text-[12px] cursor-pointer flex justify-center items-center"
@@ -328,7 +334,7 @@ function OrderDelivered(props) {
   const handleDownload = async (url) => {
     try {
       const response = await fetch(url, {
-        mode: "cors"
+        mode: "cors",
       });
       const blob = await response.blob();
       const blobUrl = window.URL.createObjectURL(blob);
@@ -386,7 +392,7 @@ const validationSchema = Yup.object({
   rating: Yup.number().required("Rating is required"),
   description: Yup.string()
     .required("Description is required")
-    .max(1000, "Limit exceeded")
+    .max(1000, "Limit exceeded"),
 });
 function CompleteAndReviews(props) {
   const { userInfo, setCompleted, handleClose } = props;
@@ -394,7 +400,7 @@ function CompleteAndReviews(props) {
 
   const initialValues = {
     rating: 0,
-    description: ""
+    description: "",
   };
 
   const { values, errors, handleChange, handleSubmit, touched, setFieldValue } =
@@ -405,11 +411,11 @@ function CompleteAndReviews(props) {
         RatingReviews(
           {
             rating: values.rating,
-            description: values.description
+            description: values.description,
           },
           handleClose
         );
-      }
+      },
     });
 
   const handleRating = (index) => {
@@ -445,12 +451,11 @@ function CompleteAndReviews(props) {
         <p className="text-red-700 text-xs mt-1">{errors.rating}</p>
       )}
       <textarea
-        id=""
-        className="border border-gray-300 rounded-[4px] p-2 w-full min-h-[200px] mt-3 text-gray-400 outline-none"
         placeholder="Write something"
         name="description"
         value={values.description}
         onChange={handleChange}
+        className="w-full min-h-[150px] max-h-[150px] px-3 py-3 rounded-[4px] bg-transparent border border-[#02174C33] outline-none hover:border-secondary focus:border-secondary"
       ></textarea>
       {errors.description && touched.description && (
         <p className="text-red-700 text-xs mt-1">{errors.description}</p>

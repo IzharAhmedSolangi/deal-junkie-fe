@@ -3,7 +3,6 @@ import { useContext, useEffect, useState } from "react";
 import Dropdown from "../../../../components/shared/Dropdown";
 import { CiCalendar, CiTimer } from "react-icons/ci";
 import { IoEyeOutline } from "react-icons/io5";
-import { PiCurrencyDollarBold } from "react-icons/pi";
 import { IoMdClose } from "react-icons/io";
 import useGetMyTasks from "../../../../services/buyer/useGetMyTasks";
 import { ButtonLoader3 } from "../../../../components/shared/ButtonLoaders";
@@ -21,7 +20,7 @@ const Tasks = [
   { name: "Cancelled", value: 4 },
   { name: "In Progress", value: 5 },
   { name: "Receiving Offer", value: 6 },
-  { name: "Hold", value: 6 }
+  { name: "Hold", value: 6 },
 ];
 
 function MyTasks() {
@@ -40,7 +39,7 @@ function MyTasks() {
     if (myTasks.currentPage < myTasks.totalPages) {
       setMyTasks((prevState) => ({
         ...prevState,
-        loading: true
+        loading: true,
       }));
       const nextPage = myTasks.currentPage + 1;
       GetMyTasks(nextPage, true, selectedTaskFilter?.name);
@@ -68,7 +67,7 @@ function MyTasks() {
                 data: null,
                 message: null,
                 totalPages: 1,
-                currentPage: 1
+                currentPage: 1,
               }));
               setSelectedTaskFilter(option);
             }}

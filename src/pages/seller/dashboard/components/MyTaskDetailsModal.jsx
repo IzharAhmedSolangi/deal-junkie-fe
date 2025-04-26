@@ -73,6 +73,11 @@ function MyTaskDetailsModal(props) {
                           {myTask.data?.status}
                         </div>
                       )}
+                      {myTask.data?.status === "Delivered" && (
+                        <div className="px-2 py-1 shadow-sm rounded-sm bg-primary text-white text-[12px] font-[700]">
+                          {myTask.data?.status}
+                        </div>
+                      )}
                       {myTask.data?.status === "In Progress" && (
                         <div className="px-2 py-1 shadow-sm rounded-sm bg-primary text-white text-[12px] font-[700]">
                           {myTask.data?.status}

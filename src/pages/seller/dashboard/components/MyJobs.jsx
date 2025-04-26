@@ -15,8 +15,9 @@ import JobCard from "../../../../components/skeltons/JobCard";
 const Tasks = [
   { name: "All Jobs", value: 1 },
   { name: "Completed", value: 2 },
-  { name: "Cancelled", value: 3 },
-  { name: "In Progress", value: 4 },
+  { name: "Delivered", value: 3 },
+  { name: "Cancelled", value: 4 },
+  { name: "In Progress", value: 5 },
 ];
 
 function MyJobs() {
@@ -85,6 +86,11 @@ function MyJobs() {
                   </div>
                   {item.status === "Completed" && (
                     <div className="px-2 py-1 shadow-sm rounded-sm bg-secondary text-white text-[12px] font-[700]">
+                      {item.status}
+                    </div>
+                  )}
+                  {item.status === "Delivered" && (
+                    <div className="px-2 py-1 shadow-sm rounded-sm bg-primary text-white text-[12px] font-[700]">
                       {item.status}
                     </div>
                   )}

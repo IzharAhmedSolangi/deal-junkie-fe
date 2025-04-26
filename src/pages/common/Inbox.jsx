@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect, useRef, useContext } from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { TbSend } from "react-icons/tb";
@@ -43,13 +44,14 @@ const formatDate = (timestamp) => {
 function Inbox() {
   const query = useQuery();
   const token = getAccessToken();
+  const SOCKETS_URL = import.meta.env.VITE_SOCKETS_URL;
   var userId = query.get("userId");
   const params_user = { chat_with: parseInt(userId), username: "" };
   const [users, setUsers] = useState([]);
   const [messages, setMessages] = useState([]);
   const [selectedUser, setSelectedUser] = useState(params_user);
   const { userInfo } = useContext(GlobalContext);
-  const socketUrl = `ws://192.168.1.31:8001/ws/chat/?partner_id=${selectedUser?.chat_with}&token=${token}`;
+  const socketUrl = `${SOCKETS_URL}/ws/chat/?partner_id=${selectedUser?.chat_with}&token=${token}`;
 
   const [newMessage, setNewMessage] = useState("");
   const socketRef = useRef(null);

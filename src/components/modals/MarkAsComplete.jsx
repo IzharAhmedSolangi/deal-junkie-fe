@@ -11,7 +11,7 @@ import useMarkAsCompleted from "../../services/seller/useMarkAsCompleted";
 import { getFileNameFromMediaUrl } from "../../utils/Extract";
 
 const validationSchema = Yup.object({
-  order_id: Yup.string().required("Order ID is required"),
+  project_id: Yup.string().required("Order ID is required"),
   attachment: Yup.string().required("Attachment is required"),
   description: Yup.string().required("Description is required"),
 });
@@ -24,7 +24,7 @@ function MarkAsComplete(props) {
   const { MarkAsCompleted, completed, setCompleted } = useMarkAsCompleted();
 
   const initialValues = {
-    order_id: selected?.id,
+    project_id: selected?.id,
     attachment: upload.url,
     description: "",
   };
@@ -35,7 +35,7 @@ function MarkAsComplete(props) {
     enableReinitialize: true,
     onSubmit: (values) => {
       MarkAsCompleted({
-        order_id: values.order_id,
+        project_id: values.project_id,
         file: values.attachment,
         description: values.description,
       });
