@@ -10,52 +10,34 @@ function FindExpertsButton() {
   const [isOpenAuthModal, setIsOpenAuthModal] = useState(false);
   const [authModalType, setAuthModalType] = useState(null);
 
-  console.log({ userInfo });
-
   return (
     <>
-      {userInfo?.user?.role === "seller" && (
-        <>
-          {token ? (
-            <NavLink to="/find-jobs">
-              <button className="hover-slide-button rounded w-[120px] h-[40px] bg-secondary text-white text-center cursor-pointer">
-                Find Jobs
-              </button>
-            </NavLink>
-          ) : (
-            <button
-              className="hover-slide-button rounded w-[120px] h-[40px] bg-secondary text-white text-center cursor-pointer"
-              onClick={() => {
-                setIsOpenAuthModal(true);
-                setAuthModalType("login");
-              }}
-            >
-              Find Jobs
-            </button>
-          )}
-        </>
+      {token && userInfo?.user?.role === "seller" && (
+        <NavLink to="/find-jobs">
+          <button className="hover-slide-button rounded w-[120px] h-[40px] bg-secondary text-white text-center cursor-pointer">
+            Find Jobs
+          </button>
+        </NavLink>
       )}
-      {userInfo?.user?.role === "buyer" && (
-        <>
-          {token ? (
-            <NavLink to="/find-experts">
-              <button className="hover-slide-button rounded w-[120px] h-[40px] bg-secondary text-white text-center cursor-pointer">
-                Find Experts
-              </button>
-            </NavLink>
-          ) : (
-            <button
-              className="hover-slide-button rounded w-[120px] h-[40px] bg-secondary text-white text-center cursor-pointer"
-              onClick={() => {
-                setIsOpenAuthModal(true);
-                setAuthModalType("login");
-              }}
-            >
-              Find Experts
-            </button>
-          )}
-        </>
+      {token && userInfo?.user?.role === "buyer" && (
+        <NavLink to="/find-experts">
+          <button className="hover-slide-button rounded w-[120px] h-[40px] bg-secondary text-white text-center cursor-pointer">
+            Find Experts
+          </button>
+        </NavLink>
       )}
+      {!token && (
+        <button
+          className="hover-slide-button rounded w-[120px] h-[40px] bg-secondary text-white text-center cursor-pointer"
+          onClick={() => {
+            setIsOpenAuthModal(true);
+            setAuthModalType("login");
+          }}
+        >
+          Find Experts
+        </button>
+      )}
+
       <Auth
         isOpenModal={isOpenAuthModal}
         setIsOpenModal={setIsOpenAuthModal}
