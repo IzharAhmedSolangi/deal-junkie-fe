@@ -10,6 +10,7 @@ import ReconnectingWebSocket from "reconnecting-websocket";
 import GlobalContext from "../../context/GlobalContext";
 import { useLocation } from "react-router-dom";
 import AppHead from "../../seo/AppHead";
+
 const useQuery = () => {
   return new URLSearchParams(useLocation().search);
 };
@@ -80,6 +81,7 @@ function Inbox() {
                 .slice(0, 19),
             },
           ]);
+          setTimeout(scrollToBottom, 0);
         }
         if (response.users_chat_list) {
           setUsers(response.users_chat_list);
@@ -138,6 +140,7 @@ function Inbox() {
         receiver_id: selectedUser?.chat_with,
       });
       socketRef.current.send(payload);
+      setTimeout(scrollToBottom, 0);
     } else {
       console.error("WebSocket not open");
     }
@@ -168,6 +171,11 @@ function Inbox() {
       acc[dateKey].push(message);
       return acc;
     }, {});
+
+  const scrollToBottom = () => {
+    let chatContainer = document.getElementById("chat-container");
+    chatContainer && chatContainer.scrollTo(0, chatContainer.scrollHeight);
+  };
 
   return (
     <>
@@ -260,7 +268,10 @@ function Inbox() {
               </div>
 
               {/* Chat Messages */}
-              <div className="bg-[#D9D9D945] flex-1 overflow-y-auto p-4 space-y-3 w-full">
+              <div
+                id="chat-container"
+                className="bg-[#D9D9D945] flex-1 overflow-y-auto p-4 space-y-3 w-full"
+              >
                 {Object.entries(groupedMessages).map(([date, msgs], index) => (
                   <div key={index}>
                     {/* Date Separator */}
