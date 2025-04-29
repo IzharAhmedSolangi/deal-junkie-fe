@@ -234,7 +234,7 @@ function Inbox() {
                 <div className="w-full border border-[#02174C33] flex items-center px-2 rounded-sm">
                   <CiSearch className="w-5 h-5 text-gray-500" />
                   <input
-                    type="text"
+                    type="search"
                     placeholder="Search chat"
                     className="bg-transparent outline-none w-full rounded p-2"
                   />
@@ -262,17 +262,35 @@ function Inbox() {
                     <div className="ml-3">
                       <div className="flex items-center gap-2">
                         <h3 className="font-[600] text-[16px] text-[#003F63]">
-                          {item.username || "Unknown"}
+                          {item.username}
                         </h3>
                         {/* <div className="bg-primary p-1 rounded-[30px] w-[18px] h-[18px] text-[10px] flex justify-center items-center font-[600]">
                         40
                       </div> */}
                       </div>
-                      <p className="font-[500] text-[14px] text-[#6F7487]">
-                        {/* {item.message} */}
-                      </p>
+                      {!item.messages[
+                        item.messages.length - 1
+                      ]?.message?.includes(`${BASE_URL}`) && (
+                        <p className="font-[400] text-[10px] text-[#6F7487]">
+                          {item.messages[
+                            item.messages.length - 1
+                          ]?.message.slice(0, 30)}
+                        </p>
+                      )}
                       <p className="font-[500] text-[12px] text-[#6F7487] absolute right-3 top-8">
-                        10:27 AM
+                        <p>
+                          {new Date(
+                            item.messages[
+                              item.messages.length - 1
+                            ]?.timestamp.replace(" ", "T")
+                          ).toLocaleTimeString("en-US", {
+                            hour: "2-digit",
+                            minute: "2-digit",
+                            hour12: true,
+                            timeZone:
+                              Intl.DateTimeFormat().resolvedOptions().timeZone,
+                          })}
+                        </p>
                       </p>
                     </div>
                   </div>
@@ -288,7 +306,7 @@ function Inbox() {
                     <FaUserCircle className="w-8 h-8 text-gray-300" />
                     <div>
                       <h3 className="font-[600] text-[16px] text-[#003F63]">
-                        {selectedUser?.username || "Unknown"}
+                        {selectedUser?.username}
                       </h3>
                       <p className="text-sm text-gray-600">Online</p>
                     </div>
@@ -297,8 +315,8 @@ function Inbox() {
                     {/* <button className="bg-primary text-secondary px-3 py-1 rounded">
                   Next Milestone: March 2
                 </button> */}
-                    <CiVideoOn className="text-[25px] text-gray-400" />
-                    <HiDotsVertical className="text-[25px] text-gray-400" />
+                    <CiVideoOn className="text-[25px] text-gray-600 cursor-pointer hover:text-primary" />
+                    <HiDotsVertical className="text-[25px] text-gray-600 cursor-pointer hover:text-primary" />
                   </div>
                 </div>
 
@@ -398,12 +416,7 @@ function Inbox() {
                                       <span className="ml-2 text-sm text-gray-800">
                                         {fileName}
                                       </span>
-                                      <button
-                                        className="rounded-full w-[22px] h-[22px] flex justify-center items-center border border-gray-500 text-gray-500 cursor-pointer ml-3 hover:border-secondary hover:text-secondary"
-                                        // onClick={() =>
-                                        //   downloadFile(item.message)
-                                        // }
-                                      >
+                                      <button className="rounded-full w-[22px] h-[22px] flex justify-center items-center border border-gray-500 text-gray-500 cursor-pointer ml-3 hover:border-secondary hover:text-secondary">
                                         <MdFileDownload />
                                       </button>
                                     </div>
@@ -428,6 +441,9 @@ function Inbox() {
                                   hour: "2-digit",
                                   minute: "2-digit",
                                   hour12: true,
+                                  timeZone:
+                                    Intl.DateTimeFormat().resolvedOptions()
+                                      .timeZone,
                                 })}
                               </span>
                             </div>
@@ -443,7 +459,7 @@ function Inbox() {
                   <form onSubmit={sendMessage} className="w-full relative">
                     <button
                       type="button"
-                      className="absolute top-0 left-0 h-full px-4 text-[20px] cursor-pointer"
+                      className="absolute top-0 left-0 h-full px-4 text-[20px] text-gray-600 hover:text-primary cursor-pointer"
                       onClick={handleClick}
                     >
                       <MdOutlineAttachment />
@@ -459,11 +475,11 @@ function Inbox() {
                       placeholder="Write message..."
                       value={newMessage}
                       onChange={(e) => setNewMessage(e.target.value)}
-                      className="w-full py-2 px-12 rounded outline-none bg-[#F7F9FA] border border-[#F7F9FA]"
+                      className="w-full py-2 px-12 rounded outline-none bg-[#F7F9FA] border border-[#F7F9FA] hover:border-secondary focus:border-secondary"
                     />
                     <button
                       type="submit"
-                      className="absolute top-0 right-0 h-full px-4 text-[20px] cursor-pointer"
+                      className="absolute top-0 right-0 h-full px-4 text-[20px] cursor-pointer text-gray-600 hover:text-primary"
                     >
                       <TbSend />
                     </button>
