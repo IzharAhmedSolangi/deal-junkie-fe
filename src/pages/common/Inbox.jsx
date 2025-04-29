@@ -1,15 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect, useRef, useContext } from "react";
-import { FaUserCircle } from "react-icons/fa";
+import { FaFile, FaUserCircle } from "react-icons/fa";
 import { TbSend } from "react-icons/tb";
 import { CiSearch, CiVideoOn } from "react-icons/ci";
 import { HiDotsVertical } from "react-icons/hi";
-import { MdOutlineAttachment } from "react-icons/md";
+import { MdFileDownload, MdOutlineAttachment } from "react-icons/md";
 import { getAccessToken } from "../../storage/storage";
 import ReconnectingWebSocket from "reconnecting-websocket";
 import GlobalContext from "../../context/GlobalContext";
 import { useLocation } from "react-router-dom";
 import AppHead from "../../seo/AppHead";
+import useUpload from "../../services/common/useUpload";
 
 const useQuery = () => {
   return new URLSearchParams(useLocation().search);
@@ -45,9 +46,13 @@ const formatDate = (timestamp) => {
 function Inbox() {
   const query = useQuery();
   const token = getAccessToken();
+  const BASE_URL = import.meta.env.VITE_API_URL;
   const SOCKETS_URL = import.meta.env.VITE_SOCKETS_URL;
   var userId = query.get("userId");
-  const params_user = { chat_with: parseInt(userId), username: "" };
+  const params_user = {
+    chat_with: userId ? parseInt(userId) : null,
+    username: null,
+  };
   const [users, setUsers] = useState([]);
   const [messages, setMessages] = useState([]);
   const [selectedUser, setSelectedUser] = useState(params_user);
@@ -90,6 +95,7 @@ function Inbox() {
               (item) => item.chat_with === selectedUser.chat_with
             );
             setMessages(user.messages);
+            setTimeout(scrollToBottom, 0);
           }
         }
       } catch (error) {
@@ -172,11 +178,39 @@ function Inbox() {
       return acc;
     }, {});
 
+  // upload files
+  const fileInputRef = useRef(null);
+  const { Upload, upload } = useUpload();
+  const handleClick = () => {
+    fileInputRef.current.click();
+  };
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      Upload({ image: file });
+    }
+  };
+
+  useEffect(() => {
+    if (upload.url) {
+      sendToSocket(upload.url);
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        {
+          id: prevMessages.length + 1,
+          message: upload.url,
+          receiver_id: selectedUser?.chat_with,
+          sender_id: userInfo?.user?.id,
+          timestamp: new Date().toISOString().replace("T", " ").slice(0, 19),
+        },
+      ]);
+    }
+  }, [upload]);
+
   const scrollToBottom = () => {
     let chatContainer = document.getElementById("chat-container");
     chatContainer && chatContainer.scrollTo(0, chatContainer.scrollHeight);
   };
-
   return (
     <>
       <AppHead title="Inbox - Deal Junkie" />
@@ -247,97 +281,200 @@ function Inbox() {
             </div>
 
             {/* Chat Window */}
-            <div className="flex-1 flex flex-col w-[810px]">
-              <div className="px-4 w-full h-[80px] bg-white border-b-[0.5px] border-b-[#02174C33] flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <FaUserCircle className="w-8 h-8 text-gray-300" />
-                  <div>
-                    <h3 className="font-[600] text-[16px] text-[#003F63]">
-                      {selectedUser?.username || "Unknown"}
-                    </h3>
-                    <p className="text-sm text-gray-600">Online</p>
+            {selectedUser?.username && selectedUser?.chat_with ? (
+              <div className="flex-1 flex flex-col w-[810px]">
+                <div className="px-4 w-full h-[80px] bg-white border-b-[0.5px] border-b-[#02174C33] flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <FaUserCircle className="w-8 h-8 text-gray-300" />
+                    <div>
+                      <h3 className="font-[600] text-[16px] text-[#003F63]">
+                        {selectedUser?.username || "Unknown"}
+                      </h3>
+                      <p className="text-sm text-gray-600">Online</p>
+                    </div>
                   </div>
-                </div>
-                <div className="flex items-center gap-2">
-                  {/* <button className="bg-primary text-secondary px-3 py-1 rounded">
+                  <div className="flex items-center gap-2">
+                    {/* <button className="bg-primary text-secondary px-3 py-1 rounded">
                   Next Milestone: March 2
                 </button> */}
-                  <CiVideoOn className="text-[25px] text-gray-400" />
-                  <HiDotsVertical className="text-[25px] text-gray-400" />
+                    <CiVideoOn className="text-[25px] text-gray-400" />
+                    <HiDotsVertical className="text-[25px] text-gray-400" />
+                  </div>
+                </div>
+
+                {/* Chat Messages */}
+                <div
+                  id="chat-container"
+                  className="bg-[#D9D9D945] flex-1 overflow-y-auto p-4 space-y-3 w-full"
+                >
+                  {Object.entries(groupedMessages).map(
+                    ([date, msgs], index) => (
+                      <div key={index}>
+                        {/* Date Separator */}
+                        <div className="text-center text-gray-500 text-sm my-2">
+                          {date}
+                        </div>
+
+                        {/* Messages */}
+                        {msgs.map((item, idx) => {
+                          const supportedImageTypes = [
+                            "jpeg",
+                            "png",
+                            "jpg",
+                            "ico",
+                            "jfif",
+                          ];
+                          const supprtedAudioTypes = ["mp3"];
+                          const supprtedVideoTypes = ["mp4"];
+                          const supprtedPdfTypes = ["pdf"];
+                          const supportedRarTypes = [
+                            "rar",
+                            "zip",
+                            "docx",
+                            "doc",
+                            "txt",
+                          ];
+                          let fileName, fileType;
+
+                          if (item.message?.includes(`${BASE_URL}`)) {
+                            const urlParts = item.message.split("/");
+                            fileName = decodeURIComponent(
+                              urlParts[urlParts.length - 1]
+                            );
+                            fileType = fileName.split(".").pop();
+                          }
+
+                          return (
+                            <div
+                              key={idx}
+                              className={`flex relative ${
+                                item.sender_id === userInfo?.user?.id
+                                  ? "justify-end"
+                                  : "justify-start"
+                              }`}
+                            >
+                              {item.message?.includes(`${BASE_URL}`) && (
+                                <div className="bg-gray-300 p-1 rounded mb-5 my-3">
+                                  {supportedImageTypes.includes(fileType) && (
+                                    <img
+                                      src={item?.message}
+                                      alt=""
+                                      className="w-[300px] h-auto object-contain"
+                                    />
+                                  )}
+                                  {supprtedVideoTypes.includes(fileType) && (
+                                    <video
+                                      controls
+                                      className="w-[300px] h-full"
+                                    >
+                                      <source
+                                        src={item?.message}
+                                        type="video/webm"
+                                      />
+                                    </video>
+                                  )}
+                                  {supprtedAudioTypes.includes(fileType) && (
+                                    <audio controls>
+                                      <source
+                                        src={item?.message}
+                                        type="audio/mp3"
+                                      />
+                                    </audio>
+                                  )}
+                                  {supprtedPdfTypes.includes(fileType) && (
+                                    <iframe
+                                      title={"Viewer"}
+                                      src={item?.message}
+                                      frameBorder={0}
+                                      style={{
+                                        height: "300px",
+                                        width: "300px",
+                                      }}
+                                    ></iframe>
+                                  )}
+                                  {supportedRarTypes.includes(fileType) && (
+                                    <div className="flex items-center px-3 py-2">
+                                      <FaFile />
+                                      <span className="ml-2 text-sm text-gray-800">
+                                        {fileName}
+                                      </span>
+                                      <button
+                                        className="rounded-full w-[22px] h-[22px] flex justify-center items-center border border-gray-500 text-gray-500 cursor-pointer ml-3 hover:border-secondary hover:text-secondary"
+                                        // onClick={() =>
+                                        //   downloadFile(item.message)
+                                        // }
+                                      >
+                                        <MdFileDownload />
+                                      </button>
+                                    </div>
+                                  )}
+                                </div>
+                              )}
+                              {!item.message?.includes(`${BASE_URL}`) && (
+                                <div
+                                  className={`p-3 my-3 rounded-lg max-w-[75%] break-words mb-5 ${
+                                    item.sender_id === userInfo?.user?.id
+                                      ? "bg-[#003F63] text-white rounded-xl rounded-br-none"
+                                      : "bg-[#FAFAFA] text-black rounded-xl rounded-bl-none"
+                                  }`}
+                                >
+                                  {item.message}
+                                </div>
+                              )}
+                              <span className="text-[10px] text-gray-500 absolute bottom-0">
+                                {new Date(
+                                  item.timestamp.replace(" ", "T")
+                                ).toLocaleTimeString("en-US", {
+                                  hour: "2-digit",
+                                  minute: "2-digit",
+                                  hour12: true,
+                                })}
+                              </span>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    )
+                  )}
+                </div>
+
+                {/* Message Input */}
+                <div className="w-full p-4 bg-white border-t-[0.5px] border-t-[#02174C33] flex items-center">
+                  <form onSubmit={sendMessage} className="w-full relative">
+                    <button
+                      type="button"
+                      className="absolute top-0 left-0 h-full px-4 text-[20px] cursor-pointer"
+                      onClick={handleClick}
+                    >
+                      <MdOutlineAttachment />
+                    </button>
+                    <input
+                      type="file"
+                      ref={fileInputRef}
+                      className="hidden"
+                      onChange={handleFileChange}
+                    />
+                    <input
+                      type="text"
+                      placeholder="Write message..."
+                      value={newMessage}
+                      onChange={(e) => setNewMessage(e.target.value)}
+                      className="w-full py-2 px-12 rounded outline-none bg-[#F7F9FA] border border-[#F7F9FA]"
+                    />
+                    <button
+                      type="submit"
+                      className="absolute top-0 right-0 h-full px-4 text-[20px] cursor-pointer"
+                    >
+                      <TbSend />
+                    </button>
+                  </form>
                 </div>
               </div>
-
-              {/* Chat Messages */}
-              <div
-                id="chat-container"
-                className="bg-[#D9D9D945] flex-1 overflow-y-auto p-4 space-y-3 w-full"
-              >
-                {Object.entries(groupedMessages).map(([date, msgs], index) => (
-                  <div key={index}>
-                    {/* Date Separator */}
-                    <div className="text-center text-gray-500 text-sm my-2">
-                      {date}
-                    </div>
-
-                    {/* Messages */}
-                    {msgs.map((item, idx) => (
-                      <div
-                        key={idx}
-                        className={`flex relative ${
-                          item.sender_id === userInfo?.user?.id
-                            ? "justify-end"
-                            : "justify-start"
-                        }`}
-                      >
-                        <div
-                          className={`p-3 my-3 rounded-lg max-w-[75%] break-words mb-5 ${
-                            item.sender_id === userInfo?.user?.id
-                              ? "bg-[#003F63] text-white rounded-xl rounded-br-none"
-                              : "bg-[#FAFAFA] text-black rounded-xl rounded-bl-none"
-                          }`}
-                        >
-                          {item.message}
-                        </div>
-                        <span className="text-[10px] text-gray-500 absolute bottom-0">
-                          {new Date(
-                            item.timestamp.replace(" ", "T")
-                          ).toLocaleTimeString("en-US", {
-                            hour: "2-digit",
-                            minute: "2-digit",
-                            hour12: true,
-                          })}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                ))}
+            ) : (
+              <div className="flex-1 flex justify-center items-center w-[810px]">
+                <p className="text-[20px] text-gray-500">start conversation</p>
               </div>
-
-              {/* Message Input */}
-              <div className="w-full p-4 bg-white border-t-[0.5px] border-t-[#02174C33] flex items-center">
-                <form onSubmit={sendMessage} className="w-full relative">
-                  <button
-                    type="button"
-                    className="absolute top-0 left-0 h-full px-4 text-[20px]"
-                  >
-                    <MdOutlineAttachment />
-                  </button>
-                  <input
-                    type="text"
-                    placeholder="Write message..."
-                    value={newMessage}
-                    onChange={(e) => setNewMessage(e.target.value)}
-                    className="w-full py-2 px-12 rounded outline-none bg-[#F7F9FA] border border-[#F7F9FA]"
-                  />
-                  <button
-                    type="submit"
-                    className="absolute top-0 right-0 h-full px-4 text-[20px]"
-                  >
-                    <TbSend />
-                  </button>
-                </form>
-              </div>
-            </div>
+            )}
           </div>
         </div>
       </div>
