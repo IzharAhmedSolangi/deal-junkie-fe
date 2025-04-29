@@ -11,9 +11,19 @@ import GlobalContext from "../../context/GlobalContext";
 import { useLocation } from "react-router-dom";
 import AppHead from "../../seo/AppHead";
 import useUpload from "../../services/common/useUpload";
+import { handleDownload } from "../../utils/DownloadFiles";
 
 const useQuery = () => {
   return new URLSearchParams(useLocation().search);
+};
+
+const formatTime = (timestamp) => {
+  return new Date(timestamp.replace(" ", "T")).toLocaleTimeString("en-US", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true,
+    timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+  });
 };
 
 const formatDate = (timestamp) => {
@@ -211,6 +221,17 @@ function Inbox() {
     let chatContainer = document.getElementById("chat-container");
     chatContainer && chatContainer.scrollTo(0, chatContainer.scrollHeight);
   };
+
+  const getMessagePreview = (message, isCurrentUser) => {
+    const isFile = message?.includes(BASE_URL);
+    if (isFile) {
+      return isCurrentUser ? "You: File" : "File";
+    }
+    return isCurrentUser
+      ? `You: ${message?.slice(0, 25)}`
+      : message?.slice(0, 25);
+  };
+
   return (
     <>
       <AppHead title="Inbox - Deal Junkie" />
@@ -268,29 +289,44 @@ function Inbox() {
                         40
                       </div> */}
                       </div>
-                      {!item.messages[
-                        item.messages.length - 1
-                      ]?.message?.includes(`${BASE_URL}`) && (
-                        <p className="font-[400] text-[10px] text-[#6F7487]">
-                          {item.messages[
+                      <p className="font-[400] text-[12px] text-[#6F7487]">
+                        {getMessagePreview(
+                          item.messages[item.messages.length - 1]?.message,
+                          item.messages[item.messages.length - 1].sender_id ===
+                            userInfo?.user?.id
+                        )}
+                      </p>
+                      {/* {item.messages[item.messages.length - 1].sender_id ===
+                      userInfo?.user?.id ? (
+                        <p className="font-[400] text-[12px] text-[#6F7487]">
+                          You:{" "}
+                          {!item.messages[
                             item.messages.length - 1
-                          ]?.message.slice(0, 30)}
+                          ]?.message?.includes(`${BASE_URL}`) && (
+                            <>
+                              {item.messages[
+                                item.messages.length - 1
+                              ]?.message.slice(0, 25)}
+                            </>
+                          )}
                         </p>
-                      )}
+                      ) : (
+                        <p className="font-[400] text-[12px] text-[#6F7487]">
+                          {!item.messages[
+                            item.messages.length - 1
+                          ]?.message?.includes(`${BASE_URL}`) && (
+                            <>
+                              {item.messages[
+                                item.messages.length - 1
+                              ]?.message.slice(0, 25)}
+                            </>
+                          )}
+                        </p>
+                      )} */}
                       <p className="font-[500] text-[12px] text-[#6F7487] absolute right-3 top-8">
-                        <p>
-                          {new Date(
-                            item.messages[
-                              item.messages.length - 1
-                            ]?.timestamp.replace(" ", "T")
-                          ).toLocaleTimeString("en-US", {
-                            hour: "2-digit",
-                            minute: "2-digit",
-                            hour12: true,
-                            timeZone:
-                              Intl.DateTimeFormat().resolvedOptions().timeZone,
-                          })}
-                        </p>
+                        {formatTime(
+                          item.messages[item.messages.length - 1]?.timestamp
+                        )}
                       </p>
                     </div>
                   </div>
@@ -313,8 +349,8 @@ function Inbox() {
                   </div>
                   <div className="flex items-center gap-2">
                     {/* <button className="bg-primary text-secondary px-3 py-1 rounded">
-                  Next Milestone: March 2
-                </button> */}
+                      Next Milestone: March 2
+                    </button> */}
                     <CiVideoOn className="text-[25px] text-gray-600 cursor-pointer hover:text-primary" />
                     <HiDotsVertical className="text-[25px] text-gray-600 cursor-pointer hover:text-primary" />
                   </div>
@@ -416,7 +452,12 @@ function Inbox() {
                                       <span className="ml-2 text-sm text-gray-800">
                                         {fileName}
                                       </span>
-                                      <button className="rounded-full w-[22px] h-[22px] flex justify-center items-center border border-gray-500 text-gray-500 cursor-pointer ml-3 hover:border-secondary hover:text-secondary">
+                                      <button
+                                        className="rounded-full w-[22px] h-[22px] flex justify-center items-center border border-gray-500 text-gray-500 cursor-pointer ml-3 hover:border-secondary hover:text-secondary"
+                                        onClick={() =>
+                                          handleDownload(item.message, fileName)
+                                        }
+                                      >
                                         <MdFileDownload />
                                       </button>
                                     </div>
@@ -435,16 +476,7 @@ function Inbox() {
                                 </div>
                               )}
                               <span className="text-[10px] text-gray-500 absolute bottom-0">
-                                {new Date(
-                                  item.timestamp.replace(" ", "T")
-                                ).toLocaleTimeString("en-US", {
-                                  hour: "2-digit",
-                                  minute: "2-digit",
-                                  hour12: true,
-                                  timeZone:
-                                    Intl.DateTimeFormat().resolvedOptions()
-                                      .timeZone,
-                                })}
+                                {formatTime(item.timestamp)}
                               </span>
                             </div>
                           );
