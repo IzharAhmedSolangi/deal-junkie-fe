@@ -203,7 +203,12 @@ function Banner() {
           Schedule your first meeting now for a hassle-free experience
         </h1>
         {!token && <PostProjectButton />}
-        {userInfo?.user?.role === "buyer" && <PostProjectButton />}
+        {userInfo?.user?.role === "buyer" && (
+          <div className="flex md:flex-row flex-col items-center gap-3">
+            <FindExpertsButton />
+            <PostProjectButton />
+          </div>
+        )}
         {userInfo?.user?.role === "seller" && <FindExpertsButton />}
       </div>
     </>

@@ -1,4 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
+import FindExpertsButton from "../../components/shared/FindExpertsButton";
 import AppHead from "../../seo/AppHead";
 
 function HowItWorks() {
@@ -226,27 +227,27 @@ function HowItWorks() {
               {
                 title:
                   "Are you an investor, entrepreneur, or firm looking for financial expertise?",
-                desc: "Post a project and get matched with the right finance professional."
+                desc: "Post a project and get matched with the right finance professional.",
               },
               {
                 title:
                   "Are you a finance professional looking for flexible deal work?",
-                desc: "Join Deal Junkie and offer your expertise to businesses and investors.."
-              }
+                desc: "Join Deal Junkie and offer your expertise to businesses and investors..",
+              },
             ].map((item, index) => (
               <div
                 key={index}
-                className="bg-white shadow-lg p-6 rounded-lg w-full"
+                className="bg-white shadow-lg p-6 rounded-lg w-full group hover:bg-[#003F63]"
               >
                 <img
                   src="/assets/icons/frame22.png"
                   alt="Our Team"
                   className="w-[50px] h-[50px]"
                 />
-                <h3 className="md:text-[24px] text-[18px] font-[600] mt-2 text-[#1D2939]">
+                <h3 className="md:text-[24px] text-[18px] font-[600] mt-2 text-[#1D2939] group-hover:text-white">
                   {item.title}
                 </h3>
-                <p className="text-[16px] font-[400] text-[#667085]">
+                <p className="text-[16px] font-[400] text-[#667085] group-hover:text-white">
                   {item.desc}
                 </p>
               </div>
@@ -261,9 +262,9 @@ function HowItWorks() {
               <h3 className="md:text-[36px] text-[18px] font-semibold text-[#022247]">
                 Join Deal Junkie and take your deals to the next level.
               </h3>
-              <button className=" hover-slide-button mt-4 px-6 py-3 bg-secondary text-white font-semibold rounded-lg">
-                Find Experts Now
-              </button>
+              <div className="mt-4">
+                <FindExpertsButton />
+              </div>
             </div>
             <div className="absolute bottom-0 md:right-16">
               <img

@@ -12,14 +12,16 @@ function KeyFeatures() {
       <div className="mt-12 grid md:grid-cols-3 grid-cols-1 gap-8 px-10">
         {/* Secure Payments */}
         <div
-          className="bg-white rounded-2xl shadow-lg p-8 flex flex-col items-start"
+          className="bg-white rounded-2xl shadow-lg p-8 flex flex-col items-start group hover:bg-[#003F63]"
           data-aos="zoom-in-up"
         >
           <div className="bg-[#01E678] text-white rounded-full w-[60px] h-[60px] flex justify-center items-center">
             <FaLock className="text-[25px]" />
           </div>
-          <h3 className="text-lg font-semibold mt-1">Secure Payments</h3>
-          <p className="text-[#667085] text-[15px] font-[400]">
+          <h3 className="text-lg font-semibold mt-1 group-hover:text-white">
+            Secure Payments
+          </h3>
+          <p className="text-[#667085] text-[15px] font-[400] group-hover:text-white">
             Transactions are processed through encrypted, industry-standard
             payment gateways. Escrow system ensures funds are only released upon
             project completion.
@@ -46,14 +48,16 @@ function KeyFeatures() {
 
         {/* Real-Time Messaging */}
         <div
-          className="bg-white rounded-2xl shadow-lg p-8 flex flex-col items-start"
+          className="bg-white rounded-2xl shadow-lg p-8 flex flex-col items-start group hover:bg-[#003F63]"
           data-aos="zoom-in-up"
         >
           <div className="bg-[#01E678] text-white rounded-full w-[60px] h-[60px] flex justify-center items-center">
             <TbMessageDots className="text-[25px]" />
           </div>
-          <h3 className="text-lg font-semibold mt-1">Real-Time Messaging</h3>
-          <p className="text-[#667085] text-[15px] font-[400]">
+          <h3 className="text-lg font-semibold mt-1 group-hover:text-white">
+            Real-Time Messaging
+          </h3>
+          <p className="text-[#667085] text-[15px] font-[400] group-hover:text-white">
             Seamless in-platform communication for project collaboration. Secure
             file sharing to exchange financial models and documents.
           </p>

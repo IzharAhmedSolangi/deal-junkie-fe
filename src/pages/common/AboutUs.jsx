@@ -1,3 +1,4 @@
+import FindExpertsButton from "../../components/shared/FindExpertsButton";
 import AppHead from "../../seo/AppHead";
 
 function AboutUs() {
@@ -164,17 +165,17 @@ function AboutUs() {
             ].map((item, index) => (
               <div
                 key={index}
-                className="bg-white shadow-lg p-6 rounded-lg md:w-[400px] w-full"
+                className="bg-white shadow-lg p-6 rounded-lg md:w-[400px] w-full group hover:bg-[#003F63]"
               >
                 <img
                   src="/assets/icons/frame22.png"
                   alt="Our Team"
                   className="w-[50px] h-[50px]"
                 />
-                <h3 className="md:text-[24px] text-[18px] font-[600] mt-2 text-[#1D2939]">
+                <h3 className="md:text-[24px] text-[18px] font-[600] mt-2 text-[#1D2939] group-hover:text-white">
                   {item.title}
                 </h3>
-                <p className="text-[16px] font-[400] text-[#667085]">
+                <p className="text-[16px] font-[400] text-[#667085] group-hover:text-white">
                   {item.desc}
                 </p>
               </div>
@@ -191,9 +192,9 @@ function AboutUs() {
                 Deal Junkie connects you with the expertise you need to make
                 better investment decisions.
               </h3>
-              <button className="hover-slide-button mt-4 px-6 py-3 bg-secondary text-white font-semibold rounded-lg">
-                Find Experts Now
-              </button>
+              <div className="mt-4">
+                <FindExpertsButton />
+              </div>
             </div>
 
             {/* Image Section */}

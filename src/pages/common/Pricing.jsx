@@ -109,12 +109,16 @@ function Pricing() {
                 <div
                   key={index}
                   className={`${
-                    index === 1 ? "bg-[#003F63]" : "bg-white"
+                    index === 1
+                      ? "bg-[#003F63]"
+                      : "bg-white group hover:bg-[#003F63]"
                   } w-full h-auto shadow-lg rounded-2xl p-8 flex flex-col items-start gap-2`}
                 >
                   <div
                     className={`${
-                      index === 1 ? "text-[#003F63]" : "text-white"
+                      index === 1
+                        ? "text-[#003F63]"
+                        : "text-white group-hover:text-[#003F63]"
                     } bg-[#01E678] text-[25px] rounded-full w-[60px] h-[60px] flex justify-center items-center`}
                   >
                     {item.icon}
@@ -122,14 +126,18 @@ function Pricing() {
                   <div>
                     <h3
                       className={`${
-                        index === 1 ? "text-white" : "text-[#1D2939]"
+                        index === 1
+                          ? "text-white"
+                          : "text-[#1D2939] group-hover:text-white"
                       } text-lg font-semibold`}
                     >
                       {item.title}
                     </h3>
                     <p
                       className={`${
-                        index === 1 ? "text-[#D0D5DD]" : "text-[#667085]"
+                        index === 1
+                          ? "text-[#D0D5DD]"
+                          : "text-[#667085] group-hover:text-[#D0D5DD]"
                       } text-[15px] font-[400]`}
                     >
                       {item.description}

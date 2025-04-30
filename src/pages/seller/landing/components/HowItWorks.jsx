@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import FindExpertsButton from "../../../../components/shared/FindExpertsButton";
 
 function HowItWorks() {
   return (
@@ -43,9 +44,9 @@ const slides = [
           Work seamlessly with your chosen expert using our secure and
           easy-to-use platform.
         </p>
-        <button className="bg-primary text-secondary w-full py-3 rounded-md hover:opacity-70 transition-colors cursor-pointer">
-          Post a Project
-        </button>
+        <div className="w-full flex justify-center">
+          <FindExpertsButton />
+        </div>
       </>
     ),
   },
@@ -66,9 +67,11 @@ const slides = [
           Create your project, connect with experts, and get results quickly and
           effectively.
         </p>
-        <button className="bg-primary text-secondary w-full py-3 rounded-md hover:opacity-70 transition-colors cursor-pointer">
-          Get Started
-        </button>
+        <div className="w-full flex justify-center">
+          <button className="hover-slide-button rounded w-[120px] h-[40px] bg-primary text-[#003F63] text-center cursor-pointer">
+            Get Started
+          </button>
+        </div>
       </>
     ),
   },
@@ -89,9 +92,11 @@ const slides = [
           Enjoy secure transactions, verified experts, and guaranteed
           satisfaction on every project.
         </p>
-        <button className="bg-primary text-secondary w-full py-3 rounded-md hover:opacity-70 transition-colors cursor-pointer">
-          Learn More
-        </button>
+        <div className="w-full flex justify-center">
+          <button className="hover-slide-button rounded w-[120px] h-[40px] bg-primary text-[#003F63] text-center cursor-pointer">
+            Learn More
+          </button>
+        </div>
       </>
     ),
   },
