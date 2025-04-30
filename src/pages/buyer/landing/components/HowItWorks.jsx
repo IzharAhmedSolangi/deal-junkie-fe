@@ -6,7 +6,7 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 function HowItWorks() {
   return (
     <>
-      <div className="w-full grid grid-cols-2 md:py-10 py-5 overflow-hidden">
+      <div className="w-full grid md:grid-cols-2 grid-cols-1 md:py-10 py-5 overflow-hidden">
         <div className="w-full h-full" data-aos="fade-right">
           <img
             src="/assets/images/image-1.png"
@@ -15,7 +15,7 @@ function HowItWorks() {
           />
         </div>
         <div
-          className="bg-secondary w-full h-full flex flex-col items-center justify-center"
+          className="bg-secondary md:py-0 py-12 w-full h-full flex flex-col items-center justify-center"
           data-aos="fade-left"
         >
           <Slider />
