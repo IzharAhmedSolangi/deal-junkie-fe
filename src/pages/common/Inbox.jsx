@@ -257,7 +257,7 @@ function Inbox() {
   const token = getAccessToken();
   const { userInfo } = useContext(GlobalContext);
 
-  // Parse userId from URL
+  // Parse userId and username from URL
   const userId = parseInt(query.get("userId")) || null;
   const username = query.get("username") || null;
 
@@ -577,7 +577,7 @@ function Inbox() {
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
-                    <CiVideoOn className="text-[25px] text-gray-600 cursor-pointer hover:text-primary hidden md:block" />
+                    <CiVideoOn className="text-[25px] text-gray-600 cursor-pointer hover:text-primary" />
                     <HiDotsVertical className="text-[25px] text-gray-600 cursor-pointer hover:text-primary" />
                   </div>
                 </div>
