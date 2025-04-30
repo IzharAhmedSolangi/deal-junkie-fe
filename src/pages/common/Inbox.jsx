@@ -13,6 +13,7 @@ import { TbSend } from "react-icons/tb";
 import { CiSearch, CiVideoOn } from "react-icons/ci";
 import { HiDotsVertical } from "react-icons/hi";
 import { MdFileDownload, MdOutlineAttachment } from "react-icons/md";
+import { IoArrowBack } from "react-icons/io5";
 import { getAccessToken } from "../../storage/storage";
 import ReconnectingWebSocket from "reconnecting-websocket";
 import GlobalContext from "../../context/GlobalContext";
@@ -137,7 +138,7 @@ const FileContent = ({ fileInfo, message }) => {
         <img
           src={message}
           alt={fileName}
-          className="w-[300px] h-auto object-contain"
+          className="w-full max-w-[300px] h-auto object-contain"
         />
       </div>
     );
@@ -146,7 +147,7 @@ const FileContent = ({ fileInfo, message }) => {
   if (FILE_TYPES.video.includes(fileType)) {
     return (
       <div className="bg-gray-300 p-1 rounded mb-5 my-3">
-        <video controls className="w-[300px] h-full">
+        <video controls className="w-full max-w-[300px] h-full">
           <source src={message} type="video/webm" />
         </video>
       </div>
@@ -156,7 +157,7 @@ const FileContent = ({ fileInfo, message }) => {
   if (FILE_TYPES.audio.includes(fileType)) {
     return (
       <div className="bg-gray-300 p-1 rounded mb-5 my-3">
-        <audio controls>
+        <audio controls className="w-full max-w-[300px]">
           <source src={message} type="audio/mp3" />
         </audio>
       </div>
@@ -170,7 +171,7 @@ const FileContent = ({ fileInfo, message }) => {
           title="PDF Viewer"
           src={message}
           frameBorder={0}
-          style={{ height: "300px", width: "300px" }}
+          className="h-[300px] w-full max-w-[300px]"
         />
       </div>
     );
@@ -181,7 +182,9 @@ const FileContent = ({ fileInfo, message }) => {
       <div className="bg-gray-300 p-1 rounded mb-5 my-3">
         <div className="flex items-center px-3 py-2">
           <FaFile />
-          <span className="ml-2 text-sm text-gray-800">{fileName}</span>
+          <span className="ml-2 text-sm text-gray-800 truncate max-w-[200px]">
+            {fileName}
+          </span>
           <button
             className="rounded-full w-[22px] h-[22px] flex justify-center items-center border border-gray-500 text-gray-500 cursor-pointer ml-3 hover:border-secondary hover:text-secondary"
             onClick={() => handleDownload(message, fileName)}
@@ -197,7 +200,9 @@ const FileContent = ({ fileInfo, message }) => {
     <div className="bg-gray-300 p-1 rounded mb-5 my-3">
       <div className="flex items-center px-3 py-2">
         <FaFile />
-        <span className="ml-2 text-sm text-gray-800">{fileName}</span>
+        <span className="ml-2 text-sm text-gray-800 truncate max-w-[200px]">
+          {fileName}
+        </span>
       </div>
     </div>
   );
@@ -229,19 +234,19 @@ const UserListItem = ({ user, selectedUserId, userInfo, onSelect }) => {
       <div className="w-8 h-8 text-gray-300 rounded-full flex justify-center items-center">
         <FaUserCircle className="w-8 h-8" />
       </div>
-      <div className="ml-3">
+      <div className="ml-3 flex-1 min-w-0">
         <div className="flex items-center gap-2">
-          <h3 className="font-[600] text-[16px] text-[#003F63]">
+          <h3 className="font-[600] text-[16px] text-[#003F63] truncate">
             {user.username}
           </h3>
         </div>
-        <p className="font-[400] text-[12px] text-[#6F7487]">
+        <p className="font-[400] text-[12px] text-[#6F7487] truncate">
           {getMessagePreview(lastMessage.message)}
         </p>
-        <p className="font-[500] text-[12px] text-[#6F7487] absolute right-3 top-8">
-          {formatTime(lastMessage.timestamp)}
-        </p>
       </div>
+      <p className="font-[500] text-[12px] text-[#6F7487] whitespace-nowrap ml-2">
+        {formatTime(lastMessage.timestamp)}
+      </p>
     </div>
   );
 };
@@ -264,6 +269,8 @@ function Inbox() {
     chat_with: userId,
     username: username,
   });
+  const [showSidebar, setShowSidebar] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
 
   // File upload
   const fileInputRef = useRef(null);
@@ -293,6 +300,25 @@ function Inbox() {
         return acc;
       }, {});
   }, [messages]);
+
+  // Check if device is mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+      if (window.innerWidth < 768) {
+        setShowSidebar(selectedUser?.chat_with ? false : true);
+      } else {
+        setShowSidebar(true);
+      }
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+
+    return () => {
+      window.removeEventListener("resize", checkMobile);
+    };
+  }, [selectedUser?.chat_with]);
 
   // Scrolls chat to bottom
   const scrollToBottom = useCallback(() => {
@@ -434,6 +460,16 @@ function Inbox() {
   const handleUserSelect = useCallback((user) => {
     setSelectedUser(user);
     setMessages(user.messages || []);
+
+    // On mobile, hide sidebar after selecting a user
+    if (window.innerWidth < 768) {
+      setShowSidebar(false);
+    }
+  }, []);
+
+  // Handle back button click (for mobile)
+  const handleBackToList = useCallback(() => {
+    setShowSidebar(true);
   }, []);
 
   // Connect to WebSocket when selectedUser changes
@@ -474,52 +510,64 @@ function Inbox() {
     <>
       <AppHead title="Inbox - Deal Junkie" />
       <div className="relative w-full h-auto bg-white pb-30">
-        <div className="w-full md:h-[320px] h-[260px] flex justify-center items-center">
+        <div className="w-full md:h-[320px] h-[200px] flex justify-center items-center">
           <img
             src="/assets/images/Banner2.png"
             alt="Banner"
-            className="absolute top-0 left-0 w-full md:h-[320px] h-[260px]"
+            className="absolute top-0 left-0 w-full md:h-[320px] h-[200px] object-cover"
           />
           <h1 className="font-[700] md:text-[48px] text-[30px] text-secondary z-10 text-center">
             Inbox
           </h1>
         </div>
 
-        <div className="w-full h-[90vh] px-30">
-          <div className="w-full h-full bg-white border-[0.5px] border-[#02174C33] shadow-2xl flex">
-            {/* Chat Sidebar */}
-            <div className="w-[300px] flex-shrink-0 flex flex-col border-r-[0.5px] border-r-[#02174C33]">
-              <div className="w-full h-[80px] px-3 flex items-center">
-                <div className="w-full border border-[#02174C33] flex items-center px-2 rounded-sm">
-                  <CiSearch className="w-5 h-5 text-gray-500" />
-                  <input
-                    type="search"
-                    placeholder="Search chat"
-                    className="bg-transparent outline-none w-full rounded p-2"
-                  />
+        <div className="w-full h-[70vh] md:h-[90vh] px-4 md:px-30">
+          <div className="w-full h-full bg-white border-[0.5px] border-[#02174C33] shadow-xl md:shadow-2xl flex">
+            {/* Chat Sidebar - Conditionally shown on mobile */}
+            {showSidebar && (
+              <div className="w-full md:w-[300px] flex-shrink-0 flex flex-col border-r-[0.5px] border-r-[#02174C33]">
+                <div className="w-full h-[60px] md:h-[80px] px-3 flex items-center">
+                  <div className="w-full border border-[#02174C33] flex items-center px-2 rounded-sm">
+                    <CiSearch className="w-5 h-5 text-gray-500" />
+                    <input
+                      type="search"
+                      placeholder="Search chat"
+                      className="bg-transparent outline-none w-full rounded p-2"
+                    />
+                  </div>
+                </div>
+
+                {/* Chat List */}
+                <div className="overflow-y-auto w-full h-full flex-grow">
+                  {users.map((user, index) => (
+                    <UserListItem
+                      key={index}
+                      user={user}
+                      selectedUserId={selectedUser?.chat_with}
+                      userInfo={userInfo}
+                      onSelect={handleUserSelect}
+                    />
+                  ))}
                 </div>
               </div>
+            )}
 
-              {/* Chat List */}
-              <div className="overflow-y-auto w-full h-full flex-grow">
-                {users.map((user, index) => (
-                  <UserListItem
-                    key={index}
-                    user={user}
-                    selectedUserId={selectedUser?.chat_with}
-                    userInfo={userInfo}
-                    onSelect={handleUserSelect}
-                  />
-                ))}
-              </div>
-            </div>
-
-            {/* Chat Window */}
-            {selectedUser?.username && selectedUser?.chat_with ? (
-              <div className="flex-1 flex flex-col w-[810px]">
+            {/* Chat Window - Conditionally shown on mobile */}
+            {(!isMobile || !showSidebar) &&
+            selectedUser?.username &&
+            selectedUser?.chat_with ? (
+              <div className="flex-1 flex flex-col w-full md:w-[810px]">
                 {/* Chat Header */}
-                <div className="px-4 w-full h-[80px] bg-white border-b-[0.5px] border-b-[#02174C33] flex items-center justify-between">
+                <div className="px-4 w-full h-[60px] md:h-[80px] bg-white border-b-[0.5px] border-b-[#02174C33] flex items-center justify-between">
                   <div className="flex items-center gap-2">
+                    {isMobile && (
+                      <button
+                        onClick={handleBackToList}
+                        className="mr-2 text-gray-600 hover:text-primary"
+                      >
+                        <IoArrowBack className="text-[20px]" />
+                      </button>
+                    )}
                     <FaUserCircle className="w-8 h-8 text-gray-300" />
                     <div>
                       <h3 className="font-[600] text-[16px] text-[#003F63]">
@@ -529,7 +577,7 @@ function Inbox() {
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
-                    <CiVideoOn className="text-[25px] text-gray-600 cursor-pointer hover:text-primary" />
+                    <CiVideoOn className="text-[25px] text-gray-600 cursor-pointer hover:text-primary hidden md:block" />
                     <HiDotsVertical className="text-[25px] text-gray-600 cursor-pointer hover:text-primary" />
                   </div>
                 </div>
@@ -537,13 +585,13 @@ function Inbox() {
                 {/* Chat Messages */}
                 <div
                   id="chat-container"
-                  className="bg-[#D9D9D945] flex-1 overflow-y-auto p-4 space-y-3 w-full"
+                  className="bg-[#D9D9D945] flex-1 overflow-y-auto p-3 md:p-4 space-y-2 md:space-y-3 w-full"
                 >
                   {Object.entries(groupedMessages).map(
                     ([date, dateMessages], index) => (
                       <div key={index}>
                         {/* Date Separator */}
-                        <div className="text-center text-gray-500 text-sm my-2">
+                        <div className="text-center text-gray-500 text-xs md:text-sm my-2">
                           {date}
                         </div>
 
@@ -564,11 +612,11 @@ function Inbox() {
                 </div>
 
                 {/* Message Input */}
-                <div className="w-full p-4 bg-white border-t-[0.5px] border-t-[#02174C33] flex items-center">
+                <div className="w-full p-2 md:p-4 bg-white border-t-[0.5px] border-t-[#02174C33] flex items-center">
                   <form onSubmit={sendMessage} className="w-full relative">
                     <button
                       type="button"
-                      className="absolute top-0 left-0 h-full px-4 text-[20px] text-gray-600 hover:text-primary cursor-pointer"
+                      className="absolute top-0 left-0 h-full px-2 md:px-4 text-[20px] text-gray-600 hover:text-primary cursor-pointer"
                       onClick={handleFileClick}
                     >
                       <MdOutlineAttachment />
@@ -584,24 +632,24 @@ function Inbox() {
                       placeholder="Write message..."
                       value={newMessage}
                       onChange={(e) => setNewMessage(e.target.value)}
-                      className="w-full py-2 px-12 rounded outline-none bg-[#F7F9FA] border border-[#F7F9FA] hover:border-secondary focus:border-secondary"
+                      className="w-full py-2 px-10 md:px-12 rounded outline-none bg-[#F7F9FA] border border-[#F7F9FA] hover:border-secondary focus:border-secondary"
                     />
                     <button
                       type="submit"
-                      className="absolute top-0 right-0 h-full px-4 text-[20px] cursor-pointer text-gray-600 hover:text-primary"
+                      className="absolute top-0 right-0 h-full px-2 md:px-4 text-[20px] cursor-pointer text-gray-600 hover:text-primary"
                     >
                       <TbSend />
                     </button>
                   </form>
                 </div>
               </div>
-            ) : (
-              <div className="flex-1 flex justify-center items-center w-[810px]">
-                <p className="text-[20px] text-gray-500">
+            ) : !showSidebar ? (
+              <div className="flex-1 flex justify-center items-center">
+                <p className="text-[18px] md:text-[20px] text-gray-500">
                   Select a conversation to start chatting
                 </p>
               </div>
-            )}
+            ) : null}
           </div>
         </div>
       </div>
