@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import { IoMdClose } from "react-icons/io";
 import {
   ButtonLoader1,
-  ButtonLoader3
+  ButtonLoader3,
 } from "../../../../components/shared/ButtonLoaders";
 import ShowMessage from "../../../../components/shared/ShowMessage";
 import useAcceptProposal from "../../../../services/buyer/useAcceptProposal";
@@ -32,7 +32,7 @@ function MyTaskDetailsModal(props) {
       setMyTask((prevState) => ({
         ...prevState,
         loading: true,
-        message: null
+        message: null,
       }));
       GetMyTaskById(selected?.id);
     }
@@ -289,7 +289,9 @@ function Proposals(props) {
               <div className="flex items-center md:gap-2 gap-1 md:mt-0 mt-2">
                 <Link
                   className="bg-[#02174C0F] md:w-[120px] w-full h-[35px] border border-secondary rounded-sm text-secondary text-[12px] cursor-pointer flex justify-center items-center"
-                  to={`/inbox?userId=${item.seller.id}`}
+                  to={`/inbox?userId=${item.seller.id}&username=${
+                    item.seller?.first_name
+                  }${" "}${item.seller?.last_name}`}
                 >
                   Send Message
                 </Link>
@@ -336,7 +338,7 @@ function OrderDelivered(props) {
   const handleDownload = async (url) => {
     try {
       const response = await fetch(url, {
-        mode: "cors"
+        mode: "cors",
       });
       const blob = await response.blob();
       const blobUrl = window.URL.createObjectURL(blob);
@@ -394,7 +396,7 @@ const validationSchema = Yup.object({
   rating: Yup.number().required("Rating is required"),
   description: Yup.string()
     .required("Description is required")
-    .max(1000, "Limit exceeded")
+    .max(1000, "Limit exceeded"),
 });
 function CompleteAndReviews(props) {
   const { userInfo, setCompleted, handleClose } = props;
@@ -402,7 +404,7 @@ function CompleteAndReviews(props) {
 
   const initialValues = {
     rating: 0,
-    description: ""
+    description: "",
   };
 
   const { values, errors, handleChange, handleSubmit, touched, setFieldValue } =
@@ -413,11 +415,11 @@ function CompleteAndReviews(props) {
         RatingReviews(
           {
             rating: values.rating,
-            description: values.description
+            description: values.description,
           },
           handleClose
         );
-      }
+      },
     });
 
   const handleRating = (index) => {

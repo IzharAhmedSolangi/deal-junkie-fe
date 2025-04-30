@@ -133,7 +133,9 @@ function SellerProfile(props) {
         </button>
         <Link
           className="w-full bg-primary text-secondary py-2 rounded-sm cursor-pointer flex justify-center items-center hover:opacity-80"
-          to={`/inbox?userId=${seller.data?.user?.id}`}
+          to={`/inbox?userId=${seller.data?.user?.id}&username=${
+            seller.data?.buyer_details?.first_name
+          }${" "}${seller.data?.buyer_details?.last_name}`}
         >
           Send Message
         </Link>

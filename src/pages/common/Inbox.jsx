@@ -1,5 +1,13 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { useState, useEffect, useRef, useContext } from "react";
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
+import {
+  useState,
+  useEffect,
+  useRef,
+  useContext,
+  useMemo,
+  useCallback,
+} from "react";
 import { FaFile, FaUserCircle } from "react-icons/fa";
 import { TbSend } from "react-icons/tb";
 import { CiSearch, CiVideoOn } from "react-icons/ci";
@@ -13,68 +21,298 @@ import AppHead from "../../seo/AppHead";
 import useUpload from "../../services/common/useUpload";
 import { handleDownload } from "../../utils/DownloadFiles";
 
-const useQuery = () => {
-  return new URLSearchParams(useLocation().search);
+// Constants moved outside component
+const BASE_URL = import.meta.env.VITE_API_URL;
+const SOCKETS_URL = import.meta.env.VITE_SOCKETS_URL;
+
+// File type configurations for better maintenance
+const FILE_TYPES = {
+  image: ["jpeg", "png", "jpg", "ico", "jfif"],
+  audio: ["mp3"],
+  video: ["mp4"],
+  pdf: ["pdf"],
+  document: ["rar", "zip", "docx", "doc", "txt"],
 };
 
+// Utility functions moved outside component
+const useQuery = () => new URLSearchParams(useLocation().search);
+
 const formatTime = (timestamp) => {
-  return new Date(timestamp.replace(" ", "T")).toLocaleTimeString("en-US", {
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: true,
-    timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-  });
+  if (!timestamp) return "";
+
+  try {
+    return new Date(timestamp.replace(" ", "T")).toLocaleTimeString("en-US", {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
+      timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+    });
+  } catch (error) {
+    console.error("Error formatting time:", error);
+    return "";
+  }
 };
 
 const formatDate = (timestamp) => {
-  if (!timestamp) return "Unknown Date"; // Handle missing timestamps
+  if (!timestamp) return "Unknown Date";
 
-  // Ensure proper ISO format: "YYYY-MM-DDTHH:mm:ss"
-  const formattedTimestamp = timestamp.replace(" ", "T");
-  const date = new Date(formattedTimestamp);
+  try {
+    const formattedTimestamp = timestamp.replace(" ", "T");
+    const date = new Date(formattedTimestamp);
 
-  if (isNaN(date.getTime())) return "Unknown Date"; // Handle invalid dates
+    if (isNaN(date.getTime())) return "Unknown Date";
 
-  const today = new Date();
-  const yesterday = new Date();
-  yesterday.setDate(today.getDate() - 1);
+    const today = new Date();
+    const yesterday = new Date();
+    yesterday.setDate(today.getDate() - 1);
 
-  const dateStr = date.toISOString().split("T")[0];
-  const todayStr = today.toISOString().split("T")[0];
-  const yesterdayStr = yesterday.toISOString().split("T")[0];
+    const dateStr = date.toISOString().split("T")[0];
+    const todayStr = today.toISOString().split("T")[0];
+    const yesterdayStr = yesterday.toISOString().split("T")[0];
 
-  if (dateStr === todayStr) return "Today";
-  if (dateStr === yesterdayStr) return "Yesterday";
+    if (dateStr === todayStr) return "Today";
+    if (dateStr === yesterdayStr) return "Yesterday";
 
-  return date.toLocaleDateString("en-US", {
-    month: "long",
-    day: "numeric",
-    year: "numeric",
-  });
+    return date.toLocaleDateString("en-US", {
+      month: "long",
+      day: "numeric",
+      year: "numeric",
+    });
+  } catch (error) {
+    console.error("Error formatting date:", error);
+    return "Unknown Date";
+  }
 };
 
+// Extract file information from message URL
+const getFileInfo = (message) => {
+  if (!message?.includes(BASE_URL)) return null;
+
+  const urlParts = message.split("/");
+  const fileName = decodeURIComponent(urlParts[urlParts.length - 1]);
+  const fileType = fileName.split(".").pop();
+
+  return { fileName, fileType };
+};
+
+// Chat message subcomponent
+const ChatMessage = ({ message, isCurrentUser, userId }) => {
+  const fileInfo = getFileInfo(message.message);
+  const isFile = !!fileInfo;
+
+  return (
+    <div
+      className={`flex relative ${
+        isCurrentUser ? "justify-end" : "justify-start"
+      }`}
+    >
+      {isFile ? (
+        <FileContent fileInfo={fileInfo} message={message.message} />
+      ) : (
+        <div
+          className={`p-3 my-3 rounded-lg max-w-[75%] break-words mb-5 ${
+            isCurrentUser
+              ? "bg-[#003F63] text-white rounded-xl rounded-br-none"
+              : "bg-[#FAFAFA] text-black rounded-xl rounded-bl-none"
+          }`}
+        >
+          {message.message}
+        </div>
+      )}
+      <span className="text-[10px] text-gray-500 absolute bottom-0">
+        {formatTime(message.timestamp)}
+      </span>
+    </div>
+  );
+};
+
+// File content subcomponent
+const FileContent = ({ fileInfo, message }) => {
+  if (!fileInfo) return null;
+  const { fileName, fileType } = fileInfo;
+
+  if (FILE_TYPES.image.includes(fileType)) {
+    return (
+      <div className="bg-gray-300 p-1 rounded mb-5 my-3">
+        <img
+          src={message}
+          alt={fileName}
+          className="w-[300px] h-auto object-contain"
+        />
+      </div>
+    );
+  }
+
+  if (FILE_TYPES.video.includes(fileType)) {
+    return (
+      <div className="bg-gray-300 p-1 rounded mb-5 my-3">
+        <video controls className="w-[300px] h-full">
+          <source src={message} type="video/webm" />
+        </video>
+      </div>
+    );
+  }
+
+  if (FILE_TYPES.audio.includes(fileType)) {
+    return (
+      <div className="bg-gray-300 p-1 rounded mb-5 my-3">
+        <audio controls>
+          <source src={message} type="audio/mp3" />
+        </audio>
+      </div>
+    );
+  }
+
+  if (FILE_TYPES.pdf.includes(fileType)) {
+    return (
+      <div className="bg-gray-300 p-1 rounded mb-5 my-3">
+        <iframe
+          title="PDF Viewer"
+          src={message}
+          frameBorder={0}
+          style={{ height: "300px", width: "300px" }}
+        />
+      </div>
+    );
+  }
+
+  if (FILE_TYPES.document.includes(fileType)) {
+    return (
+      <div className="bg-gray-300 p-1 rounded mb-5 my-3">
+        <div className="flex items-center px-3 py-2">
+          <FaFile />
+          <span className="ml-2 text-sm text-gray-800">{fileName}</span>
+          <button
+            className="rounded-full w-[22px] h-[22px] flex justify-center items-center border border-gray-500 text-gray-500 cursor-pointer ml-3 hover:border-secondary hover:text-secondary"
+            onClick={() => handleDownload(message, fileName)}
+          >
+            <MdFileDownload />
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="bg-gray-300 p-1 rounded mb-5 my-3">
+      <div className="flex items-center px-3 py-2">
+        <FaFile />
+        <span className="ml-2 text-sm text-gray-800">{fileName}</span>
+      </div>
+    </div>
+  );
+};
+
+// User list item subcomponent
+const UserListItem = ({ user, selectedUserId, userInfo, onSelect }) => {
+  const lastMessage = user.messages[user.messages.length - 1] || {};
+  const isCurrentUserSender = lastMessage.sender_id === userInfo?.user?.id;
+
+  const getMessagePreview = (message) => {
+    if (!message) return "";
+    const isFile = message.includes(BASE_URL);
+    if (isFile) return isCurrentUserSender ? "You: File" : "File";
+    return isCurrentUserSender
+      ? `You: ${message.slice(0, 25)}${message.length > 25 ? "..." : ""}`
+      : `${message.slice(0, 25)}${message.length > 25 ? "..." : ""}`;
+  };
+
+  return (
+    <div
+      className={`flex relative items-center py-3 px-3 border-t-[0.5px] border-t-[#02174C33] cursor-pointer ${
+        selectedUserId === user.chat_with
+          ? "bg-blue-50"
+          : "hover:bg-[#0AF8860F]"
+      }`}
+      onClick={() => onSelect(user)}
+    >
+      <div className="w-8 h-8 text-gray-300 rounded-full flex justify-center items-center">
+        <FaUserCircle className="w-8 h-8" />
+      </div>
+      <div className="ml-3">
+        <div className="flex items-center gap-2">
+          <h3 className="font-[600] text-[16px] text-[#003F63]">
+            {user.username}
+          </h3>
+        </div>
+        <p className="font-[400] text-[12px] text-[#6F7487]">
+          {getMessagePreview(lastMessage.message)}
+        </p>
+        <p className="font-[500] text-[12px] text-[#6F7487] absolute right-3 top-8">
+          {formatTime(lastMessage.timestamp)}
+        </p>
+      </div>
+    </div>
+  );
+};
+
+// Main component
 function Inbox() {
   const query = useQuery();
   const token = getAccessToken();
-  const BASE_URL = import.meta.env.VITE_API_URL;
-  const SOCKETS_URL = import.meta.env.VITE_SOCKETS_URL;
-  var userId = query.get("userId");
-  const params_user = {
-    chat_with: userId ? parseInt(userId) : null,
-    username: null,
-  };
+  const { userInfo } = useContext(GlobalContext);
+
+  // Parse userId from URL
+  const userId = parseInt(query.get("userId")) || null;
+  const username = query.get("username") || null;
+
+  // State management
   const [users, setUsers] = useState([]);
   const [messages, setMessages] = useState([]);
-  const [selectedUser, setSelectedUser] = useState(params_user);
-  const { userInfo } = useContext(GlobalContext);
-  const socketUrl = `${SOCKETS_URL}/ws/chat/?partner_id=${selectedUser?.chat_with}&token=${token}`;
-
   const [newMessage, setNewMessage] = useState("");
-  const socketRef = useRef(null);
-  const disconnectTimeoutRef = useRef(null);
+  const [selectedUser, setSelectedUser] = useState({
+    chat_with: userId,
+    username: username,
+  });
 
-  const connectSocket = () => {
+  // File upload
+  const fileInputRef = useRef(null);
+  const { Upload, upload } = useUpload();
+
+  // WebSocket connection
+  const socketRef = useRef(null);
+  const socketUrl = useMemo(
+    () =>
+      `${SOCKETS_URL}/ws/chat/?partner_id=${selectedUser?.chat_with}&token=${token}`,
+    [selectedUser?.chat_with, token]
+  );
+
+  // Group messages by date
+  const groupedMessages = useMemo(() => {
+    return messages
+      .slice()
+      .sort(
+        (a, b) =>
+          new Date(a.timestamp.replace(" ", "T")) -
+          new Date(b.timestamp.replace(" ", "T"))
+      )
+      .reduce((acc, message) => {
+        const dateKey = formatDate(message.timestamp);
+        if (!acc[dateKey]) acc[dateKey] = [];
+        acc[dateKey].push(message);
+        return acc;
+      }, {});
+  }, [messages]);
+
+  // Scrolls chat to bottom
+  const scrollToBottom = useCallback(() => {
+    const chatContainer = document.getElementById("chat-container");
+    if (chatContainer) {
+      chatContainer.scrollTo({
+        top: chatContainer.scrollHeight,
+        behavior: "smooth",
+      });
+    }
+  }, []);
+
+  // Connect to WebSocket
+  const connectSocket = useCallback(() => {
+    if (socketRef.current) {
+      socketRef.current.close();
+    }
+
     socketRef.current = new ReconnectingWebSocket(socketUrl);
+
     socketRef.current.onopen = () => {
       console.log("WebSocket Connected");
     };
@@ -82,11 +320,12 @@ function Inbox() {
     socketRef.current.onmessage = (event) => {
       try {
         const response = JSON.parse(event.data);
+
         if (response.message) {
           setMessages((prev) => [
             ...prev,
             {
-              id: prev.length + 1,
+              id: Date.now(),
               message: response.message,
               sender_id: response.sender_id,
               receiver_id: response.receiver_id,
@@ -96,16 +335,20 @@ function Inbox() {
                 .slice(0, 19),
             },
           ]);
-          setTimeout(scrollToBottom, 0);
+          setTimeout(scrollToBottom, 100);
         }
+
         if (response.users_chat_list) {
           setUsers(response.users_chat_list);
+
           if (userId) {
             const user = response.users_chat_list.find(
               (item) => item.chat_with === selectedUser.chat_with
             );
-            setMessages(user.messages);
-            setTimeout(scrollToBottom, 0);
+            if (user) {
+              setMessages(user.messages);
+              setTimeout(scrollToBottom, 100);
+            }
           }
         }
       } catch (error) {
@@ -120,94 +363,99 @@ function Inbox() {
     socketRef.current.onclose = () => {
       console.log("WebSocket Disconnected");
     };
-  };
+  }, [socketUrl, userId, selectedUser.chat_with, scrollToBottom]);
 
-  const sendMessage = async (e) => {
-    e.preventDefault();
-    if (newMessage.trim() === "") return;
-
-    // Ensure the WebSocket is connected
-    if (!socketRef.current || socketRef.current.readyState !== WebSocket.OPEN) {
-      await new Promise((resolve) => {
+  // Send message through WebSocket
+  const sendToSocket = useCallback(
+    (message) => {
+      if (
+        socketRef.current &&
+        socketRef.current.readyState === WebSocket.OPEN
+      ) {
+        const payload = JSON.stringify({
+          message: message,
+          receiver_id: selectedUser?.chat_with,
+        });
+        socketRef.current.send(payload);
+        setTimeout(scrollToBottom, 100);
+      } else {
+        console.error("WebSocket not open");
+        // Attempt to reconnect
         connectSocket();
-        setTimeout(resolve, 500);
-      });
-    }
+        // Queue message to be sent after connection (could implement a message queue here)
+      }
+    },
+    [selectedUser?.chat_with, connectSocket, scrollToBottom]
+  );
 
-    sendToSocket(newMessage);
+  // Handle sending a message
+  const sendMessage = useCallback(
+    (e) => {
+      e.preventDefault();
+      if (!newMessage.trim() || !selectedUser?.chat_with) return;
 
-    setMessages((prevMessages) => [
-      ...prevMessages,
-      {
-        id: prevMessages.length + 1,
-        message: newMessage,
-        receiver_id: selectedUser?.chat_with,
-        sender_id: userInfo?.user?.id,
-        timestamp: new Date().toISOString().replace("T", " ").slice(0, 19),
-      },
-    ]);
-    setNewMessage("");
-  };
+      const timestamp = new Date().toISOString().replace("T", " ").slice(0, 19);
 
-  const sendToSocket = (message) => {
-    if (socketRef.current && socketRef.current.readyState === WebSocket.OPEN) {
-      const payload = JSON.stringify({
-        message: message,
-        receiver_id: selectedUser?.chat_with,
-      });
-      socketRef.current.send(payload);
-      setTimeout(scrollToBottom, 0);
-    } else {
-      console.error("WebSocket not open");
-    }
-  };
+      // Optimistic update
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        {
+          id: Date.now(),
+          message: newMessage,
+          receiver_id: selectedUser?.chat_with,
+          sender_id: userInfo?.user?.id,
+          timestamp,
+        },
+      ]);
 
+      sendToSocket(newMessage);
+      setNewMessage("");
+    },
+    [newMessage, selectedUser?.chat_with, userInfo?.user?.id, sendToSocket]
+  );
+
+  // Handle file upload
+  const handleFileChange = useCallback(
+    (event) => {
+      const file = event.target.files[0];
+      if (file) {
+        Upload({ image: file });
+      }
+    },
+    [Upload]
+  );
+
+  // Handle file button click
+  const handleFileClick = useCallback(() => {
+    fileInputRef.current?.click();
+  }, []);
+
+  // Handle user selection
+  const handleUserSelect = useCallback((user) => {
+    setSelectedUser(user);
+    setMessages(user.messages || []);
+  }, []);
+
+  // Connect to WebSocket when selectedUser changes
   useEffect(() => {
     connectSocket();
+
     return () => {
       if (socketRef.current) {
         socketRef.current.close();
       }
-      if (disconnectTimeoutRef.current) {
-        clearTimeout(disconnectTimeoutRef.current);
-      }
     };
-  }, [selectedUser]);
+  }, [connectSocket]);
 
-  const groupedMessages = messages
-    .slice() // Create a copy to avoid mutating state
-    .sort(
-      (a, b) =>
-        new Date(a.timestamp.replace(" ", "T")) -
-        new Date(b.timestamp.replace(" ", "T"))
-    ) // Sort by time
-    .reduce((acc, message) => {
-      const dateKey = formatDate(message.timestamp);
-      if (!acc[dateKey]) acc[dateKey] = [];
-      acc[dateKey].push(message);
-      return acc;
-    }, {});
-
-  // upload files
-  const fileInputRef = useRef(null);
-  const { Upload, upload } = useUpload();
-  const handleClick = () => {
-    fileInputRef.current.click();
-  };
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      Upload({ image: file });
-    }
-  };
-
+  // Handle file upload completion
   useEffect(() => {
-    if (upload.url) {
+    if (upload.url && selectedUser?.chat_with) {
       sendToSocket(upload.url);
+
       setMessages((prevMessages) => [
         ...prevMessages,
         {
-          id: prevMessages.length + 1,
+          id: Date.now(),
           message: upload.url,
           receiver_id: selectedUser?.chat_with,
           sender_id: userInfo?.user?.id,
@@ -215,22 +463,12 @@ function Inbox() {
         },
       ]);
     }
-  }, [upload]);
+  }, [upload.url, selectedUser?.chat_with, userInfo?.user?.id, sendToSocket]);
 
-  const scrollToBottom = () => {
-    let chatContainer = document.getElementById("chat-container");
-    chatContainer && chatContainer.scrollTo(0, chatContainer.scrollHeight);
-  };
-
-  const getMessagePreview = (message, isCurrentUser) => {
-    const isFile = message?.includes(BASE_URL);
-    if (isFile) {
-      return isCurrentUser ? "You: File" : "File";
-    }
-    return isCurrentUser
-      ? `You: ${message?.slice(0, 25)}`
-      : message?.slice(0, 25);
-  };
+  // Scroll to bottom when messages change
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages, scrollToBottom]);
 
   return (
     <>
@@ -239,7 +477,7 @@ function Inbox() {
         <div className="w-full md:h-[320px] h-[260px] flex justify-center items-center">
           <img
             src="/assets/images/Banner2.png"
-            alt=""
+            alt="Banner"
             className="absolute top-0 left-0 w-full md:h-[320px] h-[260px]"
           />
           <h1 className="font-[700] md:text-[48px] text-[30px] text-secondary z-10 text-center">
@@ -261,75 +499,17 @@ function Inbox() {
                   />
                 </div>
               </div>
+
               {/* Chat List */}
               <div className="overflow-y-auto w-full h-full flex-grow">
-                {users?.map((item, index) => (
-                  <div
+                {users.map((user, index) => (
+                  <UserListItem
                     key={index}
-                    className={`flex relative items-center py-3 px-3 border-t-[0.5px] border-t-[#02174C33] 
-                    cursor-pointer ${
-                      selectedUser?.chat_with === item.chat_with
-                        ? "bg-blue-50"
-                        : "hover:bg-[#0AF8860F]"
-                    }`}
-                    onClick={() => {
-                      setSelectedUser(item);
-                      setMessages(item.messages);
-                    }}
-                  >
-                    <div className="w-8 h-8 text-gray-300 rounded-full flex justify-center items-center">
-                      <FaUserCircle className="w-8 h-8" />
-                    </div>
-                    <div className="ml-3">
-                      <div className="flex items-center gap-2">
-                        <h3 className="font-[600] text-[16px] text-[#003F63]">
-                          {item.username}
-                        </h3>
-                        {/* <div className="bg-primary p-1 rounded-[30px] w-[18px] h-[18px] text-[10px] flex justify-center items-center font-[600]">
-                        40
-                      </div> */}
-                      </div>
-                      <p className="font-[400] text-[12px] text-[#6F7487]">
-                        {getMessagePreview(
-                          item.messages[item.messages.length - 1]?.message,
-                          item.messages[item.messages.length - 1].sender_id ===
-                            userInfo?.user?.id
-                        )}
-                      </p>
-                      {/* {item.messages[item.messages.length - 1].sender_id ===
-                      userInfo?.user?.id ? (
-                        <p className="font-[400] text-[12px] text-[#6F7487]">
-                          You:{" "}
-                          {!item.messages[
-                            item.messages.length - 1
-                          ]?.message?.includes(`${BASE_URL}`) && (
-                            <>
-                              {item.messages[
-                                item.messages.length - 1
-                              ]?.message.slice(0, 25)}
-                            </>
-                          )}
-                        </p>
-                      ) : (
-                        <p className="font-[400] text-[12px] text-[#6F7487]">
-                          {!item.messages[
-                            item.messages.length - 1
-                          ]?.message?.includes(`${BASE_URL}`) && (
-                            <>
-                              {item.messages[
-                                item.messages.length - 1
-                              ]?.message.slice(0, 25)}
-                            </>
-                          )}
-                        </p>
-                      )} */}
-                      <p className="font-[500] text-[12px] text-[#6F7487] absolute right-3 top-8">
-                        {formatTime(
-                          item.messages[item.messages.length - 1]?.timestamp
-                        )}
-                      </p>
-                    </div>
-                  </div>
+                    user={user}
+                    selectedUserId={selectedUser?.chat_with}
+                    userInfo={userInfo}
+                    onSelect={handleUserSelect}
+                  />
                 ))}
               </div>
             </div>
@@ -337,6 +517,7 @@ function Inbox() {
             {/* Chat Window */}
             {selectedUser?.username && selectedUser?.chat_with ? (
               <div className="flex-1 flex flex-col w-[810px]">
+                {/* Chat Header */}
                 <div className="px-4 w-full h-[80px] bg-white border-b-[0.5px] border-b-[#02174C33] flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <FaUserCircle className="w-8 h-8 text-gray-300" />
@@ -348,9 +529,6 @@ function Inbox() {
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
-                    {/* <button className="bg-primary text-secondary px-3 py-1 rounded">
-                      Next Milestone: March 2
-                    </button> */}
                     <CiVideoOn className="text-[25px] text-gray-600 cursor-pointer hover:text-primary" />
                     <HiDotsVertical className="text-[25px] text-gray-600 cursor-pointer hover:text-primary" />
                   </div>
@@ -362,7 +540,7 @@ function Inbox() {
                   className="bg-[#D9D9D945] flex-1 overflow-y-auto p-4 space-y-3 w-full"
                 >
                   {Object.entries(groupedMessages).map(
-                    ([date, msgs], index) => (
+                    ([date, dateMessages], index) => (
                       <div key={index}>
                         {/* Date Separator */}
                         <div className="text-center text-gray-500 text-sm my-2">
@@ -370,117 +548,16 @@ function Inbox() {
                         </div>
 
                         {/* Messages */}
-                        {msgs.map((item, idx) => {
-                          const supportedImageTypes = [
-                            "jpeg",
-                            "png",
-                            "jpg",
-                            "ico",
-                            "jfif",
-                          ];
-                          const supprtedAudioTypes = ["mp3"];
-                          const supprtedVideoTypes = ["mp4"];
-                          const supprtedPdfTypes = ["pdf"];
-                          const supportedRarTypes = [
-                            "rar",
-                            "zip",
-                            "docx",
-                            "doc",
-                            "txt",
-                          ];
-                          let fileName, fileType;
-
-                          if (item.message?.includes(`${BASE_URL}`)) {
-                            const urlParts = item.message.split("/");
-                            fileName = decodeURIComponent(
-                              urlParts[urlParts.length - 1]
-                            );
-                            fileType = fileName.split(".").pop();
-                          }
-
-                          return (
-                            <div
-                              key={idx}
-                              className={`flex relative ${
-                                item.sender_id === userInfo?.user?.id
-                                  ? "justify-end"
-                                  : "justify-start"
-                              }`}
-                            >
-                              {item.message?.includes(`${BASE_URL}`) && (
-                                <div className="bg-gray-300 p-1 rounded mb-5 my-3">
-                                  {supportedImageTypes.includes(fileType) && (
-                                    <img
-                                      src={item?.message}
-                                      alt=""
-                                      className="w-[300px] h-auto object-contain"
-                                    />
-                                  )}
-                                  {supprtedVideoTypes.includes(fileType) && (
-                                    <video
-                                      controls
-                                      className="w-[300px] h-full"
-                                    >
-                                      <source
-                                        src={item?.message}
-                                        type="video/webm"
-                                      />
-                                    </video>
-                                  )}
-                                  {supprtedAudioTypes.includes(fileType) && (
-                                    <audio controls>
-                                      <source
-                                        src={item?.message}
-                                        type="audio/mp3"
-                                      />
-                                    </audio>
-                                  )}
-                                  {supprtedPdfTypes.includes(fileType) && (
-                                    <iframe
-                                      title={"Viewer"}
-                                      src={item?.message}
-                                      frameBorder={0}
-                                      style={{
-                                        height: "300px",
-                                        width: "300px",
-                                      }}
-                                    ></iframe>
-                                  )}
-                                  {supportedRarTypes.includes(fileType) && (
-                                    <div className="flex items-center px-3 py-2">
-                                      <FaFile />
-                                      <span className="ml-2 text-sm text-gray-800">
-                                        {fileName}
-                                      </span>
-                                      <button
-                                        className="rounded-full w-[22px] h-[22px] flex justify-center items-center border border-gray-500 text-gray-500 cursor-pointer ml-3 hover:border-secondary hover:text-secondary"
-                                        onClick={() =>
-                                          handleDownload(item.message, fileName)
-                                        }
-                                      >
-                                        <MdFileDownload />
-                                      </button>
-                                    </div>
-                                  )}
-                                </div>
-                              )}
-                              {!item.message?.includes(`${BASE_URL}`) && (
-                                <div
-                                  className={`p-3 my-3 rounded-lg max-w-[75%] break-words mb-5 ${
-                                    item.sender_id === userInfo?.user?.id
-                                      ? "bg-[#003F63] text-white rounded-xl rounded-br-none"
-                                      : "bg-[#FAFAFA] text-black rounded-xl rounded-bl-none"
-                                  }`}
-                                >
-                                  {item.message}
-                                </div>
-                              )}
-                              <span className="text-[10px] text-gray-500 absolute bottom-0">
-                                {formatTime(item.timestamp)}
-                              </span>
-                            </div>
-                          );
-                        })}
+                        {dateMessages.map((message, msgIndex) => (
+                          <ChatMessage
+                            key={msgIndex}
+                            message={message}
+                            isCurrentUser={
+                              message.sender_id === userInfo?.user?.id
+                            }
+                            userId={userInfo?.user?.id}
+                          />
+                        ))}
                       </div>
                     )
                   )}
@@ -492,7 +569,7 @@ function Inbox() {
                     <button
                       type="button"
                       className="absolute top-0 left-0 h-full px-4 text-[20px] text-gray-600 hover:text-primary cursor-pointer"
-                      onClick={handleClick}
+                      onClick={handleFileClick}
                     >
                       <MdOutlineAttachment />
                     </button>
@@ -520,7 +597,9 @@ function Inbox() {
               </div>
             ) : (
               <div className="flex-1 flex justify-center items-center w-[810px]">
-                <p className="text-[20px] text-gray-500">start conversation</p>
+                <p className="text-[20px] text-gray-500">
+                  Select a conversation to start chatting
+                </p>
               </div>
             )}
           </div>

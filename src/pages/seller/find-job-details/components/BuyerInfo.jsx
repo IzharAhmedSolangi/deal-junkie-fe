@@ -83,7 +83,11 @@ function BuyerInfo(props) {
           <button
             className="w-full bg-primary text-secondary py-2 rounded-sm cursor-pointer"
             onClick={() => {
-              Navigate(`/inbox?userId=${findJob.data?.user?.id}`);
+              Navigate(
+                `/inbox?userId=${findJob.data?.user?.id}&username=${
+                  findJob.data?.user?.first_name
+                }${" "}${findJob.data?.user?.last_name}`
+              );
             }}
           >
             Send Message

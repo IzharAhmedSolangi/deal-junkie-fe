@@ -146,7 +146,9 @@ function SellerTimeDetails(props) {
           </button>
           <Link
             className="w-full bg-primary text-secondary py-2 rounded-sm cursor-pointer flex justify-center items-center hover:opacity-80"
-            to={`/inbox?userId=${findExpert.data?.user?.id}`}
+            to={`/inbox?userId=${findExpert.data?.user?.id}&username=${
+              findExpert.data?.user?.first_name
+            }${" "}${findExpert.data?.user?.last_name}`}
           >
             Send Message
           </Link>
