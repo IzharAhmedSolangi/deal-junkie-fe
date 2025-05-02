@@ -92,29 +92,29 @@ const Routing = () => {
               </Route>
             )}
             {/* Admin pages */}
-            {userInfo?.user?.role === "admin" && (
-              <Route path="/" element={<AdminLayout />}>
-                <Route path="admin/dashboard" element={<AdminDashboard />} />
-                <Route path="admin/jobs" element={<AdminJobs />} />
-                <Route path="admin/jobs/:jobId" element={<AdminJobDetails />} />
-                <Route path="admin/earnings" element={<AdminEarnings />} />
-                <Route path="admin/buyers" element={<AdminBuyers />} />
-                <Route
-                  path="admin/buyers/:buyerId"
-                  element={<AdminBuyerDetails />}
-                />
-                <Route path="admin/sellers" element={<AdminSellers />} />
-                <Route
-                  path="admin/sellers/:sellerId"
-                  element={<AdminSellerDetails />}
-                />
-                <Route path="admin/chats" element={<AdminChats />} />
-                <Route
-                  path="admin/support-messages"
-                  element={<AdminSupportMessages />}
-                />
-              </Route>
-            )}
+            {/* {userInfo?.user?.role === "admin" && ( */}
+            <Route path="/" element={<AdminLayout />}>
+              <Route path="admin/dashboard" element={<AdminDashboard />} />
+              <Route path="admin/jobs" element={<AdminJobs />} />
+              <Route path="admin/jobs/:jobId" element={<AdminJobDetails />} />
+              <Route path="admin/earnings" element={<AdminEarnings />} />
+              <Route path="admin/buyers" element={<AdminBuyers />} />
+              <Route
+                path="admin/buyers/:buyerId"
+                element={<AdminBuyerDetails />}
+              />
+              <Route path="admin/sellers" element={<AdminSellers />} />
+              <Route
+                path="admin/sellers/:sellerId"
+                element={<AdminSellerDetails />}
+              />
+              <Route path="admin/chats" element={<AdminChats />} />
+              <Route
+                path="admin/support-messages"
+                element={<AdminSupportMessages />}
+              />
+            </Route>
+            {/* )} */}
           </>
         )}
 

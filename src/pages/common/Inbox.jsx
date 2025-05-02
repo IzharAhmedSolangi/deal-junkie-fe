@@ -8,12 +8,11 @@ import {
   useMemo,
   useCallback,
 } from "react";
-import { FaFile } from "react-icons/fa";
+import { FaChevronLeft, FaFile } from "react-icons/fa";
 import { TbSend } from "react-icons/tb";
 import { CiSearch, CiVideoOn } from "react-icons/ci";
 import { HiDotsVertical } from "react-icons/hi";
 import { MdFileDownload, MdOutlineAttachment } from "react-icons/md";
-import { IoArrowBack } from "react-icons/io5";
 import { getAccessToken } from "../../storage/storage";
 import ReconnectingWebSocket from "reconnecting-websocket";
 import GlobalContext from "../../context/GlobalContext";
@@ -39,19 +38,8 @@ const FILE_TYPES = {
 const useQuery = () => new URLSearchParams(useLocation().search);
 
 const formatTime = (timestamp) => {
-  if (!timestamp) return "";
-
-  try {
-    return new Date(timestamp.replace(" ", "T")).toLocaleTimeString("en-US", {
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: true,
-      timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-    });
-  } catch (error) {
-    console.error("Error formatting time:", error);
-    return "";
-  }
+  const date = new Date(timestamp);
+  return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
 };
 
 const formatDate = (timestamp) => {
@@ -525,7 +513,7 @@ function Inbox() {
         </div> */}
 
         <div className="w-full h-[calc(100vh-60px)] mt-[60px]">
-          <div className="w-full h-full bg-white border-[0.5px] border-[#02174C33]  flex">
+          <div className="w-full h-full bg-white border-[0.5px] border-[#02174C33] flex">
             {/* Chat Sidebar - Conditionally shown on mobile */}
             {showSidebar && (
               <div className="w-full md:w-[300px] flex-shrink-0 flex flex-col border-r-[0.5px] border-r-[#02174C33]">
@@ -565,7 +553,7 @@ function Inbox() {
             {(!isMobile || !showSidebar) &&
             selectedUser?.username &&
             selectedUser?.chat_with ? (
-              <div className="flex-1 flex flex-col w-full md:w-[810px]">
+              <div className="flex-1 flex flex-col w-full">
                 {/* Chat Header */}
                 <div className="px-4 w-full h-[60px] md:h-[80px] bg-white border-b-[0.5px] border-b-[#02174C33] flex items-center justify-between">
                   <div className="flex items-center gap-2">
@@ -574,7 +562,7 @@ function Inbox() {
                         onClick={handleBackToList}
                         className="mr-2 text-gray-600 hover:text-primary"
                       >
-                        <IoArrowBack className="text-[20px]" />
+                        <FaChevronLeft size={20} />
                       </button>
                     )}
                     <div className="h-[40px] w-[40px] rounded-full bg-gray-300 flex items-center justify-center text-lg font-semibold text-white">
