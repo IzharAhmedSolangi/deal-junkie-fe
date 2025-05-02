@@ -1,61 +1,61 @@
 @import url("https://fonts.googleapis.com/css2?family=Corben:wght@700&display=swap");
 
 .marq_2 {
-    --space: 1rem;
+  --space: 1rem;
+  display: grid;
+  align-content: center;
+  overflow: hidden;
+  gap: 10px;
+  width: 100%;
+  --duration: 50s;
+  --gap: var(--space);
+  display: flex;
+  overflow: hidden;
+  user-select: none;
+  gap: var(--gap);
+}
+
+.marq_group_2 {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 10px;
+  min-width: 2200px;
+  animation: scroll_2 var(--duration) linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marq_group_2 {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes scroll_2 {
+  0% {
+    transform: translateX(calc(-100% - var(--gap)));
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .marq_2 {
+    --space: 10px;
     display: grid;
     align-content: center;
     overflow: hidden;
     gap: 10px;
     width: 100%;
-    --duration: 30s;
+    --duration: 50s;
     --gap: var(--space);
     display: flex;
     overflow: hidden;
     user-select: none;
     gap: var(--gap);
-}
+  }
 
-.marq_group_2 {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    gap: 10px;
-    min-width: 2200px;
-    animation: scroll_2 var(--duration) linear infinite;
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .marq_group_2 {
-        animation-play-state: paused;
-    }
-}
-
-@keyframes scroll_2 {
-    0% {
-        transform: translateX(calc(-100% - var(--gap)));
-    }
-    100% {
-        transform: translateX(0);
-    }
-}
-
-@media screen and (max-width: 768px) {
-    .marq_2 {
-        --space: 10px;
-        display: grid;
-        align-content: center;
-        overflow: hidden;
-        gap: 10px;
-        width: 100%;
-        --duration: 22s;
-        --gap: var(--space);
-        display: flex;
-        overflow: hidden;
-        user-select: none;
-        gap: var(--gap);
-    }
-
-    .marq_group_2 {
-        min-width: 1800px;
-    }
+  .marq_group_2 {
+    min-width: 1800px;
+  }
 }

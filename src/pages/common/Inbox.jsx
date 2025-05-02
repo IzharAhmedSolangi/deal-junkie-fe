@@ -216,9 +216,9 @@ const UserListItem = ({ user, selectedUserId, userInfo, onSelect }) => {
   const getMessagePreview = (message) => {
     if (!message) return "";
     const isFile = message.includes(BASE_URL);
-    if (isFile) return isCurrentUserSender ? "You: File" : "File";
+    if (isFile) return isCurrentUserSender ? "Me: File" : "File";
     return isCurrentUserSender
-      ? `You: ${message.slice(0, 25)}${message.length > 25 ? "..." : ""}`
+      ? `Me: ${message.slice(0, 25)}${message.length > 25 ? "..." : ""}`
       : `${message.slice(0, 25)}${message.length > 25 ? "..." : ""}`;
   };
 
@@ -509,8 +509,8 @@ function Inbox() {
   return (
     <>
       <AppHead title="Inbox - Deal Junkie" />
-      <div className="relative w-full h-auto bg-white pb-30">
-        <div className="w-full md:h-[320px] h-[200px] flex justify-center items-center">
+      <div className="w-full h-auto bg-white">
+        {/* <div className="w-full md:h-[320px] h-[200px] flex justify-center items-center">
           <img
             src="/assets/images/Banner2.png"
             alt="Banner"
@@ -519,10 +519,10 @@ function Inbox() {
           <h1 className="font-[700] md:text-[48px] text-[30px] text-secondary z-10 text-center">
             Inbox
           </h1>
-        </div>
+        </div> */}
 
-        <div className="w-full h-[70vh] md:h-[90vh] px-4 md:px-30">
-          <div className="w-full h-full bg-white border-[0.5px] border-[#02174C33] shadow-xl md:shadow-2xl flex">
+        <div className="w-full h-[calc(100vh-60px)] mt-[60px]">
+          <div className="w-full h-full bg-white border-[0.5px] border-[#02174C33]  flex">
             {/* Chat Sidebar - Conditionally shown on mobile */}
             {showSidebar && (
               <div className="w-full md:w-[300px] flex-shrink-0 flex flex-col border-r-[0.5px] border-r-[#02174C33]">
@@ -539,15 +539,21 @@ function Inbox() {
 
                 {/* Chat List */}
                 <div className="overflow-y-auto w-full h-full flex-grow">
-                  {users.map((user, index) => (
-                    <UserListItem
-                      key={index}
-                      user={user}
-                      selectedUserId={selectedUser?.chat_with}
-                      userInfo={userInfo}
-                      onSelect={handleUserSelect}
-                    />
-                  ))}
+                  {users?.length > 0 ? (
+                    users?.map((user, index) => (
+                      <UserListItem
+                        key={index}
+                        user={user}
+                        selectedUserId={selectedUser?.chat_with}
+                        userInfo={userInfo}
+                        onSelect={handleUserSelect}
+                      />
+                    ))
+                  ) : (
+                    <div className="text-center text-gray-500 mt-4">
+                      No users found
+                    </div>
+                  )}
                 </div>
               </div>
             )}
@@ -643,10 +649,17 @@ function Inbox() {
                   </form>
                 </div>
               </div>
-            ) : !showSidebar ? (
-              <div className="flex-1 flex justify-center items-center">
+            ) : !isMobile ? (
+              <div className="flex-1 flex flex-col justify-center items-center">
+                <img
+                  src="/assets/images/no-selection-inbox.svg"
+                  className="w-full h-[200px] mb-2"
+                />
+                <h3 className="text-[20px] md:text-[22px] font-bold">
+                  Pick up where you left off
+                </h3>
                 <p className="text-[18px] md:text-[20px] text-gray-500">
-                  Select a conversation to start chatting
+                  Select a conversation and chat away.
                 </p>
               </div>
             ) : null}

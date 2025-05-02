@@ -5,7 +5,8 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FiUser, FiLogOut } from "react-icons/fi";
 import { BsClipboardCheck, BsCreditCard2Front } from "react-icons/bs";
 import { IoIosSwitch } from "react-icons/io";
-import { FaBars, FaRegComments } from "react-icons/fa6";
+import { FaBars } from "react-icons/fa6";
+import { CiMail } from "react-icons/ci";
 
 import {
   getAccessToken,
@@ -97,11 +98,11 @@ const Navbar = () => {
             <div className="flex justify-end items-center gap-2 w-[33.33%]">
               {" "}
               <Notifications />
-              <Link to="/inbox" className="relative">
-                <FaRegComments className="text-xl text-gray-500 hover:text-primary text-[30px]" />
-                <span className="absolute top-0 right-0 bg-primary text-secondary text-xs w-4 h-4 text-[10px] flex items-center justify-center rounded-full">
+              <Link to="/inbox" className="relative" title="Inbox">
+                <CiMail className="text-xl text-gray-500 hover:text-primary w-7 h-7" />
+                {/* <span className="absolute top-0 right-0 bg-primary text-secondary text-xs w-4 h-4 text-[10px] flex items-center justify-center rounded-full">
                   2
-                </span>
+                </span> */}
               </Link>
               <ProfileDropdown />
               {userInfo?.user?.role === "seller" && (

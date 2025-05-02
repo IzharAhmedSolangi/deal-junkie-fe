@@ -1,6 +1,12 @@
 import { useState, useEffect } from "react";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import FindExpertsButton from "../../../../components/shared/FindExpertsButton";
+import {
+  FaChevronLeft,
+  FaChevronRight,
+  FaLock,
+  FaRocket,
+  FaThumbsUp,
+} from "react-icons/fa";
+import PostProjectButton from "../../../../components/shared/PostProjectButton";
 
 function HowItWorks() {
   return (
@@ -31,11 +37,9 @@ const slides = [
     content: (
       <>
         <div className="flex justify-center mb-8">
-          <img
-            src="/assets/icons/icon-1.png"
-            alt="Icon"
-            className="rounded-full bg-white p-2"
-          />
+          <div className="bg-[#01E678] text-white rounded-full w-[120px] h-[120px] flex justify-center items-center">
+            <FaLock className="text-[50px]" />
+          </div>
         </div>
         <h3 className="text-[24px] text-[#022247] font-bold text-center mb-2">
           Collaborate securely on Deal Junkie
@@ -45,7 +49,7 @@ const slides = [
           easy-to-use platform.
         </p>
         <div className="w-full flex justify-center">
-          <FindExpertsButton />
+          <PostProjectButton />
         </div>
       </>
     ),
@@ -54,11 +58,9 @@ const slides = [
     content: (
       <>
         <div className="flex justify-center mb-8">
-          <img
-            src="/assets/icons/icon-1.png"
-            alt="Icon"
-            className="rounded-full bg-white p-2"
-          />
+          <div className="bg-[#01E678] text-white rounded-full w-[120px] h-[120px] flex justify-center items-center">
+            <FaRocket className="text-[50px]" />
+          </div>
         </div>
         <h3 className="text-[24px] text-[#022247] font-bold text-center mb-2">
           Simple 3-Step Process
@@ -79,11 +81,9 @@ const slides = [
     content: (
       <>
         <div className="flex justify-center mb-8">
-          <img
-            src="/assets/icons/icon-1.png"
-            alt="Icon"
-            className="rounded-full bg-white p-2"
-          />
+          <div className="bg-[#01E678] text-white rounded-full w-[120px] h-[120px] flex justify-center items-center">
+            <FaThumbsUp className="text-[50px]" />
+          </div>
         </div>
         <h3 className="text-[24px] text-[#022247] font-bold text-center mb-2">
           Why Choose Us

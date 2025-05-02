@@ -30,7 +30,7 @@ function KeyFeatures() {
 
         {/* Expert Network (Highlighted) */}
         <div
-          className="bg-[#003F63] rounded-2xl shadow-lg p-8 flex flex-col items-start -rotate-6"
+          className="bg-[#003F63] rounded-2xl shadow-lg p-8 flex flex-col items-start -rotate-6 hover:rotate-0 transition-all duration-600 ease-in-out"
           data-aos="zoom-in-up"
         >
           <div className="bg-[#01E678] text-white rounded-full w-[60px] h-[60px] flex justify-center items-center">
