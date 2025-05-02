@@ -8,6 +8,7 @@ import {
   FaRocket,
   FaThumbsUp,
 } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 function HowItWorks() {
   return (
@@ -105,9 +106,12 @@ const slides = [
           effectively.
         </p>
         <div className="w-full flex justify-center">
-          <button className="hover-slide-button rounded w-[120px] h-[40px] bg-primary text-[#003F63] text-center cursor-pointer">
+          <Link
+            to={"/how-it-works"}
+            className="hover-slide-button flex justify-center items-center rounded w-[120px] h-[40px] bg-primary text-[#003F63] text-center cursor-pointer"
+          >
             Get Started
-          </button>
+          </Link>
         </div>
       </>
     ),
@@ -128,9 +132,12 @@ const slides = [
           satisfaction on every project.
         </p>
         <div className="w-full flex justify-center">
-          <button className="hover-slide-button rounded w-[120px] h-[40px] bg-primary text-[#003F63] text-center cursor-pointer">
+          <Link
+            to={"/about-us"}
+            className="hover-slide-button flex justify-center items-center rounded w-[120px] h-[40px] bg-primary text-[#003F63] text-center cursor-pointer"
+          >
             Learn More
-          </button>
+          </Link>
         </div>
       </>
     ),
