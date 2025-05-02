@@ -8,7 +8,7 @@ import {
   useMemo,
   useCallback,
 } from "react";
-import { FaFile, FaUserCircle } from "react-icons/fa";
+import { FaFile } from "react-icons/fa";
 import { TbSend } from "react-icons/tb";
 import { CiSearch, CiVideoOn } from "react-icons/ci";
 import { HiDotsVertical } from "react-icons/hi";
@@ -216,7 +216,10 @@ const UserListItem = ({ user, selectedUserId, userInfo, onSelect }) => {
   const getMessagePreview = (message) => {
     if (!message) return "";
     const isFile = message.includes(BASE_URL);
-    if (isFile) return isCurrentUserSender ? "Me: File" : "File";
+    if (isFile)
+      return isCurrentUserSender
+        ? "Me: Sent an attachment"
+        : "Received an attachment";
     return isCurrentUserSender
       ? `Me: ${message.slice(0, 25)}${message.length > 25 ? "..." : ""}`
       : `${message.slice(0, 25)}${message.length > 25 ? "..." : ""}`;
@@ -231,10 +234,10 @@ const UserListItem = ({ user, selectedUserId, userInfo, onSelect }) => {
       }`}
       onClick={() => onSelect(user)}
     >
-      <div className="w-8 h-8 text-gray-300 rounded-full flex justify-center items-center">
-        <FaUserCircle className="w-8 h-8" />
+      <div className="h-[40px] w-[40px] rounded-full bg-gray-300 flex items-center justify-center text-lg font-semibold text-white">
+        {user.username.charAt(0).toUpperCase()}
       </div>
-      <div className="ml-3 flex-1 min-w-0">
+      <div className="ml-2 flex-1 min-w-0">
         <div className="flex items-center gap-2">
           <h3 className="font-[600] text-[16px] text-[#003F63] truncate">
             {user.username}
@@ -574,7 +577,9 @@ function Inbox() {
                         <IoArrowBack className="text-[20px]" />
                       </button>
                     )}
-                    <FaUserCircle className="w-8 h-8 text-gray-300" />
+                    <div className="h-[40px] w-[40px] rounded-full bg-gray-300 flex items-center justify-center text-lg font-semibold text-white">
+                      {selectedUser?.username.charAt(0).toUpperCase()}
+                    </div>
                     <div>
                       <h3 className="font-[600] text-[16px] text-[#003F63]">
                         {selectedUser?.username}
