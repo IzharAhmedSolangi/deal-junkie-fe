@@ -290,8 +290,8 @@ function Proposals(props) {
                 <Link
                   className="bg-[#02174C0F] md:w-[120px] w-full h-[35px] border border-secondary rounded-sm text-secondary text-[12px] cursor-pointer flex justify-center items-center"
                   to={`/inbox?userId=${item.seller.id}&username=${
-                    item.seller?.first_name
-                  }${" "}${item.seller?.last_name}`}
+                    item.seller?.user.first_name
+                  }${" "}${item.seller?.user.last_name}`}
                 >
                   Send Message
                 </Link>
