@@ -7,7 +7,7 @@ import useGetMyTaskById from "../../../../services/buyer/useGetMyTasksById";
 import { Link } from "react-router-dom";
 import { IoMdClose } from "react-icons/io";
 import {
-  ButtonLoader1,
+  ButtonLoader2,
   ButtonLoader3,
 } from "../../../../components/shared/ButtonLoaders";
 import ShowMessage from "../../../../components/shared/ShowMessage";
@@ -15,7 +15,6 @@ import useAcceptProposal from "../../../../services/buyer/useAcceptProposal";
 import { TiTick } from "react-icons/ti";
 import { IoCloudDownloadOutline } from "react-icons/io5";
 import GlobalContext from "../../../../context/GlobalContext";
-import { FaStar } from "react-icons/fa";
 import useRatingReviews from "../../../../services/buyer/useRatingReviews";
 import * as Yup from "yup";
 import { useFormik } from "formik";
@@ -91,6 +90,7 @@ function MyTaskDetailsModal(props) {
                   </div>
                   {completed ? (
                     <CompleteAndReviews
+                      myTask={myTask.data}
                       userInfo={userInfo}
                       handleClose={handleClose}
                       setCompleted={setCompleted}
@@ -154,15 +154,15 @@ function MyTaskDetailsModal(props) {
                                 </button>
                               </>
                             )}
-                            {myTask.data?.status === "Delivered" && (
-                              <button
-                                onClick={() => setCompleted(true)}
-                                className="bg-[#0AF8860D] w-full h-[35px] border border-primary rounded-sm text-primary text-[13px] cursor-pointer flex justify-center items-center"
-                              >
-                                <TiTick />
-                                Complete Project
-                              </button>
-                            )}
+                            {/* {myTask.data?.status === "Delivered" && ( */}
+                            <button
+                              onClick={() => setCompleted(true)}
+                              className="bg-[#0AF8860D] w-full h-[35px] border border-primary rounded-sm text-primary text-[13px] cursor-pointer flex justify-center items-center"
+                            >
+                              <TiTick />
+                              Complete Project
+                            </button>
+                            {/* )} */}
                           </div>
                         </div>
                       )}
@@ -289,7 +289,7 @@ function Proposals(props) {
               <div className="flex items-center md:gap-2 gap-1 md:mt-0 mt-2">
                 <Link
                   className="bg-[#02174C0F] md:w-[120px] w-full h-[35px] border border-secondary rounded-sm text-secondary text-[12px] cursor-pointer flex justify-center items-center"
-                  to={`/inbox?userId=${item.seller.id}&username=${
+                  to={`/inbox?userId=${item.seller.user.id}&username=${
                     item.seller?.user.first_name
                   }${" "}${item.seller?.user.last_name}`}
                 >
@@ -335,25 +335,6 @@ function Proposals(props) {
 function OrderDelivered(props) {
   const { myTask } = props;
 
-  const handleDownload = async (url) => {
-    try {
-      const response = await fetch(url, {
-        mode: "cors",
-      });
-      const blob = await response.blob();
-      const blobUrl = window.URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.href = blobUrl;
-      link.setAttribute("download", "downloaded_file.png");
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
-      window.URL.revokeObjectURL(blobUrl);
-    } catch (error) {
-      console.error("Download error:", error);
-    }
-  };
-
   return (
     <>
       <div className="w-full md:mt-5 mt-2">
@@ -377,14 +358,9 @@ function OrderDelivered(props) {
               {myTask?.data?.delivered_order?.delivery_description}
             </p>
           </div>
-          <div
-            onClick={() =>
-              handleDownload(myTask?.data?.delivered_order?.delivery_file)
-            }
-            className="flex items-center gap-2 border border-gray-300 p-2 rounded-[4px] w-[130px] cursor-pointer"
-          >
-            <IoCloudDownloadOutline className="text-primary text-[22px]" />
-            <p className="text-[#6F7487]">Attachment</p>
+          <div className="flex items-center justify-center gap-1 border border-primary bg-primary text-secondary rounded-[4px] w-[140px] h-[35px] cursor-pointer hover:opacity-80 mt-2">
+            <IoCloudDownloadOutline className="text-[22px]" />
+            <p>Attachment</p>
           </div>
         </div>
       </div>
@@ -393,13 +369,12 @@ function OrderDelivered(props) {
 }
 
 const validationSchema = Yup.object({
-  rating: Yup.number().required("Rating is required"),
-  description: Yup.string()
-    .required("Description is required")
-    .max(1000, "Limit exceeded"),
+  rating: Yup.number(),
+  description: Yup.string().max(1000, "Limit exceeded"),
 });
+
 function CompleteAndReviews(props) {
-  const { userInfo, setCompleted, handleClose } = props;
+  const { myTask, userInfo, setCompleted, handleClose } = props;
   const { RatingReviews, ratingResponse } = useRatingReviews();
 
   const initialValues = {
@@ -413,9 +388,10 @@ function CompleteAndReviews(props) {
       validationSchema,
       onSubmit: async (values) => {
         RatingReviews(
+          myTask?.delivered_order?.id,
           {
             rating: values.rating,
-            description: values.description,
+            comment: values.description,
           },
           handleClose
         );
@@ -424,6 +400,20 @@ function CompleteAndReviews(props) {
 
   const handleRating = (index) => {
     setFieldValue("rating", index);
+  };
+
+  const [hoverRating, setHoverRating] = useState(0);
+  // Handle mouse position to determine if hovering over left or right half of star
+  const handleMouseMove = (e, starIndex) => {
+    const { left, width } = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - left;
+
+    // If mouse is on the left half of the star, set to half star
+    if (x < width / 2) {
+      setHoverRating(starIndex - 0.5);
+    } else {
+      setHoverRating(starIndex);
+    }
   };
 
   return (
@@ -437,53 +427,106 @@ function CompleteAndReviews(props) {
       <h2 className="text-[#02174C] md:text-[14px] lg:text-[16px] font-[600] mt-3">
         Rate the pro
       </h2>
-      <div className="flex items-center gap-3 mt-2">
-        {[1, 2, 3, 4, 5].map((index) => (
-          <FaStar
-            key={index}
-            className={`text-[25px] cursor-pointer ${
-              index <= values.rating ? "text-primary" : "text-gray-300"
-            }`}
-            name="rating"
-            value={values.rating}
-            handleChange={handleChange}
-            onClick={() => handleRating(index)}
-          />
-        ))}
-      </div>
-      {errors.rating && touched.rating && (
-        <p className="text-red-700 text-xs mt-1">{errors.rating}</p>
-      )}
-      <textarea
-        placeholder="Write something"
-        name="description"
-        value={values.description}
-        onChange={handleChange}
-        className="w-full min-h-[150px] max-h-[150px] px-3 py-3 rounded-[4px] bg-transparent border border-[#02174C33] outline-none hover:border-secondary focus:border-secondary"
-      ></textarea>
-      {errors.description && touched.description && (
-        <p className="text-red-700 text-xs mt-1">{errors.description}</p>
-      )}
+      <div className="mt-2">
+        <div className="flex items-center gap-1">
+          {[1, 2, 3, 4, 5].map((index) => {
+            const activeRating = hoverRating || values.rating;
 
-      <div className="flex justify-end mt-5 gap-2 cursor-pointer">
-        <button
-          onClick={() => setCompleted(false)}
-          className="bg-gray-300 py-2 px-3 rounded-[4px] cursor-pointer"
-        >
-          Cancel
-        </button>
-        <button
-          onClick={handleSubmit}
-          disabled={ratingResponse.loading}
-          className="hover-slide-button bg-secondary text-white py-2 px-5 rounded-[4px] cursor-pointer"
-        >
-          {ratingResponse.loading ? (
-            <ButtonLoader1 />
-          ) : (
-            "Submit Review & Complete"
-          )}
-        </button>
+            // Determine if this star should be empty, half-filled, or full
+            let fillPercent = 0;
+            if (activeRating >= index) {
+              fillPercent = 100; // Full star
+            } else if (activeRating >= index - 0.5) {
+              fillPercent = 50; // Half star
+            }
+
+            return (
+              <div
+                key={index}
+                className="cursor-pointer w-8 h-8 relative"
+                onClick={() => handleRating(hoverRating)}
+                onMouseMove={(e) => handleMouseMove(e, index)}
+                onMouseEnter={(e) => handleMouseMove(e, index)}
+                onMouseLeave={() => setHoverRating(0)}
+              >
+                {/* Empty star (background) */}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  className="w-full h-full absolute text-primary"
+                >
+                  <path d="M12 2l2.4 7.4H22l-6 4.4 2.3 7.1-6.3-4.6-6.3 4.6 2.3-7.1-6-4.4h7.6L12 2z" />
+                </svg>
+
+                {/* Filled star (with clipPath for partial fill) */}
+                {fillPercent > 0 && (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    className="w-full h-full absolute text-primary"
+                    style={{
+                      clipPath:
+                        fillPercent === 50
+                          ? "polygon(0 0, 50% 0, 50% 100%, 0 100%)"
+                          : "none",
+                    }}
+                  >
+                    <path d="M12 2l2.4 7.4H22l-6 4.4 2.3 7.1-6.3-4.6-6.3 4.6 2.3-7.1-6-4.4h7.6L12 2z" />
+                  </svg>
+                )}
+              </div>
+            );
+          })}
+        </div>
+        {errors.rating && touched.rating && (
+          <p className="text-red-700 text-xs mt-1">{errors.rating}</p>
+        )}
       </div>
+      <div className="mt-5">
+        <textarea
+          placeholder="Write something"
+          name="description"
+          value={values.description}
+          onChange={handleChange}
+          className="w-full min-h-[150px] max-h-[150px] px-3 py-3 rounded-[4px] bg-transparent border border-[#02174C33] outline-none hover:border-secondary focus:border-secondary"
+        ></textarea>
+        {errors.description && touched.description && (
+          <p className="text-red-700 text-xs mt-1">{errors.description}</p>
+        )}
+      </div>
+
+      {ratingResponse.loading ? (
+        <div className="flex justify-end mt-5">
+          <ButtonLoader2 />
+        </div>
+      ) : (
+        <div className="flex justify-end mt-5 gap-2">
+          <button
+            onClick={() => setCompleted(false)}
+            className="bg-transparent border w-[100px] h-[40px] border-gray-500 py-2 px-3 rounded-[4px] cursor-pointer"
+          >
+            Cancel
+          </button>
+          <button
+            onClick={handleSubmit}
+            disabled={ratingResponse.loading}
+            className="hover-slide-button flex justify-center items-center w-[220px] h-[40px] bg-primary text-secondary rounded-[4px] cursor-pointer"
+          >
+            Skip Review & Complete
+          </button>
+          <button
+            onClick={handleSubmit}
+            disabled={ratingResponse.loading}
+            className="hover-slide-button flex justify-center items-center w-[220px] h-[40px] bg-secondary text-white rounded-[4px] cursor-pointer"
+          >
+            Submit Review & Complete
+          </button>
+        </div>
+      )}
     </div>
   );
 }

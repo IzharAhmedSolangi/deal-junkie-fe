@@ -1,29 +1,40 @@
 import { useState } from "react";
 import axios from "axios";
+import { ErrorToaster, SuccessToaster } from "../../components/shared/Toster";
+import { getAccessToken } from "../../storage/storage";
 
 function useRatingReviews() {
+  const token = getAccessToken();
   const BASE_URL = import.meta.env.VITE_API_URL;
   const [ratingResponse, setRatingResponse] = useState({
     loading: false,
     data: null,
-    message: null
+    message: null,
   });
 
-  const RatingReviews = async (payload, handleClose) => {
+  const RatingReviews = async (orderId, payload, handleClose) => {
     setRatingResponse((prevState) => ({
       ...prevState,
       loading: true,
       data: null,
-      message: null
+      message: null,
     }));
     await axios
-      .post(`${BASE_URL}/api/accounts/login/`, payload)
+      .post(
+        `${BASE_URL}/api/buyer/accept-delivered-work/${orderId}/`,
+        payload,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((response) => {
         setRatingResponse((prevState) => ({
           ...prevState,
           loading: false,
           data: null,
-          message: null
+          message: null,
         }));
         handleClose();
         SuccessToaster("Proposal Accepted", response?.data?.message);
@@ -34,7 +45,7 @@ function useRatingReviews() {
           ...prevState,
           loading: false,
           data: null,
-          message: null
+          message: null,
         }));
       });
   };
