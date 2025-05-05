@@ -16,7 +16,7 @@ function HowItWorks() {
       <div className="w-full grid md:grid-cols-2 grid-cols-1 md:py-10 py-5 overflow-hidden">
         <div className="w-full h-full" data-aos="fade-right">
           <img
-            src="/assets/images/image-1.png"
+            src="/assets/images/image-1.jpeg"
             alt=""
             className="w-full h-full object-cover"
           />

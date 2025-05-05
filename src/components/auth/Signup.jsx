@@ -78,7 +78,7 @@ function Signup(props) {
       <div className="flex flex-col justify-center items-center w-full">
         <form onSubmit={handleSubmit} className="w-full">
           <h1 className="font-[600] text-[32px] text-secondary">
-            Create your account
+            Become a Deal Junkie
           </h1>
           <p className="font-[500] text-[16px] text-[#6F7487]">
             Register to your account to manage your profile and take
