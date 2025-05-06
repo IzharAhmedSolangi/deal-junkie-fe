@@ -154,15 +154,15 @@ function MyTaskDetailsModal(props) {
                                 </button>
                               </>
                             )}
-                            {/* {myTask.data?.status === "Delivered" && ( */}
-                            <button
-                              onClick={() => setCompleted(true)}
-                              className="bg-[#0AF8860D] w-full h-[35px] border border-primary rounded-sm text-primary text-[13px] cursor-pointer flex justify-center items-center"
-                            >
-                              <TiTick />
-                              Complete Project
-                            </button>
-                            {/* )} */}
+                            {myTask.data?.status === "Delivered" && (
+                              <button
+                                onClick={() => setCompleted(true)}
+                                className="bg-[#0AF8860D] w-full h-[35px] border border-primary rounded-sm text-primary text-[13px] cursor-pointer flex justify-center items-center"
+                              >
+                                <TiTick />
+                                Complete Project
+                              </button>
+                            )}
                           </div>
                         </div>
                       )}
