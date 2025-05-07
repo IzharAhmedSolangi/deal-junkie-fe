@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { RiInstagramFill } from "react-icons/ri";
-import { FaLinkedin, FaTwitterSquare } from "react-icons/fa";
+import { FaLinkedin } from "react-icons/fa";
+import { BsTwitterX } from "react-icons/bs";
+
 import PostProjectButton from "./PostProjectButton";
 import { useContext } from "react";
 import GlobalContext from "../../context/GlobalContext";
@@ -47,7 +49,7 @@ function Footer() {
               rel="noferrer"
               className="text-[#6F7487] hover:text-secondary"
             >
-              <FaTwitterSquare className="text-[22px]" />
+              <BsTwitterX className="text-[22px]" />
             </a>
             <a
               href="#"
