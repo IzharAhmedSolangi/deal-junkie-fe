@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import useSignup from "../../services/auth/useSignup";
-import { SocialLogin } from "../shared/SocialLogin";
+import { LinkedInCallback, SocialLogin } from "../shared/SocialLogin";
 import { ButtonLoader1 } from "../shared/ButtonLoaders";
 import { Link } from "react-router-dom";
 import Input from "../shared/Input";
@@ -16,6 +16,7 @@ import {
 import { FaCity, FaRegUser } from "react-icons/fa";
 
 const validationSchema = Yup.object({
+  role: Yup.string().required("Please select Junkie"),
   firstname: Yup.string()
     .required("Firstname is required")
     .max(100, "Limit exceeded"),
@@ -34,6 +35,7 @@ const validationSchema = Yup.object({
   password: Yup.string()
     .required("Password is required")
     .max(100, "Limit exceeded"),
+  terms: Yup.boolean().oneOf([true], "Please accept terms & conditions"),
 });
 
 function Signup(props) {
@@ -42,6 +44,7 @@ function Signup(props) {
   const { Signup, loading, errorMessage } = useSignup();
 
   const initialValues = {
+    role: "",
     firstname: "",
     lastname: "",
     email: "",
@@ -50,6 +53,7 @@ function Signup(props) {
     city: "",
     address: "",
     password: "",
+    terms: false,
   };
 
   const { values, errors, handleChange, handleSubmit, touched } = useFormik({
@@ -85,7 +89,37 @@ function Signup(props) {
             <br /> advantage of all the features.
           </p>
           <div className="w-full mt-4">
-            <div className="mt-2 grid grid-cols-2 gap-2">
+            <div className="mt-2">
+              <label className="font-[500] text-[18px] text-secondary">
+                What Kind of Junkie do you want to be?
+              </label>
+              <div className="mt-1 flex items-center gap-5">
+                {[
+                  { name: "Buyer", value: "buyer" },
+                  { name: "Seller", value: "seller" },
+                  { name: "Both", value: "both" },
+                ].map((option, index) => (
+                  <div key={index} className="flex items-center gap-1">
+                    <input
+                      type="radio"
+                      name="role"
+                      value={option.value}
+                      checked={values.role === option.value}
+                      onChange={handleChange}
+                      id={index}
+                    />
+                    <label htmlFor={index}>{option.name}</label>
+                  </div>
+                ))}
+              </div>
+              {errors.role && touched.role && (
+                <p className="text-red-700 text-xs mt-1">{errors.role}</p>
+              )}
+            </div>
+            <div className="mt-2">
+              <LinkedInCallback />
+            </div>
+            <div className="mt-3 grid grid-cols-2 gap-2">
               <div>
                 <Input
                   type="text"
@@ -206,7 +240,12 @@ function Signup(props) {
             </div>
             <div className="mt-3  grid grid-cols-1">
               <div className="flex items-center gap-1">
-                <input type="checkbox" />
+                <input
+                  type="checkbox"
+                  name="terms"
+                  value={values.terms}
+                  onChange={handleChange}
+                />
                 <div className="text-[#6F7487] text-[14px] font-normal">
                   Accept to{" "}
                   <Link
@@ -226,6 +265,9 @@ function Signup(props) {
                   </Link>
                 </div>
               </div>
+              {errors.terms && touched.terms && (
+                <p className="text-red-700 text-xs mt-1">{errors.terms}</p>
+              )}
             </div>
           </div>
           {errorMessage && (

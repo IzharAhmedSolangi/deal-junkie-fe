@@ -1,9 +1,10 @@
 import { useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { setAccessToken, setRefreshToken } from "../../storage/storage";
 import { ButtonLoader2 } from "../shared/ButtonLoaders";
+import { LoginSocialLinkedin } from "reactjs-social-login";
 
 export function SocialLogin() {
   const BASE_URL = "";
@@ -46,6 +47,30 @@ export function SocialLogin() {
           </div>
         )}
       </button>
+    </>
+  );
+}
+
+export function LinkedInCallback() {
+  const onLoginStart = useCallback(() => {
+    alert("login start");
+  }, []);
+  return (
+    <>
+      <LoginSocialLinkedin
+        client_id={"77k6yhjmtae3uq"}
+        client_secret={"WPL_AP1.lHN7Tu3b8bSyZgqe.hL5YzQ=="}
+        redirect_uri={"https://dealjunkie.net"}
+        onLoginStart={onLoginStart}
+        onResolve={({ provider, data }) => {
+          console.log({ provider, data });
+        }}
+        onReject={(err) => {
+          console.log({ err });
+        }}
+      >
+        Verify LinkedIn
+      </LoginSocialLinkedin>
     </>
   );
 }
