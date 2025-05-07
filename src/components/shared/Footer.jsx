@@ -6,10 +6,12 @@ import { useContext } from "react";
 import GlobalContext from "../../context/GlobalContext";
 import FindExpertsButton from "./FindExpertsButton";
 import { getAccessToken } from "../../storage/storage";
-
 import Aos from "aos";
 import { useEffect } from "react";
+
 function Footer() {
+  const { userInfo } = useContext(GlobalContext);
+
   return (
     <footer className="w-full h-auto bg-[#F6FFFF] bg-[url('/assets/images/footer-bg.png')] bg-cover bg-center md:px-[5%] px-[2.5%] pt-40 relative">
       <div className="grid grid-cols-1 md:grid-cols-5 gap-6 md:text-left text-center">
@@ -67,13 +69,7 @@ function Footer() {
               to="/find-experts"
               className="text-[#667085] text-[14px] font-normal hover:text-primary"
             >
-              Find Seller
-            </Link>
-            <Link
-              to="/explore-services"
-              className="text-[#667085] text-[14px] font-normal hover:text-primary"
-            >
-              Explore Services
+              Find Experts
             </Link>
             <Link
               to="/seller-faqs"
@@ -82,10 +78,10 @@ function Footer() {
               FAQs
             </Link>
             <Link
-              to="/pros-near-me"
+              to={`/find-experts?search=${userInfo?.user?.state}`}
               className="text-[#667085] text-[14px] font-normal hover:text-primary"
             >
-              Pros Near Me
+              Deal Junkies Near Me
             </Link>
           </div>
         </div>
@@ -98,19 +94,7 @@ function Footer() {
               to="/find-jobs"
               className="text-[#667085] text-[14px] font-normal hover:text-primary"
             >
-              Find Buyers
-            </Link>
-            <Link
-              to="/explore-services"
-              className="text-[#667085] text-[14px] font-normal hover:text-primary"
-            >
-              Explore Services
-            </Link>
-            <Link
-              to="/pros-near-me"
-              className="text-[#667085] text-[14px] font-normal hover:text-primary"
-            >
-              Pros Near Me
+              Find Jobs
             </Link>
             <Link
               to="/buyer-faqs"
@@ -134,12 +118,6 @@ function Footer() {
               className="text-[#667085] text-[14px] font-normal hover:text-primary"
             >
               Pricing Page
-            </Link>
-            <Link
-              to="/help-center"
-              className="text-[#667085] text-[14px] font-normal hover:text-primary"
-            >
-              Help Center
             </Link>
             <Link
               to="/contact-us"
@@ -180,6 +158,7 @@ export default Footer;
 function Banner() {
   const token = getAccessToken();
   const { userInfo } = useContext(GlobalContext);
+
   useEffect(() => {
     Aos.init();
     Aos.refresh();

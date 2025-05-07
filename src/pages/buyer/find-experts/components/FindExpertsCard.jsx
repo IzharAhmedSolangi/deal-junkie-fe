@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ButtonLoader3 } from "../../../../components/shared/ButtonLoaders";
 import RatingStars from "../../../../components/shared/RatingStars";
 import ShowMessage from "../../../../components/shared/ShowMessage";
@@ -64,12 +64,20 @@ function FindExpertsCard({ data, isLoading, isFetchingNextPage, lastItemRef }) {
                       Hire Now
                     </button>
                     <button
-                      className=" hover-slide-button w-full bg-primary text-secondary md:py-2 py-1 rounded-sm cursor-pointer hover:opacity-80"
+                      className="hover-slide-button w-full bg-primary text-secondary md:py-2 py-1 rounded-sm cursor-pointer hover:opacity-80"
                       onClick={() => navigate(`/find-experts/${item.id}`)}
                     >
                       See Details
                     </button>
                   </div>
+                  <Link
+                    className="hover-slide-button mt-2 w-full bg-primary text-secondary py-2 rounded-sm cursor-pointer flex justify-center items-center hover:opacity-80"
+                    to={`/inbox?userId=${item?.user?.id}&username=${
+                      item?.user?.first_name
+                    }${" "}${item?.user?.last_name}`}
+                  >
+                    Send Message
+                  </Link>
                 </div>
               );
             })}

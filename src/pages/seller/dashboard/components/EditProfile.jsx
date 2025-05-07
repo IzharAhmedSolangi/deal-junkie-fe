@@ -5,6 +5,14 @@ import GlobalContext from "../../../../context/GlobalContext";
 import useEditProfile from "../../../../services/common/useEditProfile";
 import { ButtonLoader1 } from "../../../../components/shared/ButtonLoaders";
 import useBecomeSeller from "../../../../services/seller/useBecomeSeller";
+import Input from "../../../../components/shared/Input";
+import { FaCity, FaDollarSign, FaRegUser } from "react-icons/fa";
+import {
+  MdOutlineEmail,
+  MdOutlineLocationOn,
+  MdOutlinePhoneIphone,
+} from "react-icons/md";
+import { PiHandbagSimpleFill } from "react-icons/pi";
 
 const validationSchema = Yup.object({
   firstname: Yup.string()
@@ -132,26 +140,26 @@ function EditProfile() {
         <div className="w-full mt-3">
           <div className="mt-2 grid grid-cols-2 gap-2">
             <div>
-              <input
+              <Input
                 type="text"
                 placeholder="First name"
                 name="firstname"
                 value={values.firstname}
-                onChange={handleChange}
-                className="w-full h-[40px] px-3 rounded-[4px] bg-transparent border border-[#02174C33] outline-none hover:border-secondary focus:border-secondary"
+                handleChange={handleChange}
+                icon={<FaRegUser />}
               />
               {errors.firstname && touched.firstname && (
                 <p className="text-red-700 text-xs mt-1">{errors.firstname}</p>
               )}
             </div>
             <div>
-              <input
+              <Input
                 type="text"
                 placeholder="Last name"
                 name="lastname"
                 value={values.lastname}
-                onChange={handleChange}
-                className="w-full h-[40px] px-3 rounded-[4px] bg-transparent border border-[#02174C33] outline-none hover:border-secondary focus:border-secondary"
+                handleChange={handleChange}
+                icon={<FaRegUser />}
               />
               {errors.lastname && touched.lastname && (
                 <p className="text-red-700 text-xs mt-1">{errors.lastname}</p>
@@ -160,26 +168,26 @@ function EditProfile() {
           </div>
           <div className="mt-3 grid grid-cols-2 gap-2">
             <div>
-              <input
+              <Input
                 type="text"
-                placeholder="Email address"
+                placeholder="Email"
                 name="email"
                 value={values.email}
-                readOnly
-                className="w-full h-[40px] px-3 rounded-[4px] bg-transparent border border-[#02174C33] outline-none hover:border-secondary focus:border-secondary"
+                handleChange={handleChange}
+                icon={<MdOutlineEmail />}
               />
               {errors.email && touched.email && (
                 <p className="text-red-700 text-xs mt-1">{errors.email}</p>
               )}
             </div>
             <div>
-              <input
+              <Input
                 type="number"
-                placeholder="Enter phone number"
+                placeholder="Phone number"
                 name="phone"
                 value={values.phone}
-                onChange={handleChange}
-                className="w-full h-[40px] px-3 rounded-[4px] bg-transparent border border-[#02174C33] outline-none hover:border-secondary focus:border-secondary"
+                handleChange={handleChange}
+                icon={<MdOutlinePhoneIphone />}
               />
               {errors.phone && touched.phone && (
                 <p className="text-red-700 text-xs mt-1">{errors.phone}</p>
@@ -188,41 +196,41 @@ function EditProfile() {
           </div>
           <div className="mt-3 grid grid-cols-2 gap-2">
             <div>
-              <input
-                type="text"
-                placeholder="State"
-                name="state"
-                value={values.state}
-                onChange={handleChange}
-                className="w-full h-[40px] px-3 rounded-[4px] bg-transparent border border-[#02174C33] outline-none hover:border-secondary focus:border-secondary"
-              />
-              {errors.state && touched.state && (
-                <p className="text-red-700 text-xs mt-1">{errors.state}</p>
-              )}
-            </div>
-            <div>
-              <input
+              <Input
                 type="text"
                 placeholder="City"
                 name="city"
                 value={values.city}
-                onChange={handleChange}
-                className="w-full h-[40px] px-3 rounded-[4px] bg-transparent border border-[#02174C33] outline-none hover:border-secondary focus:border-secondary"
+                handleChange={handleChange}
+                icon={<FaCity />}
               />
               {errors.city && touched.city && (
                 <p className="text-red-700 text-xs mt-1">{errors.city}</p>
               )}
             </div>
+            <div>
+              <Input
+                type="text"
+                placeholder="State"
+                name="state"
+                value={values.state}
+                handleChange={handleChange}
+                icon={<FaCity />}
+              />
+              {errors.state && touched.state && (
+                <p className="text-red-700 text-xs mt-1">{errors.state}</p>
+              )}
+            </div>
           </div>
           <div className="mt-3 grid grid-cols-1">
             <div>
-              <input
+              <Input
                 type="text"
                 placeholder="Address"
                 name="address"
                 value={values.address}
-                onChange={handleChange}
-                className="w-full h-[40px] px-3 rounded-[4px] bg-transparent border border-[#02174C33] outline-none hover:border-secondary focus:border-secondary"
+                handleChange={handleChange}
+                icon={<MdOutlineLocationOn />}
               />
               {errors.address && touched.address && (
                 <p className="text-red-700 text-xs mt-1">{errors.address}</p>
@@ -243,26 +251,26 @@ function EditProfile() {
           </h1>
           <div className="mt-2 grid grid-cols-2 gap-2">
             <div>
-              <input
+              <Input
                 type="number"
-                placeholder="Experience"
+                placeholder="Years of experience"
                 name="experience"
                 value={values.experience}
                 onChange={handleChange}
-                className="w-full h-[40px] px-3 rounded-[4px] bg-transparent border border-[#02174C33] outline-none hover:border-secondary focus:border-secondary"
+                icon={<PiHandbagSimpleFill />}
               />
               {errors.experience && touched.experience && (
                 <p className="text-red-700 text-xs mt-1">{errors.experience}</p>
               )}
             </div>
             <div>
-              <input
+              <Input
                 type="number"
                 placeholder="Rate per hour"
                 name="rate_per_hour"
                 value={values.rate_per_hour}
                 onChange={handleChange}
-                className="w-full h-[40px] px-3 rounded-[4px] bg-transparent border border-[#02174C33] outline-none hover:border-secondary focus:border-secondary"
+                icon={<FaDollarSign />}
               />
               {errors.rate_per_hour && touched.rate_per_hour && (
                 <p className="text-red-700 text-xs mt-1">
