@@ -36,7 +36,7 @@ function HowItWorks() {
             assess risks, and make informed investment decisions.
           </p>
           <img
-            src="/assets/images/mask-group.png"
+            src="/assets/images/image-6.jpeg"
             alt="Financial Meeting"
             className="rounded-lg w-full h-auto object-cover mt-5"
           />

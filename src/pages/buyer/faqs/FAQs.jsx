@@ -9,29 +9,19 @@ const faqsList = [
     name: "Getting Started",
     faqsItems: [
       {
-        question: "Lorem Ipsum is simply dummy text?",
+        question: "What is dealjunkie.net?",
         answer:
-          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+          "dealjunkie.net is a professional marketplace that connects individuals, investors, and companies with pre-vetted finance professionals (including ex-bankers, private equity analysts, and consultants) for on-demand financial services like due diligence, modeling, and valuation.",
       },
       {
-        question: "Lorem Ipsum is simply dummy text?",
+        question: "Who can join as a buyer or expert?",
         answer:
-          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+          "Anyone can join as a buyer. To join as an expert, you must have a finance background (e.g., IB, PE, HF, M&A consulting) and verify your identity and work history through LinkedIn.",
       },
       {
-        question: "Lorem Ipsum is simply dummy text?",
+        question: "How is the platform different from Upwork or Fiverr?",
         answer:
-          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-      },
-      {
-        question: "Lorem Ipsum is simply dummy text?",
-        answer:
-          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-      },
-      {
-        question: "Lorem Ipsum is simply dummy text?",
-        answer:
-          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+          "dealjunkie.net is specialized. We only host financial professionals with credible backgrounds and verified credentials. This ensures clients receive institutional-quality work at freelance prices.",
       },
     ],
   },
@@ -40,37 +30,133 @@ const faqsList = [
     name: "Projects & Tasks",
     faqsItems: [
       {
-        question: "Lorem Ipsum is simply dummy text?",
+        question: "What kinds of projects can I post?",
         answer:
-          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+          "Service seekers typically post projects like: Financial model builds, Deal memos or investment write-ups, Market research, Cap table modeling, Acquisition support, Pitch deck reviews, Due diligence support",
       },
       {
-        question: "Lorem Ipsum is simply dummy text?",
+        question:
+          "Can I hire someone for recurring work or a long-term engagement?",
         answer:
-          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+          "Yes. You can work with the same expert on multiple projects or request a retainer-style arrangement, all handled through the platform.",
       },
       {
-        question: "Lorem Ipsum is simply dummy text?",
+        question: "Can I take the relationship off-platform?",
         answer:
-          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-      },
-      {
-        question: "Lorem Ipsum is simply dummy text?",
-        answer:
-          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-      },
-      {
-        question: "Lorem Ipsum is simply dummy text?",
-        answer:
-          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+          "To protect the integrity of the marketplace, off-platform engagements are prohibited unless a break fee of $10,000 is paid by the client to dealjunkie.net. This allows for flexibility while supporting the platform and its operations. Violations of this policy may result in account suspension and legal recourse.",
       },
     ],
   },
-  { id: 3, name: "Chat & Reviews" },
-  { id: 4, name: "Safety & Privacy" },
-  { id: 5, name: "Account & Settings" },
-  { id: 6, name: "Payments" },
-  { id: 7, name: "Notifications" },
+  {
+    id: 3,
+    name: "Chat & Reviews",
+    faqsItems: [
+      {
+        question: "How do I communicate with experts before hiring?",
+        answer:
+          "You can message experts through the dealjunkie.net platform as soon as you post a project or express interest in a seller. All communications must occur on-platform.",
+      },
+      {
+        question: "Can I review an expert after working with them?",
+        answer:
+          "Yes. Once a project is completed, buyers are prompted to leave a review based on communication, quality of work, and professionalism.",
+      },
+      {
+        question: "Can I remove or edit a review?",
+        answer:
+          "We do not allow manual review edits after submission unless there was a mistake or abuse. You may contact our support team to resolve any disputes related to reviews.",
+      },
+    ],
+  },
+  {
+    id: 4,
+    name: "Safety & Privacy",
+    faqsItems: [
+      {
+        question: "Is my data secure on dealjunkie.net?",
+        answer:
+          "We use SSL encryption, firewalls, and secure data practices to protect all information and communications on the platform. However, no system is completely immune to cyber threats. In the rare case of a breach, dealjunkie.net is not liable for any direct or indirect damages resulting from unauthorized access.",
+      },
+      {
+        question: "Who is responsible for NDAs or confidentiality agreements?",
+        answer:
+          "It is the responsibility of the service seeker and the service provider to negotiate and execute NDAs or confidentiality clauses before beginning work. dealjunkie.net is not a party to such agreements and assumes no liability for violations.",
+      },
+      {
+        question: "How do you prevent fraud or impersonation?",
+        answer:
+          "All experts must verify their identity and professional background through LinkedIn. We also monitor platform activity to detect fraudulent behavior or policy violations.",
+      },
+    ],
+  },
+  {
+    id: 5,
+    name: "Account & Settings",
+    faqsItems: [
+      {
+        question: "Can I edit or delete my profile?",
+        answer:
+          "Yes. You can edit your profile, work history, and service offerings anytime. If you'd like to permanently delete your account, please contact support@dealjunkie.net.",
+      },
+      {
+        question: "How do I update my payment or notification settings?",
+        answer:
+          "All account settings are accessible from your dashboard. Go to 'Account & Settings' to update payment methods, notification preferences, and personal details.",
+      },
+      {
+        question: "Can I pause or deactivate my account temporarily?",
+        answer:
+          "Yes. You can request a temporary deactivation via your settings or by contacting our team.",
+      },
+    ],
+  },
+  {
+    id: 6,
+    name: "Payments",
+    faqsItems: [
+      {
+        question: "How does payment work?",
+        answer:
+          "Clients fund the project upfront. Funds are held in escrow and only released to the expert once the deliverables are approved.",
+      },
+      {
+        question: "What payment methods are accepted?",
+        answer:
+          "We support credit cards and ACH payments via Stripe. Experts can receive payouts via bank transfer or other supported withdrawal methods.",
+      },
+      {
+        question: "Is there a platform fee?",
+        answer:
+          "Yes. Experts are charged a 20% platform fee on their earnings. Clients pay only the quoted project price unless they exceed their subscription plan (if applicable).",
+      },
+      {
+        question: "What happens if a client or expert fails to deliver?",
+        answer:
+          "dealjunkie.net offers dispute mediation services. If either party fails to meet the agreed terms, we will work to resolve the situation fairly, though we do not guarantee restitution in all cases.",
+      },
+    ],
+  },
+  {
+    id: 7,
+    name: "Notifications",
+    faqsItems: [
+      {
+        question: "How will I know if I get hired or receive a message?",
+        answer:
+          "You’ll receive real-time notifications by email and through the platform dashboard. Make sure your notification settings are enabled in your account preferences.",
+      },
+      {
+        question: "Can I opt out of promotional messages?",
+        answer:
+          "Yes. Promotional messages can be toggled off in your communication preferences without affecting platform notifications related to projects or payments.",
+      },
+      {
+        question: "What if I miss a deadline or message?",
+        answer:
+          "Late responses can affect your profile rating. We encourage timely communication and will remind you of project milestones via automatic alerts.",
+      },
+    ],
+  },
 ];
 
 function FAQs() {

@@ -1,6 +1,69 @@
 import { FaStar } from "react-icons/fa";
-import "../../../../styles/testimonial_1.css";
-import "../../../../styles/testimonial_2.css";
+import "../../styles/testimonial_1.css";
+import "../../styles/testimonial_2.css";
+
+function CustomerSaid() {
+  const reviews = [
+    {
+      url: "https://randomuser.me/api/portraits/men/32.jpg",
+      name: "David Yacobucci",
+      review:
+        "I built Deal Junkie to connect the dots—giving ex-finance professionals in B-school a flexible way to earn while offering smaller investors affordable access to elite-level support. It’s a win-win.",
+    },
+    {
+      url: "https://randomuser.me/api/portraits/men/44.jpg",
+      name: "Frank Langfitt",
+      review:
+        "Making an account on Deal Junkie was seamless. I now have the ability to use my skills to earn extra income at my fingertips. There is no other platform with as straightforward a user interface as Deal Junkie",
+    },
+  ];
+  return (
+    <>
+      {/* <div className="bg-[#F2F4F7] pt-10 md:pb-40 pb-28">
+        <h1 className="mdtext-[40px] text-[28px] font-[600] text-[#1D2939] text-center mb-3">
+          What Users Say About Us
+        </h1>
+        <Testimonial />
+      </div> */}
+      <div className="bg-[#F2F4F7] pt-10 md:pb-32 pb-28 md:px-40 px-2">
+        <h1 className="mdtext-[40px] text-[28px] font-[600] text-[#1D2939] text-center mb-3">
+          What Users Say About Us
+        </h1>
+        <div className="flex gap-3">
+          {reviews.map((item, index) => (
+            <div
+              key={index}
+              className="bg-white w-full md:h-[200px] h-[200px] md:p-6 p-3 rounded-lg"
+            >
+              <div className="flex gap-2">
+                <img
+                  src={item.url}
+                  className="w-[45px] h-[45px] rounded-[50%]"
+                  alt=""
+                />
+                <div>
+                  <h3 className="text-lg font-semibold">{item.name}</h3>
+                  <p className="flex gap-1">
+                    <FaStar className="text-primary" />
+                    <FaStar className="text-primary" />
+                    <FaStar className="text-primary" />
+                    <FaStar className="text-primary" />
+                    <FaStar className="text-primary" />
+                  </p>
+                </div>
+              </div>
+              <p className="text-[#667085] text-[15px] font-[500] mt-2">
+                {item.review}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </>
+  );
+}
+
+export default CustomerSaid;
 
 const Testimonial = () => {
   const testimonials_1 = [
@@ -218,5 +281,3 @@ const Testimonial = () => {
     </div>
   );
 };
-
-export default Testimonial;
