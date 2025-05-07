@@ -1,10 +1,10 @@
 import { useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { setAccessToken, setRefreshToken } from "../../storage/storage";
 import { ButtonLoader2 } from "../shared/ButtonLoaders";
-import { LoginSocialLinkedin } from "reactjs-social-login";
+import { useLinkedIn } from "react-linkedin-login-oauth2";
 
 export function SocialLogin() {
   const BASE_URL = "";
@@ -52,25 +52,31 @@ export function SocialLogin() {
 }
 
 export function LinkedInCallback() {
-  const onLoginStart = useCallback(() => {
-    alert("login start");
-  }, []);
+  const clientId = "77k6yhjmtae3uq";
+  const redirectUri = `http://localhost:5173`;
+  const { linkedInLogin } = useLinkedIn({
+    clientId: clientId,
+    redirectUri: redirectUri,
+    onSuccess: (authCode) => {
+      console.log({ authCode });
+      if (window.opener) {
+        window.opener.postMessage({ type: "LINKEDIN_AUTH", authCode }, "*");
+      }
+
+      setTimeout(() => {
+        window.close(); // this works only if window was opened by window.open()
+      }, 500);
+    },
+    scope: ["profile openid"],
+  });
   return (
     <>
-      <LoginSocialLinkedin
-        client_id={"77k6yhjmtae3uq"}
-        client_secret={"WPL_AP1.lHN7Tu3b8bSyZgqe.hL5YzQ=="}
-        redirect_uri={"https://dealjunkie.net"}
-        onLoginStart={onLoginStart}
-        onResolve={({ provider, data }) => {
-          console.log({ provider, data });
-        }}
-        onReject={(err) => {
-          console.log({ err });
-        }}
+      <div
+        className="bg-[#FFFFFF] w[90px] h-[40px] flex items-center justify-center rounded-[10px] cursor-pointer"
+        onClick={linkedInLogin}
       >
         Verify LinkedIn
-      </LoginSocialLinkedin>
+      </div>
     </>
   );
 }

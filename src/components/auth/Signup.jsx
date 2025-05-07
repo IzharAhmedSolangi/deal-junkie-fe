@@ -116,9 +116,9 @@ function Signup(props) {
                 <p className="text-red-700 text-xs mt-1">{errors.role}</p>
               )}
             </div>
-            <div className="mt-2">
+            {/* <div className="mt-2">
               <LinkedInCallback />
-            </div>
+            </div> */}
             <div className="mt-3 grid grid-cols-2 gap-2">
               <div>
                 <Input
