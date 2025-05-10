@@ -5,13 +5,13 @@ import "../../styles/testimonial_2.css";
 function CustomerSaid() {
   const reviews = [
     {
-      url: "https://randomuser.me/api/portraits/men/32.jpg",
+      url: "/assets/reviews/image-1.jpeg",
       name: "David Yacobucci",
       review:
         "I built Deal Junkie to connect the dots—giving ex-finance professionals in B-school a flexible way to earn while offering smaller investors affordable access to elite-level support. It’s a win-win.",
     },
     {
-      url: "https://randomuser.me/api/portraits/men/44.jpg",
+      url: "/assets/reviews/image-2.jpeg",
       name: "Frank Langfitt",
       review:
         "Making an account on Deal Junkie was seamless. I now have the ability to use my skills to earn extra income at my fingertips. There is no other platform with as straightforward a user interface as Deal Junkie",
@@ -29,7 +29,7 @@ function CustomerSaid() {
         <h1 className="mdtext-[40px] text-[28px] font-[600] text-[#1D2939] text-center mb-3">
           What Users Say About Us
         </h1>
-        <div className="flex gap-3">
+        <div className="flex md:flex-row flex-col gap-3">
           {reviews.map((item, index) => (
             <div
               key={index}

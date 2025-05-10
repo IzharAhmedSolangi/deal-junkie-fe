@@ -46,7 +46,7 @@ function HowItWorks() {
         <div className="w-full lg:px-[10%] md:px-[5%] px-6 md:py-8 py-5">
           <div className="flex flex-col md:flex-row items-center">
             <img
-              src="/assets/images/howwork.png"
+              src="/assets/images/image-12.png"
               alt="Our Team"
               className="rounded-lg md:w-[50%] w-full h-auto object-contain"
             />
@@ -124,7 +124,7 @@ function HowItWorks() {
               </ul>
             </div>
             <img
-              src="/assets/images/howwork.png"
+              src="/assets/images/image-7.jpeg"
               alt="Our Team"
               className="rounded-lg md:w-[50%] w-full h-auto object-contain"
             />
@@ -135,7 +135,7 @@ function HowItWorks() {
         <div className="w-full lg:px-[10%] md:px-[5%] px-6 md:py-8 py-5">
           <div className="flex flex-col md:flex-row items-center">
             <img
-              src="/assets/images/howwork.png"
+              src="/assets/images/image-8.jpeg"
               alt="Our Team"
               className="rounded-lg md:w-[50%] w-full h-auto object-contain"
             />
@@ -213,7 +213,7 @@ function HowItWorks() {
               </ul>
             </div>
             <img
-              src="/assets/images/howwork.png"
+              src="/assets/images/image-9.jpeg"
               alt="Our Team"
               className="rounded-lg md:w-[50%] w-full h-auto object-contain"
             />

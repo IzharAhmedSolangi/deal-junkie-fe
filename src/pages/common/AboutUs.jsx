@@ -37,7 +37,7 @@ function AboutUs() {
             overhead of hiring a full-time team.
           </p>
           <img
-            src="/assets/images/mask-group.png"
+            src="/assets/images/image-10.png"
             alt="Financial Meeting"
             className="rounded-lg w-full h-auto object-cover mt-5"
           />
@@ -121,7 +121,7 @@ function AboutUs() {
             </div>
 
             <img
-              src="/assets/images/mask-group1.png"
+              src="/assets/images/image-11.png"
               alt="Our Team"
               className="rounded-lg w-full h-auto object-cover mt-5"
             />
