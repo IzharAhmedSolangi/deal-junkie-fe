@@ -45,7 +45,7 @@ function HowItWorks() {
 
         {/* Section 1 */}
         <div className="w-full lg:px-[10%] md:px-[5%] px-6 md:py-8 py-5">
-          <div className="flex flex-col md:flex-row items-center">
+          <div className="flex flex-col md:flex-row items-center overflow-hidden">
             <img
               src="/assets/images/image-12.png"
               alt="Our Team"
@@ -93,7 +93,7 @@ function HowItWorks() {
 
         {/* Section 2 */}
         <div className="w-full lg:px-[10%] md:px-[5%] px-6 md:py-8 py-5">
-          <div className="flex flex-col md:flex-row items-center">
+          <div className="flex flex-col md:flex-row items-center overflow-hidden">
             <div
               className="md:w-[50%] w-full md:px-6 px-0 md:mt-0 mt-5"
               data-aos="fade-right"
@@ -142,7 +142,7 @@ function HowItWorks() {
 
         {/* Section 3 */}
         <div className="w-full lg:px-[10%] md:px-[5%] px-6 md:py-8 py-5">
-          <div className="flex flex-col md:flex-row items-center">
+          <div className="flex flex-col md:flex-row items-center overflow-hidden">
             <img
               src="/assets/images/image-8.jpeg"
               alt="Our Team"
@@ -190,7 +190,7 @@ function HowItWorks() {
 
         {/* Section 4 */}
         <div className="w-full lg:px-[10%] md:px-[5%] px-6 md:py-8 py-5">
-          <div className="flex flex-col md:flex-row items-center">
+          <div className="flex flex-col md:flex-row items-center overflow-hidden">
             <div
               className="md:w-[50%] w-full md:px-6 px-0 md:mt-0 mt-5"
               data-aos="fade-right"

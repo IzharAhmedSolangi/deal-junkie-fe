@@ -141,7 +141,7 @@ function AboutUs() {
             execution support and the finance professionals who have spent years
             honing these skills in top-tier firms.
           </p>
-          <div className="flex justify-center flex-wrap gap-5 w-full mt-5">
+          <div className="flex justify-center flex-wrap gap-5 w-full mt-5 overflow-hidden">
             {[
               {
                 title: "Flexible & On-Demand",

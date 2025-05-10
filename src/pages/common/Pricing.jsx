@@ -113,6 +113,7 @@ function Pricing() {
                       ? "bg-[#003F63]"
                       : "bg-white group hover:bg-[#003F63]"
                   } w-full h-auto shadow-lg rounded-2xl p-8 flex flex-col items-start gap-2`}
+                  data-aos="zoom-in-up"
                 >
                   <div
                     className={`${
