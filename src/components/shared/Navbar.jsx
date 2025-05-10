@@ -311,11 +311,11 @@ function ProfileDropdown() {
                   path: "/dashboard/my-tasks",
                   icon: <BsClipboardCheck />,
                 },
-                {
-                  name: "Manage Payments",
-                  path: "/dashboard/manage-payments",
-                  icon: <BsCreditCard2Front />,
-                },
+                // {
+                //   name: "Manage Payments",
+                //   path: "/dashboard/manage-payments",
+                //   icon: <BsCreditCard2Front />,
+                // },
               ].map((item, index) => (
                 <Link
                   key={index}
