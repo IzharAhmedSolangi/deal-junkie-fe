@@ -8,13 +8,19 @@ function CustomerSaid() {
       url: "/assets/reviews/image-1.jpeg",
       name: "David Yacobucci",
       review:
-        "I built Deal Junkie to connect the dots—giving ex-finance professionals in B-school a flexible way to earn while offering smaller investors affordable access to elite-level support. It’s a win-win.",
+        "“I built Deal Junkie to connect the dots—giving ex-finance professionals in B-school a flexible way to earn while offering smaller investors affordable access to elite-level support. It’s a win-win”",
     },
     {
       url: "/assets/reviews/image-2.jpeg",
       name: "Frank Langfitt",
       review:
-        "Making an account on Deal Junkie was seamless. I now have the ability to use my skills to earn extra income at my fingertips. There is no other platform with as straightforward a user interface as Deal Junkie.",
+        "“Making an account on Deal Junkie was seamless. I now have the ability to use my skills to earn extra income at my fingertips. There is no other platform with as straightforward a user interface as Deal Junkie”",
+    },
+    {
+      url: "/assets/reviews/image-3.jpeg",
+      name: "James Gilbert",
+      review:
+        "“Deal Junkie is the perfect platform to work on your own time, earn extra income, and meet other interesting deal makers. Deal Junkie takes care of all the admin, so investors and providers can focus on what we love, DEALS!”",
     },
   ];
   return (
@@ -25,7 +31,7 @@ function CustomerSaid() {
         </h1>
         <Testimonial />
       </div> */}
-      <div className="bg-[#F2F4F7] pt-10 md:pb-32 pb-28 md:px-40 px-2">
+      <div className="bg-[#F2F4F7] pt-10 md:pb-32 pb-28 md:px-[100px] px-3">
         <h1 className="mdtext-[40px] text-[28px] font-[600] text-[#1D2939] text-center mb-3">
           What Users Say About Us
         </h1>
@@ -33,7 +39,7 @@ function CustomerSaid() {
           {reviews.map((item, index) => (
             <div
               key={index}
-              className="bg-white w-full md:h-[200px] h-[200px] md:p-6 p-3 rounded-lg"
+              className="bg-white w-full h-auto md:p-6 p-3 rounded-lg"
               data-aos="fade-up"
             >
               <div className="flex gap-2">

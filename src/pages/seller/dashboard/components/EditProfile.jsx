@@ -256,7 +256,7 @@ function EditProfile() {
                 placeholder="Years of experience"
                 name="experience"
                 value={values.experience}
-                onChange={handleChange}
+                handleChange={handleChange}
                 icon={<PiHandbagSimpleFill />}
               />
               {errors.experience && touched.experience && (
@@ -269,7 +269,7 @@ function EditProfile() {
                 placeholder="Rate per hour"
                 name="rate_per_hour"
                 value={values.rate_per_hour}
-                onChange={handleChange}
+                handleChange={handleChange}
                 icon={<FaDollarSign />}
               />
               {errors.rate_per_hour && touched.rate_per_hour && (
