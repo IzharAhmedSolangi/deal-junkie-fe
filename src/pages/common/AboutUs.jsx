@@ -44,10 +44,10 @@ function AboutUs() {
         </div>
 
         {/* Who We Are Section */}
-        <div className="bg-[#FAFAFA] w-full lg:px-[5%] md:px-[3%] px-6 md:py-8 py-5">
+        <div className="bg-[#FAFAFA] w-full lg:px-[5%] md:px-[3%] px-6 md:py-8 py-5 overflow-hidden">
           <div className="flex flex-col md:flex-row md:gap-10 gap-5">
             {/* Left side: Text Content */}
-            <div>
+            <div data-aos="fade-left">
               <h1 className="md:text-[40px] text-[20px] font-bold text-[#1D2939]">
                 Who we are
               </h1>
@@ -124,6 +124,7 @@ function AboutUs() {
               src="/assets/images/image-11.png"
               alt="Our Team"
               className="rounded-lg w-full h-auto object-cover mt-5"
+              data-aos="fade-right"
             />
           </div>
         </div>
@@ -166,6 +167,7 @@ function AboutUs() {
               <div
                 key={index}
                 className="bg-white shadow-lg p-6 rounded-lg md:w-[400px] w-full group hover:bg-[#003F63]"
+                data-aos="zoom-in-up"
               >
                 <img
                   src="/assets/icons/frame22.png"
@@ -185,7 +187,10 @@ function AboutUs() {
 
         {/* Call-to-Action Section */}
         <div className="bg-white w-full md:h-[400px] h-[550px] lg:px-[5%] md:px-[3%] px-6 md:py-8 py-5">
-          <div className="bg-[#E9FFDB] w-full h-full relative rounded-[20px] md:p-10 p-10 flex flex-col md:items-start items-center md:justify-center justify-start">
+          <div
+            className="bg-[#E9FFDB] w-full h-full relative rounded-[20px] md:p-10 p-10 flex flex-col md:items-start items-center md:justify-center justify-start"
+            data-aos="fade-down"
+          >
             {/* Text & Button Section */}
             <div className="w-full md:w-[60%] text-center md:text-left">
               <h3 className="md:text-[36px] text-[18px] font-semibold text-[#022247]">

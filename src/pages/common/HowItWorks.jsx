@@ -39,6 +39,7 @@ function HowItWorks() {
             src="/assets/images/image-6.jpeg"
             alt="Financial Meeting"
             className="rounded-lg w-full h-auto object-cover mt-5"
+            data-aos="fade-up"
           />
         </div>
 
@@ -49,8 +50,12 @@ function HowItWorks() {
               src="/assets/images/image-12.png"
               alt="Our Team"
               className="rounded-lg md:w-[50%] w-full h-auto object-contain"
+              data-aos="fade-left"
             />
-            <div className="md:w-[50%] w-full md:px-6 px-0 md:mt-0 mt-5">
+            <div
+              className="md:w-[50%] w-full md:px-6 px-0 md:mt-0 mt-5"
+              data-aos="fade-right"
+            >
               <h2 className="md:text-[40px] text-[22px] font-bold text-[#1D2939]">
                 Get Expert Deal Support
                 <br /> On Demand
@@ -89,7 +94,10 @@ function HowItWorks() {
         {/* Section 2 */}
         <div className="w-full lg:px-[10%] md:px-[5%] px-6 md:py-8 py-5">
           <div className="flex flex-col md:flex-row items-center">
-            <div className="md:w-[50%] w-full md:px-6 px-0 md:mt-0 mt-5">
+            <div
+              className="md:w-[50%] w-full md:px-6 px-0 md:mt-0 mt-5"
+              data-aos="fade-right"
+            >
               <h2 className="md:text-[40px] text-[22px] font-bold text-[#1D2939]">
                 Unlock Deep Market &
                 <br /> Investment Research
@@ -127,6 +135,7 @@ function HowItWorks() {
               src="/assets/images/image-7.jpeg"
               alt="Our Team"
               className="rounded-lg md:w-[50%] w-full h-auto object-contain"
+              data-aos="fade-left"
             />
           </div>
         </div>
@@ -138,8 +147,12 @@ function HowItWorks() {
               src="/assets/images/image-8.jpeg"
               alt="Our Team"
               className="rounded-lg md:w-[50%] w-full h-auto object-contain"
+              data-aos="fade-left"
             />
-            <div className="md:w-[50%] w-full md:px-6 px-0 md:mt-0 mt-5">
+            <div
+              className="md:w-[50%] w-full md:px-6 px-0 md:mt-0 mt-5"
+              data-aos="fade-right"
+            >
               <h2 className="md:text-[40px] text-[22px] font-bold text-[#1D2939]">
                 Streamline M&A and Due
                 <br /> Diligence Processes
@@ -178,7 +191,10 @@ function HowItWorks() {
         {/* Section 4 */}
         <div className="w-full lg:px-[10%] md:px-[5%] px-6 md:py-8 py-5">
           <div className="flex flex-col md:flex-row items-center">
-            <div className="md:w-[50%] w-full md:px-6 px-0 md:mt-0 mt-5">
+            <div
+              className="md:w-[50%] w-full md:px-6 px-0 md:mt-0 mt-5"
+              data-aos="fade-right"
+            >
               <h2 className="md:text-[40px] text-[22px] font-bold text-[#1D2939]">
                 Flexible, On-Demand
                 <br />
@@ -216,6 +232,7 @@ function HowItWorks() {
               src="/assets/images/image-9.jpeg"
               alt="Our Team"
               className="rounded-lg md:w-[50%] w-full h-auto object-contain"
+              data-aos="fade-left"
             />
           </div>
         </div>
@@ -238,6 +255,7 @@ function HowItWorks() {
               <div
                 key={index}
                 className="bg-white shadow-lg p-6 rounded-lg w-full group hover:bg-[#003F63]"
+                data-aos="zoom-in-up"
               >
                 <img
                   src="/assets/icons/frame22.png"
@@ -257,7 +275,10 @@ function HowItWorks() {
 
         {/* Call-to-Action Section */}
         <div className="bg-white w-full md:h-[400px] h-[550px] lg:px-[5%] md:px-[3%] px-6 md:py-8 py-5">
-          <div className="bg-[#E9FFDB] w-full h-full relative rounded-[20px] md:p-10 p-10 flex flex-col md:items-start items-center md:justify-center justify-start">
+          <div
+            className="bg-[#E9FFDB] w-full h-full relative rounded-[20px] md:p-10 p-10 flex flex-col md:items-start items-center md:justify-center justify-start"
+            data-aos="fade-down"
+          >
             <div className="w-full md:w-[60%] text-center md:text-left">
               <h3 className="md:text-[36px] text-[18px] font-semibold text-[#022247]">
                 Join Deal Junkie and take your deals to the next level.

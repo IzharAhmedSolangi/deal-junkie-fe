@@ -29,11 +29,12 @@ function CustomerSaid() {
         <h1 className="mdtext-[40px] text-[28px] font-[600] text-[#1D2939] text-center mb-3">
           What Users Say About Us
         </h1>
-        <div className="flex md:flex-row flex-col gap-3">
+        <div className="flex md:flex-row flex-col gap-3 overflow-hidden">
           {reviews.map((item, index) => (
             <div
               key={index}
               className="bg-white w-full md:h-[200px] h-[200px] md:p-6 p-3 rounded-lg"
+              data-aos="fade-up"
             >
               <div className="flex gap-2">
                 <img
