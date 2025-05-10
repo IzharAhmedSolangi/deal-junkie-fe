@@ -14,7 +14,7 @@ function CustomerSaid() {
       url: "/assets/reviews/image-2.jpeg",
       name: "Frank Langfitt",
       review:
-        "Making an account on Deal Junkie was seamless. I now have the ability to use my skills to earn extra income at my fingertips. There is no other platform with as straightforward a user interface as Deal Junkie",
+        "Making an account on Deal Junkie was seamless. I now have the ability to use my skills to earn extra income at my fingertips. There is no other platform with as straightforward a user interface as Deal Junkie.",
     },
   ];
   return (
