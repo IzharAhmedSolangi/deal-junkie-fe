@@ -32,7 +32,7 @@ const validationSchema = Yup.object({
 });
 function EditProfile() {
   const { userInfo } = useContext(GlobalContext);
-  const { EditProfile, loading, setShowMessage } = useEditProfile();
+  const { EditProfile, loading } = useEditProfile();
 
   const initialValues = {
     firstname: userInfo?.user?.first_name || "",
@@ -51,18 +51,21 @@ function EditProfile() {
       validationSchema,
       enableReinitialize: true,
       onSubmit: async (values) => {
-        setShowMessage(true);
-        EditProfile({
-          user: {
-            first_name: values.firstname,
-            last_name: values.lastname,
-            phone_number: values.phone,
-            state: values.state,
-            city: values.city,
-            street: values.address,
-            profile_picture: values.profile_picture,
+        const showMessage = true;
+        EditProfile(
+          {
+            user: {
+              first_name: values.firstname,
+              last_name: values.lastname,
+              phone_number: values.phone,
+              state: values.state,
+              city: values.city,
+              street: values.address,
+              profile_picture: values.profile_picture,
+            },
           },
-        });
+          showMessage
+        );
       },
     });
 

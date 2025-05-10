@@ -242,7 +242,8 @@ function ProfileDropdown() {
   };
 
   const SwitchMode = (role) => {
-    EditProfile({ user: { role: role } });
+    const isNavigate = true;
+    EditProfile({ user: { role: role } }, isNavigate);
   };
   return (
     <div className="relative" ref={dropdownRef}>

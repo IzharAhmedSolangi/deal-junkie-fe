@@ -11,9 +11,12 @@ function useEditProfile() {
   const Navigate = useNavigate();
   const { setUserInfo } = useContext(GlobalContext);
   const [loading, setLoading] = useState(false);
-  const [showMessage, setShowMessage] = useState(false);
 
-  const EditProfile = async (payload) => {
+  const EditProfile = async (
+    payload,
+    isNavigate = false,
+    showMessage = false
+  ) => {
     setLoading(true);
     await axios
       .put(`${BASE_URL}/api/seller/profile/`, payload, {
@@ -29,11 +32,14 @@ function useEditProfile() {
             "Profile updated",
             "Your profile details successfully updated!"
           );
-          setShowMessage(false);
         }
-        if (response.data?.seller_profile === null) {
+        if (
+          response.data?.seller_profile === null &&
+          response.data?.user?.role === "seller" &&
+          isNavigate === true
+        ) {
           Navigate("/dashboard/edit-profile");
-        } else {
+        } else if (isNavigate === true) {
           Navigate("/");
         }
       })
@@ -42,6 +48,6 @@ function useEditProfile() {
         ErrorToaster("Error", error?.response?.data?.message);
       });
   };
-  return { EditProfile, loading, setShowMessage, showMessage };
+  return { EditProfile, loading };
 }
 export default useEditProfile;

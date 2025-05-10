@@ -58,7 +58,7 @@ const validationSchema = Yup.object({
 
 function EditProfile() {
   const { userInfo } = useContext(GlobalContext);
-  const { EditProfile, loading, setShowMessage } = useEditProfile();
+  const { EditProfile, loading } = useEditProfile();
   const { BecomeSeller, sellerLoading } = useBecomeSeller();
 
   const initialValues = {
@@ -88,30 +88,34 @@ function EditProfile() {
       enableReinitialize: true,
       onSubmit: async (values) => {
         if (userInfo?.seller_profile !== null) {
-          setShowMessage(true);
-          EditProfile({
-            user: {
-              first_name: values.firstname,
-              last_name: values.lastname,
-              phone_number: values.phone,
-              state: values.state,
-              city: values.city,
-              street: values.address,
-              email: userInfo?.user?.email,
-              role: userInfo?.user?.role,
-              profile_picture: values.profile_picture,
-              bio: userInfo?.user?.bio,
-            },
-            seller_profile: {
-              experience: values.experience,
-              rate_per_hour: values.rate_per_hour,
+          const showMessage = true;
 
-              describe_yourself: values.describe_yourself,
-              skill_expperience: values.describe_skills_experience,
-              achievements: values.achievements,
-              work_preferences: values.work_preferences,
+          EditProfile(
+            {
+              user: {
+                first_name: values.firstname,
+                last_name: values.lastname,
+                phone_number: values.phone,
+                state: values.state,
+                city: values.city,
+                street: values.address,
+                email: userInfo?.user?.email,
+                role: userInfo?.user?.role,
+                profile_picture: values.profile_picture,
+                bio: userInfo?.user?.bio,
+              },
+              seller_profile: {
+                experience: values.experience,
+                rate_per_hour: values.rate_per_hour,
+
+                describe_yourself: values.describe_yourself,
+                skill_expperience: values.describe_skills_experience,
+                achievements: values.achievements,
+                work_preferences: values.work_preferences,
+              },
             },
-          });
+            showMessage
+          );
         }
         if (userInfo?.seller_profile === null) {
           BecomeSeller({
