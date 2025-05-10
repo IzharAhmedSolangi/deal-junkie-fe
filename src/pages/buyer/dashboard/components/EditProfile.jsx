@@ -51,6 +51,7 @@ function EditProfile() {
       validationSchema,
       enableReinitialize: true,
       onSubmit: async (values) => {
+        const isNavigate = false;
         const showMessage = true;
         EditProfile(
           {
@@ -64,6 +65,7 @@ function EditProfile() {
               profile_picture: values.profile_picture,
             },
           },
+          isNavigate,
           showMessage
         );
       },

@@ -88,8 +88,8 @@ function EditProfile() {
       enableReinitialize: true,
       onSubmit: async (values) => {
         if (userInfo?.seller_profile !== null) {
+          const isNavigate = false;
           const showMessage = true;
-
           EditProfile(
             {
               user: {
@@ -114,6 +114,7 @@ function EditProfile() {
                 work_preferences: values.work_preferences,
               },
             },
+            isNavigate,
             showMessage
           );
         }
