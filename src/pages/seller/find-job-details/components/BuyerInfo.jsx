@@ -45,19 +45,21 @@ function BuyerInfo(props) {
           )}
           <div className="flex gap-1 mt-2">
             <MdOutlineLocationOn className="text-[#6F7487] text-[20px]" />
-            <p className="font-normal text-[14px] text-[#6F7487] text-center">
+            <p className="font-normal text-[15px] text-[#6F7487] text-center text-wrap">
               {findJob.data?.user?.street}
+              {findJob.data?.user?.city && `, ${findJob.data?.user?.city}`}
+              {findJob.data?.user?.state && `, ${findJob.data?.user?.state}`}
             </p>
           </div>
           <div className="flex gap-1 mt-2">
             <MdOutlineMail className="text-[#6F7487] text-[20px]" />
-            <p className="font-normal text-[14px] text-[#6F7487]">
+            <p className="font-normal text-[15px] text-[#6F7487]">
               {findJob.data?.user?.email}
             </p>
           </div>
           <div className="flex gap-1 mt-2">
             <MdPhoneAndroid className="text-[#6F7487] text-[20px]" />
-            <p className="font-normal text-[14px] text-[#6F7487]">
+            <p className="font-normal text-[15px] text-[#6F7487]">
               {findJob.data?.user?.phone_number}
             </p>
           </div>

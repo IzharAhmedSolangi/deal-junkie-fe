@@ -103,12 +103,12 @@ function Hero() {
                   <h3 className="md:text-lg text-[12px] font-bold md:mt-2 mt-1 text-[#022247] text-center">
                     {item?.name}
                   </h3>
-                  <div className="flex justify-center gap-1 mt-2">
+                  {/* <div className="flex justify-center gap-1 mt-2">
                     <MdOutlineLocationOn className="text-[#6F7487] md:text-[20px] text-[12px]" />
                     <p className="font-normal md:text-[14px] text-[10px] text-[#6F7487] text-center">
                       {item?.address?.street}
                     </p>
-                  </div>
+                  </div> */}
                   <div className="flex justify-center gap-1 mt-2">
                     <MdOutlineMail className="text-[#6F7487] md:text-[20px] text-[15px]" />
                     <p className="font-normal md:text-[14px] text-[10px] text-[#6F7487]">

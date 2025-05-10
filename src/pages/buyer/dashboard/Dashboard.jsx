@@ -26,7 +26,7 @@ import AppHead from "../../../seo/AppHead";
 const tabs = [
   { name: "My Task", path: "my-tasks" },
   { name: "Change Password", path: "change-password" },
-  { name: "Manage Payments", path: "manage-payments" },
+  // { name: "Manage Payments", path: "manage-payments" },
   { name: "Notifications", path: "notifications" },
 ];
 function Dashboard() {
@@ -73,7 +73,7 @@ function Dashboard() {
             <div className="mt-5">
               {tabName === "my-tasks" && <MyTasks />}
               {tabName === "change-password" && <ChangePassword />}
-              {tabName === "manage-payments" && <ManagePayments />}
+              {/* {tabName === "manage-payments" && <ManagePayments />} */}
               {tabName === "notifications" && <Notifications />}
               {tabName === "edit-profile" && <EditProfile />}
             </div>
@@ -148,6 +148,8 @@ function Profile(props) {
           <MdOutlineLocationOn className="text-[#6F7487] text-[20px]" />
           <p className="font-normal text-[14px] text-[#6F7487] text-center">
             {userInfo?.user?.street}
+            {userInfo?.user?.city && `, ${userInfo?.user?.city}`}
+            {userInfo?.user?.state && `, ${userInfo?.user?.state}`}
           </p>
         </div>
         <div className="flex gap-1 mt-2">

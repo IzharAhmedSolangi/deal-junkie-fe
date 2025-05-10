@@ -45,6 +45,10 @@ function buyerProfile(props) {
               <MdOutlineLocationOn className="text-[#6F7487] text-[20px]" />
               <p className="font-normal text-[14px] text-[#6F7487] text-center">
                 {buyer.data?.buyer_details?.street}
+                {buyer.data?.buyer_details?.city &&
+                  `, ${buyer.data?.buyer_details?.city}`}
+                {buyer.data?.buyer_details?.city &&
+                  `, ${buyer.data?.buyer_details?.state}`}
               </p>
             </div>
             <div className="flex gap-1 mt-2">

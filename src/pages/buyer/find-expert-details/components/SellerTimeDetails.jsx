@@ -43,6 +43,10 @@ function SellerTimeDetails(props) {
             <MdOutlineLocationOn className="text-[#6F7487] text-[20px]" />
             <p className="font-normal text-[14px] text-[#6F7487] text-center">
               {findExpert.data?.user?.street}
+              {findExpert.data?.user?.city &&
+                `, ${findExpert.data?.user?.city}`}
+              {findExpert.data?.user?.state &&
+                `, ${findExpert.data?.user?.state}`}
             </p>
           </div>
           <div className="flex gap-1 mt-2">

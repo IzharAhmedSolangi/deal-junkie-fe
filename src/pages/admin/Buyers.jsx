@@ -71,6 +71,8 @@ function Buyers() {
                       <MdOutlineLocationOn className="text-[#6F7487] text-[20px]" />
                       <p className="font-normal text-[14px] text-[#6F7487] text-center">
                         {item?.street}
+                        {item?.city && `, ${item?.city}`}
+                        {item?.state && `, ${item?.state}`}
                       </p>
                     </div>
                     <div className="flex justify-center gap-1 mt-2">

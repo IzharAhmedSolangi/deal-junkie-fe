@@ -148,6 +148,8 @@ function Profile(props) {
           <MdOutlineLocationOn className="text-[#6F7487] text-[20px]" />
           <p className="font-normal text-[14px] text-[#6F7487]">
             {userInfo?.user?.street}
+            {userInfo?.user?.city && `, ${userInfo?.user?.city}`}
+            {userInfo?.user?.state && `, ${userInfo?.user?.state}`}
           </p>
         </div>
         <div className="flex gap-1 mt-2">

@@ -36,6 +36,8 @@ function SellerProfile(props) {
           <MdOutlineLocationOn className="text-[#6F7487] text-[20px]" />
           <p className="font-normal text-[14px] text-[#6F7487] text-center">
             {seller.data?.user?.street}
+            {seller.data?.user?.city && `, ${seller.data?.user?.city}`}
+            {seller.data?.user?.state && `, ${seller.data?.user?.state}`}
           </p>
         </div>
         <div className="flex gap-1 mt-2">
