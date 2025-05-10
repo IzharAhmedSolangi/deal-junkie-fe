@@ -36,7 +36,7 @@ function Footer() {
           </p>
           <div className="w-full flex md:justify-start justify-center items-center gap-4 mt-4">
             <a
-              href="#"
+              href="https://www.instagram.com/deal_junkie_?igsh=MWczcnB0YWpnYWExaw%3D%3D&utm_source=qr"
               target="_blank"
               rel="noferrer"
               className="text-[#6F7487] hover:text-secondary"
@@ -44,7 +44,7 @@ function Footer() {
               <RiInstagramFill className="text-[22px]" />
             </a>
             <a
-              href="#"
+              href="https://x.com/deal_junkie_?s=11&t=AQVnm_pgVwjvt3BonfhpnQ"
               target="_blank"
               rel="noferrer"
               className="text-[#6F7487] hover:text-secondary"
@@ -52,7 +52,7 @@ function Footer() {
               <BsTwitterX className="text-[22px]" />
             </a>
             <a
-              href="#"
+              href="https://www.linkedin.com/company/deal-junkie/"
               target="_blank"
               rel="noferrer"
               className="text-[#6F7487] hover:text-secondary"
