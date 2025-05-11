@@ -289,17 +289,19 @@ function ProfileDropdown() {
 
           {userInfo?.user?.role === "buyer" && (
             <div className="py-2">
-              <button
-                className="w-full px-4 py-2 flex items-center gap-2 hover:bg-[#0AF8860F] cursor-pointer"
-                onClick={() => {
-                  setIsOpen(false);
-                  SwitchMode("seller");
-                }}
-                disabled={loading}
-              >
-                <IoIosSwitch />
-                <span>Switch to Selling</span>
-              </button>
+              {userInfo?.user?.is_both === true && (
+                <button
+                  className="w-full px-4 py-2 flex items-center gap-2 hover:bg-[#0AF8860F] cursor-pointer"
+                  onClick={() => {
+                    setIsOpen(false);
+                    SwitchMode("seller");
+                  }}
+                  disabled={loading}
+                >
+                  <IoIosSwitch />
+                  <span>Switch to Selling</span>
+                </button>
+              )}
               {[
                 {
                   name: "My Account",

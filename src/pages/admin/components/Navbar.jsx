@@ -12,7 +12,7 @@ const Navbar = (props) => {
 
   return (
     <>
-      <div className="w-full h-[70px] bg-white shadow-sm px-5 flex justify-between sticky top-0 z-40">
+      <div className="w-full h-[60px] bg-white shadow-sm px-5 flex justify-between sticky top-0 z-40">
         <div className="flex items-center gap-2">
           <div className="lg:hidden flex">
             <MdOutlineMenu

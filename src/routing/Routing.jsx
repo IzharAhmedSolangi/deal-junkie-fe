@@ -113,6 +113,7 @@ const Routing = () => {
                   path="admin/support-messages"
                   element={<AdminSupportMessages />}
                 />
+                <Route path="admin/inbox" element={<Inbox />} />
               </Route>
             )}
           </>

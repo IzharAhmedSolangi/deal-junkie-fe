@@ -9,19 +9,17 @@ function useContactUs() {
   const token = getAccessToken();
   const [loading, setLoading] = useState(false);
 
-  const ContactUs = async (payload) => {
+  const ContactUs = async (payload, resetForm) => {
     setLoading(true);
     await axios
-      .post(`${BASE_URL}/api/accounts/contact-us`, payload, {
+      .post(`${BASE_URL}/api/accounts/contact-us/`, payload, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
       .then((response) => {
-        // SuccessToaster(
-        //   "Password Changed",
-        //   "Your password changed successfully"
-        // );
+        SuccessToaster("Message Sent", "Your message successfully sent!");
+        resetForm();
         setLoading(false);
       })
       .catch((error) => {

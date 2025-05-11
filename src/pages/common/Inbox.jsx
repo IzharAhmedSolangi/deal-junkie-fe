@@ -19,7 +19,8 @@ import GlobalContext from "../../context/GlobalContext";
 import { useLocation } from "react-router-dom";
 import AppHead from "../../seo/AppHead";
 import useUpload from "../../services/common/useUpload";
-import { handleDownload } from "../../utils/DownloadFiles";
+import { ButtonLoader2 } from "../../components/shared/ButtonLoaders";
+import useDownload from "../../services/common/useDownload";
 
 // Constants moved outside component
 const BASE_URL = import.meta.env.VITE_API_URL;
@@ -88,6 +89,12 @@ const getFileInfo = (message) => {
 const ChatMessage = ({ message, isCurrentUser, userId }) => {
   const fileInfo = getFileInfo(message.message);
   const isFile = !!fileInfo;
+  const [showDownload, setShowDownload] = useState(false);
+  const { Download, loading } = useDownload();
+
+  const handleDownload = (fileName) => {
+    Download(fileName);
+  };
 
   return (
     <div
@@ -96,7 +103,13 @@ const ChatMessage = ({ message, isCurrentUser, userId }) => {
       }`}
     >
       {isFile ? (
-        <FileContent fileInfo={fileInfo} message={message.message} />
+        <FileContent
+          fileInfo={fileInfo}
+          message={message.message}
+          handleDownload={handleDownload}
+          showDownload={showDownload}
+          setShowDownload={setShowDownload}
+        />
       ) : (
         <div
           className={`p-3 my-3 rounded-lg max-w-[75%] break-words mb-5 ${
@@ -116,38 +129,83 @@ const ChatMessage = ({ message, isCurrentUser, userId }) => {
 };
 
 // File content subcomponent
-const FileContent = ({ fileInfo, message }) => {
+const FileContent = ({
+  fileInfo,
+  message,
+  handleDownload,
+  showDownload,
+  setShowDownload,
+}) => {
   if (!fileInfo) return null;
   const { fileName, fileType } = fileInfo;
 
   if (FILE_TYPES.image.includes(fileType)) {
     return (
-      <div className="bg-gray-300 p-1 rounded mb-5 my-3">
+      <div
+        className="bg-gray-300 p-1 rounded mb-5 my-3 relative"
+        onMouseEnter={() => setShowDownload(true)}
+        onMouseLeave={() => setShowDownload(false)}
+      >
         <img
           src={message}
           alt={fileName}
           className="w-full max-w-[300px] h-auto object-contain"
         />
+        {showDownload && (
+          <button
+            className="absolute top-2 right-2 rounded-full w-8 h-8 flex justify-center items-center bg-gray-800 bg-opacity-70 text-white cursor-pointer hover:bg-opacity-90"
+            onClick={() => handleDownload(fileName)}
+            title="Download image"
+          >
+            <MdFileDownload size={20} />
+          </button>
+        )}
       </div>
     );
   }
 
   if (FILE_TYPES.video.includes(fileType)) {
     return (
-      <div className="bg-gray-300 p-1 rounded mb-5 my-3">
+      <div
+        className="bg-gray-300 p-1 rounded mb-5 my-3 relative"
+        onMouseEnter={() => setShowDownload(true)}
+        onMouseLeave={() => setShowDownload(false)}
+      >
         <video controls className="w-full max-w-[300px] h-full">
           <source src={message} type="video/webm" />
         </video>
+        {showDownload && (
+          <button
+            className="absolute top-2 right-2 rounded-full w-8 h-8 flex justify-center items-center bg-gray-800 bg-opacity-70 text-white cursor-pointer hover:bg-opacity-90"
+            onClick={() => handleDownload(fileName)}
+            title="Download video"
+          >
+            <MdFileDownload size={20} />
+          </button>
+        )}
       </div>
     );
   }
 
   if (FILE_TYPES.audio.includes(fileType)) {
     return (
-      <div className="bg-gray-300 p-1 rounded mb-5 my-3">
+      <div
+        className="bg-gray-300 p-1 rounded mb-5 my-3 relative"
+        onMouseEnter={() => setShowDownload(true)}
+        onMouseLeave={() => setShowDownload(false)}
+      >
         <audio controls className="w-full max-w-[300px]">
           <source src={message} type="audio/mp3" />
         </audio>
+        {showDownload && (
+          <button
+            className="absolute top-2 right-2 rounded-full w-8 h-8 flex justify-center items-center bg-gray-800 bg-opacity-70 text-white cursor-pointer hover:bg-opacity-90"
+            onClick={() => handleDownload(fileName, message)}
+            title="Download audio"
+          >
+            <MdFileDownload size={20} />
+          </button>
+        )}
       </div>
     );
   }
@@ -175,7 +233,7 @@ const FileContent = ({ fileInfo, message }) => {
           </span>
           <button
             className="rounded-full w-[22px] h-[22px] flex justify-center items-center border border-gray-500 text-gray-500 cursor-pointer ml-3 hover:border-secondary hover:text-secondary"
-            onClick={() => handleDownload(message, fileName)}
+            onClick={() => handleDownload(fileName)}
           >
             <MdFileDownload />
           </button>
@@ -191,6 +249,12 @@ const FileContent = ({ fileInfo, message }) => {
         <span className="ml-2 text-sm text-gray-800 truncate max-w-[200px]">
           {fileName}
         </span>
+        <button
+          className="rounded-full w-[22px] h-[22px] flex justify-center items-center border border-gray-500 text-gray-500 cursor-pointer ml-3 hover:border-secondary hover:text-secondary"
+          onClick={() => handleDownload(fileName)}
+        >
+          <MdFileDownload />
+        </button>
       </div>
     </div>
   );
@@ -255,6 +319,7 @@ function Inbox() {
   // State management
   const [users, setUsers] = useState([]);
   const [messages, setMessages] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [newMessage, setNewMessage] = useState("");
   const [selectedUser, setSelectedUser] = useState({
     chat_with: userId,
@@ -332,6 +397,7 @@ function Inbox() {
 
     socketRef.current.onopen = () => {
       console.log("WebSocket Connected");
+      setLoading(false);
     };
 
     socketRef.current.onmessage = (event) => {
@@ -369,15 +435,18 @@ function Inbox() {
           }
         }
       } catch (error) {
+        setLoading(false);
         console.error("Error parsing WebSocket message:", error);
       }
     };
 
     socketRef.current.onerror = (error) => {
+      setLoading(false);
       console.error("WebSocket Error:", error);
     };
 
     socketRef.current.onclose = () => {
+      setLoading(false);
       console.log("WebSocket Disconnected");
     };
   }, [socketUrl, userId, selectedUser.chat_with, scrollToBottom]);
@@ -497,22 +566,21 @@ function Inbox() {
     scrollToBottom();
   }, [messages, scrollToBottom]);
 
+  const location = useLocation();
+
+  console.log({ location });
+
   return (
     <>
       <AppHead title="Inbox - Deal Junkie" />
       <div className="w-full h-auto bg-white">
-        {/* <div className="w-full md:h-[320px] h-[200px] flex justify-center items-center">
-          <img
-            src="/assets/images/Banner2.png"
-            alt="Banner"
-            className="absolute top-0 left-0 w-full md:h-[320px] h-[200px] object-cover"
-          />
-          <h1 className="font-[700] md:text-[48px] text-[30px] text-secondary z-10 text-center">
-            Inbox
-          </h1>
-        </div> */}
-
-        <div className="w-full h-[calc(100vh-60px)] mt-[60px]">
+        <div
+          className={`w-full ${
+            location.pathname === "/admin/inbox"
+              ? "h-[calc(100vh-60px)] p-5"
+              : "h-[calc(100vh-60px)] mt-[60px]"
+          }`}
+        >
           <div className="w-full h-full bg-white border-[0.5px] border-[#02174C33] flex">
             {/* Chat Sidebar - Conditionally shown on mobile */}
             {showSidebar && (
@@ -530,20 +598,28 @@ function Inbox() {
 
                 {/* Chat List */}
                 <div className="overflow-y-auto w-full h-full flex-grow">
-                  {users?.length > 0 ? (
-                    users?.map((user, index) => (
-                      <UserListItem
-                        key={index}
-                        user={user}
-                        selectedUserId={selectedUser?.chat_with}
-                        userInfo={userInfo}
-                        onSelect={handleUserSelect}
-                      />
-                    ))
-                  ) : (
-                    <div className="text-center text-gray-500 mt-4">
-                      No users found
+                  {loading ? (
+                    <div className="w-full h-full flex items-center justify-center">
+                      <ButtonLoader2 />
                     </div>
+                  ) : (
+                    <>
+                      {users?.length > 0 ? (
+                        users?.map((user, index) => (
+                          <UserListItem
+                            key={index}
+                            user={user}
+                            selectedUserId={selectedUser?.chat_with}
+                            userInfo={userInfo}
+                            onSelect={handleUserSelect}
+                          />
+                        ))
+                      ) : (
+                        <div className="text-center text-gray-500 mt-4">
+                          No users found
+                        </div>
+                      )}
+                    </>
                   )}
                 </div>
               </div>
@@ -555,7 +631,7 @@ function Inbox() {
             selectedUser?.chat_with ? (
               <div className="flex-1 flex flex-col w-full">
                 {/* Chat Header */}
-                <div className="px-4 w-full h-[60px] md:h-[80px] bg-white border-b-[0.5px] border-b-[#02174C33] flex items-center justify-between">
+                <div className="px-3 w-full h-[60px] md:h-[80px] bg-white border-b-[0.5px] border-b-[#02174C33] flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     {isMobile && (
                       <button
@@ -635,7 +711,11 @@ function Inbox() {
                     />
                     <button
                       type="submit"
-                      className="absolute top-0 right-0 h-full px-2 md:px-4 text-[20px] cursor-pointer text-gray-600 hover:text-primary"
+                      className={`absolute top-0 right-0 h-full px-2 md:px-4 text-[20px]  ${
+                        newMessage
+                          ? "cursor-pointer text-gray-600 hover:text-primary"
+                          : "text-gray-400"
+                      }`}
                     >
                       <TbSend />
                     </button>

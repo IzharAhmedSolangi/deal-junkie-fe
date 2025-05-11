@@ -176,7 +176,7 @@ function Proposals(props) {
               </div>
               <div className="flex items-center gap-3">
                 <Link
-                  to={`/find-experts/${item.seller.id}`}
+                  to={`/admin/sellers/${item.seller.id}`}
                   className="bg-[#02174C0F] w-[120px] h-[35px] border border-secondary rounded-sm text-secondary text-[13px] cursor-pointer flex justify-center items-center"
                 >
                   See Profile

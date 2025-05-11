@@ -46,22 +46,26 @@ function ContactUs() {
     query: "",
   };
 
-  const { values, errors, handleChange, handleSubmit, touched } = useFormik({
-    initialValues,
-    validationSchema,
-    onSubmit: async (values) => {
-      ContactUs({
-        first_name: values.firstname,
-        last_name: values.lastname,
-        email: values.email,
-        phone_no: values.phone,
-        state: values.state,
-        city: values.city,
-        street_address: values.address,
-        reason: values.query,
-      });
-    },
-  });
+  const { values, errors, handleChange, handleSubmit, touched, resetForm } =
+    useFormik({
+      initialValues,
+      validationSchema,
+      onSubmit: async (values) => {
+        ContactUs(
+          {
+            first_name: values.firstname,
+            last_name: values.lastname,
+            email: values.email,
+            phone_no: values.phone,
+            state: values.state,
+            city: values.city,
+            street_address: values.address,
+            reason: values.query,
+          },
+          resetForm
+        );
+      },
+    });
 
   const [showForm, setShowForm] = useState(false);
 
