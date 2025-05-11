@@ -105,7 +105,7 @@ function Auth(props) {
                           onClick={() => {
                             setAuthModalType("login");
                           }}
-                          className="bg-primary cursor-pointer hover:opacity-80 w-[120px] h-[40px] text-secondary rounded mt-6 flex justify-center items-center"
+                          className="button-2 bg-primary cursor-pointer w-[120px] h-[40px] text-secondary rounded mt-6 flex justify-center items-center"
                         >
                           Login Now
                         </button>
@@ -125,7 +125,7 @@ function Auth(props) {
                           onClick={() => {
                             setAuthModalType("login");
                           }}
-                          className="bg-primary cursor-pointer hover:opacity-80 w-[120px] h-[40px] text-secondary rounded mt-6 flex justify-center items-center"
+                          className="button-2 bg-primary cursor-pointer w-[120px] h-[40px] text-secondary rounded mt-6 flex justify-center items-center"
                         >
                           Login Now
                         </button>

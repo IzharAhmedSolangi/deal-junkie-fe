@@ -181,7 +181,7 @@ function PostProject(props) {
                             Navigate("/dashboard/my-tasks");
                             handleClose();
                           }}
-                          className="bg-primary cursor-pointer hover:opacity-80 w-[150px] h-[40px] text-secondary rounded mt-6 flex justify-center items-center"
+                          className="button-2 bg-primary cursor-pointer w-[150px] h-[40px] text-secondary rounded mt-6 flex justify-center items-center"
                         >
                           Go to My Tasks
                         </button>
@@ -612,13 +612,13 @@ function StepTwo(props) {
         )}
         <div className="w-full flex items-center justify-between">
           <button
-            className="border border-secondary bg-[#F2F4F7] cursor-pointer hover:opacity-80 w-[120px] h-[40px] text-secondary rounded flex justify-center items-center"
+            className="button-2 border border-secondary bg-[#F2F4F7] cursor-pointer w-[120px] h-[40px] text-secondary rounded flex justify-center items-center"
             onClick={() => setStep(1)}
           >
             Back
           </button>
           <button
-            className="border border-secondary bg-secondary cursor-pointer hover:opacity-80 w-[150px] h-[40px] text-white rounded flex justify-center items-center"
+            className="button-2 border border-secondary bg-secondary cursor-pointer w-[150px] h-[40px] text-white rounded flex justify-center items-center"
             type="button"
             disabled={postProject.loading}
             onClick={handleSubmitAndReview}

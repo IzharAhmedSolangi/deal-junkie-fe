@@ -369,7 +369,7 @@ function EditProfile() {
             Cancel
           </button>
           <button
-            className="bg-secondary border border-secondary cursor-pointer hover:opacity-80 w-[140px] h-[40px] text-white rounded flex justify-center items-center"
+            className="button-2 bg-secondary border border-secondary cursor-pointer w-[140px] h-[40px] text-white rounded flex justify-center items-center"
             type="submit"
             disabled={loading || sellerLoading}
           >

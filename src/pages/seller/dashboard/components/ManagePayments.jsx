@@ -79,7 +79,7 @@ const TransactionTable = (props) => {
           </tr>
         </thead>
 
-        {paymentHistory.data && (
+        {paymentHistory.data?.length > 0 && (
           <tbody>
             {Array.from({ length: 5 }).map((item, index) => (
               <tr key={index} className="border-b-[1px] border-b-[#6F748729]">
@@ -123,7 +123,7 @@ const TransactionTable = (props) => {
         )}
       </table>
 
-      {!paymentHistory.data && !paymentHistory.loading && (
+      {paymentHistory.message && !paymentHistory.loading && (
         <div className="w-full h-[200px] flex justify-center items-center">
           <ShowMessage title={paymentHistory.message} />
         </div>

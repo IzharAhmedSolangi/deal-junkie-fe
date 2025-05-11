@@ -79,7 +79,7 @@ function HireNow(props) {
                       <p className="font-[500] md:text-[16px] text-[13px] text-[#6F7487] text-center">
                         You&apos;ll receive a confirmation email shortly
                       </p>
-                      <button className="bg-primary cursor-pointer hover:opacity-80 w-[150px] h-[40px] text-secondary rounded mt-6 flex justify-center items-center">
+                      <button className="button-2 bg-primary cursor-pointer w-[150px] h-[40px] text-secondary rounded mt-6 flex justify-center items-center">
                         Yes Hire Now
                       </button>
                     </div>

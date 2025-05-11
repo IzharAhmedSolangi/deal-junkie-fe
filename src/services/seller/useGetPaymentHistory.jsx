@@ -22,11 +22,14 @@ function useGetPaymentHistory() {
         setPaymentHistory((prevState) => ({
           ...prevState,
           loading: false,
-          totalPages: response.data.total_pages,
-          currentPage: response.data.current_page,
-          data: response.data.results,
+          totalPages: response.data?.total_pages,
+          currentPage: response.data?.current_page,
+          totalEarning: response.data.total_earning,
+          data: response.data?.transactions,
           message:
-            response.data.results.length > 0 ? null : "We didn't find any jobs",
+            response.data?.transactions?.length > 0
+              ? null
+              : "We didn't find any transactions history",
         }));
       })
       .catch((error) => {

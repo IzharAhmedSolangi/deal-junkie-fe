@@ -307,7 +307,7 @@ function SendProposal(props) {
 
                         <div className="w-full flex justify-end">
                           <button
-                            className="border border-secondary bg-secondary cursor-pointer hover:opacity-80 w-[120px] h-[40px] text-white rounded flex justify-center items-center"
+                            className="button-2 border border-secondary bg-secondary cursor-pointer w-[120px] h-[40px] text-white rounded flex justify-center items-center"
                             type="submit"
                             disabled={sendProposal.loading}
                           >
@@ -330,7 +330,7 @@ function SendProposal(props) {
                             Navigate("/find-jobs");
                             setIsOpenModal(false);
                           }}
-                          className="bg-primary cursor-pointer hover:opacity-80 w-[150px] h-[40px] text-secondary rounded mt-6 flex justify-center items-center"
+                          className="button-2 bg-primary cursor-pointer w-[150px] h-[40px] text-secondary rounded mt-6 flex justify-center items-center"
                         >
                           Go Other Jobs
                         </button>

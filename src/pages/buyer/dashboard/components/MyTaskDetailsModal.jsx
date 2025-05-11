@@ -7,6 +7,7 @@ import useGetMyTaskById from "../../../../services/buyer/useGetMyTasksById";
 import { Link } from "react-router-dom";
 import { IoMdClose } from "react-icons/io";
 import {
+  ButtonLoader1,
   ButtonLoader2,
   ButtonLoader3,
 } from "../../../../components/shared/ButtonLoaders";
@@ -18,6 +19,7 @@ import GlobalContext from "../../../../context/GlobalContext";
 import useRatingReviews from "../../../../services/buyer/useRatingReviews";
 import * as Yup from "yup";
 import { useFormik } from "formik";
+import useDownload from "../../../../services/common/useDownload";
 
 function MyTaskDetailsModal(props) {
   const { isOpenModal, setIsOpenModal, selected, setSelected } = props;
@@ -334,6 +336,16 @@ function Proposals(props) {
 
 function OrderDelivered(props) {
   const { myTask } = props;
+  const BASE_URL = import.meta.env.VITE_API_URL;
+  const { Download, loading } = useDownload();
+
+  const handleDownload = (file) => {
+    if (!file?.includes(BASE_URL)) return null;
+    const urlParts = file.split("/");
+    const fileName = decodeURIComponent(urlParts[urlParts.length - 1]);
+
+    Download(fileName);
+  };
 
   return (
     <>
@@ -358,10 +370,22 @@ function OrderDelivered(props) {
               {myTask?.data?.delivered_order?.delivery_description}
             </p>
           </div>
-          <div className="flex items-center justify-center gap-1 border border-primary bg-primary text-secondary rounded-[4px] w-[140px] h-[35px] cursor-pointer hover:opacity-80 mt-2">
-            <IoCloudDownloadOutline className="text-[22px]" />
-            <p>Attachment</p>
-          </div>
+          <button
+            className="flex items-center justify-center gap-1 border border-primary bg-primary text-secondary rounded-[4px] w-[140px] h-[35px] cursor-pointer hover:opacity-80 mt-2"
+            onClick={() =>
+              handleDownload(myTask?.data?.delivered_order?.delivery_file)
+            }
+            disabled={loading}
+          >
+            {loading ? (
+              <ButtonLoader1 />
+            ) : (
+              <>
+                <IoCloudDownloadOutline className="text-[22px]" />
+                <p>Attachment</p>
+              </>
+            )}
+          </button>
         </div>
       </div>
     </>

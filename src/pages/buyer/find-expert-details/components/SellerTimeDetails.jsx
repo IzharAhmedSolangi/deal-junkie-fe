@@ -65,7 +65,7 @@ function SellerTimeDetails(props) {
 
         <div className="flex gap-2 mt-6">
           <button
-            className="w-full bg-secondary text-white py-2 rounded-sm cursor-pointer hover:opacity-80"
+            className="button-2 w-full bg-secondary text-white py-2 rounded-sm cursor-pointer"
             onClick={() => {
               setIsOpenHireNowModal(true);
               setSelectedSeller(findExpert.data);
@@ -74,7 +74,7 @@ function SellerTimeDetails(props) {
             Hire Now
           </button>
           <Link
-            className="w-full bg-primary text-secondary py-2 rounded-sm cursor-pointer flex justify-center items-center hover:opacity-80"
+            className="button-2 w-full bg-primary text-secondary py-2 rounded-sm cursor-pointer flex justify-center items-center"
             to={`/inbox?userId=${findExpert.data?.user?.id}&username=${
               findExpert.data?.user?.first_name
             }${" "}${findExpert.data?.user?.last_name}`}

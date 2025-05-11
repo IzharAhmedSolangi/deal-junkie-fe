@@ -568,8 +568,6 @@ function Inbox() {
 
   const location = useLocation();
 
-  console.log({ location });
-
   return (
     <>
       <AppHead title="Inbox - Deal Junkie" />

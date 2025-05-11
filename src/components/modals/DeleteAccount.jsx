@@ -104,7 +104,7 @@ function DeleteAccount(props) {
                       Not Now
                     </button>
                     <button
-                      className="bg-[#EA5167] border border-[#EA5167] cursor-pointer hover:opacity-80 w-[130px] h-[40px] text-white rounded flex justify-center items-center"
+                      className="button-2 bg-[#EA5167] border border-[#EA5167] cursor-pointer w-[130px] h-[40px] text-white rounded flex justify-center items-center"
                       onClick={handleConfirmDelete}
                       disabled={loading}
                     >

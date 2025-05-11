@@ -68,7 +68,7 @@ function Hero() {
               className="w-full h-[40px] rounded border border-[#02174C33] px-2 hover:border-secondary focus:border-secondary"
             />
             <button
-              className="cursor-pointer bg-secondary rounded text-white hover:opacity-80 w-[60px] h-[40px] flex justify-center items-center"
+              className="button-2 cursor-pointer bg-secondary rounded text-white w-[60px] h-[40px] flex justify-center items-center"
               onClick={handleSearchJobs}
             >
               Go

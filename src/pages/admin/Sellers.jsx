@@ -74,7 +74,7 @@ function Sellers() {
 
                   <Link
                     to={`/admin/sellers/${item.id}`}
-                    className="w-full bg-secondary text-white py-2 rounded-sm cursor-pointer mt-3 flex justify-center items-center"
+                    className="button-2 w-full bg-secondary text-white py-2 rounded-sm cursor-pointer mt-3 flex justify-center items-center"
                   >
                     View Details
                   </Link>

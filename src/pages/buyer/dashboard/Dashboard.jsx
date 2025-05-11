@@ -166,21 +166,21 @@ function Profile(props) {
         </div>
         <div className="mt-5 flex flex-col gap-2 w-full">
           <button
-            className="bg-secondary border border-secondary cursor-pointer hover:opacity-80 w-full h-[45px] text-white rounded flex justify-center items-center gap-2"
+            className="button-2 bg-secondary border border-secondary cursor-pointer w-full h-[45px] text-white rounded flex justify-center items-center gap-2"
             onClick={() => handleTabClick("edit-profile")}
           >
             <MdEdit className="text-[20px]" />
             Edit Profile
           </button>
           <button
-            className="bg-[#EAB8510F] border border-[#EAB851] cursor-pointer hover:opacity-80 w-full h-[45px] text-[#EAB851] rounded flex justify-center items-center gap-2"
+            className="button-2 bg-[#EAB8510F] border border-[#EAB851] cursor-pointer w-full h-[45px] text-[#EAB851] rounded flex justify-center items-center gap-2"
             onClick={() => setIsOpenDeactivateModal(true)}
           >
             <FaUserXmark className="text-[20px]" />
             Deactivate My Account
           </button>
           <button
-            className="bg-[#EA51670F] border border-[#EA5167] cursor-pointer hover:opacity-80 w-full h-[45px] text-[#EA5167] rounded flex justify-center items-center gap-2"
+            className="button-2 bg-[#EA51670F] border border-[#EA5167] cursor-pointer w-full h-[45px] text-[#EA5167] rounded flex justify-center items-center gap-2"
             onClick={() => setIsOpenDeleteModal(true)}
           >
             <MdOutlineDelete className="text-[20px]" />

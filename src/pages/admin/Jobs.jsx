@@ -92,14 +92,14 @@ function Jobs() {
                   <div className="flex items-center gap-1 mt-3">
                     <Link
                       to={`/admin/jobs/${item.id}`}
-                      className="bg-[#51B8EA0F] w-full h-[35px] border border-[#2D9ACF] rounded-sm text-[#2D9ACF] text-[13px] cursor-pointer flex justify-center items-center gap-1"
+                      className="button-2 bg-[#51B8EA0F] w-full h-[35px] border border-[#2D9ACF] rounded-sm text-[#2D9ACF] text-[13px] cursor-pointer flex justify-center items-center gap-1"
                     >
                       <IoEyeOutline />
                       See Details
                     </Link>
                     {item.status === "Receiving Offer" && (
                       <button
-                        className="bg-[#EA51670F] w-full h-[35px] border border-[#EA5167] rounded-sm text-[#EA5167] text-[13px] cursor-pointer flex justify-center items-center gap-1"
+                        className="button-2 bg-[#EA51670F] w-full h-[35px] border border-[#EA5167] rounded-sm text-[#EA5167] text-[13px] cursor-pointer flex justify-center items-center gap-1"
                         disabled={cancelTask.loading}
                         onClick={() => {
                           setLoadingTaskId(item.id);

@@ -66,7 +66,7 @@ function BuyerInfo(props) {
         </div>
         <div className="flex gap-2 mt-5">
           <button
-            className="w-full bg-secondary text-white py-2 rounded-sm cursor-pointer"
+            className="button-2 w-full bg-secondary text-white py-2 rounded-sm cursor-pointer"
             onClick={() => {
               if (userInfo.seller_profile) {
                 setIsOpenSendProposalModal(true);
@@ -83,7 +83,7 @@ function BuyerInfo(props) {
             Send Request
           </button>
           <button
-            className="w-full bg-primary text-secondary py-2 rounded-sm cursor-pointer"
+            className="button-2 w-full bg-primary text-secondary py-2 rounded-sm cursor-pointer"
             onClick={() => {
               Navigate(
                 `/inbox?userId=${findJob.data?.user?.id}&username=${

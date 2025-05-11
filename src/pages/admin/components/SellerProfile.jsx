@@ -55,11 +55,11 @@ function SellerProfile(props) {
       </div>
 
       <div className="flex gap-2 mt-6">
-        <button className="w-full bg-secondary text-white py-2 rounded-sm cursor-pointer hover:opacity-80">
+        <button className="button-2 w-full bg-secondary text-white py-2 rounded-sm cursor-pointer">
           Block User
         </button>
         <Link
-          className="w-full bg-primary text-secondary py-2 rounded-sm cursor-pointer flex justify-center items-center hover:opacity-80"
+          className="button-2 w-full bg-primary text-secondary py-2 rounded-sm cursor-pointer flex justify-center items-center"
           to={`/admin/inbox?userId=${seller.data?.user?.id}&username=${
             seller.data?.user?.first_name
           }${" "}${seller.data?.user?.last_name}`}

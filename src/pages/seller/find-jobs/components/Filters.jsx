@@ -205,7 +205,7 @@ function Filters(props) {
               <button
                 onClick={handleFilters}
                 disabled={isLoading}
-                className="bg-secondary text-white w-full h-[40px] rounded flex justify-center items-center cursor-pointer"
+                className="button-2 bg-secondary text-white w-full h-[40px] rounded flex justify-center items-center cursor-pointer"
               >
                 {isLoading ? <ButtonLoader1 /> : "Apply Filters"}
               </button>
