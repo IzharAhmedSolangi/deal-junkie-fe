@@ -245,6 +245,9 @@ function ProfileDropdown() {
     const isNavigate = true;
     EditProfile({ user: { role: role } }, isNavigate);
   };
+
+  console.log({ userInfo });
+
   return (
     <div className="relative" ref={dropdownRef}>
       <button
@@ -340,17 +343,19 @@ function ProfileDropdown() {
           )}
           {userInfo?.user?.role === "seller" && (
             <div className="py-2">
-              <button
-                className="w-full px-4 py-2 flex items-center gap-2 hover:bg-[#0AF8860F] cursor-pointer"
-                onClick={() => {
-                  setIsOpen(false);
-                  SwitchMode("buyer");
-                }}
-                disabled={loading}
-              >
-                <IoIosSwitch />
-                <span>Switch to Buying</span>
-              </button>
+              {userInfo?.user?.is_both === true && (
+                <button
+                  className="w-full px-4 py-2 flex items-center gap-2 hover:bg-[#0AF8860F] cursor-pointer"
+                  onClick={() => {
+                    setIsOpen(false);
+                    SwitchMode("buyer");
+                  }}
+                  disabled={loading}
+                >
+                  <IoIosSwitch />
+                  <span>Switch to Buying</span>
+                </button>
+              )}
               {[
                 {
                   name: "My Account",
