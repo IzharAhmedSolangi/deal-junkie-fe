@@ -246,8 +246,6 @@ function ProfileDropdown() {
     EditProfile({ user: { role: role } }, isNavigate);
   };
 
-  console.log({ userInfo });
-
   return (
     <div className="relative" ref={dropdownRef}>
       <button

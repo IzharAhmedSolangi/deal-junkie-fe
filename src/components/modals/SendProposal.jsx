@@ -11,6 +11,9 @@ import CircularProgress from "../shared/CircularProgress";
 import Dropdown from "../shared/Dropdown";
 import useUpload from "../../services/common/useUpload";
 import { ButtonLoader1 } from "../shared/ButtonLoaders";
+import Input from "../shared/Input";
+import { FaDollarSign } from "react-icons/fa";
+import { FaLink } from "react-icons/fa6";
 
 const validationSchema = Yup.object({
   budget: Yup.string()
@@ -213,11 +216,12 @@ function SendProposal(props) {
                                   </button>
                                 ))}
                               </div>
-                              <input
+                              <Input
                                 type="number"
                                 placeholder="Other"
-                                onChange={handleBudgetChange}
-                                className="md:w-[300px] w-full h-[40px] px-3 rounded-[4px] bg-transparent border border-[#02174C33] outline-none hover:border-secondary focus:border-secondary"
+                                name="Other"
+                                handleChange={handleBudgetChange}
+                                icon={<FaDollarSign />}
                               />
                             </div>
                             {errors.budget && touched.budget && (
@@ -269,13 +273,13 @@ function SendProposal(props) {
                           </div>
 
                           <div className="md:mt-4 mt-2">
-                            <input
+                            <Input
                               type="text"
                               placeholder="Portfolio link"
                               name="portfolio_link"
                               value={values.portfolio_link}
-                              onChange={handleChange}
-                              className="w-full h-[40px] px-3 rounded-[4px] bg-transparent border border-[#02174C33] outline-none hover:border-secondary focus:border-secondary"
+                              handleChange={handleChange}
+                              icon={<FaLink />}
                             />
                             {errors.portfolio_link &&
                               touched.portfolio_link && (

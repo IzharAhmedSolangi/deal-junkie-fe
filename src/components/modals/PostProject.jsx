@@ -14,6 +14,10 @@ import { format } from "date-fns";
 import CircularProgress from "../shared/CircularProgress";
 import { useNavigate } from "react-router-dom";
 import Dropdown from "../shared/Dropdown";
+import Input from "../shared/Input";
+import { MdOutlineTitle } from "react-icons/md";
+import { BiCategoryAlt } from "react-icons/bi";
+import { FaDollarSign } from "react-icons/fa";
 
 const validationSchema = Yup.object({
   title: Yup.string().required("Title is required").max(100, "Limit exceeded"),
@@ -408,13 +412,13 @@ function StepOne(props) {
         </div>
         <div className="md:pt-5 md:pb-10 py-2">
           <div>
-            <input
+            <Input
               type="text"
               placeholder="Task title"
               name="title"
               value={values.title}
-              onChange={handleChange}
-              className="w-full h-[40px] px-3 rounded-[4px] bg-transparent border border-[#02174C33] outline-none hover:border-secondary focus:border-secondary"
+              handleChange={handleChange}
+              icon={<MdOutlineTitle />}
             />
             {errors.title && touched.title && (
               <p className="text-red-700 text-xs mt-1">{errors.title}</p>
@@ -422,13 +426,13 @@ function StepOne(props) {
           </div>
 
           <div className="md:mt-4 mt-2">
-            <input
+            <Input
               type="text"
               placeholder="Category"
               name="category"
               value={values.category}
-              onChange={handleChange}
-              className="w-full h-[40px] px-3 rounded-[4px] bg-transparent border border-[#02174C33] outline-none hover:border-secondary focus:border-secondary"
+              handleChange={handleChange}
+              icon={<BiCategoryAlt />}
             />
             {errors.category && touched.category && (
               <p className="text-red-700 text-xs mt-1">{errors.category}</p>
@@ -474,11 +478,12 @@ function StepOne(props) {
                   </button>
                 ))}
               </div>
-              <input
+              <Input
                 type="number"
                 placeholder="Other"
-                onChange={handleBudgetChange}
-                className="md:w-[300px] w-full h-[40px] px-3 rounded-[4px] bg-transparent border border-[#02174C33] outline-none hover:border-secondary focus:border-secondary"
+                name="Other"
+                handleChange={handleBudgetChange}
+                icon={<FaDollarSign />}
               />
             </div>
             {errors.budget && touched.budget && (

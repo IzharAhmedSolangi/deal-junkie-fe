@@ -35,7 +35,7 @@ const Dropdown = (props) => {
         className="w-full bg-transparent border border-[#02174C33] hover:border-secondary rounded pl-3 pr-10 py-[6px] text-left cursor-pointer focus:outline-none  focus:border-secondary sm:text-sm"
         onClick={handleToggle}
       >
-        <span className="text-[#333] md:text-[18px] text-[14px] font-[500]">
+        <span className="text-[#333] md:text-[16px] text-[14px] font-normal">
           {selected?.name ? selected?.name : placeholder}
         </span>
         <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
@@ -48,7 +48,7 @@ const Dropdown = (props) => {
           {options?.map((option, index) => (
             <li
               key={index}
-              className={`select-none relative text-[15px] font-[500] py-2 pl-3 pr-9 text-[#333] ${
+              className={`select-none relative text-[15px] font-normal py-2 pl-3 pr-9 text-[#333] ${
                 option?.name === selected?.name
                   ? "text-secondary font-bold"
                   : "hover:bg-secondary hover:text-white cursor-pointer"

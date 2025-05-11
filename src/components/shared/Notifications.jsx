@@ -20,7 +20,7 @@ function Notifications() {
     } else if (userInfo?.user?.role === "seller") {
       GetNotifications(`/api/seller/notifications/`);
     }
-  }, [userInfo?.user?.role]);
+  }, [userInfo?.user?.role, isOpen]);
 
   // Close dropdown when clicking outside
   useEffect(() => {
