@@ -369,11 +369,17 @@ function EditProfile() {
             Cancel
           </button>
           <button
-            className="bg-secondary border border-secondary cursor-pointer hover:opacity-80 w-[130px] h-[40px] text-white rounded flex justify-center items-center"
+            className="bg-secondary border border-secondary cursor-pointer hover:opacity-80 w-[140px] h-[40px] text-white rounded flex justify-center items-center"
             type="submit"
             disabled={loading || sellerLoading}
           >
-            {loading || sellerLoading ? <ButtonLoader1 /> : "Save Changes"}
+            {loading || sellerLoading ? (
+              <ButtonLoader1 />
+            ) : userInfo?.seller_profile !== null ? (
+              "Save Changes"
+            ) : (
+              "Become a Seller"
+            )}
           </button>
         </div>
       </form>
