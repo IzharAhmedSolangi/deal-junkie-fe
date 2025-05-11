@@ -112,24 +112,24 @@ function Filters(props) {
       />
       {/* Sidebar */}
       <div
-        className={`fixed top-0 right-0 z-[9999] w-[250px] md:w-[340px] lg:w-[300px] h-screen p-4 overflow-auto transition-transform bg-white dark:bg-gray-800 ${
+        className={`fixed top-0 right-0 border-l border-l-gray-300 z-[9999] w-[250px] md:w-[340px] lg:w-[300px] h-screen overflow-auto transition-transform bg-white dark:bg-gray-800 ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between sticky top-0 py-1 px-3 bg-white border-b border-b-gray-300">
           <h1 className="text-[24px] font-semibold text-secondary">Filters</h1>
           <button
             onClick={() => setIsOpen(false)}
-            className="cursor-pointer rounded border border-[#02174C33] w-[30px] h-[30px] flex justify-center items-center"
+            className="cursor-pointer rounded border border-[#02174C33] hover:border-primary hover:text-primary w-[30px] h-[30px] flex justify-center items-center"
           >
             <AiOutlineClose className="text-[22px]" />
           </button>
         </div>
         {/* Filters */}
-        <div className="py-4">
+        <div className="py-1 px-3">
           <div className="bg-white rounded w-full">
             {filterCategories?.map((filter, index) => (
-              <div key={index} className="mb-4">
+              <div key={index} className="mb-2">
                 <h3 className="text-sm font-semibold">{filter.category}</h3>
 
                 {filter.type === "checkbox" &&
@@ -205,24 +205,23 @@ function Filters(props) {
                 )}
               </div>
             ))}
-
-            {/* Buttons */}
-            <div className="flex flex-col gap-2 mt-4">
-              <button
-                onClick={handleFilters}
-                disabled={isLoading}
-                className="button-2 bg-secondary text-white w-full h-[40px] rounded flex justify-center items-center cursor-pointer"
-              >
-                {isLoading ? <ButtonLoader1 /> : "Apply Filters"}
-              </button>
-              <button
-                onClick={resetFilters}
-                className="border border-gray-400 text-gray-700 w-full h-[40px] rounded cursor-pointer"
-              >
-                Reset
-              </button>
-            </div>
           </div>
+        </div>
+        {/* Buttons */}
+        <div className="flex items-center gap-2 sticky bottom-0 py-1 px-3 bg-white border-t border-t-gray-300">
+          <button
+            onClick={handleFilters}
+            disabled={isLoading}
+            className="button-2 bg-secondary text-white w-full h-[35px] rounded flex justify-center items-center cursor-pointer"
+          >
+            {isLoading ? <ButtonLoader1 /> : "Apply Filters"}
+          </button>
+          <button
+            onClick={resetFilters}
+            className="border border-gray-400 text-gray-700 w-full h-[35px] rounded cursor-pointer"
+          >
+            Reset
+          </button>
         </div>
       </div>
     </>
