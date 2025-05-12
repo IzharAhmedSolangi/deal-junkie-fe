@@ -530,6 +530,10 @@ function Inbox() {
 
   // Handle back button click (for mobile)
   const handleBackToList = useCallback(() => {
+    setSelectedUser({
+      chat_with: null,
+      username: null,
+    });
     setShowSidebar(true);
   }, []);
 
