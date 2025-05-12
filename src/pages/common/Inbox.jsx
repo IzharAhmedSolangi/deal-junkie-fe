@@ -403,6 +403,7 @@ function Inbox() {
     socketRef.current.onmessage = (event) => {
       try {
         const response = JSON.parse(event.data);
+        setLoading(false);
 
         if (response.message) {
           setMessages((prev) => [
