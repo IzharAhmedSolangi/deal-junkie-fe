@@ -10,7 +10,7 @@ const queryClient = new QueryClient();
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <GoogleOAuthProvider clientId="838761035745-qau8s9at4voua0bicmq8n6hpmhcl58l9.apps.googleusercontent.com">
+    <GoogleOAuthProvider clientId="686750931242-sms54asuh6mleabdfkvokl17ll67n23f.apps.googleusercontent.com">
       <HashRouter>
         <QueryClientProvider client={queryClient}>
           <App />

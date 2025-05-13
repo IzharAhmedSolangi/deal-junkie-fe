@@ -5,10 +5,15 @@ import { FcGoogle } from "react-icons/fc";
 import { setAccessToken, setRefreshToken } from "../../storage/storage";
 import { ButtonLoader2 } from "../shared/ButtonLoaders";
 import { useLinkedIn } from "react-linkedin-login-oauth2";
+import { useNavigate } from "react-router-dom";
+import useCurrentUser from "../../services/common/useCurrentUser";
+import { ErrorToaster } from "./Toster";
 
 export function SocialLogin() {
   const BASE_URL = "";
   const [loading, setLoading] = useState(false);
+  const Navigate = useNavigate();
+  const { getCurrentUser } = useCurrentUser();
 
   const Login = useGoogleLogin({
     onSuccess: (codeResponse) => {
@@ -21,13 +26,17 @@ export function SocialLogin() {
           setLoading(false);
           setAccessToken(response.data.access);
           setRefreshToken(response.data.refresh);
-          window.location.href = "/";
+          getCurrentUser(response.data.access_token);
+          Navigate("/");
         })
         .catch((error) => {
           setLoading(false);
+          ErrorToaster("Error", error?.response?.data?.message);
         });
     },
-    onError: (error) => {},
+    onError: (error) => {
+      ErrorToaster("Error", error?.response?.data?.message);
+    },
   });
 
   return (
