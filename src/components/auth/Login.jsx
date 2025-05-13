@@ -2,7 +2,7 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import useLogin from "../../services/auth/useLogin";
-import { SocialLogin } from "../shared/SocialLogin";
+import { GoogleLogin } from "../shared/SocialLogin";
 import { ButtonLoader1 } from "../shared/ButtonLoaders";
 import { useState } from "react";
 import Input from "../shared/Input";
@@ -107,7 +107,7 @@ function Login(props) {
         <p className="font-[400] text-[15px] my-3 text-[#6F7487] text-center">
           OR
         </p>
-        <SocialLogin />
+        <GoogleLogin handleClose={handleClose} />
         <p className="text-center text-gray-600 mt-4 text-[15px]">
           Don’t have an account?{" "}
           <button

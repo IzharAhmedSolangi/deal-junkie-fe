@@ -5,7 +5,6 @@ import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { setAccessToken, setRefreshToken } from "../../storage/storage";
 import { ButtonLoader2 } from "../shared/ButtonLoaders";
-import { useNavigate } from "react-router-dom";
 import useCurrentUser from "../../services/common/useCurrentUser";
 import { ErrorToaster } from "./Toster";
 import { FaLinkedin } from "react-icons/fa";
@@ -67,7 +66,7 @@ export function LinkedInVerification({ setIsLinkedInVerified }) {
           const authCode = urlParams.get("code");
           if (authCode) {
             axios
-              .post(`${BASE_URL}/api/login-with-linkedin/`, {
+              .post(`${BASE_URL}/api/accounts/linkedin-login/`, {
                 auth_code: authCode,
               })
               .then((response) => {
@@ -109,24 +108,23 @@ export function LinkedInVerification({ setIsLinkedInVerified }) {
   );
 }
 
-export function SocialLogin() {
+export function GoogleLogin({ handleClose }) {
   const [loading, setLoading] = useState(false);
-  const Navigate = useNavigate();
   const { getCurrentUser } = useCurrentUser();
 
   const Login = useGoogleLogin({
     onSuccess: (codeResponse) => {
       setLoading(true);
       axios
-        .post(`${BASE_URL}/api/login-with-google/`, {
-          access_token: codeResponse.access_token,
+        .post(`${BASE_URL}/api/accounts/google-login/`, {
+          token: codeResponse.access_token,
         })
         .then((response) => {
           setLoading(false);
-          setAccessToken(response.data.access);
-          setRefreshToken(response.data.refresh);
+          setAccessToken(response.data.access_token);
+          setRefreshToken(response.data.refresh_token);
           getCurrentUser(response.data.access_token);
-          Navigate("/");
+          handleClose();
         })
         .catch((error) => {
           setLoading(false);

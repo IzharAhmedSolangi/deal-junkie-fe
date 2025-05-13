@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import useSignup from "../../services/auth/useSignup";
-import { LinkedInVerification, SocialLogin } from "../shared/SocialLogin";
+import { LinkedInVerification, GoogleLogin } from "../shared/SocialLogin";
 import { ButtonLoader1 } from "../shared/ButtonLoaders";
 import { Link } from "react-router-dom";
 import Input from "../shared/Input";
@@ -303,7 +303,7 @@ function Signup(props) {
         <p className="font-[400] text-[15px] my-3 text-[#6F7487] text-center">
           OR
         </p>
-        <SocialLogin />
+        <GoogleLogin handleClose={handleClose} />
         <p className="text-center text-gray-600 mt-4 text-[15px]">
           Already have an account?{" "}
           <button
