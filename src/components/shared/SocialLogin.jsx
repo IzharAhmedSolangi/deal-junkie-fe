@@ -1,16 +1,115 @@
+/* eslint-disable react/prop-types */
 import { useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { setAccessToken, setRefreshToken } from "../../storage/storage";
 import { ButtonLoader2 } from "../shared/ButtonLoaders";
-import { useLinkedIn } from "react-linkedin-login-oauth2";
 import { useNavigate } from "react-router-dom";
 import useCurrentUser from "../../services/common/useCurrentUser";
 import { ErrorToaster } from "./Toster";
+import { FaLinkedin } from "react-icons/fa";
+
+const BASE_URL = import.meta.env.VITE_API_URL;
+const redirectUri = import.meta.env.VITE_REDIRECT_URL;
+const linkedInClientID = import.meta.env.VITE_LINKEDIN_CLIENT_ID;
+
+export function LinkedInVerification({ setIsLinkedInVerified }) {
+  const [loading, setLoading] = useState(false);
+
+  // LinkedIn OAuth configuration
+  const scope = encodeURIComponent("profile openid");
+  const state = Math.random().toString(36).substring(2, 15);
+
+  const handleLinkedInClick = () => {
+    setLoading(true);
+
+    // Calculate center position for popup
+    const width = 600;
+    const height = 700;
+    const left = window.screenX + (window.outerWidth - width) / 2;
+    const top = window.screenY + (window.outerHeight - height) / 2;
+
+    const linkedInAuthUrl =
+      `https://www.linkedin.com/oauth/v2/authorization?` +
+      `response_type=code` +
+      `&client_id=${linkedInClientID}` +
+      `&redirect_uri=${encodeURIComponent(redirectUri)}` +
+      `&state=${state}` +
+      `&scope=${scope}`;
+
+    // Open popup with the LinkedIn auth URL
+    const popup = window.open(
+      linkedInAuthUrl,
+      "linkedin-auth",
+      `width=${width},height=${height},left=${left},top=${top},` +
+        `toolbar=no,location=yes,directories=no,status=no,menubar=no,` +
+        `scrollbars=yes,resizable=no,copyhistory=no`
+    );
+
+    // Poll for authorization code in the popup's URL
+    const pollTimer = setInterval(() => {
+      try {
+        // Check if popup is still open
+        if (!popup || popup.closed) {
+          clearInterval(pollTimer);
+          setLoading(false);
+          return;
+        }
+        // Try to access the popup's URL
+        const currentUrl = popup.location.href;
+        // Check if URL contains the auth code
+        if (currentUrl.includes("code=")) {
+          clearInterval(pollTimer);
+
+          // Extract the code from URL
+          const urlParams = new URLSearchParams(popup.location.search);
+          const authCode = urlParams.get("code");
+          if (authCode) {
+            axios
+              .post(`${BASE_URL}/api/login-with-linkedin/`, {
+                auth_code: authCode,
+              })
+              .then((response) => {
+                setLoading(false);
+                if (response.is_verified) {
+                  setIsLinkedInVerified(true);
+                }
+              })
+              .catch((error) => {
+                setLoading(false);
+                ErrorToaster("Error", error?.response?.data?.message);
+              });
+            popup.close();
+          }
+        }
+      } catch (error) {
+        console.log({ error });
+      }
+    }, 500);
+  };
+
+  return (
+    <div className="flex justify-center items-center">
+      <button
+        onClick={handleLinkedInClick}
+        className="text-gray-700 text-center hover:text-secondary cursor-pointer flex justify-center items-center"
+        disabled={loading}
+      >
+        {loading ? (
+          <ButtonLoader2 />
+        ) : (
+          <div className="flex gap-1 justify-center items-center">
+            <FaLinkedin />
+            <span className="text-[16px] font-semibold">Verify LinkedIn</span>
+          </div>
+        )}
+      </button>
+    </div>
+  );
+}
 
 export function SocialLogin() {
-  const BASE_URL = "";
   const [loading, setLoading] = useState(false);
   const Navigate = useNavigate();
   const { getCurrentUser } = useCurrentUser();
@@ -56,36 +155,6 @@ export function SocialLogin() {
           </div>
         )}
       </button>
-    </>
-  );
-}
-
-export function LinkedInCallback() {
-  const clientId = "77k6yhjmtae3uq";
-  const redirectUri = `http://localhost:5173`;
-  const { linkedInLogin } = useLinkedIn({
-    clientId: clientId,
-    redirectUri: redirectUri,
-    onSuccess: (authCode) => {
-      console.log({ authCode });
-      if (window.opener) {
-        window.opener.postMessage({ type: "LINKEDIN_AUTH", authCode }, "*");
-      }
-
-      setTimeout(() => {
-        window.close(); // this works only if window was opened by window.open()
-      }, 500);
-    },
-    scope: ["profile openid"],
-  });
-  return (
-    <>
-      <div
-        className="bg-[#FFFFFF] w[90px] h-[40px] flex items-center justify-center rounded-[10px] cursor-pointer"
-        onClick={linkedInLogin}
-      >
-        Verify LinkedIn
-      </div>
     </>
   );
 }

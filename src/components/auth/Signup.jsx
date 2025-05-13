@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import useSignup from "../../services/auth/useSignup";
-import { SocialLogin } from "../shared/SocialLogin";
+import { LinkedInVerification, SocialLogin } from "../shared/SocialLogin";
 import { ButtonLoader1 } from "../shared/ButtonLoaders";
 import { Link } from "react-router-dom";
 import Input from "../shared/Input";
@@ -41,7 +41,8 @@ const validationSchema = Yup.object({
 function Signup(props) {
   const { setAuthModalType, handleClose } = props;
   const [password, setPassword] = useState(false);
-  const { Signup, loading, errorMessage } = useSignup();
+  const { Signup, loading, errorMessage, setErrorMessage } = useSignup();
+  const [isLinkedInVerified, setIsLinkedInVerified] = useState(false);
 
   const initialValues = {
     role: "",
@@ -60,21 +61,25 @@ function Signup(props) {
     initialValues,
     validationSchema,
     onSubmit: async (values) => {
-      Signup(
-        {
-          role: values.role,
-          first_name: values.firstname,
-          last_name: values.lastname,
-          email: values.email,
-          phone_number: values.phone,
-          state: values.state,
-          city: values.city,
-          street: values.address,
-          password: values.password,
-          is_verified: true,
-        },
-        setAuthModalType
-      );
+      if (isLinkedInVerified) {
+        Signup(
+          {
+            role: values.role,
+            first_name: values.firstname,
+            last_name: values.lastname,
+            email: values.email,
+            phone_number: values.phone,
+            state: values.state,
+            city: values.city,
+            street: values.address,
+            password: values.password,
+            is_verified: true,
+          },
+          setAuthModalType
+        );
+      } else {
+        setErrorMessage("Please verify your linkedIn before signup");
+      }
     },
   });
 
@@ -218,7 +223,7 @@ function Signup(props) {
                 )}
               </div>
             </div>
-            <div className="mt-3  grid grid-cols-1">
+            <div className="mt-3 grid grid-cols-1">
               <div>
                 <Input
                   type={password ? "text" : "password"}
@@ -236,7 +241,12 @@ function Signup(props) {
                 )}
               </div>
             </div>
-            <div className="mt-3  grid grid-cols-1">
+            <div className="mt-3">
+              <LinkedInVerification
+                setIsLinkedInVerified={setIsLinkedInVerified}
+              />
+            </div>
+            <div className="mt-3 grid grid-cols-1">
               <div className="flex items-center gap-1">
                 <input
                   type="checkbox"

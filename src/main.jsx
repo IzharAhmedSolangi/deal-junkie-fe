@@ -8,9 +8,11 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const queryClient = new QueryClient();
 
+const googleClientID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <GoogleOAuthProvider clientId="686750931242-sms54asuh6mleabdfkvokl17ll67n23f.apps.googleusercontent.com">
+    <GoogleOAuthProvider clientId={googleClientID}>
       <HashRouter>
         <QueryClientProvider client={queryClient}>
           <App />

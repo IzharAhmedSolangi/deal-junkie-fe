@@ -24,6 +24,6 @@ function useSignup() {
         setLoading(false);
       });
   };
-  return { Signup, loading, errorMessage };
+  return { Signup, loading, errorMessage, setErrorMessage };
 }
 export default useSignup;
