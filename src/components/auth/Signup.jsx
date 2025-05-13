@@ -12,6 +12,7 @@ import {
   MdOutlineEmail,
   MdOutlineLocationOn,
   MdOutlinePhoneIphone,
+  MdVerified,
 } from "react-icons/md";
 import { FaCity, FaRegUser } from "react-icons/fa";
 
@@ -242,9 +243,16 @@ function Signup(props) {
               </div>
             </div>
             <div className="mt-3">
-              <LinkedInVerification
-                setIsLinkedInVerified={setIsLinkedInVerified}
-              />
+              {isLinkedInVerified ? (
+                <div className="flex justify-center items-center gap-1 text-green-600">
+                  <MdVerified />
+                  LinkedIn Verified
+                </div>
+              ) : (
+                <LinkedInVerification
+                  setIsLinkedInVerified={setIsLinkedInVerified}
+                />
+              )}
             </div>
             <div className="mt-3 grid grid-cols-1">
               <div className="flex items-center gap-1">
@@ -259,7 +267,7 @@ function Signup(props) {
                   <Link
                     to="/privacy-policy"
                     onClick={handleClose}
-                    className="text-primary"
+                    className="text-primary hover:underline"
                   >
                     Privacy Policy
                   </Link>{" "}
@@ -267,7 +275,7 @@ function Signup(props) {
                   <Link
                     to="/terms-conditions"
                     onClick={handleClose}
-                    className="text-primary"
+                    className="text-primary hover:underline"
                   >
                     Terms & conditions
                   </Link>

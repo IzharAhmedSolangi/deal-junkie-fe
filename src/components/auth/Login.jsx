@@ -82,7 +82,7 @@ function Login(props) {
               )}
             </div>
             <p
-              className="text-primary font-bold w-full flex justify-end cursor-pointer"
+              className="text-primary font-bold w-full flex justify-end cursor-pointer hover:underline"
               onClick={() => {
                 setAuthModalType("forgot-password");
               }}

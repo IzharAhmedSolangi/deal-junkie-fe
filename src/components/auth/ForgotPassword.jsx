@@ -70,6 +70,17 @@ function ForgotPassword(props) {
           >
             {loading ? <ButtonLoader1 /> : "Send Code"}
           </button>
+          <p className="text-center text-gray-600 mt-4 text-[15px]">
+            Back to login?{" "}
+            <button
+              className="text-secondary hover:text-primary font-semibold cursor-pointer"
+              onClick={() => {
+                setAuthModalType("login");
+              }}
+            >
+              Login
+            </button>
+          </p>
         </form>
       </div>
     </>
