@@ -65,6 +65,7 @@ export function LinkedInVerification({ setIsLinkedInVerified }) {
           const urlParams = new URLSearchParams(popup.location.search);
           const authCode = urlParams.get("code");
           if (authCode) {
+            popup.close();
             axios
               .post(`${BASE_URL}/api/accounts/linkedin-login/`, {
                 auth_code: authCode,
@@ -79,7 +80,6 @@ export function LinkedInVerification({ setIsLinkedInVerified }) {
                 setLoading(false);
                 ErrorToaster("Error", error?.response?.data?.message);
               });
-            popup.close();
           }
         }
       } catch (error) {
