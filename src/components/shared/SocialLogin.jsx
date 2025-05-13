@@ -72,8 +72,13 @@ export function LinkedInVerification({ setIsLinkedInVerified }) {
               })
               .then((response) => {
                 setLoading(false);
-                if (response.is_verified) {
+                if (response.data.is_verified) {
                   setIsLinkedInVerified(true);
+                } else {
+                  ErrorToaster(
+                    "Error",
+                    "Your linkedIn account is not verified"
+                  );
                 }
               })
               .catch((error) => {
