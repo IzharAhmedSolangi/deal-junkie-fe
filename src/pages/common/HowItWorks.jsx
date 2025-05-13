@@ -36,7 +36,7 @@ function HowItWorks() {
             assess risks, and make informed investment decisions.
           </p>
           <img
-            src="/assets/images/image-6.jpeg"
+            src="/assets/images/image-6.png"
             alt="Financial Meeting"
             className="rounded-lg w-full h-auto object-cover mt-5"
             data-aos="fade-up"
@@ -132,7 +132,7 @@ function HowItWorks() {
               </ul>
             </div>
             <img
-              src="/assets/images/image-7.jpeg"
+              src="/assets/images/image-7.jpg"
               alt="Our Team"
               className="rounded-lg md:w-[50%] w-full h-auto object-contain"
               data-aos="fade-left"
@@ -144,7 +144,7 @@ function HowItWorks() {
         <div className="w-full lg:px-[10%] md:px-[5%] px-6 md:py-8 py-5">
           <div className="flex flex-col md:flex-row items-center overflow-hidden">
             <img
-              src="/assets/images/image-8.jpeg"
+              src="/assets/images/image-8.jpg"
               alt="Our Team"
               className="rounded-lg md:w-[50%] w-full h-auto object-contain"
               data-aos="fade-left"
@@ -229,7 +229,7 @@ function HowItWorks() {
               </ul>
             </div>
             <img
-              src="/assets/images/image-9.jpeg"
+              src="/assets/images/image-9.jpg"
               alt="Our Team"
               className="rounded-lg md:w-[50%] w-full h-auto object-contain"
               data-aos="fade-left"
