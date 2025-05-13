@@ -164,7 +164,7 @@ function SendProposal(props) {
                   >
                     <AiOutlineClose className="text-[22px]" />
                   </div>
-                  <div className="flex flex-col">
+                  <div className="flex flex-col md:mt-1 mt-6">
                     {!sendProposal.success && (
                       <form onSubmit={handleSubmit} className="w-full">
                         <div className="flex items-center justify-between">

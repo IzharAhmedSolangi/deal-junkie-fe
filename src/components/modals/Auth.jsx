@@ -58,7 +58,7 @@ function Auth(props) {
                   >
                     <AiOutlineClose className="text-[22px]" />
                   </button>
-                  <div className="flex justify-center">
+                  <div className="flex justify-center md:mt-1 mt-6">
                     {authModalType === "login" && (
                       <Login
                         setAuthModalType={setAuthModalType}

@@ -145,7 +145,7 @@ function PostProject(props) {
                   >
                     <AiOutlineClose className="text-[22px]" />
                   </div>
-                  <div className="flex flex-col">
+                  <div className="flex flex-col md:mt-1 mt-6">
                     {!postProject.success && step === 1 && (
                       <StepOne
                         setStep={setStep}

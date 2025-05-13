@@ -94,7 +94,7 @@ function Signup(props) {
               <label className="font-[500] text-[18px] text-secondary">
                 What Kind of Junkie do you want to be?
               </label>
-              <div className="mt-1 flex items-center gap-5">
+              <div className="mt-1 flex items-center flex-wrap md:gap-5 gap-2">
                 {[
                   { name: "A Service Seeker", value: "buyer" },
                   { name: "A Service Provider", value: "seller" },
