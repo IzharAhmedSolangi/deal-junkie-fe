@@ -205,6 +205,23 @@ function EditProfile() {
                   )}
                 </div>
               </div>
+              <div className="mt-3 grid grid-cols-1">
+                <div>
+                  <Input
+                    type="text"
+                    placeholder="Address"
+                    name="address"
+                    value={values.address}
+                    handleChange={handleChange}
+                    icon={<MdOutlineLocationOn />}
+                  />
+                  {errors.address && touched.address && (
+                    <p className="text-red-700 text-xs mt-1">
+                      {errors.address}
+                    </p>
+                  )}
+                </div>
+              </div>
               <div className="mt-3 grid grid-cols-2 gap-2">
                 <div>
                   <Input
@@ -230,23 +247,6 @@ function EditProfile() {
                   />
                   {errors.state && touched.state && (
                     <p className="text-red-700 text-xs mt-1">{errors.state}</p>
-                  )}
-                </div>
-              </div>
-              <div className="mt-3 grid grid-cols-1">
-                <div>
-                  <Input
-                    type="text"
-                    placeholder="Address"
-                    name="address"
-                    value={values.address}
-                    handleChange={handleChange}
-                    icon={<MdOutlineLocationOn />}
-                  />
-                  {errors.address && touched.address && (
-                    <p className="text-red-700 text-xs mt-1">
-                      {errors.address}
-                    </p>
                   )}
                 </div>
               </div>

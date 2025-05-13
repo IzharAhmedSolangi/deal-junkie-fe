@@ -96,8 +96,8 @@ function Signup(props) {
               </label>
               <div className="mt-1 flex items-center gap-5">
                 {[
-                  { name: "Buyer", value: "buyer" },
-                  { name: "Seller", value: "seller" },
+                  { name: "A Service Seeker", value: "buyer" },
+                  { name: "A Service Provider", value: "seller" },
                   { name: "Both", value: "both" },
                 ].map((option, index) => (
                   <div key={index} className="flex items-center gap-1">
@@ -175,20 +175,22 @@ function Signup(props) {
                 )}
               </div>
             </div>
-            <div className="mt-3 grid grid-cols-2 gap-2">
+            <div className="mt-3 grid grid-cols-1">
               <div>
                 <Input
                   type="text"
-                  placeholder="State"
-                  name="state"
-                  value={values.state}
+                  placeholder="Address"
+                  name="address"
+                  value={values.address}
                   handleChange={handleChange}
-                  icon={<FaCity />}
+                  icon={<MdOutlineLocationOn />}
                 />
-                {errors.state && touched.state && (
-                  <p className="text-red-700 text-xs mt-1">{errors.state}</p>
+                {errors.address && touched.address && (
+                  <p className="text-red-700 text-xs mt-1">{errors.address}</p>
                 )}
               </div>
+            </div>
+            <div className="mt-3 grid grid-cols-2 gap-2">
               <div>
                 <Input
                   type="text"
@@ -202,19 +204,17 @@ function Signup(props) {
                   <p className="text-red-700 text-xs mt-1">{errors.city}</p>
                 )}
               </div>
-            </div>
-            <div className="mt-3 grid grid-cols-1">
               <div>
                 <Input
                   type="text"
-                  placeholder="Address"
-                  name="address"
-                  value={values.address}
+                  placeholder="State"
+                  name="state"
+                  value={values.state}
                   handleChange={handleChange}
-                  icon={<MdOutlineLocationOn />}
+                  icon={<FaCity />}
                 />
-                {errors.address && touched.address && (
-                  <p className="text-red-700 text-xs mt-1">{errors.address}</p>
+                {errors.state && touched.state && (
+                  <p className="text-red-700 text-xs mt-1">{errors.state}</p>
                 )}
               </div>
             </div>
