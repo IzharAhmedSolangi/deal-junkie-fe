@@ -17,7 +17,7 @@ export function LinkedInVerification({ setIsLinkedInVerified }) {
   const [loading, setLoading] = useState(false);
 
   // LinkedIn OAuth configuration
-  const scope = encodeURIComponent("profile openid");
+  const scope = encodeURIComponent("openid profile email");
   const state = Math.random().toString(36).substring(2, 15);
 
   const handleLinkedInClick = () => {
@@ -72,7 +72,7 @@ export function LinkedInVerification({ setIsLinkedInVerified }) {
               })
               .then((response) => {
                 setLoading(false);
-                if (response.data.is_verified) {
+                if (response.data.email_verified) {
                   setIsLinkedInVerified(true);
                 } else {
                   ErrorToaster(
