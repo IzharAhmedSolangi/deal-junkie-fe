@@ -14,7 +14,7 @@ import {
   MdOutlinePhoneIphone,
   MdVerified,
 } from "react-icons/md";
-import { FaCity, FaRegUser } from "react-icons/fa";
+import { FaCity, FaLink, FaRegUser } from "react-icons/fa";
 
 const validationSchema = Yup.object({
   role: Yup.string().required("Please select Junkie"),
@@ -36,6 +36,10 @@ const validationSchema = Yup.object({
   password: Yup.string()
     .required("Password is required")
     .max(100, "Limit exceeded"),
+  linkedin_link: Yup.string()
+    .required("LinkedIn link is required")
+    .max(100, "Limit exceeded"),
+  profile_picture: Yup.string(),
   terms: Yup.boolean().oneOf([true], "Please accept terms & conditions"),
 });
 
@@ -55,34 +59,39 @@ function Signup(props) {
     city: "",
     address: "",
     password: "",
+    linkedin_link: "",
+    profile_picture: "",
     terms: false,
   };
 
-  const { values, errors, handleChange, handleSubmit, touched } = useFormik({
-    initialValues,
-    validationSchema,
-    onSubmit: async (values) => {
-      if (isLinkedInVerified) {
-        Signup(
-          {
-            role: values.role,
-            first_name: values.firstname,
-            last_name: values.lastname,
-            email: values.email,
-            phone_number: values.phone,
-            state: values.state,
-            city: values.city,
-            street: values.address,
-            password: values.password,
-            is_verified: true,
-          },
-          setAuthModalType
-        );
-      } else {
-        setErrorMessage("Please verify your linkedIn before signup");
-      }
-    },
-  });
+  const { values, errors, handleChange, handleSubmit, touched, setFieldValue } =
+    useFormik({
+      initialValues,
+      validationSchema,
+      onSubmit: async (values) => {
+        if (isLinkedInVerified) {
+          Signup(
+            {
+              role: values.role,
+              first_name: values.firstname,
+              last_name: values.lastname,
+              email: values.email,
+              phone_number: values.phone,
+              state: values.state,
+              city: values.city,
+              street: values.address,
+              password: values.password,
+              linkedin_link: values.password,
+              profile_picture: values.profile_picture,
+              is_verified: true,
+            },
+            setAuthModalType
+          );
+        } else {
+          setErrorMessage("Please verify your linkedIn before signup");
+        }
+      },
+    });
 
   return (
     <>
@@ -242,6 +251,23 @@ function Signup(props) {
                 )}
               </div>
             </div>
+            <div className="mt-3 grid grid-cols-1">
+              <div>
+                <Input
+                  type="text"
+                  placeholder="LinkedIn Link"
+                  name="linkedin_link"
+                  value={values.linkedin_link}
+                  handleChange={handleChange}
+                  icon={<FaLink />}
+                />
+                {errors.linkedin_link && touched.linkedin_link && (
+                  <p className="text-red-700 text-xs mt-1">
+                    {errors.linkedin_link}
+                  </p>
+                )}
+              </div>
+            </div>
             <div className="mt-3">
               {isLinkedInVerified ? (
                 <div className="flex justify-center items-center gap-1 text-green-600">
@@ -251,6 +277,7 @@ function Signup(props) {
               ) : (
                 <LinkedInVerification
                   setIsLinkedInVerified={setIsLinkedInVerified}
+                  setFieldValue={setFieldValue}
                 />
               )}
             </div>

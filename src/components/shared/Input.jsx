@@ -28,14 +28,14 @@ function Input(props) {
         value={value}
         onChange={handleChange}
         id={name}
-        className="peer w-full h-full ps-[30px] pe-[30px] rounded-[4px] bg-transparent border border-[#02174C33] outline-none hover:border-secondary focus:border-secondary"
+        className="peer w-full h-full ps-[30px] pe-[20px] rounded-[4px] bg-transparent border border-[#02174C33] outline-none hover:border-secondary focus:border-secondary"
       />
       <label
         htmlFor={name}
         className={`absolute bg-white px-2 peer-focus:top-0 peer-focus:left-[22px] font-light text-base text-[12px] text-[#6F7487] peer-focus:text-[12px] peer-focus:text-secondary ${
           value
             ? "top-0 translate-y-[-50%] left-[22px]"
-            : "top-1/2 translate-y-[-50%] left-[25px]"
+            : "top-1/2 translate-y-[-50%] left-[28px]"
         } duration-150`}
       >
         {placeholder}

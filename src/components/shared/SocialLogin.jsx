@@ -13,7 +13,7 @@ const BASE_URL = import.meta.env.VITE_API_URL;
 const redirectUri = import.meta.env.VITE_REDIRECT_URL;
 const linkedInClientID = import.meta.env.VITE_LINKEDIN_CLIENT_ID;
 
-export function LinkedInVerification({ setIsLinkedInVerified }) {
+export function LinkedInVerification({ setIsLinkedInVerified, setFieldValue }) {
   const [loading, setLoading] = useState(false);
 
   // LinkedIn OAuth configuration
@@ -74,6 +74,7 @@ export function LinkedInVerification({ setIsLinkedInVerified }) {
                 setLoading(false);
                 if (response.data.email_verified) {
                   setIsLinkedInVerified(true);
+                  setFieldValue("profile_picture", response.data.picture);
                 } else {
                   ErrorToaster(
                     "Error",
