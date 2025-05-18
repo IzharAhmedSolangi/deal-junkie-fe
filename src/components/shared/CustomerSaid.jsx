@@ -170,7 +170,7 @@ const Testimonial = () => {
           {testimonials_1.map((item, index) => (
             <div
               key={index}
-              className="bg-white w-full md:h-[250px] h-[200px] md:p-6 p-3 rounded-lg"
+              className="bg-white w-full md:h-[260px] h-[250px] md:p-6 p-3 rounded-lg"
             >
               <div className="flex gap-2">
                 <img
@@ -199,7 +199,7 @@ const Testimonial = () => {
           {testimonials_1.map((item, index) => (
             <div
               key={index}
-              className="bg-white w-full md:h-[250px] h-[200px] md:p-6 p-3 rounded-lg"
+              className="bg-white w-full md:h-[260px] h-[250px] md:p-6 p-3 rounded-lg"
             >
               <div className="flex md:gap-2 gap-1">
                 <img
