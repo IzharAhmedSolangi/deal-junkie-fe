@@ -81,7 +81,7 @@ function Signup(props) {
               city: values.city,
               street: values.address,
               password: values.password,
-              linkedin_link: values.password,
+              linkedin_link: values.linkedin_link,
               profile_picture: values.profile_picture,
               is_verified: true,
             },
