@@ -22,16 +22,28 @@ function CustomerSaid() {
       review:
         "“Deal Junkie is the perfect platform to work on your own time, earn extra income, and meet other interesting deal makers. Deal Junkie takes care of all the admin, so investors and providers can focus on what we love, DEALS!”",
     },
+    {
+      url: "/assets/reviews/image-4.jpeg",
+      name: "William",
+      review:
+        "“As a former consultant, I love that I can now pick up short-term modeling or strategy work without committing to full-time hours. Deal Junkie made that easy, and I picked up my first gig within a week of signing up. Finally, a marketplace that lets me work on my own time!”",
+    },
+    {
+      url: "/assets/reviews/image-5.jpeg",
+      name: "Charlie",
+      review:
+        "“Deal Junkie is a fast, easy-to-use platform that connects professionals with high-quality modeling and diligence work. The UI is clean, communication is streamlined, and projects are well-scoped—making it simple to dive in and deliver value quickly. It’s a great resource for anyone looking to work on meaningful deal-related projects without the usual hassle.”",
+    },
   ];
   return (
     <>
-      {/* <div className="bg-[#F2F4F7] pt-10 md:pb-40 pb-28">
+      <div className="bg-[#F2F4F7] pt-10 md:pb-40 pb-28">
         <h1 className="mdtext-[40px] text-[28px] font-[600] text-[#1D2939] text-center mb-3">
           What Users Say About Us
         </h1>
         <Testimonial />
-      </div> */}
-      <div className="bg-[#F2F4F7] pt-10 md:pb-32 pb-28 md:px-[100px] px-3">
+      </div>
+      {/* <div className="bg-[#F2F4F7] pt-10 md:pb-32 pb-28 md:px-[100px] px-3">
         <h1 className="mdtext-[40px] text-[28px] font-[600] text-[#1D2939] text-center mb-3">
           What Users Say About Us
         </h1>
@@ -65,7 +77,7 @@ function CustomerSaid() {
             </div>
           ))}
         </div>
-      </div>
+      </div> */}
     </>
   );
 }
@@ -75,46 +87,34 @@ export default CustomerSaid;
 const Testimonial = () => {
   const testimonials_1 = [
     {
-      url: "https://randomuser.me/api/portraits/men/32.jpg",
-      name: "Ronald Richards",
+      url: "/assets/reviews/image-1.jpeg",
+      name: "David Yacobucci",
       review:
-        "This platform completely transformed how I approach deals. It's intuitive, fast, and has helped me close more transactions than ever before.",
+        "“I built Deal Junkie to connect the dots—giving ex-finance professionals in B-school a flexible way to earn while offering smaller investors affordable access to elite-level support. It’s a win-win”",
     },
     {
-      url: "https://randomuser.me/api/portraits/women/44.jpg",
-      name: "Eleanor Pena",
+      url: "/assets/reviews/image-2.jpeg",
+      name: "Frank Langfitt",
       review:
-        "As a part-time consultant, Deal Junkie gave me the freedom to work with quality clients and maintain my own schedule. Highly recommended!",
+        "“Making an account on Deal Junkie was seamless. I now have the ability to use my skills to earn extra income at my fingertips. There is no other platform with as straightforward a user interface as Deal Junkie”",
     },
     {
-      url: "https://randomuser.me/api/portraits/women/65.jpg",
-      name: "Savannah Nguyen",
+      url: "/assets/reviews/image-3.jpeg",
+      name: "James Gilbert",
       review:
-        "I love the simplicity of the interface and the support from the team. It’s the easiest way to connect with investors who actually care.",
+        "“Deal Junkie is the perfect platform to work on your own time, earn extra income, and meet other interesting deal makers. Deal Junkie takes care of all the admin, so investors and providers can focus on what we love, DEALS!”",
     },
     {
-      url: "https://randomuser.me/api/portraits/men/41.jpg",
-      name: "Jacob Jones",
+      url: "/assets/reviews/image-4.jpeg",
+      name: "William",
       review:
-        "I’ve tried several platforms before, but none of them come close to the value Deal Junkie provides. The community is top-tier.",
+        "“As a former consultant, I love that I can now pick up short-term modeling or strategy work without committing to full-time hours. Deal Junkie made that easy, and I picked up my first gig within a week of signing up. Finally, a marketplace that lets me work on my own time!”",
     },
     {
-      url: "https://randomuser.me/api/portraits/men/11.jpg",
-      name: "Albert Flores",
+      url: "/assets/reviews/image-5.jpeg",
+      name: "Charlie",
       review:
-        "I appreciate how easy it is to find relevant opportunities here. It has saved me hours of work each week.",
-    },
-    {
-      url: "https://randomuser.me/api/portraits/women/12.jpg",
-      name: "Courtney Henry",
-      review:
-        "Their due diligence tools are amazing. I’m able to assess deals much faster with more confidence.",
-    },
-    {
-      url: "https://randomuser.me/api/portraits/men/77.jpg",
-      name: "Cameron Williamson",
-      review:
-        "Fantastic experience so far. The flexibility and the quality of projects I get access to are unmatched.",
+        "“Deal Junkie is a fast, easy-to-use platform that connects professionals with high-quality modeling and diligence work. The UI is clean, communication is streamlined, and projects are well-scoped—making it simple to dive in and deliver value quickly. It’s a great resource for anyone looking to work on meaningful deal-related projects without the usual hassle.”",
     },
   ];
 
@@ -170,7 +170,7 @@ const Testimonial = () => {
           {testimonials_1.map((item, index) => (
             <div
               key={index}
-              className="bg-white w-full md:h-[200px] h-[200px] md:p-6 p-3 rounded-lg"
+              className="bg-white w-full md:h-[250px] h-[200px] md:p-6 p-3 rounded-lg"
             >
               <div className="flex gap-2">
                 <img
@@ -199,7 +199,7 @@ const Testimonial = () => {
           {testimonials_1.map((item, index) => (
             <div
               key={index}
-              className="bg-white w-full md:h-[200px] h-[200px] md:p-6 p-3 rounded-lg"
+              className="bg-white w-full md:h-[250px] h-[200px] md:p-6 p-3 rounded-lg"
             >
               <div className="flex md:gap-2 gap-1">
                 <img
@@ -225,7 +225,7 @@ const Testimonial = () => {
           ))}
         </div>
       </div>
-      <div className="marq_2">
+      {/* <div className="marq_2">
         <div className="marq_group_2">
           {testimonials_2.map((item, index) => (
             <div
@@ -284,7 +284,7 @@ const Testimonial = () => {
             </div>
           ))}
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
