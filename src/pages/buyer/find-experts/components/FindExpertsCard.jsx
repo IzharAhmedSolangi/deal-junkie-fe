@@ -39,11 +39,11 @@ function FindExpertsCard({ data, isLoading, isFetchingNextPage, lastItemRef }) {
                     />
                   ) : (
                     <div className="w-full md:h-[200px] xs:h-[120px] bg-gray-200 rounded-sm flex justify-center items-center">
-                      {item?.user?.first_name} {item?.user?.last_name}
+                      {item?.user?.first_name}
                     </div>
                   )}
                   <h3 className="md:text-lg text-[14px] font-bold mt-2 text-[#022247] text-center">
-                    {item?.user?.first_name} {item?.user?.last_name}
+                    {item?.user?.first_name}
                   </h3>
                   <div className="flex justify-center md:mt-1 mt-1">
                     <p className="bg-[#F2F4F7] font-[500] md:text-[14px] text-[12px] text-secondary border border-secondary rounded-full md:py-1 py-[2px] md:px-2 px-1">
@@ -72,9 +72,7 @@ function FindExpertsCard({ data, isLoading, isFetchingNextPage, lastItemRef }) {
                   </div>
                   <Link
                     className="hover-slide-button mt-2 w-full bg-primary text-secondary py-2 rounded-sm cursor-pointer flex justify-center items-center hover:opacity-80"
-                    to={`/inbox?userId=${item?.user?.id}&username=${
-                      item?.user?.first_name
-                    }${" "}${item?.user?.last_name}`}
+                    to={`/inbox?userId=${item?.user?.id}&username=${item?.user?.first_name}`}
                   >
                     Send Message
                   </Link>

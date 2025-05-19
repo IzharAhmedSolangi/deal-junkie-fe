@@ -251,7 +251,7 @@ function ProfileDropdown() {
       <button
         className="cursor-pointer flex justify-center items-center"
         onClick={() => setIsOpen(!isOpen)}
-        title={`${userInfo?.user?.first_name} ${userInfo?.user?.last_name}`}
+        title={`${userInfo?.user?.first_name}`}
       >
         {userInfo?.user?.profile_picture ? (
           <img
@@ -262,7 +262,6 @@ function ProfileDropdown() {
         ) : (
           <div className="h-7 w-7 rounded-full bg-gray-300 flex items-center justify-center text-[15px] font-semibold text-white">
             {userInfo?.user?.first_name?.charAt(0).toUpperCase()}
-            {userInfo?.user?.last_name?.charAt(0).toUpperCase()}
           </div>
         )}
       </button>
@@ -280,12 +279,9 @@ function ProfileDropdown() {
             ) : (
               <div className="h-7 w-7 rounded-full bg-gray-300 flex items-center justify-center text-[15px] font-semibold text-white">
                 {userInfo?.user?.first_name?.charAt(0).toUpperCase()}
-                {userInfo?.user?.last_name?.charAt(0).toUpperCase()}
               </div>
             )}
-            <span className="font-semibold">
-              {userInfo?.user?.first_name} {userInfo?.user?.last_name}
-            </span>
+            <span className="font-semibold">{userInfo?.user?.first_name}</span>
           </div>
 
           {userInfo?.user?.role === "buyer" && (

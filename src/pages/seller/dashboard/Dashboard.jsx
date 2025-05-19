@@ -142,7 +142,7 @@ function Profile(props) {
           </label>
         </div>
         <h1 className="font-semibold text-[22px] text-secondary mt-3">
-          {userInfo?.user?.first_name} {userInfo?.user?.last_name}
+          {userInfo?.user?.first_name}
         </h1>
         <div className="flex gap-1 mt-2">
           <MdOutlineLocationOn className="text-[#6F7487] text-[20px]" />

@@ -73,8 +73,7 @@ function HireNow(props) {
                         </svg>
                       )}
                       <h1 className="font-[600] md:text-[32px] text-[24px] text-secondary">
-                        Hire {selectedSeller?.user?.first_name}{" "}
-                        {selectedSeller?.user?.last_name} Now
+                        Hire {selectedSeller?.user?.first_name} Now
                       </h1>
                       <p className="font-[500] md:text-[16px] text-[13px] text-[#6F7487] text-center">
                         You&apos;ll receive a confirmation email shortly

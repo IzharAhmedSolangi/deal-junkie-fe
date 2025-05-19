@@ -61,11 +61,11 @@ function Buyers() {
                       />
                     ) : (
                       <div className="w-full md:h-[200px] xs:h-[120px] bg-gray-200 rounded-sm flex justify-center items-center">
-                        {item?.first_name} {item?.last_name}
+                        {item?.first_name}
                       </div>
                     )}
                     <h3 className="text-lg font-bold mt-2 text-[#022247] text-center">
-                      {item?.first_name} {item?.last_name}
+                      {item?.first_name}
                     </h3>
                     {/* <div className="flex justify-center gap-1 mt-2">
                       <MdOutlineLocationOn className="text-[#6F7487] text-[20px]" />

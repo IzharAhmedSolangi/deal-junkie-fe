@@ -55,8 +55,7 @@ function BuyerDetails() {
               </Link>
               /
               <p className="text-primary text-[18px] font-[500]">
-                {buyer.data?.buyer_details?.first_name}{" "}
-                {buyer.data?.buyer_details?.last_name}
+                {buyer.data?.buyer_details?.first_name}
               </p>
             </div>
             <div className="w-full mt-3">
@@ -181,11 +180,11 @@ function BuyerDetails() {
                           />
                         ) : (
                           <div className="w-full md:h-[200px] xs:h-[120px] bg-gray-200 rounded-sm flex justify-center items-center">
-                            {item?.user?.first_name} {item?.user?.last_name}
+                            {item?.user?.first_name}
                           </div>
                         )}
                         <h3 className="text-lg font-bold mt-2 text-[#022247] text-center">
-                          {item?.user?.first_name} {item?.user?.last_name}
+                          {item?.user?.first_name}
                         </h3>
                         <div className="flex justify-center">
                           <p className="bg-[#F2F4F7] font-[500] text-[14px] text-secondary border border-secondary rounded-full py-1 px-2 ">

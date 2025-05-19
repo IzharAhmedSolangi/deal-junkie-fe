@@ -170,7 +170,7 @@ function Proposals(props) {
                     Request {item.status}
                   </p>
                   <h2 className="text-[#222222] text-[18px] font-[600]">
-                    {item.seller.user.first_name} {item.seller.user.last_name}
+                    {item.seller.user.first_name}
                   </h2>
                 </div>
               </div>

@@ -37,8 +37,7 @@ function buyerProfile(props) {
             <div className="flex gap-1 mt-2">
               <CiUser className="text-[#6F7487] text-[20px]" />
               <p className="font-normal text-[14px] text-[#6F7487] text-center">
-                {buyer.data?.buyer_details?.first_name}{" "}
-                {buyer.data?.buyer_details?.last_name}
+                {buyer.data?.buyer_details?.first_name}
               </p>
             </div>
             <div className="flex gap-1 mt-2">
@@ -73,9 +72,7 @@ function buyerProfile(props) {
         </button>
         <Link
           className="button-2 w-full bg-primary text-secondary py-2 rounded-sm cursor-pointer flex justify-center items-center"
-          to={`/admin/inbox?userId=${buyer.data?.buyer_details?.id}&username=${
-            buyer.data?.buyer_details?.first_name
-          }${" "}${buyer.data?.buyer_details?.last_name}`}
+          to={`/admin/inbox?userId=${buyer.data?.buyer_details?.id}&username=${buyer.data?.buyer_details?.first_name}`}
         >
           Send Message
         </Link>

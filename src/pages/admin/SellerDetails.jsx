@@ -37,7 +37,7 @@ function SellerDetails() {
               </Link>
               /
               <p className="text-primary text-[18px] font-[500]">
-                {seller.data?.user?.first_name} {seller.data?.user?.last_name}
+                {seller.data?.user?.first_name}
               </p>
             </div>
             <div className="flex md:flex-row flex-col gap-8 mt-3">

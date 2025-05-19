@@ -21,7 +21,7 @@ const Navbar = (props) => {
             />
           </div>
           <h1 className="text-secondary font-semibold md:text-[20px] text-[15px]">
-            Welcome, {userInfo?.user?.first_name} {userInfo?.user?.last_name}
+            Welcome, {userInfo?.user?.first_name}
           </h1>
         </div>
         <div className="flex items-center gap-2">
@@ -38,7 +38,7 @@ const Navbar = (props) => {
             </svg>
             <div>
               <h1 className="text-secondary font-semibold text-[14px]">
-                {userInfo?.user?.first_name} {userInfo?.user?.last_name}
+                {userInfo?.user?.first_name}
               </h1>
               <p className="text-[#5F5B5B] font-normal text-[12px]">
                 {userInfo?.user?.email}

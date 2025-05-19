@@ -10,7 +10,6 @@ function SellerInformation(props) {
     <div className="w-full">
       <h2 className="text-2xl font-bold text-[#02174C] text-[32px]">
         {findExpert.data?.user?.first_name}
-        {findExpert.data?.user?.last_name}
       </h2>
       <div className="flex gap-2 items-center">
         <RatingStars rating={findExpert.data?.rating || 0} totalReviews={0} />

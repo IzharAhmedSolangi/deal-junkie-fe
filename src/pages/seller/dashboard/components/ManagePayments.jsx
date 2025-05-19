@@ -86,7 +86,6 @@ const TransactionTable = (props) => {
                 <td className="py-2 flex items-center gap-2">
                   <div className="h-10 w-10 rounded-full bg-gray-300 flex items-center justify-center text-[15px] font-semibold text-white">
                     {item?.user?.first_name?.charAt(0).toUpperCase()}
-                    {item?.user?.last_name?.charAt(0).toUpperCase()}
                   </div>
                   <div>
                     <p className="font-semibold text-[16px] text-secondary">

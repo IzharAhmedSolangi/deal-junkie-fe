@@ -284,16 +284,14 @@ function Proposals(props) {
                     Request {item.status}
                   </p>
                   <h2 className="text-[#222222] text-[18px] font-[600]">
-                    {item.seller.user.first_name} {item.seller.user.last_name}
+                    {item.seller.user.first_name}
                   </h2>
                 </div>
               </div>
               <div className="flex items-center md:gap-2 gap-1 md:mt-0 mt-2">
                 <Link
                   className="bg-[#02174C0F] md:w-[120px] w-full h-[35px] border border-secondary rounded-sm text-secondary text-[12px] cursor-pointer flex justify-center items-center"
-                  to={`/inbox?userId=${item.seller.user.id}&username=${
-                    item.seller?.user.first_name
-                  }${" "}${item.seller?.user.last_name}`}
+                  to={`/inbox?userId=${item.seller.user.id}&username=${item.seller?.user.first_name}`}
                 >
                   Send Message
                 </Link>
@@ -443,7 +441,7 @@ function CompleteAndReviews(props) {
   return (
     <div className="px-10">
       <h2 className="text-[#02174C] md:text-[18px] lg:text-[30px] font-[600] ">
-        {userInfo?.user?.first_name} {userInfo?.user?.last_name}
+        {userInfo?.user?.first_name}
       </h2>
       <p className="text-[#6F7487]">
         Give some feedback to tasker about your project
