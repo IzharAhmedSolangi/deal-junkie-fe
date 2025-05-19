@@ -67,7 +67,7 @@ function JobDetails() {
                     <ButtonLoader4 />
                   ) : (
                     <>
-                      <IoMdClose />
+                      <IoMdClose className="flex-shrink-0" />
                       Cancel Job
                     </>
                   )}

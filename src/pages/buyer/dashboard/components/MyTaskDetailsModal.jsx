@@ -161,7 +161,7 @@ function MyTaskDetailsModal(props) {
                                 onClick={() => setCompleted(true)}
                                 className="bg-[#0AF8860D] w-full h-[35px] border border-primary rounded-sm text-primary text-[13px] cursor-pointer flex justify-center items-center"
                               >
-                                <TiTick />
+                                <TiTick className="flex-shrink-0" />
                                 Complete Project
                               </button>
                             )}
@@ -379,7 +379,7 @@ function OrderDelivered(props) {
               <ButtonLoader1 />
             ) : (
               <>
-                <IoCloudDownloadOutline className="text-[22px]" />
+                <IoCloudDownloadOutline className="text-[22px] flex-shrink-0" />
                 <p>Attachment</p>
               </>
             )}

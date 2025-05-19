@@ -15,31 +15,20 @@ function SellerInformation(props) {
         <RatingStars rating={findExpert.data?.rating || 0} totalReviews={0} />
       </div>
 
-      <div className="flex items-center gap-3 text-[#6F7487] mt-2 text-[16px]">
+      <div className="flex items-center gap-3 flex-wrap text-[#6F7487] mt-2 text-[16px]">
         <div className="flex items-center gap-1">
-          <CiDollar />
+          <CiDollar className="flex-shrink-0" />
           <p>Starting from ${findExpert.data?.rate_per_hour} / hr</p>
         </div>
         <div className="flex items-center gap-1">
-          <MdAccessTime />
+          <MdAccessTime className="flex-shrink-0" />
           <p>Full-Time</p>
         </div>
         <div className="flex items-center gap-1">
-          <CiUser />
+          <CiUser className="flex-shrink-0" />
           <p>{findExpert.data?.experience} Years of Experience</p>
         </div>
       </div>
-
-      {/* <div className="flex gap-2 mt-4">
-        {["TaxPlanning", "Advisor", "WealthAdvisor"].map((tag, i) => (
-          <span
-            key={i}
-            className="bg-[#F2F4F7] text-secondary text-xs px-2 py-1 rounded-full"
-          >
-            {tag}
-          </span>
-        ))}
-      </div> */}
 
       {findExpert.data?.describe_yourself && (
         <section className="mt-6">

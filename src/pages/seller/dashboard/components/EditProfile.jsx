@@ -6,7 +6,7 @@ import useEditProfile from "../../../../services/common/useEditProfile";
 import { ButtonLoader1 } from "../../../../components/shared/ButtonLoaders";
 import useBecomeSeller from "../../../../services/seller/useBecomeSeller";
 import Input from "../../../../components/shared/Input";
-import { FaCity, FaDollarSign, FaRegUser } from "react-icons/fa";
+import { FaCity, FaDollarSign, FaLink, FaRegUser } from "react-icons/fa";
 import {
   MdOutlineEmail,
   MdOutlineLocationOn,
@@ -33,6 +33,9 @@ const validationSchema = Yup.object({
   city: Yup.string().required("City is required").max(100, "Limit exceeded"),
   address: Yup.string()
     .required("Address is required")
+    .max(100, "Limit exceeded"),
+  linkedin_link: Yup.string()
+    .required("LinkedIn link is required")
     .max(100, "Limit exceeded"),
 
   experience: Yup.string()
@@ -70,6 +73,7 @@ function EditProfile() {
     state: userInfo?.user?.state || "",
     city: userInfo?.user?.city || "",
     address: userInfo?.user?.street || "",
+    linkedin_link: userInfo?.user?.linkedin_link || "",
 
     experience: userInfo?.seller_profile?.experience || "",
     rate_per_hour: userInfo?.seller_profile?.rate_per_hour || "",
@@ -99,9 +103,10 @@ function EditProfile() {
                 state: values.state,
                 city: values.city,
                 street: values.address,
+                linkedin_link: values.linkedin_link,
+                profile_picture: values.profile_picture,
                 email: userInfo?.user?.email,
                 role: userInfo?.user?.role,
-                profile_picture: values.profile_picture,
                 bio: userInfo?.user?.bio,
               },
               seller_profile: {
@@ -247,6 +252,23 @@ function EditProfile() {
                   />
                   {errors.state && touched.state && (
                     <p className="text-red-700 text-xs mt-1">{errors.state}</p>
+                  )}
+                </div>
+              </div>
+              <div className="mt-3 grid grid-cols-1">
+                <div>
+                  <Input
+                    type="text"
+                    placeholder="LinkedIn Link"
+                    name="linkedin_link"
+                    value={values.linkedin_link}
+                    handleChange={handleChange}
+                    icon={<FaLink />}
+                  />
+                  {errors.linkedin_link && touched.linkedin_link && (
+                    <p className="text-red-700 text-xs mt-1">
+                      {errors.linkedin_link}
+                    </p>
                   )}
                 </div>
               </div>

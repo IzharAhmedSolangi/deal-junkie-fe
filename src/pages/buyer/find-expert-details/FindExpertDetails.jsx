@@ -41,7 +41,7 @@ function FindExpertDetails() {
             <div className="w-full">
               <SellerInformation findExpert={findExpert} />
             </div>
-            <div className="md:w-[600px] w-full">
+            <div className="md:w-[650px] w-full">
               <SellerTimeDetails findExpert={findExpert} />
             </div>
           </div>

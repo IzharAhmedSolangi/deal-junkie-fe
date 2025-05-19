@@ -4,6 +4,7 @@ import {
   MdOutlineMail,
   MdPhoneAndroid,
 } from "react-icons/md";
+import { FaLinkedin } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import HireNow from "../../../../components/modals/HireNow";
 import { useState } from "react";
@@ -40,7 +41,7 @@ function SellerTimeDetails(props) {
             </svg>
           )}
           <div className="flex gap-1 mt-2">
-            <MdOutlineLocationOn className="text-[#6F7487] text-[20px]" />
+            <MdOutlineLocationOn className="text-[#6F7487] text-[20px] flex-shrink-0" />
             <p className="font-normal text-[14px] text-[#6F7487] text-center">
               {findExpert.data?.user?.street}
               {findExpert.data?.user?.city &&
@@ -50,13 +51,24 @@ function SellerTimeDetails(props) {
             </p>
           </div>
           <div className="flex gap-1 mt-2">
-            <MdOutlineMail className="text-[#6F7487] text-[20px]" />
+            <FaLinkedin className="text-[#6F7487] text-[20px] flex-shrink-0" />
+            <a
+              href={findExpert.data?.user?.linkedin_link}
+              target="_blank"
+              rel="noferrer"
+              className="font-normal text-[14px] text-[#6F7487] hover:underline hover:text-secondary"
+            >
+              {findExpert.data?.user?.linkedin_link}
+            </a>
+          </div>
+          <div className="flex gap-1 mt-2">
+            <MdOutlineMail className="text-[#6F7487] text-[20px] flex-shrink-0" />
             <p className="font-normal text-[14px] text-[#6F7487]">
               {findExpert.data?.user?.email}
             </p>
           </div>
           <div className="flex gap-1 mt-2">
-            <MdPhoneAndroid className="text-[#6F7487] text-[20px]" />
+            <MdPhoneAndroid className="text-[#6F7487] text-[20px] flex-shrink-0" />
             <p className="font-normal text-[14px] text-[#6F7487]">
               {findExpert.data?.user?.phone_number}
             </p>

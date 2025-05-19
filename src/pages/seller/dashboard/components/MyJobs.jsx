@@ -76,11 +76,11 @@ function MyJobs() {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-1">
                     <div className="flex items-center gap-[2px] text-[#98A2B3] text-[14px] font-[500]">
-                      <CiCalendar />
+                      <CiCalendar className="flex-shrink-0" />
                       {item.expected_completion_date}
                     </div>
                     <div className="flex items-center gap-[2px] text-[#98A2B3] text-[14px] font-[500]">
-                      <CiTimer />
+                      <CiTimer className="flex-shrink-0" />
                       11:59 PM
                     </div>
                   </div>
@@ -119,7 +119,7 @@ function MyJobs() {
                     }}
                     className="bg-[#51B8EA0F] w-full h-[35px] border border-[#2D9ACF] rounded-sm text-[#2D9ACF] text-[13px] cursor-pointer flex justify-center items-center gap-1"
                   >
-                    <IoEyeOutline />
+                    <IoEyeOutline className="flex-shrink-0" />
                     See Details
                   </button>
                   {item.status === "In Progress" && (
@@ -130,7 +130,7 @@ function MyJobs() {
                         setSelectedTask(item);
                       }}
                     >
-                      <TiTick />
+                      <TiTick className="flex-shrink-0" />
                       Mark As Complete
                     </button>
                   )}

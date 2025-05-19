@@ -5,7 +5,7 @@ import GlobalContext from "../../../../context/GlobalContext";
 import useEditProfile from "../../../../services/common/useEditProfile";
 import { ButtonLoader1 } from "../../../../components/shared/ButtonLoaders";
 import Input from "../../../../components/shared/Input";
-import { FaCity, FaRegUser } from "react-icons/fa";
+import { FaCity, FaLink, FaRegUser } from "react-icons/fa";
 import {
   MdOutlineEmail,
   MdOutlineLocationOn,
@@ -29,6 +29,9 @@ const validationSchema = Yup.object({
   address: Yup.string()
     .required("Address is required")
     .max(100, "Limit exceeded"),
+  linkedin_link: Yup.string()
+    .required("LinkedIn link is required")
+    .max(100, "Limit exceeded"),
 });
 function EditProfile() {
   const { userInfo } = useContext(GlobalContext);
@@ -43,6 +46,7 @@ function EditProfile() {
     state: userInfo?.user?.state || "",
     city: userInfo?.user?.city || "",
     address: userInfo?.user?.street || "",
+    linkedin_link: userInfo?.user?.linkedin_link || "",
   };
 
   const { values, errors, handleChange, handleSubmit, touched, resetForm } =
@@ -62,6 +66,7 @@ function EditProfile() {
               state: values.state,
               city: values.city,
               street: values.address,
+              linkedin_link: values.linkedin_link,
               profile_picture: values.profile_picture,
             },
           },
@@ -175,6 +180,23 @@ function EditProfile() {
               />
               {errors.state && touched.state && (
                 <p className="text-red-700 text-xs mt-1">{errors.state}</p>
+              )}
+            </div>
+          </div>
+          <div className="mt-3 grid grid-cols-1">
+            <div>
+              <Input
+                type="text"
+                placeholder="LinkedIn Link"
+                name="linkedin_link"
+                value={values.linkedin_link}
+                handleChange={handleChange}
+                icon={<FaLink />}
+              />
+              {errors.linkedin_link && touched.linkedin_link && (
+                <p className="text-red-700 text-xs mt-1">
+                  {errors.linkedin_link}
+                </p>
               )}
             </div>
           </div>

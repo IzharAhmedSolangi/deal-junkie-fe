@@ -10,6 +10,7 @@ import SendProposal from "../../../../components/modals/SendProposal";
 import ReportUser from "../../../../components/modals/ReportUser";
 import { ErrorToaster } from "../../../../components/shared/Toster";
 import GlobalContext from "../../../../context/GlobalContext";
+import { FaLinkedin } from "react-icons/fa";
 
 function BuyerInfo(props) {
   const { findJob } = props;
@@ -44,7 +45,7 @@ function BuyerInfo(props) {
             </svg>
           )}
           <div className="flex gap-1 mt-2">
-            <MdOutlineLocationOn className="text-[#6F7487] text-[20px]" />
+            <MdOutlineLocationOn className="text-[#6F7487] text-[20px] flex-shrink-0" />
             <p className="font-normal text-[15px] text-[#6F7487] text-center text-wrap">
               {findJob.data?.user?.street}
               {findJob.data?.user?.city && `, ${findJob.data?.user?.city}`}
@@ -52,13 +53,24 @@ function BuyerInfo(props) {
             </p>
           </div>
           <div className="flex gap-1 mt-2">
-            <MdOutlineMail className="text-[#6F7487] text-[20px]" />
+            <FaLinkedin className="text-[#6F7487] text-[20px] flex-shrink-0" />
+            <a
+              href={findJob.data?.user?.linkedin_link}
+              target="_blank"
+              rel="noferrer"
+              className="font-normal text-[14px] text-[#6F7487] hover:underline hover:text-secondary"
+            >
+              {findJob.data?.user?.linkedin_link}
+            </a>
+          </div>
+          <div className="flex gap-1 mt-2">
+            <MdOutlineMail className="text-[#6F7487] text-[20px] flex-shrink-0" />
             <p className="font-normal text-[15px] text-[#6F7487]">
               {findJob.data?.user?.email}
             </p>
           </div>
           <div className="flex gap-1 mt-2">
-            <MdPhoneAndroid className="text-[#6F7487] text-[20px]" />
+            <MdPhoneAndroid className="text-[#6F7487] text-[20px] flex-shrink-0" />
             <p className="font-normal text-[15px] text-[#6F7487]">
               {findJob.data?.user?.phone_number}
             </p>

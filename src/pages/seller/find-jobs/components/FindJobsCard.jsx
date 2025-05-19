@@ -41,11 +41,11 @@ function FindJobsCard(props) {
                     <div>
                       <div className="flex items-center gap-1">
                         <div className="flex items-center gap-[2px] text-[#98A2B3] text-[14px] font-[500]">
-                          <CiCalendar />
+                          <CiCalendar className="flex-shrink-0" />
                           {item.expected_completion_date}
                         </div>
                         <div className="flex items-center gap-[2px] text-[#98A2B3] text-[14px] font-[500]">
-                          <CiTimer />
+                          <CiTimer className="flex-shrink-0" />
                           11:59 PM
                         </div>
                       </div>
@@ -63,7 +63,7 @@ function FindJobsCard(props) {
                           Navigate(`/find-jobs/${item.id}`);
                         }}
                       >
-                        <IoEyeOutline />
+                        <IoEyeOutline className="flex-shrink-0" />
                         See Details
                       </button>
                       <button
@@ -81,7 +81,7 @@ function FindJobsCard(props) {
                           }
                         }}
                       >
-                        <MdOutlineMessage />
+                        <MdOutlineMessage className="flex-shrink-0" />
                         Send Request
                       </button>
                     </div>

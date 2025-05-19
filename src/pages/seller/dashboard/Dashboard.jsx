@@ -145,7 +145,7 @@ function Profile(props) {
           {userInfo?.user?.first_name}
         </h1>
         <div className="flex gap-1 mt-2">
-          <MdOutlineLocationOn className="text-[#6F7487] text-[20px]" />
+          <MdOutlineLocationOn className="text-[#6F7487] text-[20px] flex-shrink-0" />
           <p className="font-normal text-[14px] text-[#6F7487]">
             {userInfo?.user?.street}
             {userInfo?.user?.city && `, ${userInfo?.user?.city}`}
@@ -153,13 +153,23 @@ function Profile(props) {
           </p>
         </div>
         <div className="flex gap-1 mt-2">
-          <MdOutlineMail className="text-[#6F7487] text-[20px]" />
+          <a
+            href={userInfo?.user?.linkedin_link}
+            target="_blank"
+            rel="noferrer"
+            className="font-normal text-center text-[16px] text-[#6F7487] hover:underline hover:text-secondary"
+          >
+            {userInfo?.user?.linkedin_link}
+          </a>
+        </div>
+        <div className="flex gap-1 mt-2">
+          <MdOutlineMail className="text-[#6F7487] text-[20px] flex-shrink-0" />
           <p className="font-normal text-[14px] text-[#6F7487]">
             {userInfo?.user?.email}
           </p>
         </div>
         <div className="flex gap-1 mt-2">
-          <MdPhoneAndroid className="text-[#6F7487] text-[20px]" />
+          <MdPhoneAndroid className="text-[#6F7487] text-[20px] flex-shrink-0" />
           <p className="font-normal text-[14px] text-[#6F7487]">
             {userInfo?.user?.phone_number}
           </p>

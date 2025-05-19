@@ -89,11 +89,11 @@ function Notifications() {
             {notifications.data?.map((notification) => (
               <li
                 key={notification.id}
-                className="py-1 flex items-center justify-between"
+                className="py-1 flex items-start justify-between"
               >
-                <div className="flex items-center gap-[6px] w-[70%]">
-                  <FaUserCircle className="text-[30px] text-gray-300" />
-                  <h6 className="text-[#6F7487] text-[14px]">
+                <div className="flex items-start gap-[6px] w-[70%]">
+                  <FaUserCircle className="text-[25px] text-gray-300 flex-shrink-0" />
+                  <h6 className="text-[#6F7487] md:text-[13px] text-[11px]">
                     {notification.message}
                   </h6>
                 </div>
@@ -112,71 +112,6 @@ function Notifications() {
                 <ButtonLoader2 />
               </div>
             )}
-
-            {/* <li className="px-4 py-2 flex items-center gap-3 hover:bg-gray-100 cursor-pointer">
-              <FaUserCircle className="w-8 h-8 text-gray-500" />
-              <div>
-                Pay <span className="font-semibold">$234 to Susan Smith</span>{" "}
-                as task is completed.
-                <div className="flex gap-2 mt-1">
-                  <button className="px-3 py-1 bg-blue-500 text-white text-sm rounded">
-                    Accept
-                  </button>
-                  <button className="px-3 py-1 bg-red-500 text-white text-sm rounded">
-                    Reject
-                  </button>
-                </div>
-                <p className="text-sm text-gray-500">5 mins ago</p>
-              </div>
-            </li>
-
-            <li className="px-4 py-2 flex items-center gap-3 hover:bg-gray-100 cursor-pointer">
-              <FaUserCircle className="w-8 h-8 text-gray-500" />
-              <div>
-                Payment is sent to{" "}
-                <span className="font-semibold">Robert Davis</span>
-                <p className="text-sm text-gray-500">Yesterday</p>
-              </div>
-            </li>
-
-            <li className="px-4 py-2 flex items-center gap-3 hover:bg-gray-100 cursor-pointer">
-              <FaUserCircle className="w-8 h-8 text-gray-500" />
-              <div>
-                <span className="font-semibold">Karen Miller</span> sent you a
-                text message.
-                <p className="text-sm text-gray-500">10 Jun 2023</p>
-              </div>
-            </li>
-
-            <li className="px-4 py-2 flex items-center gap-3 hover:bg-gray-100 cursor-pointer">
-              <FaUserCircle className="w-8 h-8 text-gray-500" />
-              <div>
-                <span className="font-semibold">Ralph Edwards</span> has
-                refunded your amount.
-                <p className="text-sm text-gray-500">10 Jun 2023</p>
-              </div>
-            </li>
-
-            <li className="px-4 py-2 flex items-center gap-3 hover:bg-gray-100 cursor-pointer">
-              <FaUserCircle className="w-8 h-8 text-gray-500" />
-              <div>
-                Your task has been deleted.
-                <p className="text-sm text-gray-500">Yesterday</p>
-              </div>
-            </li>
-            {[...Array(3)].map((_, index) => (
-              <li
-                key={index}
-                className="px-4 py-2 flex items-center gap-3 hover:bg-gray-100 cursor-pointer"
-              >
-                <FaUserCircle className="w-8 h-8 text-gray-500" />
-                <div>
-                  <span className="font-semibold">User {index + 1}</span> sent
-                  you a message.
-                  <p className="text-sm text-gray-500">{index + 1} days ago</p>
-                </div>
-              </li>
-            ))} */}
           </ul>
         </div>
       )}

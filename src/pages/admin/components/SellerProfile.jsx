@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import { FaLinkedin } from "react-icons/fa";
 import {
   MdOutlineLocationOn,
   MdOutlineMail,
@@ -33,7 +34,7 @@ function SellerProfile(props) {
           </svg>
         )}
         <div className="flex gap-1 mt-2">
-          <MdOutlineLocationOn className="text-[#6F7487] text-[20px]" />
+          <MdOutlineLocationOn className="text-[#6F7487] text-[20px] flex-shrink-0" />
           <p className="font-normal text-[14px] text-[#6F7487] text-center">
             {seller.data?.user?.street}
             {seller.data?.user?.city && `, ${seller.data?.user?.city}`}
@@ -41,13 +42,24 @@ function SellerProfile(props) {
           </p>
         </div>
         <div className="flex gap-1 mt-2">
-          <MdOutlineMail className="text-[#6F7487] text-[20px]" />
+          <FaLinkedin className="text-[#6F7487] text-[20px] flex-shrink-0" />
+          <a
+            href={seller.data?.user?.linkedin_link}
+            target="_blank"
+            rel="noferrer"
+            className="font-normal text-[14px] text-[#6F7487] hover:underline hover:text-secondary"
+          >
+            {seller.data?.user?.linkedin_link}
+          </a>
+        </div>
+        <div className="flex gap-1 mt-2">
+          <MdOutlineMail className="text-[#6F7487] text-[20px] flex-shrink-0" />
           <p className="font-normal text-[14px] text-[#6F7487]">
             {seller.data?.user?.email}
           </p>
         </div>
         <div className="flex gap-1 mt-2">
-          <MdPhoneAndroid className="text-[#6F7487] text-[20px]" />
+          <MdPhoneAndroid className="text-[#6F7487] text-[20px] flex-shrink-0" />
           <p className="font-normal text-[14px] text-[#6F7487]">
             {seller.data?.user?.phone_number}
           </p>

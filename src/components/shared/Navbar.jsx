@@ -328,7 +328,7 @@ function ProfileDropdown() {
                 onClick={Logout}
                 className="w-full px-4 py-2 flex items-center gap-2 text-red-500 hover:bg-[#0AF8860F] cursor-pointer"
               >
-                <FiLogOut />
+                <FiLogOut className="flex-shrink-0" />
                 <span>Logout</span>
               </button>
             </div>

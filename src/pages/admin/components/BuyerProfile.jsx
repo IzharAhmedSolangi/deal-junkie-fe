@@ -5,6 +5,7 @@ import {
   MdPhoneAndroid,
 } from "react-icons/md";
 import { Link } from "react-router-dom";
+import { FaLinkedin } from "react-icons/fa";
 
 function buyerProfile(props) {
   const { buyer } = props;
@@ -35,13 +36,13 @@ function buyerProfile(props) {
           )}
           <div>
             <div className="flex gap-1 mt-2">
-              <CiUser className="text-[#6F7487] text-[20px]" />
+              <CiUser className="text-[#6F7487] text-[20px] flex-shrink-0" />
               <p className="font-normal text-[14px] text-[#6F7487] text-center">
                 {buyer.data?.buyer_details?.first_name}
               </p>
             </div>
             <div className="flex gap-1 mt-2">
-              <MdOutlineLocationOn className="text-[#6F7487] text-[20px]" />
+              <MdOutlineLocationOn className="text-[#6F7487] text-[20px] flex-shrink-0" />
               <p className="font-normal text-[14px] text-[#6F7487] text-center">
                 {buyer.data?.buyer_details?.street}
                 {buyer.data?.buyer_details?.city &&
@@ -51,13 +52,24 @@ function buyerProfile(props) {
               </p>
             </div>
             <div className="flex gap-1 mt-2">
-              <MdOutlineMail className="text-[#6F7487] text-[20px]" />
+              <FaLinkedin className="text-[#6F7487] text-[20px] flex-shrink-0" />
+              <a
+                href={buyer.data?.user?.linkedin_link}
+                target="_blank"
+                rel="noferrer"
+                className="font-normal text-[14px] text-[#6F7487] hover:underline hover:text-secondary"
+              >
+                {buyer.data?.user?.linkedin_link}
+              </a>
+            </div>
+            <div className="flex gap-1 mt-2">
+              <MdOutlineMail className="text-[#6F7487] text-[20px] flex-shrink-0" />
               <p className="font-normal text-[14px] text-[#6F7487]">
                 {buyer.data?.buyer_details?.email}
               </p>
             </div>
             <div className="flex gap-1 mt-2">
-              <MdPhoneAndroid className="text-[#6F7487] text-[20px]" />
+              <MdPhoneAndroid className="text-[#6F7487] text-[20px] flex-shrink-0" />
               <p className="font-normal text-[14px] text-[#6F7487]">
                 {buyer.data?.buyer_details?.phone_number}
               </p>

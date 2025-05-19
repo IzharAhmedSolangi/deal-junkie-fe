@@ -21,19 +21,19 @@ const Testimonial = () => {
   const testimonials_1 = [
     {
       url: "/assets/reviews/image-1.jpeg",
-      name: "David Yacobucci",
+      name: "David",
       review:
         "“I built Deal Junkie to connect the dots—giving ex-finance professionals in B-school a flexible way to earn while offering smaller investors affordable access to elite-level support. It’s a win-win”",
     },
     {
       url: "/assets/reviews/image-2.jpeg",
-      name: "Frank Langfitt",
+      name: "Frank",
       review:
         "“Making an account on Deal Junkie was seamless. I now have the ability to use my skills to earn extra income at my fingertips. There is no other platform with as straightforward a user interface as Deal Junkie”",
     },
     {
       url: "/assets/reviews/image-3.jpeg",
-      name: "James Gilbert",
+      name: "James",
       review:
         "“Deal Junkie is the perfect platform to work on your own time, earn extra income, and meet other interesting deal makers. Deal Junkie takes care of all the admin, so investors and providers can focus on what we love, DEALS!”",
     },

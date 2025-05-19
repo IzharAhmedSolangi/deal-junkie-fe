@@ -105,7 +105,7 @@ export function LinkedInVerification({ setIsLinkedInVerified, setFieldValue }) {
           <ButtonLoader2 />
         ) : (
           <div className="flex gap-1 justify-center items-center">
-            <FaLinkedin />
+            <FaLinkedin className="flex-shrink-0" />
             <span className="text-[16px] font-semibold">Verify LinkedIn</span>
           </div>
         )}

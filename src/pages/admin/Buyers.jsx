@@ -76,13 +76,13 @@ function Buyers() {
                       </p>
                     </div> */}
                     <div className="flex justify-center gap-1 mt-2">
-                      <MdOutlineMail className="text-[#6F7487] text-[20px]" />
+                      <MdOutlineMail className="text-[#6F7487] text-[20px]flex-shrink-0" />
                       <p className="font-normal text-[14px] text-[#6F7487]">
                         {item?.email}
                       </p>
                     </div>
                     <div className="flex justify-center gap-1 mt-2">
-                      <MdPhoneAndroid className="text-[#6F7487] text-[20px]" />
+                      <MdPhoneAndroid className="text-[#6F7487] text-[20px] flex-shrink-0" />
                       <p className="font-normal text-[14px] text-[#6F7487]">
                         {item?.phone_number}
                       </p>

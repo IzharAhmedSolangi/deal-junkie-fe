@@ -14,17 +14,17 @@ function JobInfo(props) {
         {findJob.data?.title}
       </h2>
 
-      <div className="flex items-center gap-3 text-[#6F7487] mt-2 text-[16px]">
+      <div className="flex items-center gap-3 flex-wrap text-[#6F7487] mt-2 text-[16px]">
         <div className="flex items-center gap-1">
-          <CiDollar />
+          <CiDollar className="flex-shrink-0" />
           <p>Starting from ${findJob.data?.budget} / hr</p>
         </div>
         <div className="flex items-center gap-1">
-          <MdAccessTime />
+          <MdAccessTime className="flex-shrink-0" />
           <p>Full-Time</p>
         </div>
         <div className="flex items-center gap-1">
-          <CiUser />
+          <CiUser className="flex-shrink-0" />
           <p>{findJob.data?.experience}</p>
         </div>
       </div>

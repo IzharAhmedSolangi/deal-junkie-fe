@@ -118,7 +118,7 @@ function AdminChatInterface() {
                   Chats ({data?.length})
                 </h1>
                 <div className="w-full border border-[#02174C33] flex items-center px-2 rounded-sm">
-                  <CiSearch className="w-5 h-5 text-gray-500" />
+                  <CiSearch className="w-5 h-5 text-gray-500 flex-shrink-0" />
                   <input
                     type="search"
                     placeholder="Search chat"
@@ -195,7 +195,7 @@ function AdminChatInterface() {
                       onClick={toggleSidebar}
                       className="mr-2 text-gray-600 hover:text-gray-900"
                     >
-                      <FaChevronLeft size={20} />
+                      <FaChevronLeft size={20} className="flex-shrink-0" />
                     </button>
                   )}
                   <div className="w-full flex items-center justify-center gap-3">
