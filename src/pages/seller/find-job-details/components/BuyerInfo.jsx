@@ -120,7 +120,7 @@ function BuyerInfo(props) {
       <ReportUser
         title="Tell us why are you reporting this user?"
         description="Select your reason for reporting and submit to us, we’ll look into this and take necessary actions."
-        url={`/api/accounts/user/${findJob.data?.user?.id}/report/`}
+        reportedUser={findJob.data?.user?.id}
         isOpenModal={isOpenReportUserModal}
         setIsOpenModal={setIsOpenReportUserModal}
       />

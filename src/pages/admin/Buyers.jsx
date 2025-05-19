@@ -1,19 +1,38 @@
+/* eslint-disable no-unused-vars */
 import useGetAllBuyers from "../../services/admin/useGetAllBuyers";
 import { ButtonLoader3 } from "../../components/shared/ButtonLoaders";
 import ShowMessage from "../../components/shared/ShowMessage";
-import {
-  MdOutlineLocationOn,
-  MdOutlineMail,
-  MdPhoneAndroid,
-} from "react-icons/md";
-import { Link } from "react-router-dom";
+import { MdOutlineMail, MdPhoneAndroid } from "react-icons/md";
+import { Link, useSearchParams } from "react-router-dom";
 import AppHead from "../../seo/AppHead";
-import { useCallback, useRef } from "react";
+import { useCallback, useRef, useState } from "react";
 import BuyerCard from "../../components/skeltons/BuyerCard";
+import Dropdown from "../../components/shared/Dropdown";
 
 function Buyers() {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const getParam = (key, defaultValue) => {
+    const value = searchParams.get(key);
+    if (value === null) return defaultValue;
+
+    if (typeof defaultValue === "object") {
+      try {
+        return JSON.parse(value);
+      } catch (e) {
+        return defaultValue;
+      }
+    }
+    return value;
+  };
+
+  const [filters, setFilters] = useState({
+    search: getParam("search", ""),
+    filter: getParam("filter", { name: "All", value: "All" }),
+  });
+  const [appliedFilters, setAppliedFilters] = useState(filters);
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
-    useGetAllBuyers();
+    useGetAllBuyers(appliedFilters);
 
   const observer = useRef();
 
@@ -34,12 +53,58 @@ function Buyers() {
   );
 
   const allBuyers = data?.pages?.flatMap((page) => page.data.results) || [];
+
+  const applyFilters = () => {
+    setAppliedFilters({ ...filters });
+    const params = {
+      search: filters.search,
+      filter: JSON.stringify(filters.filter),
+    };
+    setSearchParams(params);
+  };
   return (
     <>
       <AppHead title="Buyers - Deal Junkie" />
       <div className="w-full h-auto p-5">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col">
           <h1 className="text-[#02174C] text-[30px] font-[600]">Buyers</h1>
+          <div className="flex items-center justify-between">
+            <input
+              type="search"
+              value={filters.search}
+              onChange={(e) =>
+                setFilters((prevState) => ({
+                  ...prevState,
+                  search: e.target.value,
+                }))
+              }
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  applyFilters();
+                }
+              }}
+              placeholder="Search..."
+              className="w-[30%] h-[35px] rounded border border-[#02174C33] px-2 hover:border-secondary focus:border-secondary"
+            />
+            <div className="min-w-[150px]">
+              <Dropdown
+                placeholder="Select"
+                options={[
+                  { name: "All", value: "All" },
+                  { name: "Blocked", value: "Blocked" },
+                  { name: "Unblocked", value: "Unblocked" },
+                ]}
+                selected={filters.filter}
+                onChange={(option) => {
+                  setFilters((prevState) => ({
+                    ...prevState,
+                    filter: option,
+                  }));
+                  applyFilters();
+                }}
+              />
+            </div>
+          </div>
         </div>
         <div className="mt-3">
           {allBuyers && (

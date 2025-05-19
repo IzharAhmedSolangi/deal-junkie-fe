@@ -18,6 +18,9 @@ import { FaCity, FaLink, FaRegUser } from "react-icons/fa";
 
 const validationSchema = Yup.object({
   role: Yup.string().required("Please select Junkie"),
+  username: Yup.string()
+    .required("username is required")
+    .max(100, "Limit exceeded"),
   firstname: Yup.string()
     .required("Firstname is required")
     .max(100, "Limit exceeded"),
@@ -51,6 +54,7 @@ function Signup(props) {
 
   const initialValues = {
     role: "",
+    username: "",
     firstname: "",
     lastname: "",
     email: "",
@@ -73,6 +77,7 @@ function Signup(props) {
           Signup(
             {
               role: values.role,
+              username: values.username,
               first_name: values.firstname,
               last_name: values.lastname,
               email: values.email,
@@ -131,6 +136,21 @@ function Signup(props) {
               {errors.role && touched.role && (
                 <p className="text-red-700 text-xs mt-1">{errors.role}</p>
               )}
+            </div>
+            <div className="mt-3 grid grid-cols-1">
+              <div>
+                <Input
+                  type="text"
+                  placeholder="Username"
+                  name="username"
+                  value={values.username}
+                  handleChange={handleChange}
+                  icon={<FaRegUser />}
+                />
+                {errors.username && touched.username && (
+                  <p className="text-red-700 text-xs mt-1">{errors.username}</p>
+                )}
+              </div>
             </div>
             <div className="mt-3 grid grid-cols-2 gap-2">
               <div>

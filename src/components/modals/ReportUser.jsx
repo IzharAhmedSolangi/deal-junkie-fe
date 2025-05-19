@@ -6,50 +6,66 @@ import { Dialog, Transition } from "@headlessui/react";
 import axios from "axios";
 import { getAccessToken } from "../../storage/storage";
 import { ButtonLoader1 } from "../shared/ButtonLoaders";
-import Dropdown from "../shared/Dropdown";
 import { ErrorToaster, SuccessToaster } from "../shared/Toster";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
-const Reasons = [
-  { name: "Reason 1", value: 1 },
-  { name: "Reason 2", value: 2 },
-  { name: "Reason 3", value: 3 },
-  { name: "Reason 4", value: 4 },
-];
+const validationSchema = Yup.object({
+  reason: Yup.string()
+    .required("Reason is required")
+    .max(100, "Limit exceeded"),
+  details: Yup.string()
+    .required("Report description is required")
+    .max(500, "Limit exceeded"),
+});
 
 function ReportUser(props) {
-  const { isOpenModal, setIsOpenModal, url, title, description } = props;
+  const { isOpenModal, setIsOpenModal, title, description, reportedUser } =
+    props;
   const token = getAccessToken();
   const BASE_URL = import.meta.env.VITE_API_URL;
   const [loading, setLoading] = useState(false);
   const cancelButtonRef = useRef(null);
-  const [selectedReason, setSelectedReason] = useState(null);
+
+  const initialValues = {
+    reason: "Spam",
+    details: "",
+  };
 
   const handleClose = () => {
     setIsOpenModal(false);
   };
 
-  const handleReportUser = async () => {
-    setLoading(true);
-    await axios
-      .post(
-        `${BASE_URL}${url}`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
+  const { values, errors, handleChange, handleSubmit, touched } = useFormik({
+    initialValues,
+    validationSchema,
+    onSubmit: async (values) => {
+      setLoading(true);
+      await axios
+        .post(
+          `${BASE_URL}/api/accounts/report-user/`,
+          {
+            reported_user: reportedUser,
+            reason: values.reason,
+            details: values.details,
           },
-        }
-      )
-      .then((response) => {
-        setLoading(false);
-        handleClose();
-        SuccessToaster("Reported", "Your have submitted report");
-      })
-      .catch((error) => {
-        setLoading(false);
-        ErrorToaster("Error", error?.response?.data?.message);
-      });
-  };
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+        .then((response) => {
+          setLoading(false);
+          handleClose();
+          SuccessToaster("Reported", "Your have submitted report");
+        })
+        .catch((error) => {
+          setLoading(false);
+          ErrorToaster("Error", error?.response?.data?.message);
+        });
+    },
+  });
 
   return (
     <Transition.Root show={isOpenModal} as={Fragment}>
@@ -96,21 +112,17 @@ function ReportUser(props) {
                   <p className="font-[400] md:text-[16px] text-[12px] text-[#6F7487] text-center">
                     {description}
                   </p>
-                  {/* <div className="w-full mt-2">
-                    <Dropdown
-                      placeholder="Select Reason"
-                      options={Reasons}
-                      selected={selectedReason}
-                      onChange={(option) => {
-                        setSelectedReason(option);
-                      }}
-                    />
-                  </div> */}
                   <textarea
                     placeholder="Describe reason"
+                    name="details"
+                    value={values.details}
+                    onChange={handleChange}
                     rows="4"
                     className="mt-2 w-full min-h-[120px] max-h-[120px] p-3 rounded-[4px] bg-transparent border border-[#02174C33] outline-none hover:border-secondary focus:border-secondary"
                   ></textarea>
+                  {errors.details && touched.details && (
+                    <p className="text-red-700 text-xs">{errors.details}</p>
+                  )}
                   <div className="flex items-center justify-center gap-2 mt-5">
                     <button
                       className="bg-[#02174C0F] border border-secondary cursor-pointer hover:opacity-80 w-[130px] h-[40px] text-secondary rounded flex justify-center items-center"
@@ -120,7 +132,7 @@ function ReportUser(props) {
                     </button>
                     <button
                       className="bg-[#EA5167] border border-[#EA5167] cursor-pointer hover:opacity-80 w-[130px] h-[40px] text-white rounded flex justify-center items-center"
-                      onClick={handleReportUser}
+                      onClick={handleSubmit}
                       disabled={loading}
                     >
                       {loading ? <ButtonLoader1 /> : "Report User"}

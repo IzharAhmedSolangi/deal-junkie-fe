@@ -107,7 +107,7 @@ function SellerTimeDetails(props) {
       <ReportUser
         title="Tell us why are you reporting this user?"
         description="Select your reason for reporting and submit to us, we’ll look into this and take necessary actions."
-        url={`/api/accounts/user/${findExpert.data?.user?.id}/report/`}
+        reportedUser={findExpert.data?.user?.id}
         isOpenModal={isOpenReportUserModal}
         setIsOpenModal={setIsOpenReportUserModal}
       />

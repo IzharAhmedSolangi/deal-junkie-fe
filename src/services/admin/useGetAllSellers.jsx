@@ -4,10 +4,12 @@ import { getAccessToken } from "../../storage/storage";
 
 const BASE_URL = import.meta.env.VITE_API_URL;
 
-const fetchAllSellers = async ({ pageParam = 1 }) => {
+const fetchAllSellers = async ({ pageParam = 1, queryKey }) => {
+  const [, params] = queryKey;
+  const { search = "", filter = "" } = params;
   const token = getAccessToken();
   const response = await axios.get(
-    `${BASE_URL}/api/admin/sellers/?page=${pageParam}`,
+    `${BASE_URL}/api/admin/sellers/?page=${pageParam}&search=${search}&filter=${filter?.value}`,
     {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -22,9 +24,9 @@ const fetchAllSellers = async ({ pageParam = 1 }) => {
   };
 };
 
-function useGetAllSellers() {
+function useGetAllSellers(filters) {
   const query = useInfiniteQuery({
-    queryKey: ["all-sellers"],
+    queryKey: ["all-sellers", filters],
     queryFn: fetchAllSellers,
     getNextPageParam: (lastPage) => {
       if (lastPage.data.current_page >= lastPage.totalPages) return undefined;
