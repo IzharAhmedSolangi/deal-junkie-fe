@@ -68,7 +68,7 @@ function Buyers() {
       <div className="w-full h-auto p-5">
         <div className="flex flex-col">
           <h1 className="text-[#02174C] text-[30px] font-[600]">Buyers</h1>
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between gap-2">
             <input
               type="search"
               value={filters.search}
@@ -84,9 +84,9 @@ function Buyers() {
                 }
               }}
               placeholder="Search..."
-              className="w-[30%] h-[35px] rounded border border-[#02174C33] px-2 hover:border-secondary focus:border-secondary"
+              className="md:w-[30%] w-full h-[35px] rounded border border-[#02174C33] px-2 hover:border-secondary focus:border-secondary"
             />
-            <div className="min-w-[150px]">
+            <div className="md:min-w-[150px] min-w-[120px]">
               <Dropdown
                 placeholder="Select"
                 options={[

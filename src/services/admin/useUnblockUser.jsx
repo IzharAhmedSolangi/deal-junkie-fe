@@ -1,18 +1,21 @@
 import axios from "axios";
 import { getAccessToken } from "../../storage/storage";
 import { ErrorToaster, SuccessToaster } from "../../components/shared/Toster";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import GlobalContext from "../../context/GlobalContext";
 
 function useUnblockUser() {
   const BASE_URL = import.meta.env.VITE_API_URL;
   const token = getAccessToken();
+  const { setUpdateResponse } = useContext(GlobalContext);
+
   const [unblockUser, setUnblockUser] = useState({
     loading: false,
     data: null,
     message: null,
   });
 
-  const BlockUser = async (userId) => {
+  const UnblockUser = async (userId, handleClose) => {
     setUnblockUser((prevState) => ({
       ...prevState,
       loading: true,
@@ -20,8 +23,8 @@ function useUnblockUser() {
       message: null,
     }));
     await axios
-      .patch(
-        `${BASE_URL}/api/admin/block-user/${userId}/`,
+      .post(
+        `${BASE_URL}/api/admin/unblock-user/${userId}/`,
         {},
         {
           headers: {
@@ -30,6 +33,8 @@ function useUnblockUser() {
         }
       )
       .then((response) => {
+        handleClose();
+        setUpdateResponse(true);
         setUnblockUser((prevState) => ({
           ...prevState,
           loading: false,
@@ -50,7 +55,7 @@ function useUnblockUser() {
         }));
       });
   };
-  return { BlockUser, unblockUser };
+  return { UnblockUser, unblockUser };
 }
 
 export default useUnblockUser;

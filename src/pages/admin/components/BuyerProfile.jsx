@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { CiUser } from "react-icons/ci";
 import {
   MdOutlineLocationOn,
@@ -6,9 +7,14 @@ import {
 } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { FaLinkedin } from "react-icons/fa";
+import Block from "../modals/Block";
+import { useState } from "react";
+import Unblock from "../modals/Unblock";
 
-function buyerProfile(props) {
+function BuyerProfile(props) {
   const { buyer } = props;
+  const [isOpenBlockModal, setIsOpenBlockModal] = useState(false);
+  const [isOpenUnblockModal, setIsOpenUnblockModal] = useState(false);
 
   return (
     <div className="w-full p-5 bg-white rounded-xl shadow-lg">
@@ -79,9 +85,22 @@ function buyerProfile(props) {
       </div>
 
       <div className="flex gap-2 mt-6">
-        <button className="button-2 w-full bg-secondary text-white py-2 rounded-sm cursor-pointer">
-          Block User
-        </button>
+        {buyer.data?.buyer_details?.is_active ? (
+          <button
+            className="button-2 w-full bg-secondary text-white py-2 rounded-sm cursor-pointer"
+            onClick={() => setIsOpenBlockModal(true)}
+          >
+            Block User
+          </button>
+        ) : (
+          <button
+            className="button-2 w-full bg-secondary text-white py-2 rounded-sm cursor-pointer"
+            onClick={() => setIsOpenUnblockModal(true)}
+          >
+            Unblock User
+          </button>
+        )}
+
         <Link
           className="button-2 w-full bg-primary text-secondary py-2 rounded-sm cursor-pointer flex justify-center items-center"
           to={`/admin/inbox?userId=${buyer.data?.buyer_details?.id}&username=${buyer.data?.buyer_details?.first_name}`}
@@ -89,8 +108,25 @@ function buyerProfile(props) {
           Send Message
         </Link>
       </div>
+
+      <Block
+        isOpenModal={isOpenBlockModal}
+        setIsOpenModal={setIsOpenBlockModal}
+        icon="/assets/icons/icon-3.png"
+        title="Confirmation"
+        description={`Are you sure you want to block ${buyer.data?.buyer_details?.first_name}?`}
+        userId={buyer.data?.buyer_details?.id}
+      />
+      <Unblock
+        isOpenModal={isOpenUnblockModal}
+        setIsOpenModal={setIsOpenUnblockModal}
+        icon="/assets/icons/icon-3.png"
+        title="Confirmation"
+        description={`Are you sure you want to unblock ${buyer.data?.buyer_details?.first_name}?`}
+        userId={buyer.data?.buyer_details?.id}
+      />
     </div>
   );
 }
 
-export default buyerProfile;
+export default BuyerProfile;

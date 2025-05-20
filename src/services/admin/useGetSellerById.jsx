@@ -1,10 +1,13 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import axios from "axios";
 import { getAccessToken } from "../../storage/storage";
+import GlobalContext from "../../context/GlobalContext";
 
 function useGetSellerById() {
   const BASE_URL = import.meta.env.VITE_API_URL;
   const token = getAccessToken();
+  const { setUpdateResponse } = useContext(GlobalContext);
+
   const [seller, setSeller] = useState({
     loading: true,
     data: null,
@@ -23,6 +26,7 @@ function useGetSellerById() {
         },
       })
       .then((response) => {
+        setUpdateResponse(false);
         setSeller((prevState) => ({
           ...prevState,
           loading: false,

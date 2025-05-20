@@ -3,19 +3,21 @@ import { Link, useParams } from "react-router-dom";
 import SellerInformation from "./components/SellerInformation";
 import SellerProfile from "./components/SellerProfile";
 import useGetSellerById from "../../services/admin/useGetSellerById";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { ButtonLoader3 } from "../../components/shared/ButtonLoaders";
 import AppHead from "../../seo/AppHead";
+import GlobalContext from "../../context/GlobalContext";
 
 function SellerDetails() {
   const { sellerId } = useParams();
   const { GetSellerById, seller } = useGetSellerById();
+  const { updateResponse } = useContext(GlobalContext);
 
   useEffect(() => {
     if (sellerId) {
       GetSellerById(sellerId);
     }
-  }, [sellerId]);
+  }, [sellerId, updateResponse]);
 
   return (
     <>

@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import { useState } from "react";
 import { FaLinkedin } from "react-icons/fa";
 import {
   MdOutlineLocationOn,
@@ -6,9 +7,13 @@ import {
   MdPhoneAndroid,
 } from "react-icons/md";
 import { Link } from "react-router-dom";
+import Block from "../modals/Block";
+import Unblock from "../modals/Unblock";
 
 function SellerProfile(props) {
   const { seller } = props;
+  const [isOpenBlockModal, setIsOpenBlockModal] = useState(false);
+  const [isOpenUnblockModal, setIsOpenUnblockModal] = useState(false);
 
   return (
     <div className="w-full p-5 bg-white rounded-xl shadow-lg">
@@ -67,9 +72,22 @@ function SellerProfile(props) {
       </div>
 
       <div className="flex gap-2 mt-6">
-        <button className="button-2 w-full bg-secondary text-white py-2 rounded-sm cursor-pointer">
-          Block User
-        </button>
+        {seller.data?.user?.is_active ? (
+          <button
+            className="button-2 w-full bg-secondary text-white py-2 rounded-sm cursor-pointer"
+            onClick={() => setIsOpenBlockModal(true)}
+          >
+            Block User
+          </button>
+        ) : (
+          <button
+            className="button-2 w-full bg-secondary text-white py-2 rounded-sm cursor-pointer"
+            onClick={() => setIsOpenUnblockModal(true)}
+          >
+            Unblock User
+          </button>
+        )}
+
         <Link
           className="button-2 w-full bg-primary text-secondary py-2 rounded-sm cursor-pointer flex justify-center items-center"
           to={`/admin/inbox?userId=${seller.data?.user?.id}&username=${seller.data?.user?.first_name}`}
@@ -77,6 +95,23 @@ function SellerProfile(props) {
           Send Message
         </Link>
       </div>
+
+      <Block
+        isOpenModal={isOpenBlockModal}
+        setIsOpenModal={setIsOpenBlockModal}
+        icon="/assets/icons/icon-3.png"
+        title="Confirmation"
+        description={`Are you sure you want to block ${seller.data?.user?.first_name}?`}
+        userId={seller.data?.user?.id}
+      />
+      <Unblock
+        isOpenModal={isOpenUnblockModal}
+        setIsOpenModal={setIsOpenUnblockModal}
+        icon="/assets/icons/icon-3.png"
+        title="Confirmation"
+        description={`Are you sure you want to unblock ${seller.data?.user?.first_name}?`}
+        userId={seller.data?.user?.id}
+      />
     </div>
   );
 }

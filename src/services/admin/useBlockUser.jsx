@@ -1,18 +1,21 @@
 import axios from "axios";
 import { getAccessToken } from "../../storage/storage";
 import { ErrorToaster, SuccessToaster } from "../../components/shared/Toster";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import GlobalContext from "../../context/GlobalContext";
 
 function useBlockUser() {
   const BASE_URL = import.meta.env.VITE_API_URL;
   const token = getAccessToken();
+  const { setUpdateResponse } = useContext(GlobalContext);
+
   const [blockUser, setBlockUser] = useState({
     loading: false,
     data: null,
     message: null,
   });
 
-  const BlockUser = async (userId) => {
+  const BlockUser = async (userId, handleClose) => {
     setBlockUser((prevState) => ({
       ...prevState,
       loading: true,
@@ -20,7 +23,7 @@ function useBlockUser() {
       message: null,
     }));
     await axios
-      .patch(
+      .post(
         `${BASE_URL}/api/admin/block-user/${userId}/`,
         {},
         {
@@ -30,6 +33,8 @@ function useBlockUser() {
         }
       )
       .then((response) => {
+        handleClose();
+        setUpdateResponse(true);
         setBlockUser((prevState) => ({
           ...prevState,
           loading: false,
