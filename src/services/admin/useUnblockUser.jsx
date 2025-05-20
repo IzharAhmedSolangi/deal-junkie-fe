@@ -1,21 +1,19 @@
 import axios from "axios";
-import { useContext, useState } from "react";
 import { getAccessToken } from "../../storage/storage";
 import { ErrorToaster, SuccessToaster } from "../../components/shared/Toster";
-import GlobalContext from "../../context/GlobalContext";
+import { useState } from "react";
 
-function useCancelTask() {
+function useUnblockUser() {
   const BASE_URL = import.meta.env.VITE_API_URL;
-  const { setUpdateResponse } = useContext(GlobalContext);
   const token = getAccessToken();
-  const [cancelTask, setCancelTask] = useState({
+  const [unblockUser, setUnblockUser] = useState({
     loading: false,
     data: null,
     message: null,
   });
 
-  const CancelTask = async (taskId) => {
-    setCancelTask((prevState) => ({
+  const BlockUser = async (userId) => {
+    setUnblockUser((prevState) => ({
       ...prevState,
       loading: true,
       data: null,
@@ -23,7 +21,7 @@ function useCancelTask() {
     }));
     await axios
       .patch(
-        `${BASE_URL}/api/buyer/project/${taskId}/cancel/`,
+        `${BASE_URL}/api/admin/block-user/${userId}/`,
         {},
         {
           headers: {
@@ -32,18 +30,19 @@ function useCancelTask() {
         }
       )
       .then((response) => {
-        setUpdateResponse(true);
-        setCancelTask((prevState) => ({
+        setUnblockUser((prevState) => ({
           ...prevState,
           loading: false,
           data: response.data,
-          message: response.data ? null : "Your task successfully Cancelled",
+          message: response.data
+            ? null
+            : "Your have successfully unblocked this user",
         }));
-        SuccessToaster("Task Cancelled", response?.data?.message);
+        SuccessToaster("Unblocked", response?.data?.message);
       })
       .catch((error) => {
         ErrorToaster("Error", error?.response?.data?.message);
-        setCancelTask((prevState) => ({
+        setUnblockUser((prevState) => ({
           ...prevState,
           loading: false,
           data: null,
@@ -51,7 +50,7 @@ function useCancelTask() {
         }));
       });
   };
-  return { CancelTask, cancelTask };
+  return { BlockUser, unblockUser };
 }
 
-export default useCancelTask;
+export default useUnblockUser;

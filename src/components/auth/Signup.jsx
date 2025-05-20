@@ -20,7 +20,8 @@ const validationSchema = Yup.object({
   role: Yup.string().required("Please select Junkie"),
   username: Yup.string()
     .required("username is required")
-    .max(100, "Limit exceeded"),
+    .max(100, "Limit exceeded")
+    .matches(/^\S*$/, "Username cannot contain spaces"),
   firstname: Yup.string()
     .required("Firstname is required")
     .max(100, "Limit exceeded"),
