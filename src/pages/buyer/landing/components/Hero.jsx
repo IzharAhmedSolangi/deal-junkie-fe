@@ -22,7 +22,7 @@ function Hero() {
     Navigate(`/find-experts?search=${query}`);
   };
 
-  const GetAllSellers = async () => {
+  const GetRandomSellers = async () => {
     await axios
       .get(`${BASE_URL}/api/accounts/random-sellers/`)
       .then((response) => {
@@ -30,7 +30,7 @@ function Hero() {
           ...prevState,
           loading: false,
           data: response.data,
-          message: response.data ? null : "We didn't find any task",
+          message: response.data ? null : "We didn't find random sellers",
         }));
       })
       .catch((error) => {
@@ -43,7 +43,7 @@ function Hero() {
       });
   };
   useEffect(() => {
-    GetAllSellers();
+    GetRandomSellers();
   }, []);
 
   return (
@@ -110,7 +110,17 @@ function Hero() {
                   <h3 className="md:text-lg text-[12px] font-bold md:mt-2 mt-1 text-[#022247] text-center">
                     {item?.name}
                   </h3>
-                  <div className="flex justify-center">
+                  <div className="w-full flex justify-center">
+                    <a
+                      href={item?.linkedin_link}
+                      target="_blank"
+                      rel="noferrer"
+                      className="font-normal text-center text-[15px] text-[#6F7487] hover:underline hover:text-secondary"
+                    >
+                      {item?.linkedin_link}
+                    </a>
+                  </div>
+                  <div className="flex justify-center mt-1">
                     <p className="bg-[#F2F4F7] font-[500] md:text-[14px] text-[10px] text-secondary border border-secondary rounded-full py-1 px-2 ">
                       Starting from ${item?.rate_per_hour}
                     </p>

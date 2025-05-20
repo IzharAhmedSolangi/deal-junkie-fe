@@ -22,7 +22,7 @@ function Hero() {
     Navigate(`/find-jobs?search=${query}`);
   };
 
-  const GetAllBuyers = async () => {
+  const GetRandomBuyers = async () => {
     await axios
       .get(`${BASE_URL}/api/accounts/random-buyers/`)
       .then((response) => {
@@ -30,7 +30,7 @@ function Hero() {
           ...prevState,
           loading: false,
           data: response.data,
-          message: response.data ? null : "We didn't find any buyers",
+          message: response.data ? null : "We didn't find random buyers",
         }));
       })
       .catch((error) => {
@@ -43,7 +43,7 @@ function Hero() {
       });
   };
   useEffect(() => {
-    GetAllBuyers();
+    GetRandomBuyers();
   }, []);
 
   return (
@@ -109,6 +109,16 @@ function Hero() {
                       {item?.address?.street}
                     </p>
                   </div> */}
+                  <div className="w-full flex justify-center mt-1">
+                    <a
+                      href={item?.linkedin_link}
+                      target="_blank"
+                      rel="noferrer"
+                      className="font-normal text-center text-[15px] text-[#6F7487] hover:underline hover:text-secondary"
+                    >
+                      {item?.linkedin_link}
+                    </a>
+                  </div>
                   <div className="flex justify-center gap-1 mt-2">
                     <MdOutlineMail className="text-[#6F7487] md:text-[20px] text-[15px]" />
                     <p className="font-normal md:text-[14px] text-[10px] text-[#6F7487]">
