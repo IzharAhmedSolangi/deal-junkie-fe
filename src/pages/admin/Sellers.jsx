@@ -97,11 +97,16 @@ function Sellers() {
                 ]}
                 selected={filters.filter}
                 onChange={(option) => {
-                  setFilters((prevState) => ({
-                    ...prevState,
+                  const updatedFilters = {
+                    ...filters,
                     filter: option,
-                  }));
-                  applyFilters();
+                  };
+                  setFilters(updatedFilters);
+                  setAppliedFilters(updatedFilters);
+                  setSearchParams({
+                    search: updatedFilters.search,
+                    filter: JSON.stringify(updatedFilters.filter),
+                  });
                 }}
               />
             </div>
