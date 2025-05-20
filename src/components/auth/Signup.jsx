@@ -39,7 +39,12 @@ const validationSchema = Yup.object({
     .max(100, "Limit exceeded"),
   password: Yup.string()
     .required("Password is required")
-    .max(100, "Limit exceeded"),
+    .max(100, "Limit exceeded")
+    .min(8, "Password must be at least 8 characters")
+    .matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/,
+      "Password must include uppercase, lowercase, number, and special character"
+    ),
   linkedin_link: Yup.string()
     .required("LinkedIn link is required")
     .max(100, "Limit exceeded"),
