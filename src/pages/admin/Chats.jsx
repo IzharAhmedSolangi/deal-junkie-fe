@@ -1,7 +1,7 @@
 import AppHead from "../../seo/AppHead";
 import { useState, useEffect } from "react";
 import { FaChevronLeft } from "react-icons/fa";
-import useGetllAllChats from "../../services/admin/useGetllAllChats";
+import useGetllAllChats from "../../services/admin/useGetAllChats";
 import { CiSearch } from "react-icons/ci";
 import { ButtonLoader3 } from "../../components/shared/ButtonLoaders";
 

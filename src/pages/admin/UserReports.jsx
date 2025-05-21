@@ -2,9 +2,9 @@
 import { useCallback, useRef } from "react";
 import { ButtonLoader3 } from "../../components/shared/ButtonLoaders";
 import ShowMessage from "../../components/shared/ShowMessage";
-import { TableSkelton1 } from "../../components/skeltons/TableSkeltons";
+import { TableSkelton3 } from "../../components/skeltons/TableSkeltons";
 import AppHead from "../../seo/AppHead";
-import useGetllAllUserReports from "../../services/admin/useGetllAllUserReports";
+import useGetllAllUserReports from "../../services/admin/useGetAllUserReports";
 
 function UserReports() {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
@@ -117,7 +117,7 @@ function Table(props) {
             {isLoading && (
               <tbody>
                 {Array.from({ length: 6 }, (_, index) => (
-                  <TableSkelton1 key={index} />
+                  <TableSkelton3 key={index} />
                 ))}
               </tbody>
             )}

@@ -4,7 +4,7 @@ import { ButtonLoader3 } from "../../components/shared/ButtonLoaders";
 import ShowMessage from "../../components/shared/ShowMessage";
 import { TableSkelton1 } from "../../components/skeltons/TableSkeltons";
 import AppHead from "../../seo/AppHead";
-import useGetAllSupportMessages from "../../services/admin/useGetllAllSupportMessages";
+import useGetAllSupportMessages from "../../services/admin/useGetAllSupportMessages";
 
 function SupportMessages() {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
