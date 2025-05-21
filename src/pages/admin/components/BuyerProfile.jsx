@@ -22,7 +22,7 @@ function BuyerProfile(props) {
         <h1 className="text-[#222222] text-[16px] font-semibold mb-2">
           Buyer details
         </h1>
-        <div className="flex items-center gap-5 mt-2">
+        <div className="flex items-center sm:flex-row flex-col gap-5 mt-2">
           {buyer.data?.buyer_details?.profile_picture ? (
             <img
               src={buyer.data?.buyer_details?.profile_picture}
@@ -49,7 +49,7 @@ function BuyerProfile(props) {
             </div>
             <div className="flex gap-1 mt-2">
               <MdOutlineLocationOn className="text-[#6F7487] text-[20px] flex-shrink-0" />
-              <p className="font-normal text-[14px] text-[#6F7487] text-center">
+              <p className="font-normal text-[14px] text-[#6F7487] break-words whitespace-normal max-w-full">
                 {buyer.data?.buyer_details?.street}
                 {buyer.data?.buyer_details?.city &&
                   `, ${buyer.data?.buyer_details?.city}`}
@@ -63,20 +63,20 @@ function BuyerProfile(props) {
                 href={buyer.data?.user?.linkedin_link}
                 target="_blank"
                 rel="noferrer"
-                className="font-normal text-[14px] text-[#6F7487] hover:underline hover:text-secondary"
+                className="font-normal text-[14px] text-[#6F7487] hover:underline hover:text-secondary break-words whitespace-normal max-w-full"
               >
                 {buyer.data?.user?.linkedin_link}
               </a>
             </div>
             <div className="flex gap-1 mt-2">
               <MdOutlineMail className="text-[#6F7487] text-[20px] flex-shrink-0" />
-              <p className="font-normal text-[14px] text-[#6F7487]">
+              <p className="font-normal text-[14px] text-[#6F7487] break-words whitespace-normal max-w-full">
                 {buyer.data?.buyer_details?.email}
               </p>
             </div>
             <div className="flex gap-1 mt-2">
               <MdPhoneAndroid className="text-[#6F7487] text-[20px] flex-shrink-0" />
-              <p className="font-normal text-[14px] text-[#6F7487]">
+              <p className="font-normal text-[14px] text-[#6F7487] break-words whitespace-normal max-w-full">
                 {buyer.data?.buyer_details?.phone_number}
               </p>
             </div>
