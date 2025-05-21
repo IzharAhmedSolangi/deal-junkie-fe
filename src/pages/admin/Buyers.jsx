@@ -137,29 +137,35 @@ function Buyers() {
                     <h3 className="text-lg font-bold mt-2 text-[#022247] text-center">
                       {item?.first_name}
                     </h3>
-                    {/* <div className="flex justify-center gap-1 mt-2">
-                      <MdOutlineLocationOn className="text-[#6F7487] text-[20px]" />
-                      <p className="font-normal text-[14px] text-[#6F7487] text-center">
-                        {item?.street}
-                        {item?.city && `, ${item?.city}`}
-                        {item?.state && `, ${item?.state}`}
-                      </p>
-                    </div> */}
-                    <div className="flex justify-center gap-1 mt-2">
-                      <MdOutlineMail className="text-[#6F7487] text-[20px]flex-shrink-0" />
-                      <p className="font-normal text-[14px] text-[#6F7487]">
-                        {item?.email}
-                      </p>
-                    </div>
-                    <div className="flex justify-center gap-1 mt-2">
-                      <MdPhoneAndroid className="text-[#6F7487] text-[20px] flex-shrink-0" />
-                      <p className="font-normal text-[14px] text-[#6F7487]">
-                        {item?.phone_number}
-                      </p>
-                    </div>
+                    {/* {item?.street && (
+                      <div className="flex justify-center items-center gap-1 mt-2">
+                        <MdOutlineLocationOn className="text-[#6F7487] sm:text-[20px] text-[15px]" />
+                        <p className="font-normal sm:text-[14px] text-[12px] text-[#6F7487] text-center">
+                          {item?.street}
+                          {item?.city && `, ${item?.city}`}
+                          {item?.state && `, ${item?.state}`}
+                        </p>
+                      </div>
+                    )} */}
+                    {item?.email && (
+                      <div className="flex justify-center items-center gap-1 mt-1">
+                        <MdOutlineMail className="text-[#6F7487] sm:text-[20px] text-[15px] flex-shrink-0" />
+                        <p className="font-normal sm:text-[14px] text-[12px] text-[#6F7487]">
+                          {item?.email}
+                        </p>
+                      </div>
+                    )}
+                    {item?.phone_number && (
+                      <div className="flex justify-center items-center gap-1 mt-1">
+                        <MdPhoneAndroid className="text-[#6F7487] sm:text-[20px] text-[15px] flex-shrink-0" />
+                        <p className="font-normal sm:text-[14px] text-[12px] text-[#6F7487]">
+                          {item?.phone_number}
+                        </p>
+                      </div>
+                    )}
                     <Link
                       to={`/admin/buyers/${item.id}`}
-                      className="button-2 w-full bg-secondary text-white py-2 rounded-sm cursor-pointer mt-3 flex justify-center items-center"
+                      className="button-2 w-full bg-secondary text-white py-2 rounded-sm cursor-pointer mt-2 flex justify-center items-center"
                     >
                       View Details
                     </Link>

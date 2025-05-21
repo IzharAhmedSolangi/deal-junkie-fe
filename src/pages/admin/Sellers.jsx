@@ -138,8 +138,8 @@ function Sellers() {
                     {item?.user?.first_name}
                   </h3>
                   <div className="flex justify-center">
-                    <p className="bg-[#F2F4F7] font-[500] text-[14px] text-secondary border border-secondary rounded-full py-1 px-2 ">
-                      Starting from ${item?.rate_per_hour}
+                    <p className="bg-[#F2F4F7] font-[500] sm:text-[14px] text-[12px] text-secondary border border-secondary rounded-full py-1 px-2 ">
+                      Starting from ${item?.rate_per_hour || 0}
                     </p>
                   </div>
                   <div className="flex justify-center items-center gap-2 my-2">

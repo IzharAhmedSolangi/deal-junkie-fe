@@ -105,7 +105,7 @@ function ReportUser(props) {
                 >
                   <AiOutlineClose className="text-[22px]" />
                 </button>
-                <div className="flex flex-col justify-center items-center w-full">
+                <div className="flex flex-col justify-center items-center w-full md:mt-0 mt-6">
                   <h1 className="font-[600] md:text-[30px] text-[24px] text-secondary text-center">
                     {title}
                   </h1>

@@ -2,11 +2,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import {
-  MdOutlineLocationOn,
-  MdOutlineMail,
-  MdPhoneAndroid,
-} from "react-icons/md";
+import { MdOutlineMail, MdPhoneAndroid } from "react-icons/md";
 
 function Hero() {
   const Navigate = useNavigate();
@@ -96,41 +92,41 @@ function Hero() {
                       className="w-full md:h-[200px] xs:h-[100px] object-cover rounded-sm"
                     />
                   ) : (
-                    <div className="w-full md:h-[200px] xs:h-[100px] bg-gray-200 rounded-sm flex justify-center items-center md:text-[15px] text-[10px]">
+                    <div className="w-full md:h-[200px] xs:h-[100px] bg-gray-200 rounded-sm flex justify-center items-center sm:text-[15px] text-[10px]">
                       {item?.name}
                     </div>
                   )}
-                  <h3 className="md:text-lg text-[12px] font-bold md:mt-2 mt-1 text-[#022247] text-center">
+                  <h3 className="sm:text-lg text-[12px] font-bold md:mt-2 mt-1 text-[#022247] text-center">
                     {item?.name}
                   </h3>
-                  {/* <div className="flex justify-center gap-1 mt-2">
-                    <MdOutlineLocationOn className="text-[#6F7487] md:text-[20px] text-[12px]" />
-                    <p className="font-normal md:text-[14px] text-[10px] text-[#6F7487] text-center">
-                      {item?.address?.street}
-                    </p>
-                  </div> */}
-                  <div className="w-full flex justify-center mt-1">
-                    <a
-                      href={item?.linkedin_link}
-                      target="_blank"
-                      rel="noferrer"
-                      className="font-normal text-center text-[15px] text-[#6F7487] hover:underline hover:text-secondary"
-                    >
-                      {item?.linkedin_link}
-                    </a>
-                  </div>
-                  <div className="flex justify-center gap-1 mt-2">
-                    <MdOutlineMail className="text-[#6F7487] md:text-[20px] text-[15px]" />
-                    <p className="font-normal md:text-[14px] text-[10px] text-[#6F7487]">
-                      {item?.email}
-                    </p>
-                  </div>
-                  <div className="flex justify-center gap-1 mt-2">
-                    <MdPhoneAndroid className="text-[#6F7487] md:text-[20px] text-[12px]" />
-                    <p className="font-normal md:text-[14px] text-[10px] text-[#6F7487]">
-                      {item?.phone_number}
-                    </p>
-                  </div>
+                  {item?.linkedin_link && (
+                    <div className="w-full flex justify-center md:mt-2 mt-0">
+                      <a
+                        href={item?.linkedin_link}
+                        target="_blank"
+                        rel="noferrer"
+                        className="font-normal md:text-[14px] text-[10px] text-[#6F7487] hover:underline hover:text-secondary text-center break-words whitespace-normal max-w-full"
+                      >
+                        {item?.linkedin_link}
+                      </a>
+                    </div>
+                  )}
+                  {item?.email && (
+                    <div className="flex justify-center items-center gap-1 md:mt-2 mt-0">
+                      <MdOutlineMail className="text-[#6F7487] md:text-[20px] text-[10px] flex-shrink-0" />
+                      <p className="font-normal sm:text-[14px] text-[10px] text-[#6F7487] text-center break-words whitespace-normal max-w-full">
+                        {item?.email}
+                      </p>
+                    </div>
+                  )}
+                  {item?.phone_number && (
+                    <div className="flex justify-center items-center gap-1 md:mt-2 mt-0">
+                      <MdPhoneAndroid className="text-[#6F7487] md:text-[20px] text-[10px] flex-shrink-0" />
+                      <p className="font-normal sm:text-[14px] text-[10px] text-[#6F7487] text-center break-words whitespace-normal max-w-full">
+                        {item?.phone_number}
+                      </p>
+                    </div>
+                  )}
                 </div>
               );
             })}

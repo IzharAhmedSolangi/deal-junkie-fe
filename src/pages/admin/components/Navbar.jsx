@@ -20,7 +20,7 @@ const Navbar = (props) => {
               className="text-[30px] text-[#788BA5] hover:text-primary cursor-pointer"
             />
           </div>
-          <h1 className="text-secondary font-semibold md:text-[20px] text-[15px]">
+          <h1 className="text-secondary font-semibold md:text-[20px] text-[15px] md:block hidden">
             Welcome, {userInfo?.user?.first_name}
           </h1>
         </div>
@@ -44,7 +44,7 @@ const Navbar = (props) => {
                 {userInfo?.user?.email}
               </p>
             </div>
-            <IoMdArrowDropdown className="text-[25px]" />
+            {/* <IoMdArrowDropdown className="text-[25px]" /> */}
           </div>
         </div>
       </div>

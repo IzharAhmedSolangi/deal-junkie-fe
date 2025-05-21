@@ -110,19 +110,21 @@ function Hero() {
                   <h3 className="md:text-lg text-[12px] font-bold md:mt-2 mt-1 text-[#022247] text-center">
                     {item?.name}
                   </h3>
-                  <div className="w-full flex justify-center">
-                    <a
-                      href={item?.linkedin_link}
-                      target="_blank"
-                      rel="noferrer"
-                      className="font-normal text-center text-[15px] text-[#6F7487] hover:underline hover:text-secondary"
-                    >
-                      {item?.linkedin_link}
-                    </a>
-                  </div>
-                  <div className="flex justify-center mt-1">
-                    <p className="bg-[#F2F4F7] font-[500] md:text-[14px] text-[10px] text-secondary border border-secondary rounded-full py-1 px-2 ">
-                      Starting from ${item?.rate_per_hour}
+                  {item?.linkedin_link && (
+                    <div className="flex justify-center items-center gap-1 md:mt-2 mt-0">
+                      <a
+                        href={item?.linkedin_link}
+                        target="_blank"
+                        rel="noferrer"
+                        className="font-normal md:text-[14px] text-[10px] text-[#6F7487] hover:underline hover:text-secondary text-center break-words whitespace-normal max-w-full"
+                      >
+                        {item?.linkedin_link}
+                      </a>
+                    </div>
+                  )}
+                  <div className="flex justify-center items-center gap-1 md:mt-2 mt-1">
+                    <p className="bg-[#F2F4F7] font-[500] md:text-[14px] text-[10px] text-secondary border border-secondary rounded-full py-1 px-2">
+                      Starting from ${item?.rate_per_hour || 0}
                     </p>
                   </div>
                   <div className="flex md:flex-row flex-col justify-center items-center md:gap-2 gap-0 my-2">

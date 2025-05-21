@@ -42,15 +42,15 @@ function FindExpertsCard({ data, isLoading, isFetchingNextPage, lastItemRef }) {
                       {item?.user?.first_name}
                     </div>
                   )}
-                  <h3 className="md:text-lg text-[14px] font-bold mt-2 text-[#022247] text-center">
+                  <h3 className="md:text-lg text-[14px] font-bold md:mt-2 mt-1 text-[#022247] text-center">
                     {item?.user?.first_name}
                   </h3>
-                  <div className="flex justify-center md:mt-1 mt-1">
+                  <div className="flex justify-center md:mt-1 mt-0">
                     <p className="bg-[#F2F4F7] font-[500] md:text-[14px] text-[12px] text-secondary border border-secondary rounded-full md:py-1 py-[2px] md:px-2 px-1">
                       Starting from ${item?.rate_per_hour}
                     </p>
                   </div>
-                  <div className="flex md:flex-row flex-col justify-center items-center md:gap-2 gap-[2px] my-2">
+                  <div className="flex md:flex-row flex-col justify-center items-center md:gap-2 gap-[2px] md:my-2 my-1">
                     <RatingStars rating={item?.rating || 0} totalReviews={0} />
                   </div>
                   <div className="flex md:flex-row flex-col md:gap-2 gap-1 md:mt-6 mt-1">
@@ -71,7 +71,7 @@ function FindExpertsCard({ data, isLoading, isFetchingNextPage, lastItemRef }) {
                     </button>
                   </div>
                   <Link
-                    className="hover-slide-button mt-2 w-full bg-primary text-secondary py-2 rounded-sm cursor-pointer flex justify-center items-center hover:opacity-80"
+                    className="hover-slide-button md:mt-2 mt-1 w-full bg-primary text-secondary md:py-2 py-1 rounded-sm cursor-pointer flex justify-center items-center hover:opacity-80"
                     to={`/inbox?userId=${item?.user?.id}&username=${item?.user?.first_name}`}
                   >
                     Send Message
