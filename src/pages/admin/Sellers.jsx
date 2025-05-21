@@ -134,21 +134,21 @@ function Sellers() {
                       {item?.user?.first_name}
                     </div>
                   )}
-                  <h3 className="text-lg font-bold mt-2 text-[#022247] text-center">
+                  <h3 className="text-lg font-bold sm:mt-2 mt-1 text-[#022247] text-center">
                     {item?.user?.first_name}
                   </h3>
                   <div className="flex justify-center">
-                    <p className="bg-[#F2F4F7] font-[500] sm:text-[14px] text-[12px] text-secondary border border-secondary rounded-full py-1 px-2 ">
+                    <p className="bg-[#F2F4F7] font-[500] sm:text-[14px] text-[10px] text-secondary border border-secondary rounded-full py-1 px-2 ">
                       Starting from ${item?.rate_per_hour || 0}
                     </p>
                   </div>
-                  <div className="flex justify-center items-center gap-2 my-2">
+                  <div className="flex flex-col justify-center items-center sm:gap-2 gap-1 my-2">
                     <RatingStars rating={item?.rating || 0} totalReviews={0} />
                   </div>
 
                   <Link
                     to={`/admin/sellers/${item.id}`}
-                    className="button-2 w-full bg-secondary text-white py-2 rounded-sm cursor-pointer mt-3 flex justify-center items-center"
+                    className="button-2 w-full bg-secondary text-white sm:py-2 py-1 rounded-sm cursor-pointer sm:mt-3 mt-1 flex justify-center items-center"
                   >
                     View Details
                   </Link>

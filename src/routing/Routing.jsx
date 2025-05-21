@@ -45,6 +45,7 @@ import AdminBuyerDetails from "../pages/admin/BuyerDetails";
 import AdminJobDetails from "../pages/admin/JobDetails";
 import Layout from "../components/shared/Layout";
 import ScrollToTopButton from "./ScrollToTopButton";
+import UserReports from "../pages/admin/UserReports";
 
 const Routing = () => {
   const token = getAccessToken();
@@ -113,6 +114,7 @@ const Routing = () => {
                   path="admin/support-messages"
                   element={<AdminSupportMessages />}
                 />
+                <Route path="admin/user-reports" element={<UserReports />} />
                 <Route path="admin/inbox" element={<Inbox />} />
               </Route>
             )}

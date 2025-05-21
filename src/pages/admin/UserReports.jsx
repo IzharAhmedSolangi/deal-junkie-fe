@@ -4,11 +4,11 @@ import { ButtonLoader3 } from "../../components/shared/ButtonLoaders";
 import ShowMessage from "../../components/shared/ShowMessage";
 import { TableSkelton1 } from "../../components/skeltons/TableSkeltons";
 import AppHead from "../../seo/AppHead";
-import useGetAllSupportMessages from "../../services/admin/useGetllAllSupportMessages";
+import useGetllAllUserReports from "../../services/admin/useGetllAllUserReports";
 
-function SupportMessages() {
+function UserReports() {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
-    useGetAllSupportMessages();
+    useGetllAllUserReports();
 
   const observer = useRef();
 
@@ -28,20 +28,21 @@ function SupportMessages() {
     [isFetchingNextPage, hasNextPage, fetchNextPage]
   );
 
-  const allMessages = data?.pages?.flatMap((page) => page.data.results) || [];
+  // const allReports = data?.pages?.flatMap((page) => page.data.results) || [];
+  const allReports = [];
 
   return (
     <>
-      <AppHead title="Support Messages - Deal Junkie" />
+      <AppHead title="User Reports - Deal Junkie" />
       <div className="w-full h-auto p-5">
         <div className="flex items-center justify-between">
           <h1 className="text-[#02174C] text-[30px] font-[600]">
-            Support Messages
+            User Reports
           </h1>
         </div>
         <div className="mt-3">
           <Table
-            messages={allMessages}
+            reports={allReports}
             lastItemRef={lastItemRef}
             isLoading={isLoading}
             isFetchingNextPage={isFetchingNextPage}
@@ -52,10 +53,10 @@ function SupportMessages() {
   );
 }
 
-export default SupportMessages;
+export default UserReports;
 
 function Table(props) {
-  const { messages, isLoading, isFetchingNextPage, lastItemRef } = props;
+  const { reports, isLoading, isFetchingNextPage, lastItemRef } = props;
 
   return (
     <>
@@ -71,34 +72,22 @@ function Table(props) {
                   #
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">
-                  Name
+                  Reported User
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">
-                  Email
+                  Reason
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">
-                  Phone Number
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">
-                  State
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">
-                  City
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">
-                  Address
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">
-                  Query
+                  Description
                 </th>
               </tr>
             </thead>
 
             {/* Table Data */}
-            {messages && (
+            {reports && (
               <tbody className="divide-y divide-gray-200">
-                {messages?.map((data, index) => {
-                  const isLast = index === messages.length - 1;
+                {reports?.map((data, index) => {
+                  const isLast = index === reports.length - 1;
 
                   return (
                     <tr
@@ -110,25 +99,13 @@ function Table(props) {
                         {index + 1}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        {data.first_name} {data.last_name}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        {data.email}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        {data.phone_no}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        {data.state}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        {data.city}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        {data.street_address}
+                        {data.reported_user}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         {data.reason}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        {data.details}
                       </td>
                     </tr>
                   );
@@ -152,9 +129,9 @@ function Table(props) {
             </div>
           )}
 
-          {messages?.length === 0 && !isLoading && (
+          {reports?.length === 0 && !isLoading && (
             <div className="w-full h-[200px] flex justify-center items-center">
-              <ShowMessage title="We didn't find any support messages" />
+              <ShowMessage title="We didn't find any user reports" />
             </div>
           )}
         </div>

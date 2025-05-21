@@ -8,6 +8,7 @@ import { CgFileDocument } from "react-icons/cg";
 import { LuHandCoins } from "react-icons/lu";
 import { FiUser } from "react-icons/fi";
 import { BiMessageSquareDetail } from "react-icons/bi";
+import { GoReport } from "react-icons/go";
 
 import {
   removeAccessToken,
@@ -56,6 +57,12 @@ const sidebarItems = [
     name: "Support Messages",
     href: "/admin/support-messages",
     icon: <BiMessageSquareDetail />,
+  },
+  {
+    id: 8,
+    name: "User Reports",
+    href: "/admin/user-reports",
+    icon: <GoReport />,
   },
 ];
 

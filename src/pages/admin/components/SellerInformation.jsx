@@ -15,7 +15,7 @@ function SellerInformation(props) {
         <RatingStars rating={seller.data?.rating || 0} totalReviews={0} />
       </div>
 
-      <div className="flex items-center gap-3 text-[#6F7487] mt-2 text-[16px]">
+      <div className="flex items-center flex-wrap sm:gap-3 gap-2 text-[#6F7487] mt-2 text-[16px]">
         <div className="flex items-center gap-1">
           <CiDollar className="flex-shrink-0" />
           <p>Starting from ${seller.data?.rate_per_hour} / hr</p>
