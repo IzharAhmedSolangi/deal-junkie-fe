@@ -111,22 +111,22 @@ function Hero() {
                       </a>
                     </div>
                   )}
-                  {item?.email && (
+                  {/* {item?.email && (
                     <div className="flex justify-center items-center gap-1 md:mt-2 mt-0">
                       <MdOutlineMail className="text-[#6F7487] md:text-[20px] text-[10px] flex-shrink-0" />
                       <p className="font-normal sm:text-[14px] text-[10px] text-[#6F7487] text-center break-words whitespace-normal max-w-full">
                         {item?.email}
                       </p>
                     </div>
-                  )}
-                  {item?.phone_number && (
+                  )} */}
+                  {/* {item?.phone_number && (
                     <div className="flex justify-center items-center gap-1 md:mt-2 mt-0">
                       <MdPhoneAndroid className="text-[#6F7487] md:text-[20px] text-[10px] flex-shrink-0" />
                       <p className="font-normal sm:text-[14px] text-[10px] text-[#6F7487] text-center break-words whitespace-normal max-w-full">
                         {item?.phone_number}
                       </p>
                     </div>
-                  )}
+                  )} */}
                 </div>
               );
             })}

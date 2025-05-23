@@ -144,36 +144,44 @@ function Profile(props) {
         <h1 className="font-semibold text-[22px] text-secondary mt-3">
           {userInfo?.user?.first_name}
         </h1>
-        <div className="flex gap-1 mt-2">
-          <MdOutlineLocationOn className="text-[#6F7487] text-[20px] flex-shrink-0" />
-          <p className="font-normal text-[14px] text-[#6F7487]">
-            {userInfo?.user?.street}
-            {userInfo?.user?.city && `, ${userInfo?.user?.city}`}
-            {userInfo?.user?.state && `, ${userInfo?.user?.state}`}
-          </p>
-        </div>
-        <div className="flex gap-1 mt-2">
-          <a
-            href={userInfo?.user?.linkedin_link}
-            target="_blank"
-            rel="noferrer"
-            className="font-normal text-center text-[16px] text-[#6F7487] hover:underline hover:text-secondary"
-          >
-            {userInfo?.user?.linkedin_link}
-          </a>
-        </div>
-        <div className="flex gap-1 mt-2">
-          <MdOutlineMail className="text-[#6F7487] text-[20px] flex-shrink-0" />
-          <p className="font-normal text-[14px] text-[#6F7487]">
-            {userInfo?.user?.email}
-          </p>
-        </div>
-        <div className="flex gap-1 mt-2">
-          <MdPhoneAndroid className="text-[#6F7487] text-[20px] flex-shrink-0" />
-          <p className="font-normal text-[14px] text-[#6F7487]">
-            {userInfo?.user?.phone_number}
-          </p>
-        </div>
+        {userInfo?.user?.street && (
+          <div className="flex gap-1 mt-2">
+            <MdOutlineLocationOn className="text-[#6F7487] text-[20px] flex-shrink-0" />
+            <p className="font-normal text-[14px] text-[#6F7487]">
+              {userInfo?.user?.street}
+              {userInfo?.user?.city && `, ${userInfo?.user?.city}`}
+              {userInfo?.user?.state && `, ${userInfo?.user?.state}`}
+            </p>
+          </div>
+        )}
+        {userInfo?.user?.linkedin_link && (
+          <div className="flex gap-1 mt-2">
+            <a
+              href={userInfo?.user?.linkedin_link}
+              target="_blank"
+              rel="noferrer"
+              className="font-normal text-center text-[16px] text-[#6F7487] hover:underline hover:text-secondary"
+            >
+              {userInfo?.user?.linkedin_link}
+            </a>
+          </div>
+        )}
+        {userInfo?.user?.email && (
+          <div className="flex gap-1 mt-2">
+            <MdOutlineMail className="text-[#6F7487] text-[20px] flex-shrink-0" />
+            <p className="font-normal text-[14px] text-[#6F7487]">
+              {userInfo?.user?.email}
+            </p>
+          </div>
+        )}
+        {userInfo?.user?.phone_number && (
+          <div className="flex gap-1 mt-2">
+            <MdPhoneAndroid className="text-[#6F7487] text-[20px] flex-shrink-0" />
+            <p className="font-normal text-[14px] text-[#6F7487]">
+              {userInfo?.user?.phone_number}
+            </p>
+          </div>
+        )}
         <div className="mt-5 flex flex-col gap-2 w-full">
           <button
             className="button-2 bg-secondary border border-secondary cursor-pointer w-full h-[45px] text-white rounded flex justify-center items-center gap-2"

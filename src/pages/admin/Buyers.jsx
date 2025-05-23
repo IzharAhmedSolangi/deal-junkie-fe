@@ -147,6 +147,18 @@ function Buyers() {
                         </p>
                       </div>
                     )} */}
+                    {item?.linkedin_link && (
+                      <div className="w-full flex justify-center md:mt-2 mt-0">
+                        <a
+                          href={item?.linkedin_link}
+                          target="_blank"
+                          rel="noferrer"
+                          className="font-normal md:text-[14px] text-[10px] text-[#6F7487] hover:underline hover:text-secondary text-center break-words whitespace-normal max-w-full"
+                        >
+                          {item?.linkedin_link}
+                        </a>
+                      </div>
+                    )}
                     {item?.email && (
                       <div className="flex justify-center items-center gap-1 mt-1">
                         <MdOutlineMail className="text-[#6F7487] sm:text-[20px] text-[15px] flex-shrink-0" />

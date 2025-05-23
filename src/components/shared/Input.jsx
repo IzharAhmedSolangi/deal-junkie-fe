@@ -12,6 +12,7 @@ function Input(props) {
     field,
     password,
     setPassword,
+    readyOnly,
   } = props;
 
   return (
@@ -26,6 +27,7 @@ function Input(props) {
         // placeholder={placeholder}
         name={name}
         value={value}
+        readOnly={readyOnly ? true : false}
         onChange={handleChange}
         id={name}
         className="peer w-full h-full ps-[30px] pe-[20px] rounded-[4px] bg-transparent border border-[#02174C33] outline-none hover:border-secondary focus:border-secondary"

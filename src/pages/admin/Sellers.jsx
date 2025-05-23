@@ -137,6 +137,18 @@ function Sellers() {
                   <h3 className="text-lg font-bold sm:mt-2 mt-1 text-[#022247] text-center">
                     {item?.user?.first_name}
                   </h3>
+                  {item?.user?.linkedin_link && (
+                    <div className="w-full flex justify-center md:mt-1 mt-0">
+                      <a
+                        href={item?.user?.linkedin_link}
+                        target="_blank"
+                        rel="noferrer"
+                        className="font-normal md:text-[14px] text-[10px] text-[#6F7487] hover:underline hover:text-secondary text-center break-words whitespace-normal max-w-full"
+                      >
+                        {item?.user?.linkedin_link}
+                      </a>
+                    </div>
+                  )}
                   <div className="flex justify-center">
                     <p className="bg-[#F2F4F7] font-[500] sm:text-[14px] text-[10px] text-secondary border border-secondary rounded-full py-1 px-2 ">
                       Starting from ${item?.rate_per_hour || 0}

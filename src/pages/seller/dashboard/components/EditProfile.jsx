@@ -188,6 +188,7 @@ function EditProfile() {
                     type="text"
                     placeholder="Email"
                     name="email"
+                    readyOnly={true}
                     value={values.email}
                     handleChange={handleChange}
                     icon={<MdOutlineEmail />}
