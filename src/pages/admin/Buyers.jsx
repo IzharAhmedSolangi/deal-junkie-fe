@@ -137,18 +137,8 @@ function Buyers() {
                     <h3 className="text-lg font-bold mt-2 text-[#022247] text-center">
                       {item?.first_name}
                     </h3>
-                    {/* {item?.street && (
-                      <div className="flex justify-center items-center gap-1 mt-2">
-                        <MdOutlineLocationOn className="text-[#6F7487] sm:text-[20px] text-[15px]" />
-                        <p className="font-normal sm:text-[14px] text-[12px] text-[#6F7487] text-center">
-                          {item?.street}
-                          {item?.city && `, ${item?.city}`}
-                          {item?.state && `, ${item?.state}`}
-                        </p>
-                      </div>
-                    )} */}
                     {item?.linkedin_link && (
-                      <div className="w-full flex justify-center md:mt-2 mt-0">
+                      <div className="w-full flex justify-center">
                         <a
                           href={item?.linkedin_link}
                           target="_blank"
@@ -157,22 +147,6 @@ function Buyers() {
                         >
                           {item?.linkedin_link}
                         </a>
-                      </div>
-                    )}
-                    {item?.email && (
-                      <div className="flex justify-center items-center gap-1 mt-1">
-                        <MdOutlineMail className="text-[#6F7487] sm:text-[20px] text-[15px] flex-shrink-0" />
-                        <p className="font-normal sm:text-[14px] text-[12px] text-[#6F7487] text-center break-words whitespace-normal max-w-full">
-                          {item?.email}
-                        </p>
-                      </div>
-                    )}
-                    {item?.phone_number && (
-                      <div className="flex justify-center items-center gap-1 mt-1">
-                        <MdPhoneAndroid className="text-[#6F7487] sm:text-[20px] text-[15px] flex-shrink-0" />
-                        <p className="font-normal sm:text-[14px] text-[12px] text-[#6F7487] text-center break-words whitespace-normal max-w-full">
-                          {item?.phone_number}
-                        </p>
                       </div>
                     )}
                     <Link

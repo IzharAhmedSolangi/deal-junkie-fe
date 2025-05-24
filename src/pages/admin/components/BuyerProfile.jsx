@@ -60,12 +60,12 @@ function BuyerProfile(props) {
             <div className="flex gap-1 mt-2">
               <FaLinkedin className="text-[#6F7487] text-[20px] flex-shrink-0" />
               <a
-                href={buyer.data?.user?.linkedin_link}
+                href={buyer.data?.buyer_details?.linkedin_link}
                 target="_blank"
                 rel="noferrer"
                 className="font-normal text-[14px] text-[#6F7487] hover:underline hover:text-secondary break-words whitespace-normal max-w-full"
               >
-                {buyer.data?.user?.linkedin_link}
+                {buyer.data?.buyer_details?.linkedin_link}
               </a>
             </div>
             <div className="flex gap-1 mt-2">

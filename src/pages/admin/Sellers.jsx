@@ -138,7 +138,7 @@ function Sellers() {
                     {item?.user?.first_name}
                   </h3>
                   {item?.user?.linkedin_link && (
-                    <div className="w-full flex justify-center md:mt-1 mt-0">
+                    <div className="w-full flex justify-center">
                       <a
                         href={item?.user?.linkedin_link}
                         target="_blank"
@@ -149,7 +149,7 @@ function Sellers() {
                       </a>
                     </div>
                   )}
-                  <div className="flex justify-center">
+                  <div className="flex justify-center mt-1">
                     <p className="bg-[#F2F4F7] font-[500] sm:text-[14px] text-[10px] text-secondary border border-secondary rounded-full py-1 px-2 ">
                       Starting from ${item?.rate_per_hour || 0}
                     </p>

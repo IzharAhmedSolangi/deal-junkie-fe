@@ -18,7 +18,7 @@ function SellerInformation(props) {
       <div className="flex items-center gap-3 flex-wrap text-[#6F7487] mt-2 text-[16px]">
         <div className="flex items-center gap-1">
           <CiDollar className="flex-shrink-0" />
-          <p>Starting from ${findExpert.data?.rate_per_hour} / hr</p>
+          <p>Starting from ${findExpert.data?.rate_per_hour}/hr</p>
         </div>
         <div className="flex items-center gap-1">
           <MdAccessTime className="flex-shrink-0" />
