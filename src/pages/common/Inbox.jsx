@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import {
@@ -21,6 +22,7 @@ import AppHead from "../../seo/AppHead";
 import useUpload from "../../services/common/useUpload";
 import { ButtonLoader2 } from "../../components/shared/ButtonLoaders";
 import useDownload from "../../services/common/useDownload";
+import useCreateZoomMeeting from "../../services/common/useCreateZoomMeeting";
 
 // Constants moved outside component
 const BASE_URL = import.meta.env.VITE_API_URL;
@@ -89,6 +91,7 @@ const getFileInfo = (message) => {
 const ChatMessage = ({ message, isCurrentUser, userId }) => {
   const fileInfo = getFileInfo(message.message);
   const isFile = !!fileInfo;
+  const isMeeting = message?.message?.includes("https://us05web.zoom.us");
   const [showDownload, setShowDownload] = useState(false);
   const { Download, loading } = useDownload();
 
@@ -102,7 +105,7 @@ const ChatMessage = ({ message, isCurrentUser, userId }) => {
         isCurrentUser ? "justify-end" : "justify-start"
       }`}
     >
-      {isFile ? (
+      {isFile && (
         <FileContent
           fileInfo={fileInfo}
           message={message.message}
@@ -110,7 +113,26 @@ const ChatMessage = ({ message, isCurrentUser, userId }) => {
           showDownload={showDownload}
           setShowDownload={setShowDownload}
         />
-      ) : (
+      )}
+      {isMeeting && (
+        <div
+          className={`p-3 my-3 rounded-lg max-w-[75%] break-words mb-5 ${
+            isCurrentUser
+              ? "bg-[#003F63] text-white rounded-xl rounded-br-none"
+              : "bg-[#FAFAFA] text-black rounded-xl rounded-bl-none"
+          }`}
+        >
+          <div className="mb-1">Meeting Created</div>
+          <a
+            href={message.message}
+            target="_blank"
+            className="bg-white text-black px-2 py-1 rounded"
+          >
+            Join Meeting
+          </a>
+        </div>
+      )}
+      {!isFile && !isMeeting && (
         <div
           className={`p-3 my-3 rounded-lg max-w-[75%] break-words mb-5 ${
             isCurrentUser
@@ -311,6 +333,8 @@ function Inbox() {
   const query = useQuery();
   const token = getAccessToken();
   const { userInfo } = useContext(GlobalContext);
+  const { meetingLoading, meetingDetails, setMeetingInfo, CreateMeeting } =
+    useCreateZoomMeeting();
 
   // Parse userId and username from URL
   const userId = parseInt(query.get("userId")) || null;
@@ -501,6 +525,27 @@ function Inbox() {
     [newMessage, selectedUser?.chat_with, userInfo?.user?.id, sendToSocket]
   );
 
+  useEffect(() => {
+    if (meetingDetails) {
+      const timestamp = new Date().toISOString().replace("T", " ").slice(0, 19);
+
+      // Optimistic update
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        {
+          id: Date.now(),
+          message: meetingDetails?.join_url,
+          receiver_id: selectedUser?.chat_with,
+          sender_id: userInfo?.user?.id,
+          timestamp,
+        },
+      ]);
+
+      sendToSocket(meetingDetails?.join_url);
+      setMeetingInfo(null);
+    }
+  }, [meetingDetails]);
+
   // Handle file upload
   const handleFileChange = useCallback(
     (event) => {
@@ -655,7 +700,13 @@ function Inbox() {
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
-                    <CiVideoOn className="text-[25px] text-gray-600 cursor-pointer hover:text-primary" />
+                    <button
+                      onClick={() => CreateMeeting()}
+                      disabled={meetingLoading}
+                      title="Create Meeting"
+                    >
+                      <CiVideoOn className="text-[25px] text-gray-600 cursor-pointer hover:text-primary" />
+                    </button>
                     <HiDotsVertical className="text-[25px] text-gray-600 cursor-pointer hover:text-primary" />
                   </div>
                 </div>
