@@ -2,7 +2,7 @@
 import { FaStar, FaRegStar, FaStarHalfAlt } from "react-icons/fa";
 
 const RatingStars = (props) => {
-  const { rating, totalReviews } = props;
+  const { rating, totalReviews, isShowTotalReviews = true } = props;
   const fullStars = Math.floor(rating);
   const hasHalfStar = rating % 1 !== 0;
   const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
@@ -23,7 +23,9 @@ const RatingStars = (props) => {
           <FaRegStar key={index} className="text-primary" />
         ))}
       </p>
-      <p className="text-sm text-[#98A2B3]">{totalReviews} reviews</p>
+      {isShowTotalReviews && (
+        <p className="text-sm text-[#98A2B3]">{totalReviews} reviews</p>
+      )}
     </>
   );
 };

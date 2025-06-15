@@ -6,6 +6,7 @@ import useFindExpertById from "../../../services/buyer/useFindExpertById";
 import { useEffect } from "react";
 import { ButtonLoader3 } from "../../../components/shared/ButtonLoaders";
 import AppHead from "../../../seo/AppHead";
+import Reviews from "./components/Reviews";
 
 function FindExpertDetails() {
   const { sellerId } = useParams();
@@ -46,6 +47,10 @@ function FindExpertDetails() {
             </div>
           </div>
         )}
+        <div className="px-[5%]">
+          <div className="w-full h-[1px] border border-gray-300 mt-12" />
+          <Reviews sellerId={sellerId} />
+        </div>
       </div>
     </>
   );

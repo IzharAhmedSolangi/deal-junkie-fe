@@ -106,28 +106,28 @@ function Table(props) {
                       ref={isLast ? lastItemRef : null}
                       className="text-left text-xs"
                     >
-                      <td className="px-6 py-4 whitespace-nowrap">
+                      <td className="px-3 py-3 whitespace-nowrap">
                         {index + 1}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
+                      <td className="px-3 py-3 whitespace-nowrap">
                         {data.first_name} {data.last_name}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
+                      <td className="px-3 py-3 whitespace-nowrap">
                         {data.email}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
+                      <td className="px-3 py-3 whitespace-nowrap">
                         {data.phone_no}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
+                      <td className="px-3 py-3 whitespace-nowrap">
                         {data.state}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
+                      <td className="px-3 py-3 whitespace-nowrap">
                         {data.city}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
+                      <td className="px-3 py-3 whitespace-nowrap">
                         {data.street_address}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
+                      <td className="px-3 py-3 whitespace-nowrap">
                         {data.reason}
                       </td>
                     </tr>
@@ -138,7 +138,7 @@ function Table(props) {
 
             {/* Loading State */}
             {isLoading && (
-              <tbody>
+              <tbody className="divide-y divide-gray-200">
                 {Array.from({ length: 6 }, (_, index) => (
                   <TableSkelton1 key={index} />
                 ))}

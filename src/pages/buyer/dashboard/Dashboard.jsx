@@ -5,7 +5,7 @@ import MyTasks from "./components/MyTasks";
 import EditProfile from "./components/EditProfile";
 import Notifications from "./components/Notifications";
 import ChangePassword from "./components/ChangePassword";
-// import ManagePayments from "./components/ManagePayments";
+import ManagePayments from "./components/ManagePayments";
 import { useContext, useEffect, useState } from "react";
 import GlobalContext from "../../../context/GlobalContext";
 import {
@@ -26,7 +26,7 @@ import AppHead from "../../../seo/AppHead";
 const tabs = [
   { name: "My Task", path: "my-tasks" },
   { name: "Change Password", path: "change-password" },
-  // { name: "Manage Payments", path: "manage-payments" },
+  { name: "Manage Payments", path: "manage-payments" },
   { name: "Notifications", path: "notifications" },
 ];
 function Dashboard() {
@@ -73,7 +73,7 @@ function Dashboard() {
             <div className="mt-5">
               {tabName === "my-tasks" && <MyTasks />}
               {tabName === "change-password" && <ChangePassword />}
-              {/* {tabName === "manage-payments" && <ManagePayments />} */}
+              {tabName === "manage-payments" && <ManagePayments />}
               {tabName === "notifications" && <Notifications />}
               {tabName === "edit-profile" && <EditProfile />}
             </div>

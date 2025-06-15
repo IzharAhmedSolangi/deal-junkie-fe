@@ -155,7 +155,10 @@ function Sellers() {
                     </p>
                   </div>
                   <div className="flex flex-col justify-center items-center sm:gap-2 gap-1 my-2">
-                    <RatingStars rating={item?.rating || 0} totalReviews={0} />
+                    <RatingStars
+                      rating={item?.rating || 0}
+                      totalReviews={item?.total_reviews || 0}
+                    />
                   </div>
 
                   <Link

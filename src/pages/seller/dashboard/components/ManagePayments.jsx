@@ -1,16 +1,35 @@
 /* eslint-disable react/prop-types */
-/* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from "react";
+/* eslint-disable no-unused-vars */
 import useGetPaymentHistory from "../../../../services/seller/useGetPaymentHistory";
 import { TableSkelton2 } from "../../../../components/skeltons/TableSkeltons";
 import ShowMessage from "../../../../components/shared/ShowMessage";
+import { ButtonLoader3 } from "../../../../components/shared/ButtonLoaders";
+import { useCallback, useRef } from "react";
 
 function ManagePayments() {
-  const { GetPaymentHistory, paymentHistory } = useGetPaymentHistory();
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
+    useGetPaymentHistory();
 
-  useEffect(() => {
-    GetPaymentHistory();
-  }, []);
+  const observer = useRef();
+
+  const lastItemRef = useCallback(
+    (node) => {
+      if (isFetchingNextPage) return;
+      if (observer.current) observer.current.disconnect();
+
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && hasNextPage) {
+          fetchNextPage();
+        }
+      });
+
+      if (node) observer.current.observe(node);
+    },
+    [isFetchingNextPage, hasNextPage, fetchNextPage]
+  );
+
+  // const payments = data?.pages?.flatMap((page) => page.data.results) || [];
+  const payments = [];
 
   return (
     <>
@@ -45,7 +64,12 @@ function ManagePayments() {
       <h1 className="font-semibold text-[30px] text-secondary">
         Transactions history
       </h1>
-      <TransactionTable paymentHistory={paymentHistory} />
+      <TransactionTable
+        payments={payments}
+        lastItemRef={lastItemRef}
+        isLoading={isLoading}
+        isFetchingNextPage={isFetchingNextPage}
+      />
     </>
   );
 }
@@ -53,9 +77,8 @@ function ManagePayments() {
 export default ManagePayments;
 
 const TransactionTable = (props) => {
-  const { paymentHistory } = props;
+  const { payments, isLoading, isFetchingNextPage, lastItemRef } = props;
 
-  console.log({ paymentHistory });
   return (
     <div className="w-full mt-3">
       <table className="w-full border-collapse">
@@ -79,52 +102,70 @@ const TransactionTable = (props) => {
           </tr>
         </thead>
 
-        {paymentHistory.data?.length > 0 && (
+        {payments?.length > 0 && (
           <tbody>
-            {Array.from({ length: 5 }).map((item, index) => (
-              <tr key={index} className="border-b-[1px] border-b-[#6F748729]">
-                <td className="py-2 flex items-center gap-2">
-                  <div className="h-10 w-10 rounded-full bg-gray-300 flex items-center justify-center text-[15px] font-semibold text-white">
-                    {item?.user?.first_name?.charAt(0).toUpperCase()}
-                  </div>
-                  <div>
-                    <p className="font-semibold text-[16px] text-secondary">
-                      Dylan Hodges
-                    </p>
-                    <p className="text-[#6F7487] text-sm font-[500]">
-                      #2025550176
-                    </p>
-                  </div>
-                </td>
-                <td className="py-2 text-[#6F7487] text-sm font-[500]">$112</td>
-                <td className="py-2 text-[#6F7487] text-sm font-[500]">
-                  Feb 04, 2023
-                </td>
-                <td className="py-2 text-[#6F7487] text-sm font-[500]">Paid</td>
-                <td className="py-2 text-[#6F7487] text-sm font-[500]">
-                  <div
-                    className={`w-full px-3 py-1 text-center rounded-sm text-secondary text-sm font-[500] bg-primary`}
-                  >
+            {Array.from({ length: 5 }).map((item, index) => {
+              const isLast = index === payments.length - 1;
+
+              return (
+                <tr
+                  key={index}
+                  ref={isLast ? lastItemRef : null}
+                  className="border-b-[1px] border-b-[#6F748729]"
+                >
+                  <td className="py-2 flex items-center gap-2">
+                    <div className="h-10 w-10 rounded-full bg-gray-300 flex items-center justify-center text-[15px] font-semibold text-white">
+                      {item?.user?.first_name?.charAt(0).toUpperCase()}
+                    </div>
+                    <div>
+                      <p className="font-semibold text-[16px] text-secondary">
+                        Dylan Hodges
+                      </p>
+                      <p className="text-[#6F7487] text-sm font-[500]">
+                        #2025550176
+                      </p>
+                    </div>
+                  </td>
+                  <td className="py-2 text-[#6F7487] text-sm font-[500]">
+                    $112
+                  </td>
+                  <td className="py-2 text-[#6F7487] text-sm font-[500]">
+                    Feb 04, 2023
+                  </td>
+                  <td className="py-2 text-[#6F7487] text-sm font-[500]">
                     Paid
-                  </div>
-                </td>
-              </tr>
-            ))}
+                  </td>
+                  <td className="py-2 text-[#6F7487] text-sm font-[500]">
+                    <div
+                      className={`w-full px-3 py-1 text-center rounded-sm text-secondary text-sm font-[500] bg-primary`}
+                    >
+                      Paid
+                    </div>
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         )}
 
-        {paymentHistory.loading && (
-          <>
+        {isLoading && (
+          <tbody>
             {Array.from({ length: 6 }, (_, index) => (
               <TableSkelton2 key={index} />
             ))}
-          </>
+          </tbody>
         )}
       </table>
 
-      {paymentHistory.message && !paymentHistory.loading && (
+      {isFetchingNextPage && (
+        <div className="w-full mt-3 flex justify-center">
+          <ButtonLoader3 />
+        </div>
+      )}
+
+      {payments?.length === 0 && !isLoading && (
         <div className="w-full h-[200px] flex justify-center items-center">
-          <ShowMessage title={paymentHistory.message} />
+          <ShowMessage title="We didn't find any payments" />
         </div>
       )}
     </div>

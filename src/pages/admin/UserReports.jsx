@@ -68,16 +68,16 @@ function Table(props) {
           >
             <thead className="bg-[#F9F9F9]">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">
+                <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">
                   #
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">
+                <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">
                   Reported User
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">
+                <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">
                   Reason
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">
+                <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">
                   Description
                 </th>
               </tr>
@@ -95,16 +95,16 @@ function Table(props) {
                       ref={isLast ? lastItemRef : null}
                       className="text-left text-xs"
                     >
-                      <td className="px-6 py-4 whitespace-nowrap">
+                      <td className="px-3 py-3 whitespace-nowrap">
                         {index + 1}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
+                      <td className="px-3 py-3 whitespace-nowrap">
                         {data.reported_user}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
+                      <td className="px-3 py-3 whitespace-nowrap">
                         {data.reason}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
+                      <td className="px-3 py-3 whitespace-nowrap">
                         {data.details}
                       </td>
                     </tr>
@@ -115,7 +115,7 @@ function Table(props) {
 
             {/* Loading State */}
             {isLoading && (
-              <tbody>
+              <tbody className="divide-y divide-gray-200">
                 {Array.from({ length: 6 }, (_, index) => (
                   <TableSkelton3 key={index} />
                 ))}

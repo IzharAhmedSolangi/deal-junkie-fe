@@ -63,7 +63,10 @@ function FindExpertsCard({ data, isLoading, isFetchingNextPage, lastItemRef }) {
                     </p>
                   </div>
                   <div className="flex md:flex-row flex-col justify-center items-center md:gap-2 gap-[2px] md:my-2 my-1">
-                    <RatingStars rating={item?.rating || 0} totalReviews={0} />
+                    <RatingStars
+                      rating={item?.rating || 0}
+                      totalReviews={item?.total_reviews || 0}
+                    />
                   </div>
                   <div className="flex md:flex-row flex-col md:gap-2 gap-1 md:mt-6 mt-1">
                     <button

@@ -12,7 +12,10 @@ function SellerInformation(props) {
         {seller.data?.user?.first_name}
       </h2>
       <div className="flex gap-2 items-center">
-        <RatingStars rating={seller.data?.rating || 0} totalReviews={0} />
+        <RatingStars
+          rating={seller.data?.rating || 0}
+          totalReviews={seller.data?.total_reviews || 0}
+        />
       </div>
 
       <div className="flex items-center flex-wrap sm:gap-3 gap-2 text-[#6F7487] mt-2 text-[16px]">

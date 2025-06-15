@@ -4,10 +4,10 @@ import { getAccessToken } from "../../storage/storage";
 
 const BASE_URL = import.meta.env.VITE_API_URL;
 
-const fetchSellerPayments = async ({ pageParam = 1 }) => {
+const fetchReviews = async ({ pageParam = 1, sellerId }) => {
   const token = getAccessToken();
   const response = await axios.get(
-    `${BASE_URL}/api/seller/seller-transactions/?page=${pageParam}`,
+    `${BASE_URL}/api/buyer/seller/${sellerId}/reviews/?page=${pageParam}`,
     {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -22,21 +22,22 @@ const fetchSellerPayments = async ({ pageParam = 1 }) => {
   };
 };
 
-function useGetPaymentHistory() {
+function useGetReviews(sellerId) {
   const query = useInfiniteQuery({
-    queryKey: ["seller-payments"],
-    queryFn: fetchSellerPayments,
+    queryKey: ["reviews", sellerId],
+    queryFn: ({ pageParam = 1 }) => fetchReviews({ pageParam, sellerId }),
     getNextPageParam: (lastPage) => {
       if (lastPage.data.current_page >= lastPage.totalPages) return undefined;
       return lastPage.nextPage;
     },
     staleTime: 1000 * 60 * 5,
+    enabled: !!sellerId,
   });
 
   return {
     ...query,
-    refetchPaymentHistory: query.refetch,
+    refetchReviews: query.refetch,
   };
 }
 
-export default useGetPaymentHistory;
+export default useGetReviews;

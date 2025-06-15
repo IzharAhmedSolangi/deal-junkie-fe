@@ -1,43 +1,43 @@
 export const TableSkelton1 = () => {
   return (
     <tr role="status" className="animate-pulse border-t border-t-[#DFDFDF]">
-      <td className="py-5 px-2">
-        <div className="flex justify-center items-center">
+      <td className="px-3 py-3">
+        <div className="w-full flex justify-start items-center">
           <div className="w-20 h-3 bg-gray-200 rounded-full dark:bg-gray-700"></div>
         </div>
       </td>
-      <td className="py-5 px-2">
-        <div className="flex justify-center items-center">
+      <td className="px-3 py-3">
+        <div className="w-full flex justify-start items-center">
           <div className="w-20 h-3 bg-gray-200 rounded-full dark:bg-gray-700"></div>
         </div>
       </td>
-      <td className="py-5 px-2">
-        <div className="flex justify-center items-center">
+      <td className="px-3 py-3">
+        <div className="w-full flex justify-start items-center">
           <div className="w-20 h-3 bg-gray-200 rounded-full dark:bg-gray-700"></div>
         </div>
       </td>
-      <td className="py-5 px-2">
-        <div className="flex justify-center items-center">
+      <td className="px-3 py-3">
+        <div className="w-full flex justify-start items-center">
           <div className="w-20 h-3 bg-gray-200 rounded-full dark:bg-gray-700"></div>
         </div>
       </td>
-      <td className="py-5 px-2">
-        <div className="flex justify-center items-center">
+      <td className="px-3 py-3">
+        <div className="w-full flex justify-start items-center">
           <div className="w-20 h-3 bg-gray-200 rounded-full dark:bg-gray-700"></div>
         </div>
       </td>
-      <td className="py-5 px-2">
-        <div className="flex justify-center items-center">
+      <td className="px-3 py-3">
+        <div className="w-full flex justify-start items-center">
           <div className="w-20 h-3 bg-gray-200 rounded-full dark:bg-gray-700"></div>
         </div>
       </td>
-      <td className="py-5 px-2">
-        <div className="flex justify-center items-center">
+      <td className="px-3 py-3">
+        <div className="w-full flex justify-start items-center">
           <div className="w-20 h-3 bg-gray-200 rounded-full dark:bg-gray-700"></div>
         </div>
       </td>
-      <td className="py-5 px-2">
-        <div className="flex justify-center items-center">
+      <td className="px-3 py-3">
+        <div className="w-full flex justify-start items-center">
           <div className="w-20 h-3 bg-gray-200 rounded-full dark:bg-gray-700"></div>
         </div>
       </td>
@@ -48,27 +48,27 @@ export const TableSkelton1 = () => {
 export const TableSkelton2 = () => {
   return (
     <tr role="status" className="animate-pulse border-t border-t-[#DFDFDF]">
-      <td className="py-5">
+      <td className="py-2">
         <div className="flex justify-start items-center">
           <div className="w-20 h-3 bg-gray-200 rounded-full dark:bg-gray-700"></div>
         </div>
       </td>
-      <td className="py-5">
+      <td className="py-2">
         <div className="flex justify-start items-center">
           <div className="w-20 h-3 bg-gray-200 rounded-full dark:bg-gray-700"></div>
         </div>
       </td>
-      <td className="py-5">
+      <td className="py-2">
         <div className="flex justify-start items-center">
           <div className="w-20 h-3 bg-gray-200 rounded-full dark:bg-gray-700"></div>
         </div>
       </td>
-      <td className="py-5">
+      <td className="py-2">
         <div className="flex justify-start items-center">
           <div className="w-20 h-3 bg-gray-200 rounded-full dark:bg-gray-700"></div>
         </div>
       </td>
-      <td className="py-5">
+      <td className="py-2">
         <div className="flex justify-start items-center">
           <div className="w-20 h-3 bg-gray-200 rounded-full dark:bg-gray-700"></div>
         </div>
@@ -80,22 +80,22 @@ export const TableSkelton2 = () => {
 export const TableSkelton3 = () => {
   return (
     <tr role="status" className="animate-pulse border-t border-t-[#DFDFDF]">
-      <td className="py-5">
+      <td className="px-3 py-3">
         <div className="flex justify-start items-center">
           <div className="w-20 h-3 bg-gray-200 rounded-full dark:bg-gray-700"></div>
         </div>
       </td>
-      <td className="py-5">
+      <td className="px-3 py-3">
         <div className="flex justify-start items-center">
           <div className="w-20 h-3 bg-gray-200 rounded-full dark:bg-gray-700"></div>
         </div>
       </td>
-      <td className="py-5">
+      <td className="px-3 py-3">
         <div className="flex justify-start items-center">
           <div className="w-20 h-3 bg-gray-200 rounded-full dark:bg-gray-700"></div>
         </div>
       </td>
-      <td className="py-5">
+      <td className="px-3 py-3">
         <div className="flex justify-start items-center">
           <div className="w-20 h-3 bg-gray-200 rounded-full dark:bg-gray-700"></div>
         </div>
