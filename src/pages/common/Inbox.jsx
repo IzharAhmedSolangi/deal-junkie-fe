@@ -9,11 +9,17 @@ import {
   useMemo,
   useCallback,
 } from "react";
-import { FaChevronLeft, FaFile } from "react-icons/fa";
+import { FaChevronLeft, FaExternalLinkAlt, FaFile } from "react-icons/fa";
 import { TbSend } from "react-icons/tb";
-import { CiSearch, CiVideoOn } from "react-icons/ci";
+import { CiCalendar, CiSearch, CiVideoOff, CiVideoOn } from "react-icons/ci";
 import { HiDotsVertical } from "react-icons/hi";
-import { MdFileDownload, MdOutlineAttachment } from "react-icons/md";
+import {
+  MdCalendarToday,
+  MdFileDownload,
+  MdOpenInNew,
+  MdOutlineAttachment,
+  MdVideocam,
+} from "react-icons/md";
 import { getAccessToken } from "../../storage/storage";
 import ReconnectingWebSocket from "reconnecting-websocket";
 import GlobalContext from "../../context/GlobalContext";
@@ -116,22 +122,71 @@ const ChatMessage = ({ message, isCurrentUser, userId }) => {
       )}
       {isMeeting && (
         <div
-          className={`p-3 my-3 rounded-lg max-w-[75%] break-words mb-5 ${
+          className={`p-4 my-3 mb-5 rounded-2xl max-w-[85%] shadow-sm border transition-all duration-200 hover:shadow-md ${
             isCurrentUser
-              ? "bg-[#003F63] text-white rounded-xl rounded-br-none"
-              : "bg-[#FAFAFA] text-black rounded-xl rounded-bl-none"
+              ? "bg-gradient-to-br from-blue-600 to-blue-700 text-white ml-auto"
+              : "bg-white text-gray-800 border-gray-200"
           }`}
         >
-          <div className="mb-1">Meeting Created</div>
-          <a
-            href={message.message}
-            target="_blank"
-            className="bg-white text-black px-2 py-1 rounded"
+          {/* Header with icon */}
+          <div className="flex items-center gap-2 mb-3">
+            <div
+              className={`p-1.5 rounded-full ${
+                isCurrentUser ? "bg-white/20" : "bg-blue-50"
+              }`}
+            >
+              <CiCalendar
+                className={`w-4 h-4 ${
+                  isCurrentUser ? "text-white" : "text-blue-600"
+                }`}
+              />
+            </div>
+            <span
+              className={`font-medium text-sm ${
+                isCurrentUser ? "text-blue-100" : "text-gray-600"
+              }`}
+            >
+              Meeting Scheduled
+            </span>
+          </div>
+
+          {/* Meeting title */}
+          <div
+            className={`font-semibold mb-3 ${
+              isCurrentUser ? "text-white" : "text-gray-900"
+            }`}
           >
+            Video Conference Ready
+          </div>
+
+          {/* Join button */}
+          <a
+            href={message?.message || "#"}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-xl font-medium text-sm transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 ${
+              isCurrentUser
+                ? "bg-white text-blue-700 hover:bg-gray-50 focus:ring-white"
+                : "bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500"
+            }`}
+          >
+            <CiVideoOff className="w-4 h-4" />
             Join Meeting
+            <FaExternalLinkAlt className="w-3 h-3 opacity-70" />
           </a>
+
+          {/* Timestamp or additional info */}
+          <div
+            className={`text-xs mt-3 flex items-center gap-1 ${
+              isCurrentUser ? "text-blue-100" : "text-gray-500"
+            }`}
+          >
+            <div className="w-1 h-1 rounded-full bg-current opacity-60"></div>
+            Click to join the video conference
+          </div>
         </div>
       )}
+
       {!isFile && !isMeeting && (
         <div
           className={`p-3 my-3 rounded-lg max-w-[75%] break-words mb-5 ${
@@ -143,6 +198,7 @@ const ChatMessage = ({ message, isCurrentUser, userId }) => {
           {message.message}
         </div>
       )}
+
       <span className="text-[10px] text-gray-500 absolute bottom-0">
         {formatTime(message.timestamp)}
       </span>
