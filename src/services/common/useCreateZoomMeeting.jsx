@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import axios from "axios";
 import { useState } from "react";
 import { ErrorToaster } from "../../components/shared/Toster";

@@ -122,10 +122,10 @@ const ChatMessage = ({ message, isCurrentUser, userId }) => {
       )}
       {isMeeting && (
         <div
-          className={`p-4 my-3 mb-5 rounded-2xl max-w-[85%] shadow-sm border transition-all duration-200 hover:shadow-md ${
+          className={`p-4 my-3 mb-5 max-w-[85%] shadow-sm border transition-all duration-200 hover:shadow-md ${
             isCurrentUser
-              ? "bg-gradient-to-br from-blue-600 to-blue-700 text-white ml-auto"
-              : "bg-white text-gray-800 border-gray-200"
+              ? "bg-gradient-to-br from-blue-600 to-blue-700 text-white ml-auto rounded-xl rounded-br-none"
+              : "bg-white text-gray-800 border-gray-200 rounded-xl rounded-bl-none"
           }`}
         >
           {/* Header with icon */}
