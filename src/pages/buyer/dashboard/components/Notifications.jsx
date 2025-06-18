@@ -10,36 +10,36 @@ function Notifications() {
   const [notifications, setNotifications] = useState([
     {
       key: "recieve_email_notification",
-      title: "Email Notifications",
+      title: "Email Alerts",
       description:
-        "Get emails to find out what’s going on when you’re not online. You’ll receive notification about customers, tasks/leads and payments.",
+        "Get emails to find out what's going on when you're not online. You'll receive notification about customers, tasks/leads and payments.",
       isOn: userInfo?.user?.email_notifications,
     },
-    {
-      key: "recieve_in_app_notification",
-      title: "App Notifications",
-      description:
-        "Get emails to find out what’s going on when you’re not online. You’ll receive notification about customers, tasks/leads and payments.",
-      isOn: userInfo?.user?.app_notifications,
-    },
+    // {
+    //   key: "recieve_in_app_notification",
+    //   title: "Push Notifications",
+    //   description:
+    //     "Get emails to find out what's going on when you're not online. You'll receive notification about customers, tasks/leads and payments.",
+    //   isOn: userInfo?.user?.app_notifications,
+    // },
   ]);
 
   useEffect(() => {
     setNotifications([
       {
         key: "recieve_email_notification",
-        title: "Email Notifications",
+        title: "Email Alerts",
         description:
-          "Get emails to find out what’s going on when you’re not online. You’ll receive notification about customers, tasks/leads and payments.",
+          "Get emails to find out what's going on when you're not online. You'll receive notification about customers, tasks/leads and payments.",
         isOn: userInfo?.user?.email_notifications,
       },
-      {
-        key: "recieve_in_app_notification",
-        title: "App Notifications",
-        description:
-          "Get emails to find out what’s going on when you’re not online. You’ll receive notification about customers, tasks/leads and payments.",
-        isOn: userInfo?.user?.app_notifications,
-      },
+      // {
+      //   key: "recieve_in_app_notification",
+      //   title: "Push Notifications",
+      //   description:
+      //     "Get emails to find out what's going on when you're not online. You'll receive notification about customers, tasks/leads and payments.",
+      //   isOn: userInfo?.user?.app_notifications,
+      // },
     ]);
   }, [userInfo]);
 
