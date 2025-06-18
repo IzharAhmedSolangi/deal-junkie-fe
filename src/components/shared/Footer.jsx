@@ -12,7 +12,7 @@ import Aos from "aos";
 import { useEffect } from "react";
 
 function Footer() {
-  const { userInfo } = useContext(GlobalContext);
+  // const { userInfo } = useContext(GlobalContext);
 
   return (
     <footer className="w-full h-auto bg-[#F6FFFF] bg-[url('/assets/images/footer-bg.png')] bg-cover bg-center md:px-[5%] px-[2.5%] pt-40 relative">
@@ -74,16 +74,10 @@ function Footer() {
               Find Experts
             </Link>
             <Link
-              to="/seller-faqs"
+              to="/FAQs"
               className="text-[#667085] text-[14px] font-normal hover:text-primary"
             >
               FAQs
-            </Link>
-            <Link
-              to={`/find-experts?search=${userInfo?.user?.state}`}
-              className="text-[#667085] text-[14px] font-normal hover:text-primary"
-            >
-              Deal Junkies Near Me
             </Link>
           </div>
         </div>
@@ -99,7 +93,7 @@ function Footer() {
               Find Jobs
             </Link>
             <Link
-              to="/buyer-faqs"
+              to="/FAQs"
               className="text-[#667085] text-[14px] font-normal hover:text-primary"
             >
               FAQs
@@ -114,12 +108,6 @@ function Footer() {
               className="text-[#667085] text-[14px] font-normal hover:text-primary"
             >
               About Us
-            </Link>
-            <Link
-              to="/pricing"
-              className="text-[#667085] text-[14px] font-normal hover:text-primary"
-            >
-              Pricing Page
             </Link>
             <Link
               to="/contact-us"

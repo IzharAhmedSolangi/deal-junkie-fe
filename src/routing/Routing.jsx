@@ -13,14 +13,12 @@ import BuyerLanding from "../pages/buyer/landing/Landing";
 import FindExperts from "../pages/buyer/find-experts/FindExperts";
 import FindExpertDetails from "../pages/buyer/find-expert-details/FindExpertDetails";
 import BuyerDashboard from "../pages/buyer/dashboard/Dashboard";
-import BuyerFAQs from "../pages/buyer/faqs/FAQs";
 
 // Seller pages
 import SellerLanding from "../pages/seller/landing/Landing";
 import FindJobs from "../pages/seller/find-jobs/FindJobs";
 import FindJobDetails from "../pages/seller/find-job-details/FindJobDetails";
 import SellerDashboard from "../pages/seller/dashboard/Dashboard";
-import SellerFAQs from "../pages/seller/faqs/FAQs";
 
 // Common pages
 import ContactUs from "../pages/common/ContactUs";
@@ -30,6 +28,7 @@ import Pricing from "../pages/common/Pricing";
 import Inbox from "../pages/common/Inbox";
 import PrivacyPolicy from "../pages/common/PrivacyPolicy";
 import TermsAndConditions from "../pages/common/TermsAndConditions";
+import FAQs from "../pages/common/FAQs";
 
 // Admin pages
 import AdminLayout from "../pages/admin/components/Layout";
@@ -125,8 +124,7 @@ const Routing = () => {
         <Route path="/" element={<Layout />}>
           <Route index element={<BuyerLanding />} />
           <Route path="*" element={<BuyerLanding />} />
-          <Route path="buyer-faqs" element={<BuyerFAQs />} />
-          <Route path="seller-faqs" element={<SellerFAQs />} />
+          <Route path="FAQs" element={<FAQs />} />
           <Route path="contact-us" element={<ContactUs />} />
           <Route path="about-us" element={<AboutUs />} />
           <Route path="how-it-works" element={<HowItWorks />} />

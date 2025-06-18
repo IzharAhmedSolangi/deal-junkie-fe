@@ -1,7 +1,7 @@
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
-import AppHead from "../../../seo/AppHead";
+import AppHead from "../../seo/AppHead";
 
 const faqsList = [
   {

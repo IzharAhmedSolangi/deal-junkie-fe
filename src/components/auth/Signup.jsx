@@ -353,10 +353,10 @@ function Signup(props) {
           </button>
         </form>
 
-        <p className="font-[400] text-[15px] my-3 text-[#6F7487] text-center">
+        {/* <p className="font-[400] text-[15px] my-3 text-[#6F7487] text-center">
           OR
         </p>
-        <GoogleLogin handleClose={handleClose} />
+        <GoogleLogin handleClose={handleClose} /> */}
         <p className="text-center text-gray-600 mt-4 text-[15px]">
           Already have an account?{" "}
           <button

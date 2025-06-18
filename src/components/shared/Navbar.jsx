@@ -79,6 +79,7 @@ const Navbar = () => {
               { name: "About Us", path: "/about-us" },
               { name: "How it Works", path: "/how-it-works" },
               { name: "Pricing", path: "/pricing" },
+              { name: "Contact Us", path: "/contact-us" },
             ].map((item, index) => (
               <Link
                 key={index}
@@ -159,6 +160,7 @@ const Navbar = () => {
                 { name: "About Us", path: "/about-us" },
                 { name: "How it Works", path: "/how-it-works" },
                 { name: "Pricing", path: "/pricing" },
+                { name: "Contact Us", path: "/contact-us" },
               ].map((item, index) => (
                 <Link
                   key={index}
