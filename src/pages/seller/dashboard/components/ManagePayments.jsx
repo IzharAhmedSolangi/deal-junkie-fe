@@ -5,6 +5,7 @@ import { TableSkelton2 } from "../../../../components/skeltons/TableSkeltons";
 import ShowMessage from "../../../../components/shared/ShowMessage";
 import { ButtonLoader3 } from "../../../../components/shared/ButtonLoaders";
 import { useCallback, useRef } from "react";
+import { FormatDateAndTime } from "../../../../utils/FormatDate";
 
 function ManagePayments() {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
@@ -28,8 +29,7 @@ function ManagePayments() {
     [isFetchingNextPage, hasNextPage, fetchNextPage]
   );
 
-  // const payments = data?.pages?.flatMap((page) => page.data.results) || [];
-  const payments = [];
+  const payments = data?.pages?.flatMap((page) => page.data.results) || [];
 
   return (
     <>
@@ -88,23 +88,24 @@ const TransactionTable = (props) => {
               Paid To
             </th>
             <th className="text-[#6F7487] text-[14px] font-[500] pb-2">
-              Amount
+              Total Amount
             </th>
             <th className="text-[#6F7487] text-[14px] font-[500] pb-2">
-              Billing Date
+              Amount Paid
             </th>
+            <th className="text-[#6F7487] text-[14px] font-[500] pb-2">
+              Platform Fee
+            </th>
+            <th className="text-[#6F7487] text-[14px] font-[500] pb-2">Date</th>
             <th className="text-[#6F7487] text-[14px] font-[500] pb-2">
               Status
-            </th>
-            <th className="text-[#6F7487] text-[14px] font-[500] pb-2">
-              Action
             </th>
           </tr>
         </thead>
 
         {payments?.length > 0 && (
           <tbody>
-            {Array.from({ length: 5 }).map((item, index) => {
+            {payments?.map((item, index) => {
               const isLast = index === payments.length - 1;
 
               return (
@@ -115,25 +116,26 @@ const TransactionTable = (props) => {
                 >
                   <td className="py-2 flex items-center gap-2">
                     <div className="h-10 w-10 rounded-full bg-gray-300 flex items-center justify-center text-[15px] font-semibold text-white">
-                      {item?.user?.first_name?.charAt(0).toUpperCase()}
+                      {item?.first_name?.charAt(0).toUpperCase()}
                     </div>
                     <div>
                       <p className="font-semibold text-[16px] text-secondary">
-                        Dylan Hodges
+                        {item?.first_name}
                       </p>
-                      <p className="text-[#6F7487] text-sm font-[500]">
-                        #2025550176
-                      </p>
+                      <p className="text-[#6F7487] text-sm font-[500]"></p>
                     </div>
                   </td>
                   <td className="py-2 text-[#6F7487] text-sm font-[500]">
-                    $112
+                    ${item.amount}
                   </td>
                   <td className="py-2 text-[#6F7487] text-sm font-[500]">
-                    Feb 04, 2023
+                    ${item.seller_amount}
                   </td>
                   <td className="py-2 text-[#6F7487] text-sm font-[500]">
-                    Paid
+                    ${item.platform_fee}
+                  </td>
+                  <td className="py-2 text-[#6F7487] text-sm font-[500]">
+                    {FormatDateAndTime(item.created_at)}
                   </td>
                   <td className="py-2 text-[#6F7487] text-sm font-[500]">
                     <div

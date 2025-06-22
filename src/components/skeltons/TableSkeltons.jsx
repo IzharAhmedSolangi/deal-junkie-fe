@@ -73,6 +73,11 @@ export const TableSkelton2 = () => {
           <div className="w-20 h-3 bg-gray-200 rounded-full dark:bg-gray-700"></div>
         </div>
       </td>
+      <td className="py-2">
+        <div className="flex justify-start items-center">
+          <div className="w-20 h-3 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+        </div>
+      </td>
     </tr>
   );
 };

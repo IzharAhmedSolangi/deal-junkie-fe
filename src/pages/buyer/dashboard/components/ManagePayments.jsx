@@ -5,6 +5,7 @@ import useGetPaymentHistory from "../../../../services/buyer/useGetPaymentHistor
 import ShowMessage from "../../../../components/shared/ShowMessage";
 import { ButtonLoader3 } from "../../../../components/shared/ButtonLoaders";
 import { TableSkelton2 } from "../../../../components/skeltons/TableSkeltons";
+import { FormatDateAndTime } from "../../../../utils/FormatDate";
 
 function ManagePayments() {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
@@ -28,8 +29,7 @@ function ManagePayments() {
     [isFetchingNextPage, hasNextPage, fetchNextPage]
   );
 
-  // const payments = data?.pages?.flatMap((page) => page.data.results) || [];
-  const payments = [];
+  const payments = data?.pages?.flatMap((page) => page.data.results) || [];
 
   return (
     <>
@@ -88,58 +88,63 @@ const TransactionTable = (props) => {
               Paid To
             </th>
             <th className="text-[#6F7487] text-[14px] font-[500] pb-2">
-              Amount
+              Total Amount
             </th>
             <th className="text-[#6F7487] text-[14px] font-[500] pb-2">
-              Billing Date
+              Amount Paid
             </th>
+            <th className="text-[#6F7487] text-[14px] font-[500] pb-2">
+              Platform Fee
+            </th>
+            <th className="text-[#6F7487] text-[14px] font-[500] pb-2">Date</th>
             <th className="text-[#6F7487] text-[14px] font-[500] pb-2">
               Status
-            </th>
-            <th className="text-[#6F7487] text-[14px] font-[500] pb-2">
-              Action
             </th>
           </tr>
         </thead>
 
         {payments?.length > 0 && (
           <tbody>
-            {Array.from({ length: 5 }).map((item, index) => {
+            {payments?.map((item, index) => {
               const isLast = index === payments.length - 1;
-
-              <tr
-                key={index}
-                ref={isLast ? lastItemRef : null}
-                className="border-b-[1px] border-b-[#6F748729]"
-              >
-                <td className="py-2 flex items-center gap-2">
-                  <img
-                    src="https://randomuser.me/api/portraits/men/2.jpg"
-                    alt=""
-                    className="w-10 h-10 rounded-full"
-                  />
-                  <div>
-                    <p className="font-semibold text-[16px] text-secondary">
-                      Dylan Hodges
-                    </p>
-                    <p className="text-[#6F7487] text-sm font-[500]">
-                      #2025550176
-                    </p>
-                  </div>
-                </td>
-                <td className="py-2 text-[#6F7487] text-sm font-[500]">$112</td>
-                <td className="py-2 text-[#6F7487] text-sm font-[500]">
-                  Feb 04, 2023
-                </td>
-                <td className="py-2 text-[#6F7487] text-sm font-[500]">Paid</td>
-                <td className="py-2 text-[#6F7487] text-sm font-[500]">
-                  <div
-                    className={`w-full px-3 py-1 text-center rounded-sm text-secondary text-sm font-[500] bg-primary`}
-                  >
-                    Paid
-                  </div>
-                </td>
-              </tr>;
+              return (
+                <tr
+                  key={index}
+                  ref={isLast ? lastItemRef : null}
+                  className="border-b-[1px] border-b-[#6F748729]"
+                >
+                  <td className="py-2 flex items-center gap-2">
+                    <div className="h-10 w-10 rounded-full bg-gray-300 flex items-center justify-center text-[15px] font-semibold text-white">
+                      {item?.first_name?.charAt(0).toUpperCase()}
+                    </div>
+                    <div>
+                      <p className="font-semibold text-[16px] text-secondary">
+                        {item?.first_name}
+                      </p>
+                      <p className="text-[#6F7487] text-sm font-[500]"></p>
+                    </div>
+                  </td>
+                  <td className="py-2 text-[#6F7487] text-sm font-[500]">
+                    ${item.amount}
+                  </td>
+                  <td className="py-2 text-[#6F7487] text-sm font-[500]">
+                    ${item.seller_amount}
+                  </td>
+                  <td className="py-2 text-[#6F7487] text-sm font-[500]">
+                    ${item.platform_fee}
+                  </td>
+                  <td className="py-2 text-[#6F7487] text-sm font-[500]">
+                    {FormatDateAndTime(item.created_at)}
+                  </td>
+                  <td className="py-2 text-[#6F7487] text-sm font-[500]">
+                    <div
+                      className={`w-full px-3 py-1 text-center rounded-sm text-secondary text-sm font-[500] bg-primary`}
+                    >
+                      Paid
+                    </div>
+                  </td>
+                </tr>
+              );
             })}
           </tbody>
         )}
