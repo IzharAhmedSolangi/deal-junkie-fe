@@ -77,7 +77,7 @@ const RefferalCard = () => {
             Share this link with others through SMS, WhatsApp, LinkedIn, or any
             other platform.
           </span>
-          <div className="flex items-center gap-2 mt-3">
+          <div className="w-full flex items-center gap-2 mt-3">
             <div className="border border-[#BBBFCC] md:w-auto w-full h-[40px] px-2 flex items-center rounded-[6px]">
               {referral_link}
             </div>
