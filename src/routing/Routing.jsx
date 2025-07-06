@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useContext, useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { Routes, Route, useLocation } from "react-router-dom";
 import GlobalContext from "../context/GlobalContext";
 import useCurrentUser from "../services/common/useCurrentUser";
 import { getAccessToken } from "../storage/storage";
@@ -45,16 +45,28 @@ import AdminJobDetails from "../pages/admin/JobDetails";
 import Layout from "../components/shared/Layout";
 import ScrollToTopButton from "./ScrollToTopButton";
 import UserReports from "../pages/admin/UserReports";
+import Auth from "../components/modals/Auth";
+import ReferralProgram from "../pages/common/ReferralProgram";
+
+const useQuery = () => new URLSearchParams(useLocation().search);
 
 const Routing = () => {
   const token = getAccessToken();
   const { userInfo } = useContext(GlobalContext);
   const { loading, setLoading, getCurrentUser } = useCurrentUser();
+  const [isOpenAuthModal, setIsOpenAuthModal] = useState(false);
+  const [authModalType, setAuthModalType] = useState(null);
+  const query = useQuery();
+  const referral = query.get("referral");
 
   useEffect(() => {
     if (token) {
       setLoading(true);
       getCurrentUser(token);
+    }
+    if (!token && referral) {
+      setIsOpenAuthModal(true);
+      setAuthModalType("signup");
     }
   }, []);
 
@@ -76,6 +88,7 @@ const Routing = () => {
                 />
                 <Route path="dashboard/:tabName" element={<BuyerDashboard />} />
                 <Route path="inbox" element={<Inbox />} />
+                <Route path="referral-program" element={<ReferralProgram />} />
               </Route>
             )}
             {userInfo?.user?.role === "seller" && (
@@ -89,6 +102,7 @@ const Routing = () => {
                   element={<SellerDashboard />}
                 />
                 <Route path="inbox" element={<Inbox />} />
+                <Route path="referral-program" element={<ReferralProgram />} />
               </Route>
             )}
             {/* Admin pages */}
@@ -135,6 +149,13 @@ const Routing = () => {
       </Routes>
       <ScrollToTop />
       <ScrollToTopButton />
+
+      <Auth
+        isOpenModal={isOpenAuthModal}
+        setIsOpenModal={setIsOpenAuthModal}
+        authModalType={authModalType}
+        setAuthModalType={setAuthModalType}
+      />
     </>
   );
 };

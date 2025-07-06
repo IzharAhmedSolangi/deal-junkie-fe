@@ -18,7 +18,7 @@ import PostProject from "../modals/PostProject";
 import useEditProfile from "../../services/common/useEditProfile";
 import { LuLayoutDashboard } from "react-icons/lu";
 import Notifications from "./Notifications";
-import { FaTimes } from "react-icons/fa";
+import { FaTimes, FaUsers } from "react-icons/fa";
 
 const Navbar = () => {
   const token = getAccessToken();
@@ -310,11 +310,16 @@ function ProfileDropdown() {
                   path: "/dashboard/my-tasks",
                   icon: <BsClipboardCheck />,
                 },
-                // {
-                //   name: "Manage Payments",
-                //   path: "/dashboard/manage-payments",
-                //   icon: <BsCreditCard2Front />,
-                // },
+                {
+                  name: "Manage Payments",
+                  path: "/dashboard/manage-payments",
+                  icon: <BsCreditCard2Front />,
+                },
+                {
+                  name: "Referral Program",
+                  path: "/referral-program",
+                  icon: <FaUsers />,
+                },
               ].map((item, index) => (
                 <Link
                   key={index}
@@ -363,6 +368,11 @@ function ProfileDropdown() {
                   name: "Manage Payments",
                   path: "/dashboard/manage-payments",
                   icon: <BsCreditCard2Front />,
+                },
+                {
+                  name: "Referral Program",
+                  path: "/referral-program",
+                  icon: <FaUsers />,
                 },
               ].map((item, index) => (
                 <Link
