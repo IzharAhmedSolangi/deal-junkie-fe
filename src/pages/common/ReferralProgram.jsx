@@ -21,6 +21,7 @@ import useGetReferredUsers from "../../services/common/useGetReferredUsers";
 import { ButtonLoader3 } from "../../components/shared/ButtonLoaders";
 import ShowMessage from "../../components/shared/ShowMessage";
 import { TableSkelton4 } from "../../components/skeltons/TableSkeltons";
+import { FormatDate } from "../../utils/FormatDate";
 
 function ReferralProgram() {
   return (
@@ -287,7 +288,7 @@ const ReferredUsersTable = () => {
                         {data.phone_number}
                       </td>
                       <td className="px-3 py-3 whitespace-nowrap">
-                        {data.created_at}
+                        {FormatDate(data.created_at)}
                       </td>
                     </tr>
                   );
