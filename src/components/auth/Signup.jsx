@@ -3,9 +3,9 @@ import { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import useSignup from "../../services/auth/useSignup";
-import { LinkedInVerification, GoogleLogin } from "../shared/SocialLogin";
+import { LinkedInVerification } from "../shared/SocialLogin";
 import { ButtonLoader1 } from "../shared/ButtonLoaders";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Input from "../shared/Input";
 import {
   MdLockOutline,
@@ -49,14 +49,19 @@ const validationSchema = Yup.object({
     .required("LinkedIn link is required")
     .max(100, "Limit exceeded"),
   profile_picture: Yup.string(),
+  referred_by: Yup.string().max(30, "Limit exceeded"),
   terms: Yup.boolean().oneOf([true], "Please accept terms & conditions"),
 });
+
+const useQuery = () => new URLSearchParams(useLocation().search);
 
 function Signup(props) {
   const { setAuthModalType, handleClose } = props;
   const [password, setPassword] = useState(false);
   const { Signup, loading, errorMessage, setErrorMessage } = useSignup();
   const [isLinkedInVerified, setIsLinkedInVerified] = useState(false);
+  const query = useQuery();
+  const referral = query.get("referral");
 
   const initialValues = {
     role: "",
@@ -72,6 +77,7 @@ function Signup(props) {
     linkedin_link: "",
     profile_picture: "",
     terms: false,
+    referred_by: referral || "",
   };
 
   const { values, errors, handleChange, handleSubmit, touched, setFieldValue } =
@@ -142,6 +148,23 @@ function Signup(props) {
               {errors.role && touched.role && (
                 <p className="text-red-700 text-xs mt-1">{errors.role}</p>
               )}
+            </div>
+            <div className="mt-3 grid grid-cols-1">
+              <div>
+                <Input
+                  type="text"
+                  placeholder="Referral Code"
+                  name="referred_by"
+                  value={values.referred_by}
+                  handleChange={handleChange}
+                  icon={<FaLink />}
+                />
+                {errors.referred_by && touched.referred_by && (
+                  <p className="text-red-700 text-xs mt-1">
+                    {errors.referred_by}
+                  </p>
+                )}
+              </div>
             </div>
             <div className="mt-3 grid grid-cols-1">
               <div>

@@ -11,6 +11,7 @@ import ResetPassword from "../auth/ResetPassword";
 function Auth(props) {
   const { isOpenModal, setIsOpenModal, authModalType, setAuthModalType } =
     props;
+
   const cancelButtonRef = useRef(null);
   const [forgotEmail, setForgotEmail] = useState(null);
   const [resetPasswordDetails, setResetPasswordDetails] = useState(null);

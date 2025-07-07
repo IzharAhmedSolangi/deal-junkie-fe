@@ -377,9 +377,23 @@ const UserListItem = ({ user, selectedUserId, userInfo, onSelect }) => {
           {getMessagePreview(lastMessage.message)}
         </p>
       </div>
-      <p className="font-[500] text-[12px] text-[#6F7487] whitespace-nowrap ml-2">
-        {formatTime(lastMessage.timestamp)}
-      </p>
+      <div className="flex flex-col items-end">
+        <p className="font-[500] text-[12px] text-[#6F7487] whitespace-nowrap ml-2">
+          {formatTime(lastMessage.timestamp)}
+        </p>
+        {/* {(() => {
+          const unreadCount = user.messages.filter(
+            (message) => !message.is_read
+          ).length;
+          return (
+            unreadCount > 0 && (
+              <div className="bg-primary text-secondary text-[10px] min-w-[18px] h-[18px] rounded-full flex items-center justify-center mt-1">
+                {unreadCount > 99 ? "99+" : unreadCount}
+              </div>
+            )
+          );
+        })()} */}
+      </div>
     </div>
   );
 };
