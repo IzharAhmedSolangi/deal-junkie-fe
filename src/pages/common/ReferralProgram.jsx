@@ -20,8 +20,14 @@ import useReferralStats from "../../services/common/useReferralStats";
 import useGetReferredUsers from "../../services/common/useGetReferredUsers";
 import { ButtonLoader3 } from "../../components/shared/ButtonLoaders";
 import ShowMessage from "../../components/shared/ShowMessage";
-import { TableSkelton4 } from "../../components/skeltons/TableSkeltons";
-import { FormatDate } from "../../utils/FormatDate";
+import {
+  TableSkelton4,
+  TableSkelton5,
+  TableSkelton6,
+} from "../../components/skeltons/TableSkeltons";
+import { FormatDate, FormatDateAndTime } from "../../utils/FormatDate";
+import useGetPayoutHistory from "../../services/common/useGetPayoutHistory";
+import useGetEarnings from "../../services/common/useGetEarnings";
 
 function ReferralProgram() {
   return (
@@ -42,6 +48,8 @@ function ReferralProgram() {
           <RefferalCard border="1px solid #E9EDF7" />
           <Stats />
           <ReferredUsersTable />
+          <Earnings />
+          <PayoutHistoryTable />
         </div>
       </div>
     </>
@@ -237,19 +245,19 @@ const ReferredUsersTable = () => {
           >
             <thead className="bg-[#F9F9F9]">
               <tr>
-                <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">
+                <th className="px-3 py-3 text-left text-[16px] font-bold text-gray-500 tracking-wider">
                   #
                 </th>
-                <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">
+                <th className="px-3 py-3 text-left text-[16px] font-bold text-gray-500 tracking-wider">
                   Name
                 </th>
-                <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">
+                <th className="px-3 py-3 text-left text-[16px] font-bold text-gray-500 tracking-wider">
                   Email
                 </th>
-                <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">
+                <th className="px-3 py-3 text-left text-[16px] font-bold text-gray-500 tracking-wider">
                   Phone
                 </th>
-                <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">
+                <th className="px-3 py-3 text-left text-[16px] font-bold text-gray-500 tracking-wider">
                   Date
                 </th>
               </tr>
@@ -265,7 +273,7 @@ const ReferredUsersTable = () => {
                     <tr
                       key={index}
                       ref={isLast ? lastItemRef : null}
-                      className="text-left text-xs"
+                      className="text-left text-[16px]"
                     >
                       <td className="px-3 py-3 whitespace-nowrap">
                         {index + 1}
@@ -281,13 +289,13 @@ const ReferredUsersTable = () => {
                           <p className="text-[#6F7487] text-sm font-[500]"></p>
                         </div>
                       </td>
-                      <td className="px-3 py-3 whitespace-nowrap">
+                      <td className="px-3 py-3 text-[15px] whitespace-nowrap">
                         {data.email}
                       </td>
-                      <td className="px-3 py-3 whitespace-nowrap">
+                      <td className="px-3 py-3 text-[15px] whitespace-nowrap">
                         {data.phone_number}
                       </td>
-                      <td className="px-3 py-3 whitespace-nowrap">
+                      <td className="px-3 py-3 text-[15px] whitespace-nowrap">
                         {FormatDate(data.created_at)}
                       </td>
                     </tr>
@@ -315,6 +323,285 @@ const ReferredUsersTable = () => {
           {allReferredUsers?.length === 0 && !isLoading && (
             <div className="w-full h-[200px] flex justify-center items-center">
               <ShowMessage title="We didn't find any referred users" />
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const Earnings = () => {
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
+    useGetEarnings();
+
+  const observer = useRef();
+
+  const lastItemRef = useCallback(
+    (node) => {
+      if (isFetchingNextPage) return;
+      if (observer.current) observer.current.disconnect();
+
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && hasNextPage) {
+          fetchNextPage();
+        }
+      });
+
+      if (node) observer.current.observe(node);
+    },
+    [isFetchingNextPage, hasNextPage, fetchNextPage]
+  );
+
+  const earnings = data?.pages?.flatMap((page) => page.data.results) || [];
+
+  return (
+    <div className="mt-5">
+      <h1 className="font-[600] md:text-[22px] text-[18px] text-secondary">
+        Earnings
+      </h1>
+      <div className="bg-white rounded-lg border border-[#DFDFDF] overflow-hidden">
+        <div className="overflow-x-auto">
+          <table
+            id="analyticsTable"
+            className="min-w-full divide-y divide-gray-200"
+          >
+            <thead className="bg-[#F9F9F9]">
+              <tr>
+                <th className="px-3 py-3 text-left text-[16px] font-bold text-gray-500 tracking-wider">
+                  #
+                </th>
+                <th className="px-3 py-3 text-left text-[16px] font-bold text-gray-500 tracking-wider">
+                  Name
+                </th>
+                <th className="px-3 py-3 text-left text-[16px] font-bold text-gray-500 tracking-wider">
+                  Project Name
+                </th>
+                <th className="px-3 py-3 text-left text-[16px] font-bold text-gray-500 tracking-wider">
+                  Transaction Amount
+                </th>
+                <th className="px-3 py-3 text-left text-[16px] font-bold text-gray-500 tracking-wider">
+                  Earning
+                </th>
+                <th className="px-3 py-3 text-left text-[16px] font-bold text-gray-500 tracking-wider">
+                  Paid Date
+                </th>
+              </tr>
+            </thead>
+
+            {/* Table Data */}
+            {earnings && (
+              <tbody className="divide-y divide-gray-200">
+                {earnings?.map((data, index) => {
+                  const isLast = index === earnings.length - 1;
+
+                  return (
+                    <tr
+                      key={index}
+                      ref={isLast ? lastItemRef : null}
+                      className="text-left text-[16px]"
+                    >
+                      <td className="px-3 py-3 whitespace-nowrap">
+                        {index + 1}
+                      </td>
+                      <td className="px-3 py-3 flex items-center gap-2">
+                        <div className="h-10 w-10 rounded-full bg-gray-300 flex items-center justify-center text-[15px] font-semibold text-white">
+                          {data?.referred_user_name?.charAt(0).toUpperCase()}
+                        </div>
+                        <div>
+                          <p className="font-semibold text-[16px] text-secondary">
+                            {data?.referred_user_name}
+                          </p>
+                          <p className="text-[#6F7487] text-sm font-[500]"></p>
+                        </div>
+                      </td>
+                      <td className="px-3 py-3 text-[15px] whitespace-nowrap">
+                        {data.project_title}
+                      </td>
+                      <td className="px-3 py-3 text-[15px] whitespace-nowrap">
+                        ${data.transaction_amount}
+                      </td>
+                      <td className="px-3 py-3 text-[15px] whitespace-nowrap">
+                        ${data.ambassador_earning}
+                      </td>
+                      <td className="px-3 py-3 text-[15px] whitespace-nowrap">
+                        {FormatDateAndTime(data.paid_at)}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            )}
+
+            {/* Loading State */}
+            {isLoading && (
+              <tbody className="divide-y divide-gray-200">
+                {Array.from({ length: 6 }, (_, index) => (
+                  <TableSkelton5 key={index} />
+                ))}
+              </tbody>
+            )}
+          </table>
+
+          {isFetchingNextPage && (
+            <div className="w-full mt-3 flex justify-center">
+              <ButtonLoader3 />
+            </div>
+          )}
+
+          {earnings?.length === 0 && !isLoading && (
+            <div className="w-full h-[200px] flex justify-center items-center">
+              <ShowMessage title="We didn't find any earnings" />
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const PayoutHistoryTable = () => {
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
+    useGetPayoutHistory();
+
+  const observer = useRef();
+
+  const lastItemRef = useCallback(
+    (node) => {
+      if (isFetchingNextPage) return;
+      if (observer.current) observer.current.disconnect();
+
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && hasNextPage) {
+          fetchNextPage();
+        }
+      });
+
+      if (node) observer.current.observe(node);
+    },
+    [isFetchingNextPage, hasNextPage, fetchNextPage]
+  );
+
+  const allPayoutHistory =
+    data?.pages?.flatMap((page) => page.data.results) || [];
+
+  return (
+    <div className="mt-5">
+      <h1 className="font-[600] md:text-[22px] text-[18px] text-secondary">
+        Payout History
+      </h1>
+      <div className="bg-white rounded-lg border border-[#DFDFDF] overflow-hidden">
+        <div className="overflow-x-auto">
+          <table
+            id="analyticsTable"
+            className="min-w-full divide-y divide-gray-200"
+          >
+            <thead className="bg-[#F9F9F9]">
+              <tr>
+                <th className="px-3 py-3 text-left text-[16px] font-bold text-gray-500 tracking-wider">
+                  #
+                </th>
+                <th className="px-3 py-3 text-left text-[16px] font-bold text-gray-500 tracking-wider">
+                  Name
+                </th>
+                <th className="px-3 py-3 text-left text-[16px] font-bold text-gray-500 tracking-wider">
+                  Amount
+                </th>
+                <th className="px-3 py-3 text-left text-[16px] font-bold text-gray-500 tracking-wider">
+                  Status
+                </th>
+                <th className="px-3 py-3 text-left text-[16px] font-bold text-gray-500 tracking-wider">
+                  Stripe ID
+                </th>
+                <th className="px-3 py-3 text-left text-[16px] font-bold text-gray-500 tracking-wider">
+                  Payment Method
+                </th>
+                <th className="px-3 py-3 text-left text-[16px] font-bold text-gray-500 tracking-wider">
+                  Requested Date
+                </th>
+                <th className="px-3 py-3 text-left text-[16px] font-bold text-gray-500 tracking-wider">
+                  Processed Date
+                </th>
+                <th className="px-3 py-3 text-left text-[16px] font-bold text-gray-500 tracking-wider">
+                  Request Payout
+                </th>
+              </tr>
+            </thead>
+
+            {/* Table Data */}
+            {allPayoutHistory && (
+              <tbody className="divide-y divide-gray-200">
+                {allPayoutHistory?.map((data, index) => {
+                  const isLast = index === allPayoutHistory.length - 1;
+
+                  return (
+                    <tr
+                      key={index}
+                      ref={isLast ? lastItemRef : null}
+                      className="text-left text-[16px]"
+                    >
+                      <td className="px-3 py-3 whitespace-nowrap">
+                        {index + 1}
+                      </td>
+                      <td className="px-3 py-3 flex items-center gap-2">
+                        <div className="h-10 w-10 rounded-full bg-gray-300 flex items-center justify-center text-[15px] font-semibold text-white">
+                          {data?.ambassador_name?.charAt(0).toUpperCase()}
+                        </div>
+                        <div>
+                          <p className="font-semibold text-[16px] text-secondary">
+                            {data?.ambassador_name}
+                          </p>
+                          <p className="text-[#6F7487] text-sm font-[500]"></p>
+                        </div>
+                      </td>
+                      <td className="px-3 py-3 text-[15px] whitespace-nowrap">
+                        ${data.amount}
+                      </td>
+                      <td className="px-3 py-3 text-[15px] whitespace-nowrap">
+                        {data.status}
+                      </td>
+                      <td className="px-3 py-3 text-[15px] whitespace-nowrap">
+                        {data.stripe_transfer_id}
+                      </td>
+                      <td className="px-3 py-3 text-[15px] whitespace-nowrap">
+                        {data.payout_method}
+                      </td>
+                      <td className="px-3 py-3 text-[15px] whitespace-nowrap">
+                        {FormatDateAndTime(data.requested_at)}
+                      </td>
+                      <td className="px-3 py-3 text-[15px] whitespace-nowrap">
+                        {FormatDateAndTime(data.processed_at)}
+                      </td>
+                      <td className="px-3 py-3 text-[15px] whitespace-nowrap">
+                        <button className="hover-slide-button rounded w-[120px] h-[40px] bg-primary text-[#003F63] text-center cursor-pointer">
+                          Request
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            )}
+
+            {/* Loading State */}
+            {isLoading && (
+              <tbody className="divide-y divide-gray-200">
+                {Array.from({ length: 6 }, (_, index) => (
+                  <TableSkelton6 key={index} />
+                ))}
+              </tbody>
+            )}
+          </table>
+
+          {isFetchingNextPage && (
+            <div className="w-full mt-3 flex justify-center">
+              <ButtonLoader3 />
+            </div>
+          )}
+
+          {allPayoutHistory?.length === 0 && !isLoading && (
+            <div className="w-full h-[200px] flex justify-center items-center">
+              <ShowMessage title="We didn't find any payout history" />
             </div>
           )}
         </div>

@@ -74,11 +74,11 @@ function Pricing() {
               </div>
               <div className="flex items-center gap-1 font-[500] md:text-[17px] text-[13px] text-[#2E5EB1]">
                 <IoCheckmarkCircleOutline />
-                Provider Earning: $400 (after 20% platform fee)
+                Provider Earnings: $400 (after 20% platform fee)
               </div>
               <div className="flex items-center gap-1 font-[500] md:text-[17px] text-[13px] text-[#2E5EB1]">
                 <IoCheckmarkCircleOutline />
-                Buyer Pay: $500 (no Extra Charges)
+                Buyer Pays: $500 (no extra charges)
               </div>
             </div>
           </section>
