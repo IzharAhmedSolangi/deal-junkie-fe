@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-/* eslint-disable no-unused-vars */
 import useGetPaymentHistory from "../../../../services/seller/useGetPaymentHistory";
 import { TableSkelton2 } from "../../../../components/skeltons/TableSkeltons";
 import ShowMessage from "../../../../components/shared/ShowMessage";

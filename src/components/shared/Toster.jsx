@@ -27,3 +27,17 @@ export function ErrorToaster(title, message) {
     }
   );
 }
+
+export function InfoToaster(title, message) {
+  toast.info(
+    <div>
+      <strong>{title}</strong>
+      <div>{message}</div>
+    </div>,
+    {
+      position: "bottom-right",
+      className: "toast-info-message",
+      autoClose: 1500,
+    }
+  );
+}

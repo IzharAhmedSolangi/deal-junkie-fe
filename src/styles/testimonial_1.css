@@ -21,7 +21,7 @@
   align-items: center;
   justify-content: space-around;
   gap: 10px;
-  min-width: 2200px;
+  min-width: 4000px;
   animation: scroll_1 var(--duration) linear infinite;
 }
 
@@ -58,6 +58,6 @@
   }
 
   .marq_group_1 {
-    min-width: 1800px;
+    min-width: 2800px;
   }
 }

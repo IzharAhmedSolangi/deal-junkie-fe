@@ -602,6 +602,9 @@ function StepTwo(props) {
                 ? new Date(values.expected_completion_date)
                 : null
             }
+            tileDisabled={({ date, view }) => {
+              return view === "month" && date < new Date().setHours(0, 0, 0, 0);
+            }}
           />
           {errors.expected_completion_date &&
             touched.expected_completion_date && (

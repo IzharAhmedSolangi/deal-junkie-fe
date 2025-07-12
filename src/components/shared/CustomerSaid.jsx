@@ -1,4 +1,4 @@
-import { FaStar } from "react-icons/fa";
+// import { FaStar } from "react-icons/fa";
 import "../../styles/testimonial_1.css";
 import "../../styles/testimonial_2.css";
 
@@ -48,6 +48,18 @@ const Testimonial = () => {
       name: "Charlie",
       review:
         "“Deal Junkie is a fast, easy-to-use platform that connects professionals with high-quality modeling and diligence work. The UI is clean, communication is streamlined, and projects are well-scoped—making it simple to dive in and deliver value quickly. It’s a great resource for anyone looking to work on meaningful deal-related projects without the usual hassle.”",
+    },
+    {
+      url: "/assets/reviews/image-6.jpeg",
+      name: "Jack",
+      review:
+        "“Love the platform.  I believe I was one of the original guinea pigs, and Deal Junkie linked us up with someone who knew exactly what we were looking to achieve.  The network has a strong network of IB/PE professionals that are hungry by nature, and love getting into the weeds on financial and strategic projects that require some degree of outsourcing.  I highly recommend this to any search funders, individual sponsors, and family offices that are looking for ad hoc assistance from sharp professionals.  I am officially a #junkie”",
+    },
+    {
+      url: "/assets/reviews/image-7.jpeg",
+      name: "Tyler",
+      review:
+        "“Working with Deal Junkie was a pleasure. It was awesome to use their network to connect with a company in need of modeling services to help make income on the side while trying to pay my way through business school. Deal Junkie is an incredible resource for both the supply (MBA students) and demand (demand) sides of the market they’re building.”",
     },
   ];
 
@@ -103,9 +115,9 @@ const Testimonial = () => {
           {testimonials_1.map((item, index) => (
             <div
               key={index}
-              className="bg-white w-full md:h-[260px] h-[250px] md:p-6 p-3 rounded-lg"
+              className="bg-white w-full md:h-[300px] h-[260px] md:p-6 p-3 rounded-lg flex flex-col items-center"
             >
-              <div className="flex gap-2">
+              <div className="flex flex-col items-center">
                 <img
                   src={item.url}
                   className="w-[45px] h-[45px] rounded-[50%]"
@@ -113,16 +125,16 @@ const Testimonial = () => {
                 />
                 <div>
                   <h3 className="text-lg font-semibold">{item.name}</h3>
-                  <p className="flex gap-1">
+                  {/* <p className="flex gap-1">
                     <FaStar className="text-primary" />
                     <FaStar className="text-primary" />
                     <FaStar className="text-primary" />
                     <FaStar className="text-primary" />
                     <FaStar className="text-primary" />
-                  </p>
+                  </p> */}
                 </div>
               </div>
-              <p className="text-[#667085] text-[15px] font-[500] mt-2">
+              <p className="text-[#667085] text-[15px] font-[500] mt-1 text-center">
                 {item.review}
               </p>
             </div>
@@ -132,9 +144,9 @@ const Testimonial = () => {
           {testimonials_1.map((item, index) => (
             <div
               key={index}
-              className="bg-white w-full md:h-[260px] h-[250px] md:p-6 p-3 rounded-lg"
+              className="bg-white w-full md:h-[300px] h-[260px] md:p-6 p-3 rounded-lg flex flex-col items-center"
             >
-              <div className="flex md:gap-2 gap-1">
+              <div className="flex flex-col items-center">
                 <img
                   src={item.url}
                   className="w-[45px] h-[45px] rounded-[50%]"
@@ -142,16 +154,16 @@ const Testimonial = () => {
                 />
                 <div>
                   <h3 className="text-lg font-semibold">{item.name}</h3>
-                  <p className="flex gap-1">
+                  {/* <p className="flex gap-1">
                     <FaStar className="text-primary" />
                     <FaStar className="text-primary" />
                     <FaStar className="text-primary" />
                     <FaStar className="text-primary" />
                     <FaStar className="text-primary" />
-                  </p>
+                  </p> */}
                 </div>
               </div>
-              <p className="text-[#667085] text-[15px] font-[500] mt-2">
+              <p className="text-[#667085] text-[15px] font-[500] mt-1 text-center">
                 {item.review}
               </p>
             </div>
