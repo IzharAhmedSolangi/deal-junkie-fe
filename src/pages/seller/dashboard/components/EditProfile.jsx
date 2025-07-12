@@ -127,7 +127,6 @@ function EditProfile() {
           BecomeSeller({
             experience: values.experience,
             rate_per_hour: values.rate_per_hour,
-
             describe_yourself: values.describe_yourself,
             skill_expperience: values.describe_skills_experience,
             achievements: values.achievements,

@@ -48,6 +48,6 @@ function useSendProposal() {
         }));
       });
   };
-  return { SendProposal, sendProposal };
+  return { SendProposal, sendProposal, setSendProposal };
 }
 export default useSendProposal;

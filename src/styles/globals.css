@@ -48,6 +48,12 @@
   width: 400px !important;
 }
 
+.toast-info-message {
+  background: #f7f7ff !important;
+  color: #2f4034 !important;
+  width: 400px !important;
+}
+
 /* Button 1  */
 .hover-slide-button {
   position: relative;

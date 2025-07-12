@@ -10,10 +10,10 @@ import { useNavigate } from "react-router-dom";
 import CircularProgress from "../shared/CircularProgress";
 import Dropdown from "../shared/Dropdown";
 import useUpload from "../../services/common/useUpload";
-import { ButtonLoader1 } from "../shared/ButtonLoaders";
+import { ButtonLoader1, ButtonLoader2 } from "../shared/ButtonLoaders";
 import Input from "../shared/Input";
 import { FaDollarSign } from "react-icons/fa";
-import { FaLink } from "react-icons/fa6";
+import { getFileNameFromMediaUrl } from "../../utils/Extract";
 
 const validationSchema = Yup.object({
   budget: Yup.string()
@@ -40,7 +40,7 @@ function SendProposal(props) {
   const cancelButtonRef = useRef(null);
   const Navigate = useNavigate();
   const [percentage, setPercentage] = useState(0);
-  const { SendProposal, sendProposal } = useSendProposal();
+  const { SendProposal, sendProposal, setSendProposal } = useSendProposal();
   const { Upload, upload } = useUpload();
 
   const initialValues = {
@@ -119,6 +119,12 @@ function SendProposal(props) {
     event.preventDefault();
   };
 
+  useEffect(() => {
+    if (upload?.url) {
+      setFieldValue("portfolio_link", upload?.url);
+    }
+  }, [upload]);
+
   return (
     <>
       <Transition.Root show={isOpenModal} as={Fragment}>
@@ -180,19 +186,33 @@ function SendProposal(props) {
                         </div>
                         <div className="md:pt-5 md:pb-10 py-2">
                           <div className="md:mt-4 mt-2">
-                            <label
-                              onDrop={handleDrop}
-                              onDragOver={handleDragOver}
-                              className="w-full h-[200px] rounded-lg border border-dotted border-[#02174C33] text-secondary hover:border-primary flex flex-col justify-center items-center cursor-pointer"
-                            >
-                              <input
-                                type="file"
-                                className="hidden"
-                                onChange={handleFileChange}
-                              />
-                              <span className="text-primary">Upload or</span>
-                              just drag & drop
-                            </label>
+                            {upload?.loading ? (
+                              <div className="w-full h-[200px] rounded-lg border border-dotted border-[#02174C33] flex flex-col justify-center items-center">
+                                <ButtonLoader2 />
+                              </div>
+                            ) : (
+                              <label
+                                onDrop={handleDrop}
+                                onDragOver={handleDragOver}
+                                className="w-full h-[200px] rounded-lg border border-dotted border-[#02174C33] text-secondary hover:border-primary flex flex-col justify-center items-center cursor-pointer"
+                              >
+                                <input
+                                  type="file"
+                                  className="hidden"
+                                  onChange={handleFileChange}
+                                />
+                                <span className="text-primary">
+                                  {" "}
+                                  Resume Upload or
+                                </span>
+                                just drag & drop
+                                {upload?.url && (
+                                  <p className="font-bold mt-1">
+                                    {getFileNameFromMediaUrl(upload?.url)}
+                                  </p>
+                                )}
+                              </label>
+                            )}
                           </div>
                           <div className="md:mt-4 mt-2">
                             <label className="text-[16px] text-[#222222] font-[600]">
@@ -273,23 +293,6 @@ function SendProposal(props) {
                           </div>
 
                           <div className="md:mt-4 mt-2">
-                            <Input
-                              type="text"
-                              placeholder="Portfolio link"
-                              name="portfolio_link"
-                              value={values.portfolio_link}
-                              handleChange={handleChange}
-                              icon={<FaLink />}
-                            />
-                            {errors.portfolio_link &&
-                              touched.portfolio_link && (
-                                <p className="text-red-700 text-xs mt-1">
-                                  {errors.portfolio_link}
-                                </p>
-                              )}
-                          </div>
-
-                          <div className="md:mt-4 mt-2">
                             <label className="text-[16px] text-[#222222] font-[600]">
                               Tell us the details of your service
                             </label>
@@ -324,7 +327,7 @@ function SendProposal(props) {
                       <div className="flex flex-col justify-center items-center w-full">
                         <img src="/assets/icons/icon-2.png" alt="" />
                         <h1 className="font-[600] text-[32px] text-secondary">
-                          Your serivce request is sent!
+                          Your service request is sent!
                         </h1>
                         <p className="font-[500] text-[16px] text-[#6F7487] text-center">
                           Thank you for submitting your service request.
@@ -333,6 +336,15 @@ function SendProposal(props) {
                           onClick={() => {
                             Navigate("/find-jobs");
                             setIsOpenModal(false);
+                            setTimeout(() => {
+                              setSendProposal((prevState) => ({
+                                ...prevState,
+                                loading: false,
+                                data: null,
+                                error: null,
+                                success: false,
+                              }));
+                            }, 1000);
                           }}
                           className="button-2 bg-primary cursor-pointer w-[150px] h-[40px] text-secondary rounded mt-6 flex justify-center items-center"
                         >

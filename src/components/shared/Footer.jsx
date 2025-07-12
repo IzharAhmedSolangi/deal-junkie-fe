@@ -10,9 +10,10 @@ import FindExpertsButton from "./FindExpertsButton";
 import { getAccessToken } from "../../storage/storage";
 import Aos from "aos";
 import { useEffect } from "react";
+import { InfoToaster } from "./Toster";
 
 function Footer() {
-  // const { userInfo } = useContext(GlobalContext);
+  const { userInfo } = useContext(GlobalContext);
 
   return (
     <footer className="w-full h-auto bg-[#F6FFFF] bg-[url('/assets/images/footer-bg.png')] bg-cover bg-center md:px-[5%] px-[2.5%] pt-40 relative">
@@ -67,12 +68,24 @@ function Footer() {
             For Service Seekers
           </h1>
           <div className="flex flex-col gap-3 mt-3">
-            <Link
-              to="/find-experts"
-              className="text-[#667085] text-[14px] font-normal hover:text-primary"
-            >
-              Find Experts
-            </Link>
+            {userInfo?.user?.role === "buyer" ? (
+              <Link
+                to="/find-experts"
+                className="text-[#667085] text-[14px] font-normal hover:text-primary"
+              >
+                Find Experts
+              </Link>
+            ) : (
+              <Link
+                to="#"
+                onClick={() =>
+                  InfoToaster("Info", "Switch to buyer to find experts")
+                }
+                className="text-[#667085] text-[14px] font-normal hover:text-primary"
+              >
+                Find Experts
+              </Link>
+            )}
             <Link
               to="/FAQs"
               className="text-[#667085] text-[14px] font-normal hover:text-primary"
@@ -86,12 +99,24 @@ function Footer() {
             For Service Providers
           </h1>
           <div className="flex flex-col gap-3 mt-3">
-            <Link
-              to="/find-jobs"
-              className="text-[#667085] text-[14px] font-normal hover:text-primary"
-            >
-              Find Jobs
-            </Link>
+            {userInfo?.user?.role === "seller" ? (
+              <Link
+                to="/find-jobs"
+                className="text-[#667085] text-[14px] font-normal hover:text-primary"
+              >
+                Find Jobs
+              </Link>
+            ) : (
+              <Link
+                to="#"
+                onClick={() =>
+                  InfoToaster("Info", "Switch to seller to find jobs")
+                }
+                className="text-[#667085] text-[14px] font-normal hover:text-primary"
+              >
+                Find Jobs
+              </Link>
+            )}
             <Link
               to="/FAQs"
               className="text-[#667085] text-[14px] font-normal hover:text-primary"
