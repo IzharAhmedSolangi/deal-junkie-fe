@@ -437,7 +437,7 @@ function Inbox() {
   // Group messages by date
   const groupedMessages = useMemo(() => {
     return messages
-      .slice()
+      ?.slice()
       .sort(
         (a, b) =>
           new Date(a.timestamp.replace(" ", "T")) -
