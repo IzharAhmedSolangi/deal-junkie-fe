@@ -44,12 +44,6 @@ const Testimonial = () => {
         "“Deal Junkie is a fast, easy-to-use platform that connects professionals with high-quality modeling and diligence work. The UI is clean, communication is streamlined, and projects are well-scoped—making it simple to dive in and deliver value quickly. It’s a great resource for anyone looking to work on meaningful deal-related projects without the usual hassle.”",
     },
     {
-      url: "/assets/reviews/image-6.jpeg",
-      name: "Jack",
-      review:
-        "“Love the platform.  I believe I was one of the original guinea pigs, and Deal Junkie linked us up with someone who knew exactly what we were looking to achieve.  The network has a strong network of IB/PE professionals that are hungry by nature, and love getting into the weeds on financial and strategic projects that require some degree of outsourcing.  I highly recommend this to any search funders, individual sponsors, and family offices that are looking for ad hoc assistance from sharp professionals.  I am officially a #junkie”",
-    },
-    {
       url: "/assets/reviews/image-7.jpeg",
       name: "Tyler",
       review:
