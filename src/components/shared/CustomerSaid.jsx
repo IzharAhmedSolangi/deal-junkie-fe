@@ -20,12 +20,6 @@ export default CustomerSaid;
 const Testimonial = () => {
   const testimonials_1 = [
     {
-      url: "/assets/reviews/image-1.jpeg",
-      name: "David",
-      review:
-        "“I built Deal Junkie to connect the dots—giving ex-finance professionals in B-school a flexible way to earn while offering smaller investors affordable access to elite-level support. It’s a win-win”",
-    },
-    {
       url: "/assets/reviews/image-2.jpeg",
       name: "Frank",
       review:
