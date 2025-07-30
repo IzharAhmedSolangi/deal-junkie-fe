@@ -2,6 +2,7 @@
 import { Fragment, useRef } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { Dialog, Transition } from "@headlessui/react";
+import { Link } from "react-router-dom";
 
 function HireNow(props) {
   const { isOpenModal, setIsOpenModal, selectedSeller } = props;
@@ -78,9 +79,12 @@ function HireNow(props) {
                       <p className="font-[500] md:text-[16px] text-[13px] text-[#6F7487] text-center">
                         You&apos;ll receive a confirmation email shortly
                       </p>
-                      <button className="button-2 bg-primary cursor-pointer w-[150px] h-[40px] text-secondary rounded mt-6 flex justify-center items-center">
+                      <Link
+                        to={`/inbox?userId=${selectedSeller?.user?.id}&username=${selectedSeller?.user?.first_name}`}
+                        className="button-2 bg-primary cursor-pointer w-[150px] h-[40px] text-secondary rounded mt-6 flex justify-center items-center"
+                      >
                         Yes Hire Now
-                      </button>
+                      </Link>
                     </div>
                   </div>
                 </Dialog.Panel>
