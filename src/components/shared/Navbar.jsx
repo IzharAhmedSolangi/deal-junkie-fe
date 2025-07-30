@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo, useCallback } from "react";
 import { useContext } from "react";
 import GlobalContext from "../../context/GlobalContext";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -19,6 +19,9 @@ import useEditProfile from "../../services/common/useEditProfile";
 import { LuLayoutDashboard } from "react-icons/lu";
 import Notifications from "./Notifications";
 import { FaTimes, FaUsers } from "react-icons/fa";
+import ReconnectingWebSocket from "reconnecting-websocket";
+
+const SOCKETS_URL = import.meta.env.VITE_SOCKETS_URL;
 
 const Navbar = () => {
   const token = getAccessToken();
@@ -41,6 +44,57 @@ const Navbar = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  const [notifications, setNotifications] = useState(null);
+  const [unreadMessages, setUnreadMessages] = useState(null);
+  // WebSocket connection
+  const socketRef = useRef(null);
+  const socketUrl = useMemo(
+    () => `${SOCKETS_URL}/ws/notifications/?token=${token}`,
+    [token]
+  );
+
+  // Connect to WebSocket
+  const connectSocket = useCallback(() => {
+    if (socketRef.current) {
+      socketRef.current.close();
+    }
+
+    socketRef.current = new ReconnectingWebSocket(socketUrl);
+
+    socketRef.current.onopen = () => {
+      console.log("WebSocket Connected");
+    };
+
+    socketRef.current.onmessage = (event) => {
+      try {
+        const response = JSON.parse(event.data);
+        setUnreadMessages(response.count);
+        console.log({ response });
+      } catch (error) {
+        console.error("Error parsing WebSocket message:", error);
+      }
+    };
+
+    socketRef.current.onerror = (error) => {
+      console.error("WebSocket Error:", error);
+    };
+
+    socketRef.current.onclose = () => {
+      console.log("WebSocket Disconnected");
+    };
+  }, [socketUrl]);
+
+  useEffect(() => {
+    if (!token) return;
+    connectSocket();
+
+    return () => {
+      if (socketRef.current) {
+        socketRef.current.close();
+      }
+    };
+  }, [connectSocket]);
 
   return (
     <>
@@ -101,9 +155,9 @@ const Navbar = () => {
               <Notifications />
               <Link to="/inbox" className="relative" title="Inbox">
                 <CiMail className="text-xl text-gray-500 hover:text-primary w-7 h-7" />
-                {/* <span className="absolute top-0 right-0 bg-primary text-secondary text-xs w-4 h-4 text-[10px] flex items-center justify-center rounded-full">
-                  2
-                </span> */}
+                <span className="absolute top-[-3px] right-[-5px] bg-primary text-secondary text-xs w-4 h-4 text-[10px] flex items-center justify-center rounded-full">
+                  {unreadMessages}
+                </span>
               </Link>
               <ProfileDropdown />
               {userInfo?.user?.role === "seller" && (

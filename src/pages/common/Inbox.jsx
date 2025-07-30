@@ -13,13 +13,7 @@ import { FaChevronLeft, FaExternalLinkAlt, FaFile } from "react-icons/fa";
 import { TbSend } from "react-icons/tb";
 import { CiCalendar, CiSearch, CiVideoOff, CiVideoOn } from "react-icons/ci";
 import { HiDotsVertical } from "react-icons/hi";
-import {
-  MdCalendarToday,
-  MdFileDownload,
-  MdOpenInNew,
-  MdOutlineAttachment,
-  MdVideocam,
-} from "react-icons/md";
+import { MdFileDownload, MdOutlineAttachment } from "react-icons/md";
 import { getAccessToken } from "../../storage/storage";
 import ReconnectingWebSocket from "reconnecting-websocket";
 import GlobalContext from "../../context/GlobalContext";
@@ -29,6 +23,7 @@ import useUpload from "../../services/common/useUpload";
 import { ButtonLoader2 } from "../../components/shared/ButtonLoaders";
 import useDownload from "../../services/common/useDownload";
 import useCreateZoomMeeting from "../../services/common/useCreateZoomMeeting";
+import CreateOffer from "../../components/modals/CreateOffer";
 
 // Constants moved outside component
 const BASE_URL = import.meta.env.VITE_API_URL;
@@ -381,10 +376,12 @@ const UserListItem = ({ user, selectedUserId, userInfo, onSelect }) => {
         <p className="font-[500] text-[12px] text-[#6F7487] whitespace-nowrap ml-2">
           {formatTime(lastMessage.timestamp)}
         </p>
-        {/* {(() => {
+        {(() => {
           const unreadCount = user.messages.filter(
-            (message) => !message.is_read
+            (message) =>
+              !message.is_read && message.receiver_id === userInfo?.user?.id
           ).length;
+
           return (
             unreadCount > 0 && (
               <div className="bg-primary text-secondary text-[10px] min-w-[18px] h-[18px] rounded-full flex items-center justify-center mt-1">
@@ -392,7 +389,7 @@ const UserListItem = ({ user, selectedUserId, userInfo, onSelect }) => {
               </div>
             )
           );
-        })()} */}
+        })()}
       </div>
     </div>
   );
@@ -405,6 +402,7 @@ function Inbox() {
   const { userInfo } = useContext(GlobalContext);
   const { meetingLoading, meetingDetails, setMeetingInfo, CreateMeeting } =
     useCreateZoomMeeting();
+  const [isOpenCreateOfferModal, setIsOpenCreateOfferModal] = useState(false);
 
   // Parse userId and username from URL
   const userId = parseInt(query.get("userId")) || null;
@@ -575,19 +573,18 @@ function Inbox() {
       e.preventDefault();
       if (!newMessage.trim() || !selectedUser?.chat_with) return;
 
-      const timestamp = new Date().toISOString().replace("T", " ").slice(0, 19);
-
+      // const timestamp = new Date().toISOString().replace("T", " ").slice(0, 19);
       // Optimistic update
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        {
-          id: Date.now(),
-          message: newMessage,
-          receiver_id: selectedUser?.chat_with,
-          sender_id: userInfo?.user?.id,
-          timestamp,
-        },
-      ]);
+      // setMessages((prevMessages) => [
+      //   ...prevMessages,
+      //   {
+      //     id: Date.now(),
+      //     message: newMessage,
+      //     receiver_id: selectedUser?.chat_with,
+      //     sender_id: userInfo?.user?.id,
+      //     timestamp,
+      //   },
+      // ]);
 
       sendToSocket(newMessage);
       setNewMessage("");
@@ -771,6 +768,13 @@ function Inbox() {
                   </div>
                   <div className="flex items-center gap-2">
                     <button
+                      title="Create and send you customer a unique offer based on their specific requests."
+                      className="rounded-sm px-[12px] py-[5px] bg-transparent border border-secondary cursor-pointer hover:bg-secondary hover:text-white"
+                      onClick={() => setIsOpenCreateOfferModal(true)}
+                    >
+                      Create an Offer
+                    </button>
+                    <button
                       onClick={() => CreateMeeting()}
                       disabled={meetingLoading}
                       title="Create Meeting"
@@ -863,6 +867,11 @@ function Inbox() {
           </div>
         </div>
       </div>
+      <CreateOffer
+        isOpenModal={isOpenCreateOfferModal}
+        setIsOpenModal={setIsOpenCreateOfferModal}
+        selected={selectedUser}
+      />
     </>
   );
 }

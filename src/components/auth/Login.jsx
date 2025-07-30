@@ -6,6 +6,7 @@ import { ButtonLoader1 } from "../shared/ButtonLoaders";
 import { useState } from "react";
 import Input from "../shared/Input";
 import { MdLockOutline, MdOutlineEmail } from "react-icons/md";
+import { GoogleLogin } from "../shared/SocialLogin";
 
 const validationSchema = Yup.object({
   email: Yup.string().required("Email is required").max(100, "Limit exceeded"),
@@ -102,6 +103,7 @@ function Login(props) {
             {loading ? <ButtonLoader1 /> : "Login"}
           </button>
         </form>
+        {/* <GoogleLogin /> */}
         <p className="text-center text-gray-600 mt-4 text-[15px]">
           Don’t have an account?{" "}
           <button

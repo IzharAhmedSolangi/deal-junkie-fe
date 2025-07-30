@@ -1,21 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import {
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import useNotifications from "../../services/common/useNotifications";
 import GlobalContext from "../../context/GlobalContext";
 import { ButtonLoader2 } from "./ButtonLoaders";
-import ReconnectingWebSocket from "reconnecting-websocket";
-import { getAccessToken } from "../../storage/storage";
-
-const SOCKETS_URL = import.meta.env.VITE_SOCKETS_URL;
 
 function Notifications() {
   const [isOpen, setIsOpen] = useState(false);
@@ -78,56 +67,6 @@ function Notifications() {
     return timeLabel;
   };
 
-  // WebSocket connection
-  const token = getAccessToken();
-  const socketRef = useRef(null);
-  const socketUrl = useMemo(
-    () => `${SOCKETS_URL}/ws/notifications/?token=${token}`,
-    [token]
-  );
-
-  // Connect to WebSocket
-  const connectSocket = useCallback(() => {
-    if (socketRef.current) {
-      socketRef.current.close();
-    }
-
-    socketRef.current = new ReconnectingWebSocket(socketUrl);
-
-    socketRef.current.onopen = () => {
-      console.log("WebSocket Connected");
-    };
-
-    socketRef.current.onmessage = (event) => {
-      try {
-        const response = JSON.parse(event.data);
-
-        console.log({ response });
-      } catch (error) {
-        console.error("Error parsing WebSocket message:", error);
-      }
-    };
-
-    socketRef.current.onerror = (error) => {
-      console.error("WebSocket Error:", error);
-    };
-
-    socketRef.current.onclose = () => {
-      console.log("WebSocket Disconnected");
-    };
-  }, [socketUrl]);
-
-  useEffect(() => {
-    if (!token) return;
-    connectSocket();
-
-    return () => {
-      if (socketRef.current) {
-        socketRef.current.close();
-      }
-    };
-  }, [connectSocket]);
-
   return (
     <div className="relative" ref={dropdownRef}>
       <button
@@ -140,7 +79,7 @@ function Notifications() {
         />
       </button>
       {notifications.unread > 0 && (
-        <div className="absolute w-[14px] h-[14px] rounded-full bg-primary top-0 right-0 text-secondary text-[10px] flex items-center justify-center">
+        <div className="absolute w-[14px] h-[14px] rounded-full bg-primary top-[-3px] right-[-3px] text-secondary text-[10px] flex items-center justify-center">
           {notifications.unread}
         </div>
       )}
