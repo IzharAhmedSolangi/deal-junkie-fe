@@ -100,7 +100,7 @@ function Signup(props) {
               password: values.password,
               linkedin_link: values.linkedin_link,
               profile_picture: values.profile_picture,
-              referred_by: values.referred_by,
+              referred_by: values.referred_by ? values.referred_by : null,
               is_verified: true,
             },
             setAuthModalType
