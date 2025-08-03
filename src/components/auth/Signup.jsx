@@ -77,7 +77,7 @@ function Signup(props) {
     linkedin_link: "",
     profile_picture: "",
     terms: false,
-    referred_by: referral || null,
+    referred_by: referral || "",
   };
 
   const { values, errors, handleChange, handleSubmit, touched, setFieldValue } =
