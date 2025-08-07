@@ -335,7 +335,8 @@ const FileContent = ({
 
 // User list item subcomponent
 const UserListItem = ({ user, selectedUserId, userInfo, onSelect }) => {
-  const lastMessage = user.messages[user.messages.length - 1] || {};
+  const lastMessage = user.messages[0] || {};
+  // const lastMessage = user.messages[user.messages.length - 1] || {};
 
   const isCurrentUserSender = lastMessage.sender_id === userInfo?.user?.id;
 
