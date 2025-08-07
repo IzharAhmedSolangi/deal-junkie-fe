@@ -336,6 +336,7 @@ const FileContent = ({
 // User list item subcomponent
 const UserListItem = ({ user, selectedUserId, userInfo, onSelect }) => {
   const lastMessage = user.messages[user.messages.length - 1] || {};
+
   const isCurrentUserSender = lastMessage.sender_id === userInfo?.user?.id;
 
   const getMessagePreview = (message) => {
@@ -665,16 +666,16 @@ function Inbox() {
     if (upload.url && selectedUser?.chat_with) {
       sendToSocket(upload.url);
 
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        {
-          id: Date.now(),
-          message: upload.url,
-          receiver_id: selectedUser?.chat_with,
-          sender_id: userInfo?.user?.id,
-          timestamp: new Date().toISOString().replace("T", " ").slice(0, 19),
-        },
-      ]);
+      // setMessages((prevMessages) => [
+      //   ...prevMessages,
+      //   {
+      //     id: Date.now(),
+      //     message: upload.url,
+      //     receiver_id: selectedUser?.chat_with,
+      //     sender_id: userInfo?.user?.id,
+      //     timestamp: new Date().toISOString().replace("T", " ").slice(0, 19),
+      //   },
+      // ]);
     }
   }, [upload.url, selectedUser?.chat_with, userInfo?.user?.id, sendToSocket]);
 
