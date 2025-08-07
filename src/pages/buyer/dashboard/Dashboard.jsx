@@ -22,6 +22,7 @@ import DeactivateAccount from "../../../components/modals/DeactivateAccount";
 import useUpload from "../../../services/common/useUpload";
 import useEditProfile from "../../../services/common/useEditProfile";
 import AppHead from "../../../seo/AppHead";
+import { ErrorToaster } from "../../../components/shared/Toster";
 
 const tabs = [
   { name: "My Task", path: "my-tasks" },
@@ -96,9 +97,25 @@ function Profile(props) {
 
   const handleImageChange = (e) => {
     const file = e.target.files?.[0];
-    Upload({ image: file });
-  };
+    if (!file) return;
 
+    const img = new Image();
+    const objectUrl = URL.createObjectURL(file);
+
+    img.onload = function () {
+      URL.revokeObjectURL(objectUrl);
+
+      if (this.width < 250 || this.height < 250) {
+        ErrorToaster("Error", "Image dimensions must be 250x250 pixels.");
+        e.target.value = "";
+        return;
+      }
+
+      Upload({ image: file });
+    };
+
+    img.src = objectUrl;
+  };
   useEffect(() => {
     if (upload.url) {
       EditProfile({
