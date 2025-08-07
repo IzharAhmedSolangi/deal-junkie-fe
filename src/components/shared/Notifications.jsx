@@ -1,27 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useContext, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { IoIosNotificationsOutline } from "react-icons/io";
-import useNotifications from "../../services/common/useNotifications";
-import GlobalContext from "../../context/GlobalContext";
 import { ButtonLoader2 } from "./ButtonLoaders";
+import useReadNotifications from "../../services/common/useReadNotifications";
 
-function Notifications() {
+function Notifications(props) {
+  const { notifications, unreadNotifications } = props;
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
-  const { userInfo } = useContext(GlobalContext);
-
-  const { GetNotifications, notifications } = useNotifications();
-
-  useEffect(() => {
-    if (userInfo?.user?.role === "admin") {
-      GetNotifications(`/api/admin/notifications/`);
-    } else if (userInfo?.user?.role === "buyer") {
-      GetNotifications(`/api/buyer/notifications/`);
-    } else if (userInfo?.user?.role === "seller") {
-      GetNotifications(`/api/seller/notifications/`);
-    }
-  }, [userInfo?.user?.role, isOpen]);
+  const { ReadNotifications } = useReadNotifications();
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -75,19 +63,22 @@ function Notifications() {
       >
         <IoIosNotificationsOutline
           className="w-7 h-7 text-gray-500 hover:text-primary cursor-pointer relative"
-          onClick={() => setIsOpen(!isOpen)}
+          onClick={() => {
+            setIsOpen(!isOpen);
+            ReadNotifications();
+          }}
         />
       </button>
-      {notifications.unread > 0 && (
+      {unreadNotifications > 0 && (
         <div className="absolute w-[14px] h-[14px] rounded-full bg-primary top-[-3px] right-[-3px] text-secondary text-[10px] flex items-center justify-center">
-          {notifications.unread}
+          {unreadNotifications}
         </div>
       )}
       {isOpen && (
         <div className="absolute right-0 mt-2 lg:w-[350px] xs:w-70 md:w-80 bg-white shadow-lg rounded-sm h-[400px] overflow-y-auto p-3">
           <h3 className="font-semibold text-lg">Notifications</h3>
           <ul className="mt-1">
-            {notifications.data?.map((notification) => (
+            {notifications?.map((notification) => (
               <li
                 key={notification.id}
                 className="py-1 flex items-start justify-between"
@@ -103,7 +94,7 @@ function Notifications() {
                 </p>
               </li>
             ))}
-            {notifications.data?.length === 0 && (
+            {notifications.length === 0 && (
               <div className="w-full h-[300px] flex justify-center items-center">
                 No notifications
               </div>

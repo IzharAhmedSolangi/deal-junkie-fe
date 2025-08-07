@@ -47,6 +47,7 @@ const Navbar = () => {
 
   const [notifications, setNotifications] = useState(null);
   const [unreadMessages, setUnreadMessages] = useState(null);
+  const [unreadNotifications, setUnreadNotifications] = useState(null);
   // WebSocket connection
   const socketRef = useRef(null);
   const socketUrl = useMemo(
@@ -69,8 +70,9 @@ const Navbar = () => {
     socketRef.current.onmessage = (event) => {
       try {
         const response = JSON.parse(event.data);
-        setUnreadMessages(response.count);
-        console.log({ response });
+        setUnreadMessages(response.unread_messages_count);
+        setUnreadNotifications(response.count);
+        setNotifications(response.notifications);
       } catch (error) {
         console.error("Error parsing WebSocket message:", error);
       }
@@ -152,12 +154,17 @@ const Navbar = () => {
           {token ? (
             <div className="flex justify-end items-center gap-2 w-[33.33%]">
               {" "}
-              <Notifications />
+              <Notifications
+                notifications={notifications}
+                unreadNotifications={unreadNotifications}
+              />
               <Link to="/inbox" className="relative" title="Inbox">
                 <CiMail className="text-xl text-gray-500 hover:text-primary w-7 h-7" />
-                <span className="absolute top-[-3px] right-[-5px] bg-primary text-secondary text-xs w-4 h-4 text-[10px] flex items-center justify-center rounded-full">
-                  {unreadMessages}
-                </span>
+                {unreadMessages > 0 && (
+                  <span className="absolute top-[-3px] right-[-5px] bg-primary text-secondary text-xs w-4 h-4 text-[10px] flex items-center justify-center rounded-full">
+                    {unreadMessages}
+                  </span>
+                )}
               </Link>
               <ProfileDropdown />
               {userInfo?.user?.role === "seller" && (
