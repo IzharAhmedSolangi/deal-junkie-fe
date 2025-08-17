@@ -23,9 +23,11 @@ import useUpload from "../../../services/common/useUpload";
 import useEditProfile from "../../../services/common/useEditProfile";
 import AppHead from "../../../seo/AppHead";
 import { ErrorToaster } from "../../../components/shared/Toster";
+import CustomOffers from "./components/CustomOffers";
 
 const tabs = [
   { name: "My Task", path: "my-tasks" },
+  { name: "Custom Offers", path: "custom-offers" },
   { name: "Change Password", path: "change-password" },
   { name: "Manage Payments", path: "manage-payments" },
   { name: "Notifications", path: "notifications" },
@@ -73,6 +75,7 @@ function Dashboard() {
             </div>
             <div className="mt-5">
               {tabName === "my-tasks" && <MyTasks />}
+              {tabName === "custom-offers" && <CustomOffers />}
               {tabName === "change-password" && <ChangePassword />}
               {tabName === "manage-payments" && <ManagePayments />}
               {tabName === "notifications" && <Notifications />}
