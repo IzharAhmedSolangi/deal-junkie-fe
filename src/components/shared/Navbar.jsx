@@ -7,6 +7,7 @@ import { BsClipboardCheck, BsCreditCard2Front } from "react-icons/bs";
 import { IoIosSwitch } from "react-icons/io";
 import { FaBars } from "react-icons/fa6";
 import { CiMail } from "react-icons/ci";
+import { CgFileDocument } from "react-icons/cg";
 
 import {
   getAccessToken,
@@ -372,6 +373,11 @@ function ProfileDropdown() {
                   icon: <BsClipboardCheck />,
                 },
                 {
+                  name: "Custom Offers",
+                  path: "/dashboard/custom-offers",
+                  icon: <CgFileDocument />,
+                },
+                {
                   name: "Manage Payments",
                   path: "/dashboard/manage-payments",
                   icon: <BsCreditCard2Front />,
@@ -424,6 +430,11 @@ function ProfileDropdown() {
                   name: "My Jobs",
                   path: "/dashboard/my-jobs",
                   icon: <BsClipboardCheck />,
+                },
+                {
+                  name: "Custom Offers",
+                  path: "/dashboard/custom-offers",
+                  icon: <CgFileDocument />,
                 },
                 {
                   name: "Manage Payments",

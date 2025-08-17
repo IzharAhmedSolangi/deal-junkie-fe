@@ -22,7 +22,7 @@ const validationSchema = Yup.object({
 });
 
 function CreateOffer(props) {
-  const { isOpenModal, setIsOpenModal, selected } = props;
+  const { isOpenModal, setIsOpenModal, selected, setOfferResponse } = props;
   const cancelButtonRef = useRef(null);
   const [percentage, setPercentage] = useState(0);
   const { SendOffer, sendOffer, setSendOffer } = useSendOffer();
@@ -58,6 +58,12 @@ function CreateOffer(props) {
     const progress = Math.round((filledFields / totalFields) * 100);
     setPercentage(progress);
   }, [values]);
+
+  useEffect(() => {
+    if (sendOffer.data) {
+      setOfferResponse(sendOffer.data);
+    }
+  }, [sendOffer]);
 
   const handleClose = () => {
     setIsOpenModal(false);

@@ -32,7 +32,7 @@ function useSendOffer() {
         setSendOffer((prevState) => ({
           ...prevState,
           loading: false,
-          data: null,
+          data: response.data,
           error: null,
           success: true,
         }));

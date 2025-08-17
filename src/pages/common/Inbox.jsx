@@ -115,83 +115,13 @@ const ChatMessage = ({ message, isCurrentUser, userId }) => {
           setShowDownload={setShowDownload}
         />
       )}
+
       {isMeeting && (
-        <div
-          className={`p-4 my-3 mb-5 max-w-[85%] shadow-sm border transition-all duration-200 hover:shadow-md ${
-            isCurrentUser
-              ? "bg-gradient-to-br from-blue-600 to-blue-700 text-white ml-auto rounded-xl rounded-br-none"
-              : "bg-white text-gray-800 border-gray-200 rounded-xl rounded-bl-none"
-          }`}
-        >
-          {/* Header with icon */}
-          <div className="flex items-center gap-2 mb-3">
-            <div
-              className={`p-1.5 rounded-full ${
-                isCurrentUser ? "bg-white/20" : "bg-blue-50"
-              }`}
-            >
-              <CiCalendar
-                className={`w-4 h-4 ${
-                  isCurrentUser ? "text-white" : "text-blue-600"
-                }`}
-              />
-            </div>
-            <span
-              className={`font-medium text-sm ${
-                isCurrentUser ? "text-blue-100" : "text-gray-600"
-              }`}
-            >
-              Meeting Scheduled
-            </span>
-          </div>
-
-          {/* Meeting title */}
-          <div
-            className={`font-semibold mb-3 ${
-              isCurrentUser ? "text-white" : "text-gray-900"
-            }`}
-          >
-            Video Conference Ready
-          </div>
-
-          {/* Join button */}
-          <a
-            href={message?.message || "#"}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-xl font-medium text-sm transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 ${
-              isCurrentUser
-                ? "bg-white text-blue-700 hover:bg-gray-50 focus:ring-white"
-                : "bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500"
-            }`}
-          >
-            <CiVideoOff className="w-4 h-4" />
-            Join Meeting
-            <FaExternalLinkAlt className="w-3 h-3 opacity-70" />
-          </a>
-
-          {/* Timestamp or additional info */}
-          <div
-            className={`text-xs mt-3 flex items-center gap-1 ${
-              isCurrentUser ? "text-blue-100" : "text-gray-500"
-            }`}
-          >
-            <div className="w-1 h-1 rounded-full bg-current opacity-60"></div>
-            Click to join the video conference
-          </div>
-        </div>
+        <MeetingBox isCurrentUser={isCurrentUser} message={message} />
       )}
 
       {!isFile && !isMeeting && (
-        <div
-          className={`p-3 my-3 rounded-lg max-w-[75%] break-words mb-5 ${
-            isCurrentUser
-              ? "bg-[#003F63] text-white rounded-xl rounded-br-none"
-              : "bg-[#FAFAFA] text-black rounded-xl rounded-bl-none"
-          }`}
-        >
-          {message.message}
-        </div>
+        <Messages isCurrentUser={isCurrentUser} message={message} />
       )}
 
       <span className="text-[10px] text-gray-500 absolute bottom-0">
@@ -201,7 +131,6 @@ const ChatMessage = ({ message, isCurrentUser, userId }) => {
   );
 };
 
-// File content subcomponent
 const FileContent = ({
   fileInfo,
   message,
@@ -333,6 +262,111 @@ const FileContent = ({
   );
 };
 
+const MeetingBox = ({ isCurrentUser, message }) => {
+  // Calculate expiry (24 hours = 86400000 ms)
+  const isExpired = useMemo(() => {
+    if (!message?.timestamp) return true; // no timestamp = expired
+    const createdAt = new Date(message.timestamp).getTime();
+    const now = Date.now();
+    return now - createdAt > 24 * 60 * 60 * 1000;
+  }, [message?.timestamp]);
+
+  return (
+    <div
+      className={`p-4 my-3 mb-5 max-w-[85%] shadow-sm border transition-all duration-200 hover:shadow-md ${
+        isCurrentUser
+          ? "bg-gradient-to-br from-blue-600 to-blue-700 text-white ml-auto rounded-xl rounded-br-none"
+          : "bg-white text-gray-800 border-gray-200 rounded-xl rounded-bl-none"
+      }`}
+    >
+      {/* Header */}
+      <div className="flex items-center gap-2 mb-3">
+        <div
+          className={`p-1.5 rounded-full ${
+            isCurrentUser ? "bg-white/20" : "bg-blue-50"
+          }`}
+        >
+          <CiCalendar
+            className={`w-4 h-4 ${
+              isCurrentUser ? "text-white" : "text-blue-600"
+            }`}
+          />
+        </div>
+        <span
+          className={`font-medium text-sm ${
+            isCurrentUser ? "text-blue-100" : "text-gray-600"
+          }`}
+        >
+          Meeting Scheduled
+        </span>
+      </div>
+
+      {/* Meeting title */}
+      <div
+        className={`font-semibold mb-3 ${
+          isCurrentUser ? "text-white" : "text-gray-900"
+        }`}
+      >
+        Video Conference Ready
+      </div>
+
+      {/* Show button or expired notice */}
+      {isExpired ? (
+        <div
+          className={`px-4 py-2.5 rounded-xl font-medium text-sm text-center ${
+            isCurrentUser
+              ? "bg-white/20 text-blue-100"
+              : "bg-gray-200 text-gray-600"
+          }`}
+        >
+          🔒 Meeting link expired
+        </div>
+      ) : (
+        <a
+          href={message?.message || "#"}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-xl font-medium text-sm transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 ${
+            isCurrentUser
+              ? "bg-white text-blue-700 hover:bg-gray-50 focus:ring-white"
+              : "bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500"
+          }`}
+        >
+          <CiVideoOff className="w-4 h-4" />
+          Join Meeting
+          <FaExternalLinkAlt className="w-3 h-3 opacity-70" />
+        </a>
+      )}
+
+      {/* Timestamp or additional info */}
+      <div
+        className={`text-xs mt-3 flex items-center gap-1 ${
+          isCurrentUser ? "text-blue-100" : "text-gray-500"
+        }`}
+      >
+        <div className="w-1 h-1 rounded-full bg-current opacity-60"></div>
+        {isExpired
+          ? "This meeting link is no longer valid"
+          : "Click to join the video conference"}
+      </div>
+    </div>
+  );
+};
+
+const Messages = ({ isCurrentUser, message }) => {
+  return (
+    <div
+      className={`p-3 my-3 rounded-lg max-w-[75%] break-words mb-5 ${
+        isCurrentUser
+          ? "bg-[#003F63] text-white rounded-xl rounded-br-none"
+          : "bg-[#FAFAFA] text-black rounded-xl rounded-bl-none"
+      }`}
+    >
+      {message.message}
+    </div>
+  );
+};
+
 // User list item subcomponent
 const UserListItem = ({ user, selectedUserId, userInfo, onSelect }) => {
   const lastMessage = user.messages[0] || {};
@@ -405,6 +439,7 @@ function Inbox() {
   const { meetingLoading, meetingDetails, setMeetingInfo, CreateMeeting } =
     useCreateZoomMeeting();
   const [isOpenCreateOfferModal, setIsOpenCreateOfferModal] = useState(false);
+  const [offerResponse, setOfferResponse] = useState(null);
 
   // Parse userId and username from URL
   const userId = parseInt(query.get("userId")) || null;
@@ -476,7 +511,7 @@ function Inbox() {
     if (chatContainer) {
       chatContainer.scrollTo({
         top: chatContainer.scrollHeight,
-        behavior: "smooth",
+        // behavior: "smooth",
       });
     }
   }, []);
@@ -490,7 +525,6 @@ function Inbox() {
     socketRef.current = new ReconnectingWebSocket(socketUrl);
 
     socketRef.current.onopen = () => {
-      console.log("WebSocket Connected");
       setLoading(false);
     };
 
@@ -531,18 +565,15 @@ function Inbox() {
         }
       } catch (error) {
         setLoading(false);
-        console.error("Error parsing WebSocket message:", error);
       }
     };
 
     socketRef.current.onerror = (error) => {
       setLoading(false);
-      console.error("WebSocket Error:", error);
     };
 
     socketRef.current.onclose = () => {
       setLoading(false);
-      console.log("WebSocket Disconnected");
     };
   }, [socketUrl, userId, selectedUser.chat_with, scrollToBottom]);
 
@@ -560,10 +591,7 @@ function Inbox() {
         socketRef.current.send(payload);
         setTimeout(scrollToBottom, 100);
       } else {
-        console.error("WebSocket not open");
-        // Attempt to reconnect
         connectSocket();
-        // Queue message to be sent after connection (could implement a message queue here)
       }
     },
     [selectedUser?.chat_with, connectSocket, scrollToBottom]
@@ -599,16 +627,16 @@ function Inbox() {
       const timestamp = new Date().toISOString().replace("T", " ").slice(0, 19);
 
       // Optimistic update
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        {
-          id: Date.now(),
-          message: meetingDetails?.join_url,
-          receiver_id: selectedUser?.chat_with,
-          sender_id: userInfo?.user?.id,
-          timestamp,
-        },
-      ]);
+      // setMessages((prevMessages) => [
+      //   ...prevMessages,
+      //   {
+      //     id: Date.now(),
+      //     message: meetingDetails?.join_url,
+      //     receiver_id: selectedUser?.chat_with,
+      //     sender_id: userInfo?.user?.id,
+      //     timestamp,
+      //   },
+      // ]);
 
       sendToSocket(meetingDetails?.join_url);
       setMeetingInfo(null);
@@ -873,6 +901,7 @@ function Inbox() {
         isOpenModal={isOpenCreateOfferModal}
         setIsOpenModal={setIsOpenCreateOfferModal}
         selected={selectedUser}
+        setOfferResponse={setOfferResponse}
       />
     </>
   );
