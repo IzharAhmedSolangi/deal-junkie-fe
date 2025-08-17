@@ -129,7 +129,7 @@ function OfferDetails(props) {
             Estimated budget
           </label>
           <p className="text-[#6F7487] md:text-[16px] text-[12px] font-[400]">
-            ${selected?.budget} / hr
+            ${selected?.budget}
           </p>
         </div>
       </div>
