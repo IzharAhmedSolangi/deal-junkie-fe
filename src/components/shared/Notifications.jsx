@@ -3,13 +3,11 @@ import { useEffect, useRef, useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { ButtonLoader2 } from "./ButtonLoaders";
-import useReadNotifications from "../../services/common/useReadNotifications";
 
 function Notifications(props) {
-  const { notifications, unreadNotifications } = props;
+  const { notifications, unreadNotifications, sendToSocket } = props;
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
-  const { ReadNotifications } = useReadNotifications();
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -65,7 +63,7 @@ function Notifications(props) {
           className="w-7 h-7 text-gray-500 hover:text-primary cursor-pointer relative"
           onClick={() => {
             setIsOpen(!isOpen);
-            ReadNotifications();
+            sendToSocket("mark_as_read", "notifications");
           }}
         />
       </button>

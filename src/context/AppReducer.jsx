@@ -10,6 +10,11 @@ const Auth = (state, action) => {
         ...state,
         updateResponse: action.payload,
       };
+    case "SET_UNREAD_MESSAGES":
+      return {
+        ...state,
+        unreadMessages: action.payload,
+      };
     default:
       return state;
   }
