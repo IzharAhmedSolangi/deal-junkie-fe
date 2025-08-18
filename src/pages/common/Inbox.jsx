@@ -15,7 +15,6 @@ import { CiCalendar, CiSearch, CiVideoOff, CiVideoOn } from "react-icons/ci";
 import { HiDotsVertical } from "react-icons/hi";
 import { MdFileDownload, MdOutlineAttachment } from "react-icons/md";
 import { getAccessToken } from "../../storage/storage";
-import ReconnectingWebSocket from "reconnecting-websocket";
 import GlobalContext from "../../context/GlobalContext";
 import { useLocation } from "react-router-dom";
 import AppHead from "../../seo/AppHead";
@@ -24,6 +23,7 @@ import { ButtonLoader2 } from "../../components/shared/ButtonLoaders";
 import useDownload from "../../services/common/useDownload";
 import useCreateZoomMeeting from "../../services/common/useCreateZoomMeeting";
 import CreateOffer from "../../components/modals/CreateOffer";
+import useMessagesSocket from "../../services/common/useMessagesSocket";
 
 // Constants moved outside component
 const BASE_URL = import.meta.env.VITE_API_URL;
@@ -435,39 +435,48 @@ const UserListItem = ({ user, selectedUserId, userInfo, onSelect }) => {
 function Inbox() {
   const query = useQuery();
   const token = getAccessToken();
+  const location = useLocation();
   const { userInfo } = useContext(GlobalContext);
   const { meetingLoading, meetingDetails, setMeetingInfo, CreateMeeting } =
     useCreateZoomMeeting();
   const [isOpenCreateOfferModal, setIsOpenCreateOfferModal] = useState(false);
   const [offerResponse, setOfferResponse] = useState(null);
+  const {
+    sendToSocket,
+    connectSocket,
+    users,
+    setUsers,
+    messages,
+    setMessages,
+    newMessage,
+    setNewMessage,
+    selectedUser,
+    setSelectedUser,
+    loading,
+    setLoading,
+    scrollToBottom,
+  } = useMessagesSocket();
 
   // Parse userId and username from URL
   const userId = parseInt(query.get("userId")) || null;
   const username = query.get("username") || null;
 
-  // State management
-  const [users, setUsers] = useState([]);
-  const [messages, setMessages] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [newMessage, setNewMessage] = useState("");
-  const [selectedUser, setSelectedUser] = useState({
-    chat_with: userId,
-    username: username,
-  });
+  useEffect(() => {
+    if (userId && username) {
+      setSelectedUser({
+        chat_with: userId,
+        username: username,
+        userId: userId,
+      });
+    }
+  }, [userId, username]);
+
   const [showSidebar, setShowSidebar] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
 
   // File upload
   const fileInputRef = useRef(null);
   const { Upload, upload } = useUpload();
-
-  // WebSocket connection
-  const socketRef = useRef(null);
-  const socketUrl = useMemo(
-    () =>
-      `${SOCKETS_URL}/ws/chat/?partner_id=${selectedUser?.chat_with}&token=${token}`,
-    [selectedUser?.chat_with, token]
-  );
 
   // Group messages by date
   const groupedMessages = useMemo(() => {
@@ -505,116 +514,11 @@ function Inbox() {
     };
   }, [selectedUser?.chat_with]);
 
-  // Scrolls chat to bottom
-  const scrollToBottom = useCallback(() => {
-    const chatContainer = document.getElementById("chat-container");
-    if (chatContainer) {
-      chatContainer.scrollTo({
-        top: chatContainer.scrollHeight,
-        // behavior: "smooth",
-      });
-    }
-  }, []);
-
-  // Connect to WebSocket
-  const connectSocket = useCallback(() => {
-    if (socketRef.current) {
-      socketRef.current.close();
-    }
-
-    socketRef.current = new ReconnectingWebSocket(socketUrl);
-
-    socketRef.current.onopen = () => {
-      setLoading(false);
-    };
-
-    socketRef.current.onmessage = (event) => {
-      try {
-        const response = JSON.parse(event.data);
-        setLoading(false);
-
-        if (response.message) {
-          setMessages((prev) => [
-            ...prev,
-            {
-              id: Date.now(),
-              message: response.message,
-              sender_id: response.sender_id,
-              receiver_id: response.receiver_id,
-              timestamp: new Date()
-                .toISOString()
-                .replace("T", " ")
-                .slice(0, 19),
-            },
-          ]);
-          setTimeout(scrollToBottom, 100);
-        }
-
-        if (response.users_chat_list) {
-          setUsers(response.users_chat_list);
-
-          if (userId) {
-            const user = response.users_chat_list.find(
-              (item) => item.chat_with === selectedUser.chat_with
-            );
-            if (user) {
-              setMessages(user.messages);
-              setTimeout(scrollToBottom, 100);
-            }
-          }
-        }
-      } catch (error) {
-        setLoading(false);
-      }
-    };
-
-    socketRef.current.onerror = (error) => {
-      setLoading(false);
-    };
-
-    socketRef.current.onclose = () => {
-      setLoading(false);
-    };
-  }, [socketUrl, userId, selectedUser.chat_with, scrollToBottom]);
-
-  // Send message through WebSocket
-  const sendToSocket = useCallback(
-    (message) => {
-      if (
-        socketRef.current &&
-        socketRef.current.readyState === WebSocket.OPEN
-      ) {
-        const payload = JSON.stringify({
-          message: message,
-          receiver_id: selectedUser?.chat_with,
-        });
-        socketRef.current.send(payload);
-        setTimeout(scrollToBottom, 100);
-      } else {
-        connectSocket();
-      }
-    },
-    [selectedUser?.chat_with, connectSocket, scrollToBottom]
-  );
-
   // Handle sending a message
   const sendMessage = useCallback(
     (e) => {
       e.preventDefault();
       if (!newMessage.trim() || !selectedUser?.chat_with) return;
-
-      // const timestamp = new Date().toISOString().replace("T", " ").slice(0, 19);
-      // Optimistic update
-      // setMessages((prevMessages) => [
-      //   ...prevMessages,
-      //   {
-      //     id: Date.now(),
-      //     message: newMessage,
-      //     receiver_id: selectedUser?.chat_with,
-      //     sender_id: userInfo?.user?.id,
-      //     timestamp,
-      //   },
-      // ]);
 
       sendToSocket(newMessage);
       setNewMessage("");
@@ -624,20 +528,6 @@ function Inbox() {
 
   useEffect(() => {
     if (meetingDetails) {
-      const timestamp = new Date().toISOString().replace("T", " ").slice(0, 19);
-
-      // Optimistic update
-      // setMessages((prevMessages) => [
-      //   ...prevMessages,
-      //   {
-      //     id: Date.now(),
-      //     message: meetingDetails?.join_url,
-      //     receiver_id: selectedUser?.chat_with,
-      //     sender_id: userInfo?.user?.id,
-      //     timestamp,
-      //   },
-      // ]);
-
       sendToSocket(meetingDetails?.join_url);
       setMeetingInfo(null);
     }
@@ -679,32 +569,10 @@ function Inbox() {
     setShowSidebar(true);
   }, []);
 
-  // Connect to WebSocket when selectedUser changes
-  useEffect(() => {
-    connectSocket();
-
-    return () => {
-      if (socketRef.current) {
-        socketRef.current.close();
-      }
-    };
-  }, [connectSocket]);
-
   // Handle file upload completion
   useEffect(() => {
     if (upload.url && selectedUser?.chat_with) {
       sendToSocket(upload.url);
-
-      // setMessages((prevMessages) => [
-      //   ...prevMessages,
-      //   {
-      //     id: Date.now(),
-      //     message: upload.url,
-      //     receiver_id: selectedUser?.chat_with,
-      //     sender_id: userInfo?.user?.id,
-      //     timestamp: new Date().toISOString().replace("T", " ").slice(0, 19),
-      //   },
-      // ]);
     }
   }, [upload.url, selectedUser?.chat_with, userInfo?.user?.id, sendToSocket]);
 
@@ -712,8 +580,6 @@ function Inbox() {
   useEffect(() => {
     scrollToBottom();
   }, [messages, scrollToBottom]);
-
-  const location = useLocation();
 
   return (
     <>

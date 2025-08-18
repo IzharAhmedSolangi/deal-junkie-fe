@@ -20,9 +20,8 @@ import useEditProfile from "../../services/common/useEditProfile";
 import { LuLayoutDashboard } from "react-icons/lu";
 import Notifications from "./Notifications";
 import { FaTimes, FaUsers } from "react-icons/fa";
-import ReconnectingWebSocket from "reconnecting-websocket";
-
-const SOCKETS_URL = import.meta.env.VITE_SOCKETS_URL;
+import useNotificationsSocket from "../../services/common/useNotificationsSocket";
+import useMessagesSocket from "../../services/common/useMessagesSocket";
 
 const Navbar = () => {
   const token = getAccessToken();
@@ -46,58 +45,10 @@ const Navbar = () => {
     };
   }, []);
 
-  const [notifications, setNotifications] = useState(null);
-  const [unreadMessages, setUnreadMessages] = useState(null);
-  const [unreadNotifications, setUnreadNotifications] = useState(null);
-  // WebSocket connection
-  const socketRef = useRef(null);
-  const socketUrl = useMemo(
-    () => `${SOCKETS_URL}/ws/notifications/?token=${token}`,
-    [token]
-  );
-
-  // Connect to WebSocket
-  const connectSocket = useCallback(() => {
-    if (socketRef.current) {
-      socketRef.current.close();
-    }
-
-    socketRef.current = new ReconnectingWebSocket(socketUrl);
-
-    socketRef.current.onopen = () => {
-      console.log("WebSocket Connected");
-    };
-
-    socketRef.current.onmessage = (event) => {
-      try {
-        const response = JSON.parse(event.data);
-        setUnreadMessages(response.unread_messages_count);
-        setUnreadNotifications(response.count);
-        setNotifications(response.notifications);
-      } catch (error) {
-        console.error("Error parsing WebSocket message:", error);
-      }
-    };
-
-    socketRef.current.onerror = (error) => {
-      console.error("WebSocket Error:", error);
-    };
-
-    socketRef.current.onclose = () => {
-      console.log("WebSocket Disconnected");
-    };
-  }, [socketUrl]);
-
-  useEffect(() => {
-    if (!token) return;
-    connectSocket();
-
-    return () => {
-      if (socketRef.current) {
-        socketRef.current.close();
-      }
-    };
-  }, [connectSocket]);
+  const { notifications, unreadNotifications, sendToNotificationSocket } =
+    useNotificationsSocket();
+  const {} = useMessagesSocket();
+  const { unreadMessages } = useContext(GlobalContext);
 
   return (
     <>
@@ -158,6 +109,7 @@ const Navbar = () => {
               <Notifications
                 notifications={notifications}
                 unreadNotifications={unreadNotifications}
+                sendToSocket={sendToNotificationSocket}
               />
               <Link to="/inbox" className="relative" title="Inbox">
                 <CiMail className="text-xl text-gray-500 hover:text-primary w-7 h-7" />

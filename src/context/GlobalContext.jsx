@@ -5,6 +5,7 @@ import AppReducer from "./AppReducer";
 const initialState = {
   userInfo: null,
   updateResponse: false,
+  unreadMessages: null,
 };
 
 const GlobalContext = createContext(initialState);
@@ -24,6 +25,12 @@ export const GlobalProvider = ({ children }) => {
       payload: updateResponse,
     });
   };
+  const setUnreadMessages = (unreadMessages) => {
+    dispatch({
+      type: "SET_UNREAD_MESSAGES",
+      payload: unreadMessages,
+    });
+  };
   return (
     <GlobalContext.Provider
       value={{
@@ -31,6 +38,8 @@ export const GlobalProvider = ({ children }) => {
         setUserInfo,
         updateResponse: state.updateResponse,
         setUpdateResponse,
+        unreadMessages: state.unreadMessages,
+        setUnreadMessages,
       }}
     >
       {children}
