@@ -14,7 +14,7 @@ const SOCKETS_URL = import.meta.env.VITE_SOCKETS_URL;
 
 function useMessagesSocket() {
   const token = getAccessToken();
-  const { setUnreadMessages } = useContext(GlobalContext);
+  const { userInfo, setUnreadMessages } = useContext(GlobalContext);
   const [users, setUsers] = useState([]);
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -80,18 +80,26 @@ function useMessagesSocket() {
         if (response.users_chat_list) {
           setUsers(response.users_chat_list);
 
-          const unreadCounts = response.users_chat_list?.map((chat) => {
-            const unread = chat?.messages?.filter((m) => !m.is_read).length;
+          const currentUserId = userInfo?.user?.id;
+          const unreadCounts = response.users_chat_list.map((chat) => {
+            const unreadCount = chat.messages.filter(
+              (message) =>
+                !message.is_read && message.receiver_id === currentUserId
+            ).length;
+
             return {
               username: chat.username,
               chat_with: chat.chat_with,
-              unreadCount: unread,
+              unreadCount,
             };
           });
+
+          // 👉 total unread across all chats
           const totalUnread = unreadCounts.reduce(
             (sum, chat) => sum + chat.unreadCount,
             0
           );
+
           setUnreadMessages(totalUnread);
 
           if (selectedUser.userId) {
@@ -116,10 +124,18 @@ function useMessagesSocket() {
     socketRef.current.onclose = () => {
       setLoading(false);
     };
-  }, [socketUrl, selectedUser.userId, selectedUser.chat_with, scrollToBottom]);
+  }, [
+    socketUrl,
+    selectedUser.userId,
+    selectedUser.chat_with,
+    scrollToBottom,
+    userInfo,
+  ]);
 
   useEffect(() => {
-    connectSocket();
+    if (userInfo) {
+      connectSocket();
+    }
 
     return () => {
       if (socketRef.current) {
