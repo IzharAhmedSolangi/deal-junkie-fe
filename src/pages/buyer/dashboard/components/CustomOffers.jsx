@@ -60,29 +60,19 @@ function CustomOffers() {
                       11:59 PM
                     </div>
                   </div>
-                  {item.status === "Completed" && (
-                    <div className="px-2 py-1 shadow-sm rounded-sm bg-secondary text-white text-[12px] font-[700]">
-                      {item.status}
-                    </div>
-                  )}
-                  {item.status === "Delivered" && (
+                  {item?.status === "pending" && (
                     <div className="px-2 py-1 shadow-sm rounded-sm bg-primary text-white text-[12px] font-[700]">
-                      {item.status}
+                      Pending
                     </div>
                   )}
-                  {item.status === "In Progress" && (
+                  {item?.status === "accepted" && (
                     <div className="px-2 py-1 shadow-sm rounded-sm bg-primary text-white text-[12px] font-[700]">
-                      {item.status}
+                      Accepted
                     </div>
                   )}
-                  {item.status === "Cancelled" && (
+                  {item?.status === "rejected" && (
                     <div className="px-2 py-1 shadow-sm rounded-sm bg-[#D92D20] text-white text-[12px] font-[700]">
-                      {item.status}
-                    </div>
-                  )}
-                  {item.status === "Pending" && (
-                    <div className="px-2 py-1 shadow-sm rounded-sm bg-primary text-white text-[12px] font-[700]">
-                      {item.status}
+                      Rejected
                     </div>
                   )}
                 </div>

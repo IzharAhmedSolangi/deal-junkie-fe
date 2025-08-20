@@ -11,6 +11,7 @@ import Input from "../shared/Input";
 import { FaDollarSign } from "react-icons/fa";
 import { MdTitle } from "react-icons/md";
 import useSendOffer from "../../services/common/useSendOffer";
+import { useNavigate } from "react-router-dom";
 
 const validationSchema = Yup.object({
   title: Yup.string().required("Title is required"),
@@ -23,6 +24,7 @@ const validationSchema = Yup.object({
 
 function CreateOffer(props) {
   const { isOpenModal, setIsOpenModal, selected, setOfferResponse } = props;
+  const Navigate = useNavigate();
   const cancelButtonRef = useRef(null);
   const [percentage, setPercentage] = useState(0);
   const { SendOffer, sendOffer, setSendOffer } = useSendOffer();
@@ -67,6 +69,10 @@ function CreateOffer(props) {
 
   const handleClose = () => {
     setIsOpenModal(false);
+  };
+
+  const goToCustomOffers = () => {
+    Navigate("/dashboard/custom-offers");
   };
 
   return (
@@ -182,6 +188,7 @@ function CreateOffer(props) {
                                 name="delivery_date"
                                 value={values.delivery_date}
                                 onChange={handleChange}
+                                min={new Date().toISOString().split("T")[0]}
                                 className="peer w-full h-[40px] px-[10px] rounded-[4px] bg-transparent border border-[#02174C33] outline-none hover:border-secondary focus:border-secondary"
                               />
                             </div>
@@ -232,24 +239,32 @@ function CreateOffer(props) {
                         <p className="font-[500] text-[16px] text-[#6F7487] text-center">
                           Thank you for submitting your offer.
                         </p>
-                        <button
-                          className="button-2 bg-primary cursor-pointer w-[150px] h-[40px] text-secondary rounded mt-6 flex justify-center items-center"
-                          onClick={() => {
-                            resetForm();
-                            setIsOpenModal(false);
-                            setTimeout(() => {
-                              setSendOffer((prevState) => ({
-                                ...prevState,
-                                loading: false,
-                                data: null,
-                                error: null,
-                                success: false,
-                              }));
-                            }, 1000);
-                          }}
-                        >
-                          Close
-                        </button>
+                        <div className="flex items-center gap-1">
+                          <button
+                            className="button-2 bg-primary cursor-pointer w-[150px] h-[40px] text-secondary rounded mt-6 flex justify-center items-center"
+                            onClick={() => {
+                              resetForm();
+                              setIsOpenModal(false);
+                              setTimeout(() => {
+                                setSendOffer((prevState) => ({
+                                  ...prevState,
+                                  loading: false,
+                                  data: null,
+                                  error: null,
+                                  success: false,
+                                }));
+                              }, 1000);
+                            }}
+                          >
+                            Close
+                          </button>
+                          <button
+                            className="button-2 bg-secondary cursor-pointer w-[150px] h-[40px] text-white rounded mt-6 flex justify-center items-center"
+                            onClick={goToCustomOffers}
+                          >
+                            Custom Offers
+                          </button>
+                        </div>
                       </div>
                     )}
                   </div>
