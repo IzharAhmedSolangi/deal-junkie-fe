@@ -54,29 +54,19 @@ function CustomOffers() {
                       11:59 PM
                     </div>
                   </div>
-                  {item.status === "Completed" && (
-                    <div className="px-2 py-1 shadow-sm rounded-sm bg-secondary text-white text-[12px] font-[700]">
-                      {item.status}
-                    </div>
-                  )}
-                  {item.status === "Delivered" && (
+                  {item?.status === "pending" && (
                     <div className="px-2 py-1 shadow-sm rounded-sm bg-primary text-white text-[12px] font-[700]">
-                      {item.status}
+                      Pending
                     </div>
                   )}
-                  {item.status === "In Progress" && (
+                  {item?.status === "accepted" && (
                     <div className="px-2 py-1 shadow-sm rounded-sm bg-primary text-white text-[12px] font-[700]">
-                      {item.status}
+                      Accepted
                     </div>
                   )}
-                  {item.status === "Cancelled" && (
+                  {item?.status === "rejected" && (
                     <div className="px-2 py-1 shadow-sm rounded-sm bg-[#D92D20] text-white text-[12px] font-[700]">
-                      {item.status}
-                    </div>
-                  )}
-                  {item.status === "Pending" && (
-                    <div className="px-2 py-1 shadow-sm rounded-sm bg-primary text-white text-[12px] font-[700]">
-                      {item.status}
+                      Rejected
                     </div>
                   )}
                 </div>
@@ -97,18 +87,6 @@ function CustomOffers() {
                     <IoEyeOutline className="flex-shrink-0" />
                     See Details
                   </button>
-                  {item.status === "In Progress" && (
-                    <button
-                      className="bg-[#0AF8860D] w-full h-[35px] border border-primary rounded-sm text-primary text-[13px] cursor-pointer flex justify-center items-center"
-                      onClick={() => {
-                        setIsOpenSubmitOfferModal(true);
-                        setSelectedOffer(item);
-                      }}
-                    >
-                      <TiTick className="flex-shrink-0" />
-                      Mark As Complete
-                    </button>
-                  )}
                 </div>
               </div>
             ))}

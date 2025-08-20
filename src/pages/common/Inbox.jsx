@@ -663,13 +663,15 @@ function Inbox() {
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
-                    <button
-                      title="Create and send you customer a unique offer based on their specific requests."
-                      className="rounded-sm px-[12px] py-[5px] bg-transparent border border-secondary cursor-pointer hover:bg-secondary hover:text-white"
-                      onClick={() => setIsOpenCreateOfferModal(true)}
-                    >
-                      Create an Offer
-                    </button>
+                    {userInfo?.user?.role === "seller" && (
+                      <button
+                        title="Create and send you customer a unique offer based on their specific requests."
+                        className="rounded-sm px-[12px] py-[5px] bg-transparent border border-secondary cursor-pointer hover:bg-secondary hover:text-white"
+                        onClick={() => setIsOpenCreateOfferModal(true)}
+                      >
+                        Create an Offer
+                      </button>
+                    )}
                     <button
                       onClick={() => CreateMeeting()}
                       disabled={meetingLoading}

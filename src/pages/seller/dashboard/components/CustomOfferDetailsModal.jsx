@@ -55,33 +55,23 @@ function CustomOfferDetailsModal(props) {
                   </div>
                   {selected && !selected?.loading && (
                     <div className="flex flex-col items-start">
-                      {selected?.status === "Receiving Offer" && (
-                        <div className="px-3 py-1 shadow-sm rounded-sm bg-secondary text-white text-[15px] font-[700]">
-                          {selected?.status}
-                        </div>
-                      )}
-                      {selected?.status === "Delivered" && (
+                      {selected?.status === "pending" && (
                         <div className="px-2 py-1 shadow-sm rounded-sm bg-primary text-white text-[12px] font-[700]">
-                          {selected?.status}
+                          Pending
                         </div>
                       )}
-                      {selected?.status === "In Progress" && (
+                      {selected?.status === "accepted" && (
                         <div className="px-2 py-1 shadow-sm rounded-sm bg-primary text-white text-[12px] font-[700]">
-                          {selected?.status}
+                          Accepted
                         </div>
                       )}
-                      {selected?.status === "Cancelled" && (
+                      {selected?.status === "rejected" && (
                         <div className="px-2 py-1 shadow-sm rounded-sm bg-[#D92D20] text-white text-[12px] font-[700]">
-                          {selected?.status}
-                        </div>
-                      )}
-                      {selected?.status === "Pending" && (
-                        <div className="px-2 py-1 shadow-sm rounded-sm bg-primary text-white text-[12px] font-[700]">
-                          {selected?.status}
+                          Rejected
                         </div>
                       )}
                       <h1 className="text-[#222222] md:text-[20px] text-[16px] font-[600] mt-2">
-                        Request details
+                        Offer details
                       </h1>
                       <p className="text-[#98A2B3] md:text-[16px] text-[12px]">
                         Please review carefully offer details.
