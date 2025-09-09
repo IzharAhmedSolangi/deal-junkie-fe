@@ -74,7 +74,7 @@ export function LinkedInVerification({ setIsLinkedInVerified, setFieldValue }) {
                 setLoading(false);
                 if (response.data.email_verified) {
                   setIsLinkedInVerified(true);
-                  setFieldValue("profile_picture", response.data.picture);
+                  // setFieldValue("profile_picture", response.data.picture);
                 } else {
                   ErrorToaster(
                     "Error",
