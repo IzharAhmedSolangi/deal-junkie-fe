@@ -221,9 +221,9 @@ function SendProposal(props) {
                             <div className="flex md:flex-row flex-col md:items-center md:justify-between gap-2 mt-2">
                               <div className="flex flex-wrap items-center md:gap-2 gap-1 w-full">
                                 {budgets.map((budget, index) => (
-                                  <button
+                                  <div
                                     key={index}
-                                    className={`rounded-[40px] md:px-6 px-3 w-auto h-[40px] border md:text-[14px] text-[12px] font-[500] cursor-pointer hover:text-secondary hover:bg-primary hover:border-primary ${
+                                    className={`flex justify-center items-center rounded-[40px] md:px-6 px-3 w-auto h-[40px] border md:text-[14px] text-[12px] font-[500] cursor-pointer hover:text-secondary hover:bg-primary hover:border-primary ${
                                       values.budget === budget.value
                                         ? "bg-primary border-primary text-secondary"
                                         : "border-[#02174C33] text-[#6F7487]"
@@ -233,7 +233,7 @@ function SendProposal(props) {
                                     }
                                   >
                                     {budget.name}
-                                  </button>
+                                  </div>
                                 ))}
                               </div>
                               <Input

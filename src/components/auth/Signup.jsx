@@ -85,7 +85,7 @@ function Signup(props) {
       initialValues,
       validationSchema,
       onSubmit: async (values) => {
-        if (isLinkedInVerified) {
+        if (!isLinkedInVerified) {
           Signup(
             {
               role: values.role,
@@ -341,21 +341,23 @@ function Signup(props) {
                 />
                 <div className="text-[#6F7487] text-[14px] font-normal">
                   Accept to{" "}
-                  <Link
-                    to="/privacy-policy"
-                    onClick={handleClose}
+                  <a
+                    href="/#/privacy-policy"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="text-primary hover:underline"
                   >
                     Privacy Policy
-                  </Link>{" "}
+                  </a>{" "}
                   and{" "}
-                  <Link
-                    to="/terms-conditions"
-                    onClick={handleClose}
+                  <a
+                    href="/#/terms-conditions"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="text-primary hover:underline"
                   >
                     Terms & conditions
-                  </Link>
+                  </a>
                 </div>
               </div>
               {errors.terms && touched.terms && (
