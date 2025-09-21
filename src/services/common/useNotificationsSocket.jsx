@@ -29,7 +29,7 @@ function useNotificationsSocket() {
     socketRef.current.onmessage = (event) => {
       try {
         const response = JSON.parse(event.data);
-        setUnreadMessages(response.unread_messages_count);
+        setUnreadMessages(response?.unread_messages_count);
         setUnreadNotifications(response.count);
         setNotifications(response.notifications);
       } catch (error) {}

@@ -92,6 +92,11 @@ function MyTasks() {
                     11:59 PM
                   </div>
                 </div>
+                {item.status === "Completed" && (
+                  <div className="px-2 py-1 shadow-sm rounded-sm bg-green-600 text-white text-[12px] font-[700]">
+                    {item.status}
+                  </div>
+                )}
                 {item.status === "Delivered" && (
                   <div className="px-2 py-1 shadow-sm rounded-sm bg-primary text-white text-[12px] font-[700]">
                     {item.status}

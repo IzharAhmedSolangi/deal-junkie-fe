@@ -36,8 +36,10 @@ function AcceptOffer(props) {
       .then((response) => {
         setUpdateResponse(true);
         setLoading(false);
-        handleClose();
-        SuccessToaster("Accepted", "Offer successfully accepted");
+        const checkoutUrl = response?.data?.checkout_url;
+        if (checkoutUrl) {
+          window.location.href = checkoutUrl;
+        }
       })
       .catch((error) => {
         setLoading(false);
