@@ -20,6 +20,7 @@ import useRatingReviews from "../../../../services/buyer/useRatingReviews";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import useDownload from "../../../../services/common/useDownload";
+import { FormatDateAndTime } from "../../../../utils/FormatDate";
 
 function MyTaskDetailsModal(props) {
   const { isOpenModal, setIsOpenModal, selected, setSelected } = props;
@@ -118,6 +119,11 @@ function MyTaskDetailsModal(props) {
                           )}
                           {myTask.data?.status === "Cancelled" && (
                             <div className="px-2 py-1 shadow-sm rounded-sm bg-[#D92D20] text-white text-[12px] font-[700]">
+                              {myTask.data?.status}
+                            </div>
+                          )}
+                          {myTask.data?.status === "Completed" && (
+                            <div className="px-2 py-1 shadow-sm rounded-sm bg-green-600 text-white text-[12px] font-[700]">
                               {myTask.data?.status}
                             </div>
                           )}
@@ -262,7 +268,49 @@ function Proposals(props) {
       <h2 className="text-[#222222] md:text-[18px] text-[16px] font-[600]">
         Experts
       </h2>
-      {myTask.data?.proposals?.length > 0 && (
+      {myTask.data?.seller && (
+        <div className="md:mt-3 mt-1 flex flex-col gap-3">
+          <div className="w-full h-auto md:p-4 p-2 rounded-xl border border-[#02174C33] flex md:flex-row flex-col md:items-center md:justify-between">
+            <div className="flex items-center md:gap-3 gap-2">
+              {myTask.data?.seller?.profile_picture ? (
+                <img
+                  src={myTask.data?.seller?.profile_picture}
+                  alt=""
+                  className="w-[80px] h-[80px] rounded-sm object-cover"
+                />
+              ) : (
+                <div className="w-[80px] h-[80px] bg-gray-200 rounded-sm"></div>
+              )}
+              <div>
+                <p className="text-[#6F7487] text-[12px] font-[400]">
+                  Request accepted
+                </p>
+                <h2 className="text-[#222222] text-[18px] font-[600]">
+                  {myTask.data?.seller?.first_name}
+                </h2>
+              </div>
+            </div>
+            <div className="flex items-center md:gap-2 gap-1 md:mt-0 mt-2">
+              <Link
+                className="bg-[#02174C0F] md:w-[120px] w-full h-[35px] border border-secondary rounded-sm text-secondary text-[12px] cursor-pointer flex justify-center items-center"
+                to={`/inbox?userId=${myTask.data?.seller?.id}&username=${myTask.data?.seller?.first_name}`}
+              >
+                Send Message
+              </Link>
+              <Link
+                to={`/find-experts/${myTask.data?.seller.id}`}
+                className="bg-[#02174C0F] md:w-[120px] w-full h-[35px] border border-secondary rounded-sm text-secondary text-[12px] cursor-pointer flex justify-center items-center"
+              >
+                See Profile
+              </Link>
+              <button className="md:w-[120px] w-full h-[35px] border border-[#6F7487] rounded-sm text-[#6F7487] text-[12px] flex justify-center items-center">
+                Approved
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      {!myTask.data?.seller && myTask.data?.proposals?.length > 0 && (
         <div className="md:mt-3 mt-1 flex flex-col gap-3">
           {myTask.data?.proposals?.map((item, index) => (
             <div
@@ -323,7 +371,7 @@ function Proposals(props) {
           ))}
         </div>
       )}
-      {myTask.data?.proposals?.length === 0 && (
+      {!myTask.data?.seller && myTask.data?.proposals?.length === 0 && (
         <div className="flex justify-center items-center w-full h-[150px]">
           <ShowMessage title="Didn't received any proposal yet" />
         </div>
@@ -357,7 +405,7 @@ function OrderDelivered(props) {
               Delivered Date
             </label>
             <p className="text-[#6F7487]">
-              {myTask?.data?.delivered_order?.delivered_at}
+              {FormatDateAndTime(myTask?.data?.delivered_order?.delivered_at)}
             </p>
           </div>
           <div>

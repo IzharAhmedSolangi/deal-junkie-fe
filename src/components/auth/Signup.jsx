@@ -85,7 +85,7 @@ function Signup(props) {
       initialValues,
       validationSchema,
       onSubmit: async (values) => {
-        if (!isLinkedInVerified) {
+        if (isLinkedInVerified) {
           Signup(
             {
               role: values.role,

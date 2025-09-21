@@ -85,7 +85,7 @@ function MyJobs() {
                     </div>
                   </div>
                   {item.status === "Completed" && (
-                    <div className="px-2 py-1 shadow-sm rounded-sm bg-secondary text-white text-[12px] font-[700]">
+                    <div className="px-2 py-1 shadow-sm rounded-sm bg-green-600 text-white text-[12px] font-[700]">
                       {item.status}
                     </div>
                   )}

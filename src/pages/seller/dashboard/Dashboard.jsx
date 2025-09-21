@@ -24,6 +24,8 @@ import useEditProfile from "../../../services/common/useEditProfile";
 import AppHead from "../../../seo/AppHead";
 import { ErrorToaster } from "../../../components/shared/Toster";
 import CustomOffers from "./components/CustomOffers";
+import { FaStripe } from "react-icons/fa";
+import useConnectStripe from "../../../services/seller/useConnectStripe";
 
 const tabs = [
   { name: "My Jobs", path: "my-jobs" },
@@ -97,6 +99,7 @@ function Profile(props) {
   const [isOpenDeactivateModal, setIsOpenDeactivateModal] = useState(false);
   const { Upload, upload } = useUpload();
   const { EditProfile } = useEditProfile();
+  const { ConnectStripe, connectStripe, setConnectStripe } = useConnectStripe();
 
   const handleImageChange = (e) => {
     const file = e.target.files?.[0];
@@ -204,6 +207,17 @@ function Profile(props) {
           </div>
         )}
         <div className="mt-5 flex flex-col gap-2 w-full">
+          {!userInfo?.user?.stripe_account_created && (
+            <button
+              className="button-2 bg-secondary border border-secondary cursor-pointer w-full h-[45px] text-white rounded flex justify-center items-center gap-2"
+              onClick={() => ConnectStripe()}
+              disabled={connectStripe.loading}
+            >
+              {connectStripe.loading
+                ? "Connecting Stripe..."
+                : "Connect Stripe"}
+            </button>
+          )}
           <button
             className="button-2 bg-secondary border border-secondary cursor-pointer w-full h-[45px] text-white rounded flex justify-center items-center gap-2"
             onClick={() => handleTabClick("edit-profile")}

@@ -88,6 +88,11 @@ function MyTaskDetailsModal(props) {
                           {myTask.data?.status}
                         </div>
                       )}
+                      {myTask.data?.status === "Completed" && (
+                        <div className="px-2 py-1 shadow-sm rounded-sm bg-green-600 text-white text-[12px] font-[700]">
+                          {myTask.data?.status}
+                        </div>
+                      )}
                       <h1 className="text-[#222222] md:text-[20px] text-[16px] font-[600] mt-2">
                         Request details
                       </h1>
